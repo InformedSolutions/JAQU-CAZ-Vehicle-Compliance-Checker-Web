@@ -1,8 +1,9 @@
 Feature: Welcome
   In order to read the page
-  As a viewer
-  I want to see the home page of my app
+  As a user
+  I want to see the welcome page
 
-  Scenario: View welcome page
-      Given I am on the home page
-      Then I should see "Clean Air Zones"
+  Scenario: User see welcome page
+    When I go to the home page
+    Then I should see "Check a vehicle's Clean Air Zone compliance"
+      And I should see "Clean Air Zone" title

@@ -24,7 +24,7 @@ bundle exec govuk-lint-sass app/javascript
 
 ### Cucumber test
 ```
-bundle exec rake cucumber
+rails cucumber
 ```
 
 ### Variables
