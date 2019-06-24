@@ -25,6 +25,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'govuk-lint'
   gem 'haml-rails'
+  gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 3.8'
 end
 
