@@ -2,8 +2,9 @@ Feature: Vehicle Checker
   In order to read the page
   As a user
   I want to be able to enter a vehicle’s registration
+    And see details of a car
 
-  Scenario: User enter a vehicle’s registration
+  Scenario: User enter a correct vehicle’s registration
     Given I am on the home page
     Then I should see "Start now"
       And I press the Start now button

@@ -13,10 +13,9 @@ Then('I should enter a vehicle’s registration') do
 end
 
 Then('I press the Continue') do
-  click_link 'Continue'
+  click_button 'Continue'
 end
 
 Then('I should see the Confirm Details page') do
-  # TO DO: uncomment when `confirm_details` will be implemented
-  # expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
+  expect(page).to have_current_path(confirm_details_vehicle_checkers_path, ignore_query: true)
 end

@@ -1,0 +1,42 @@
+= link_to 'Back', enter_details_vehicle_checkers_path, class: 'govuk-back-link'
+%main.govuk-main-wrapper#main-content{role: 'main'}
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds
+      %h1.govuk-heading-l Are these the vehicle's details?
+      %table.govuk-table
+        %tbody.govuk-table__body
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"}
+            %td.govuk-table__cell
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Registration
+            %th.govuk-table__cell= @vehicle_details.registration_number
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Type
+            %th.govuk-table__cell= @vehicle_details.type
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Make
+            %th.govuk-table__cell= @vehicle_details.make
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Colour
+            %th.govuk-table__cell= @vehicle_details.colour
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Fuel type
+            %th.govuk-table__cell= @vehicle_details.fuel_type
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: "row"} Taxi/private hire vehicle?
+            %th.govuk-table__cell= @vehicle_details.taxi_private_hire_vehicle
+      %form.form
+        .govuk-form-group
+          %fieldset.govuk-fieldset{"aria-describedby" => "confirm-vehicle-hint"}
+            .govuk-radios.govuk-radios--inline
+              .govuk-radios__item
+                %input#confirm-vehicle-1.govuk-radios__input{name: "confirm-vehicle", type: "radio", value: "yes"}
+                %label.govuk-label.govuk-radios__label{for: "confirm-vehicle-1"}
+                  Yes
+              .govuk-radios__item
+                %input#confirm-vehicle-2.govuk-radios__input{name: "confirm-vehicle", type: "radio", value: "no"}
+                %label.govuk-label.govuk-radios__label{for: "confirm-vehicle-2"}
+                  No
+        %button.govuk-button{type: "submit"}
+          Confirm
