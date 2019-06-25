@@ -4,10 +4,10 @@
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Enter the registration of the vehicle you wish to check
-      %form{action: '/vehicle-checker/confirm'}
+      = form_tag confirm_details_vehicle_checkers_path, method: :get do
         .govuk-form-group
           %span#vrn-hint.govuk-hint
             For example, CU57ABC
           %input#vrn.govuk-input.govuk-input--width-10{name: 'vrn', type: 'text'}
         %br
-        = link_to 'Continue', '', 'data-role' => 'button', class: 'govuk-button'
+        = submit_tag 'Continue', 'data-role' => 'button', class: 'govuk-button'

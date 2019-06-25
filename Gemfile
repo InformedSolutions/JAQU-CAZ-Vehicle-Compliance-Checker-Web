@@ -17,6 +17,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'brakeman'
 gem 'bundler-audit'
 gem 'haml'
+gem 'httparty'
 gem 'logstash-logger'
 gem 'rubocop-rails'
 

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :vehicle_checkers do
     collection do
       get :enter_details
+      get :confirm_details
     end
   end
 end

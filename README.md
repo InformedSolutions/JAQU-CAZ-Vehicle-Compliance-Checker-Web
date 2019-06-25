@@ -17,7 +17,7 @@ cucumber
 ```
 
 ### Linting
-A Ruby static code analyzer and formatter. 
+A Ruby static code analyzer and formatter.
 ```
 rubocop
 ```
