@@ -6,9 +6,14 @@
 * [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
 * Other packages listed in Gemfile and package.json files.
 
-### Specs test
+### RSpec test
 ```
-bundle exec rspec
+rspec
+```
+
+### Cucumber test
+```
+cucumber
 ```
 
 ### Linting
@@ -19,12 +24,12 @@ rubocop
 
 Configures various linters to comply with GOV.UK's style guides.
 ```
-bundle exec govuk-lint-sass app/javascript
+govuk-lint-sass app/javascript
 ```
 
-### Cucumber test
+### SonarQube inspection
 ```
-rails cucumber
+sonar-scanner
 ```
 
 ### Variables
@@ -34,13 +39,16 @@ rails cucumber
 cp .env.example .env
 ```
 
-* Enter local credentials for database, Redis url etc.:
+* Enter local credentials for database, google analytics etc.:
 ```
 nano .env
 ```
 
 ### CI/CD
-1. ``rubocop`` - Ruby static code analyzer and formatter.
-2. ``brakeman`` - ROR static analysis security vulnerability scanner.
-3. ``bundle audit check --update`` - Patch-level verification for bundler.
-4. ``rspec`` - Unit test tool.
+1. ``rspec`` - Unit test tool.
+2. ``cucumber`` - Test tool.
+3. ``rubocop`` - Ruby code analyzer.
+4. ``govuk-lint`` - Javascript code analyzer.
+5. ``sonarqube`` -  Inspection of code quality.
+6. ``brakeman`` - Security vulnerability scanner for Ruby on Rails.
+7. ``bundle audit`` - Patch-level verification for bundler.
