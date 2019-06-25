@@ -20,4 +20,13 @@ RSpec.describe VehicleCheckersController, type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET #incorrect_details' do
+    subject { get incorrect_details_vehicle_checkers_path }
+
+    it 'returns http success' do
+      subject
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
