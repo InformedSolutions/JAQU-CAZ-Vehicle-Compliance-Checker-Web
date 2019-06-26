@@ -1,5 +1,7 @@
 <!--- Before you open a PR: --->
-<!--- !!! make a code review at least once a day (before standup?) !!! --->
+<!--- !!! Check application with WAVE Browser Extensions --->
+<!--- https://wave.webaim.org/extension --->
+<!--- !!! Make a code review at least once a day (before standup?) !!! --->
 
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
@@ -23,5 +25,5 @@
 - [ ] I have added tests to cover my changes.
 
 <!--- Branch naming conventions: --->
-<!--- - feature/... for new features cards (branched of master) --->
-<!--- - hotfix/... for hotfixes (branched of master) --->
+<!--- - feature/VCC-123/... for new features cards (branched of master) --->
+<!--- - hotfix/VCC-123/... for hotfixes (branched of master) --->
