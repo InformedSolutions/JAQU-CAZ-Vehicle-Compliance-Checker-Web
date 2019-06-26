@@ -1,0 +1,11 @@
+{
+  "vehicle_registration": "CU57ABC",
+  "dvla": true,
+  "dvsa": false,
+  "type": "car",
+  "make": "peugeot",
+  "colour": "grey",
+  "fuel_type": "diesel",
+  "taxi_private_hire_vehicle": false,
+  "euro_standard": "4"
+}
