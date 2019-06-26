@@ -17,8 +17,10 @@ Feature: Vehicle Checker
       And I choose that the details are incorrect
       And I press the Confirm
     Then I should see the Incorrect Details page
+      And I should see "Check vehicle compliance" title
+      And I should see "Incorrect vehicle details"
       And I press the Search Again link
     Then I should enter a vehicle’s registration
+      And I should see "Enter the registration of the vehicle you wish to check"
       And I press the Continue
     Then I should see the Confirm Details page
-
