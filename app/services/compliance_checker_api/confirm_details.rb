@@ -9,6 +9,12 @@ module ComplianceCheckerApi
     end
 
     def call
+      raise InvalidRequestException if response.nil?
+
+      response
+    end
+
+    def response
       self.class.get(URL + @vrn).parsed_response
     end
   end
