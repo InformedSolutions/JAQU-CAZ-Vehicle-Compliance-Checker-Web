@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     collection do
       get :enter_details
       get :confirm_details
+      get :incorrect_details
+      get :user_confirm_details
     end
   end
 end

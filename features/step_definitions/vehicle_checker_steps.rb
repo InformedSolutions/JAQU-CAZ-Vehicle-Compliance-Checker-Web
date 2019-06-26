@@ -19,3 +19,19 @@ end
 Then('I should see the Confirm Details page') do
   expect(page).to have_current_path(confirm_details_vehicle_checkers_path, ignore_query: true)
 end
+
+Then('I choose that the details are incorrect') do
+  choose('No')
+end
+
+Then('I press the Confirm') do
+  click_button 'Confirm'
+end
+
+Then('I should see the Incorrect Details page') do
+  expect(page).to have_current_path(incorrect_details_vehicle_checkers_path)
+end
+
+Then('I press the Search Again link') do
+  click_link 'search again'
+end

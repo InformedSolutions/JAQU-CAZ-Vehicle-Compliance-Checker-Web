@@ -14,3 +14,11 @@ Feature: Vehicle Checker
     Then I should enter a vehicle’s registration
       And I press the Continue
     Then I should see the Confirm Details page
+      And I choose that the details are incorrect
+      And I press the Confirm
+    Then I should see the Incorrect Details page
+      And I press the Search Again link
+    Then I should enter a vehicle’s registration
+      And I press the Continue
+    Then I should see the Confirm Details page
+
