@@ -13,3 +13,6 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
+
+Style/AndOr:
+  EnforcedStyle: conditionals
