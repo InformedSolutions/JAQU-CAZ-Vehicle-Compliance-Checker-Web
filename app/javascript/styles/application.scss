@@ -2,3 +2,8 @@ $govuk-global-styles: true;
 $govuk-assets-path: '/packs/media/';
 
 @import "~govuk-frontend/all";
+
+.not-found-title {
+  background-color: lightgray;
+  padding: 1em;
+}
