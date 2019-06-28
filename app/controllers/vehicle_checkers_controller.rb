@@ -9,6 +9,9 @@ class VehicleCheckersController < ApplicationController
     redirect_to enter_details_vehicle_checkers_path if params[:vrn].blank?
 
     @vehicle_details = VehicleDetails.new(params[:vrn])
+    if @vehicle_details.error == 'Vehicle registration not found'
+      redirect_to number_not_found_vehicle_checkers_path(vrn: params[:vrn])
+    end
   end
 
   def user_confirm_details
@@ -22,5 +25,9 @@ class VehicleCheckersController < ApplicationController
 
   def incorrect_details
     # to be defined later
+  end
+
+  def number_not_found
+    @vehicle_registration = params[:vrn].upcase
   end
 end

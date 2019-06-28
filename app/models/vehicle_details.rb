@@ -33,6 +33,10 @@ class VehicleDetails
     compliance_api['euro_standard']
   end
 
+  def error
+    compliance_api['message']
+  end
+
   private
 
   def compliance_api
