@@ -2,25 +2,26 @@
 
 class VehicleCheckersController < ApplicationController
   def enter_details
-    # to be defined later
+    @error = params[:error]
   end
 
   def confirm_details
-    redirect_to enter_details_vehicle_checkers_path if params[:vrn].blank?
-
-    @vehicle_details = VehicleDetails.new(params[:vrn])
-    if @vehicle_details.error == 'Vehicle registration not found'
-      redirect_to number_not_found_vehicle_checkers_path(vrn: params[:vrn])
+    @error = params[:error]
+    form = VrnForm.new(vrn)
+    unless form.valid?
+      redirect_to enter_details_vehicle_checkers_path(error: form.message, vrn: vrn)
+      return
     end
+    @vehicle_details = VehicleDetails.new(vrn)
   end
 
   def user_confirm_details
-    if params['confirm-vehicle'] == 'yes'
-      # TO DO: Change after implementation vehicle_checker/local-authority
-      redirect_to enter_details_vehicle_checkers_path
-    else
-      redirect_to incorrect_details_vehicle_checkers_path
+    form = ConfirmationForm.new(confirmation)
+    unless form.valid?
+      redirect_to confirm_details_vehicle_checkers_path(error: form.message, vrn: vrn) and return
     end
+    redirect_to enter_details_vehicle_checkers_path and return if form.confirmed?
+    redirect_to incorrect_details_vehicle_checkers_path(vrn: vrn)
   end
 
   def incorrect_details
@@ -29,5 +30,15 @@ class VehicleCheckersController < ApplicationController
 
   def number_not_found
     @vehicle_registration = params[:vrn].upcase
+  end
+
+  private
+
+  def vrn
+    params[:vrn]
+  end
+
+  def confirmation
+    params['confirm-vehicle']
   end
 end

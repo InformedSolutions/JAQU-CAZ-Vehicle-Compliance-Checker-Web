@@ -2,11 +2,15 @@
 
 class VehicleDetails
   def initialize(vrn)
-    @vrn = vrn
+    @vrn = vrn.upcase
   end
 
   def registration_number
     @vrn
+  end
+
+  def vrn_for_request
+    VrnParser.new(@vrn).call
   end
 
   def type
@@ -40,6 +44,6 @@ class VehicleDetails
   private
 
   def compliance_api
-    @compliance_api ||= ComplianceCheckerApi::ConfirmDetails.new(@vrn).call
+    @compliance_api ||= ComplianceCheckerApi::ConfirmDetails.new(vrn_for_request).call
   end
 end
