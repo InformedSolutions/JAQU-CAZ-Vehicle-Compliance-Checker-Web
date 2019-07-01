@@ -20,3 +20,7 @@ steps:
 volumes:
 - name: bundle
   temp: {}
+
+trigger:
+  event:
+  - pull_request
