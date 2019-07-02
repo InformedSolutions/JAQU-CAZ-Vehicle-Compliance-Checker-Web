@@ -1,9 +1,6 @@
 kind: pipeline
 name: ci
 
-clone:
-  depth: 1
-
 steps:
   - name: test
     image: timbru31/ruby-node
