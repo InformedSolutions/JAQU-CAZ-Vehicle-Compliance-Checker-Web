@@ -39,6 +39,18 @@ RSpec.describe VrnForm, type: :model do
     end
   end
 
+  context 'when VRN is too long' do
+    let(:vrn) { 'A' }
+
+    it 'is not valid' do
+      expect(form.valid?).to eq(false)
+    end
+
+    it 'has a proper error message' do
+      expect(form.message).to eq('Your registration number is too short')
+    end
+  end
+
   context 'when VRN has wrong format' do
     let(:vrn) { 'ABCDE$%' }
 
