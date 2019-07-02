@@ -14,8 +14,16 @@ steps:
     volumes:
     - name: bundle
       path: /usr/local/bundle
-    build_args:
-      - secret_key_base=86da409854bc321174383cb143ce1f25bbce493846d69bf120e9489b3766616b8a0c7a2fe1242efd4180010efd4cd73ba9d3cb430974edbbe734359ff99e9733
+    settings:
+      build_args_from_env:
+        - SECRET_KEY_BASE
+    environment:
+      GOOGLE_ANALYTICS_ID:
+        from_secret: GOOGLE_ANALYTICS_ID
+      SECRET_KEY_BASE:
+        from_secret: SECRET_KEY_BASE
+      COMPLIANCE_CHECKER_API_URL:
+        from_secret: COMPLIANCE_CHECKER_API_URL
 
 volumes:
 - name: bundle
