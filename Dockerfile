@@ -5,7 +5,7 @@ ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV NODE_ENV production
 ARG secret_key_base
-ENV SECRET_KEY_BASE=$secret_key_base
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 RUN apk add --no-cache --update build-base \
   linux-headers \
