@@ -2,7 +2,7 @@
 
 class VrnForm < BaseForm
   def valid?
-    filled? && valid_format? && not_to_long?
+    filled? && valid_format? && not_to_long? && not_to_short?
   end
 
   private
@@ -20,5 +20,10 @@ class VrnForm < BaseForm
   def not_to_long?
     @message = 'Your registration number is too long'
     parameter.gsub(/\s+/, '').length <= 7
+  end
+
+  def not_to_short?
+    @message = 'Your registration number is too short'
+    parameter.gsub(/\s+/, '').length > 1
   end
 end
