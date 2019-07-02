@@ -6,6 +6,7 @@ steps:
     image: docker
     commands:
     - docker build -t vehicle-compliance-checker-frontend:latest --build-arg SECRET_KEY_BASE=123 --build-arg GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID} --build-arg COMPLIANCE_CHECKER_API_URL=http://localhost:8000 .
+    - 
     settings:
       build_args_from_env:
         - SECRET_KEY_BASE
@@ -23,7 +24,8 @@ steps:
         path: /var/drone/.env
 
   - name: test
-    image: vehicle-compliance-checker-frontend
+    image: vehicle-compliance-checker-frontend:latest
+    pull: if-not-exists
     commands:
     # - gem install bundler --version 2.0.2
     # - export BUNDLER_VERSION=2.0.2
