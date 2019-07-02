@@ -3,7 +3,7 @@ name: ci
 
 steps:
   - name: test
-    image: timbru31/ruby-node
+    image: ruby
     commands:
     - gem install bundler --version 2.0.2
     - export BUNDLER_VERSION=2.0.2
