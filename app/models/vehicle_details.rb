@@ -30,7 +30,7 @@ class VehicleDetails
   end
 
   def taxi_private_hire_vehicle
-    compliance_api['taxi_private_hire_vehicle']
+    compliance_api['taxi_private_hire_vehicle'] ? 'Yes' : 'No'
   end
 
   def euro_standard
