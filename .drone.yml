@@ -19,7 +19,6 @@ steps:
   - name: test
     image: vehicle-compliance-checker-frontend
     commands:
-    # tmp
     # - gem install bundler --version 2.0.2
     # - export BUNDLER_VERSION=2.0.2
     # - bundle install
