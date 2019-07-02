@@ -6,10 +6,13 @@ clone:
 
 steps:
   - name: test
-    image: ruby
+    image: timbru31/ruby-node
     commands:
-    - gem install bundler --version 2.0.2 --force
+    - gem install bundler --version 2.0.2
+    - export BUNDLER_VERSION=2.0.2
     - bundle install
+    - yarn install --check-files
+    - bundle exec rails webpacker:compile
     - rake
     volumes:
     - name: bundle
