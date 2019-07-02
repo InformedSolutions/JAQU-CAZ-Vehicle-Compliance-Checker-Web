@@ -13,6 +13,9 @@ class VehicleCheckersController < ApplicationController
       return
     end
     @vehicle_details = VehicleDetails.new(vrn)
+    if @vehicle_details.error == 'Vehicle registration not found'
+      redirect_to number_not_found_vehicle_checkers_path(vrn: params[:vrn])
+    end
   end
 
   def user_confirm_details
