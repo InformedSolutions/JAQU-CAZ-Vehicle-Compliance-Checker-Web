@@ -6,6 +6,7 @@ steps:
     image: docker
     commands:
     - cp /var/drone/.env .
+    - ls -a
     - docker build -t vehicle-compliance-checker-frontend:latest --build-arg SECRET_KEY_BASE=${SECRET_KEY_BASE} .
     settings:
       build_args_from_env:
