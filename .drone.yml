@@ -2,18 +2,34 @@ kind: pipeline
 name: ci
 
 steps:
-  - name: test
-    image: ruby
+  - name: build
+    image: docker
     commands:
-    - gem install bundler --version 2.0.2
-    - export BUNDLER_VERSION=2.0.2
-    - bundle install
-    - yarn install --check-files
-    - bundle exec rails webpacker:compile
+    - docker build -t vehicle-compliance-checker-frontend:latest .
+    settings:
+      build_args_from_env:
+        - SECRET_KEY_BASE
+    environment:
+      SECRET_KEY_BASE:
+        from_secret: SECRET_KEY_BASE
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    
+  - name: test
+    image: vehicle-compliance-checker-frontend
+    commands:
+    # - gem install bundler --version 2.0.2
+    # - export BUNDLER_VERSION=2.0.2
+    # - bundle install
+    # - yarn install --check-files
+    # - bundle exec rails webpacker:compile
     - rake
     volumes:
     - name: bundle
       path: /usr/local/bundle
+    - name: docker_sock
+      path: /var/run/docker.sock
     settings:
       build_args_from_env:
         - SECRET_KEY_BASE
@@ -28,6 +44,9 @@ steps:
 volumes:
 - name: bundle
   temp: {}
+- name: docker_sock
+  host:
+    path: /var/run/docker.sock
 
 trigger:
   event:
