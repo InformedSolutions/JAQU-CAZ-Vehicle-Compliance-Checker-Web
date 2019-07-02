@@ -5,6 +5,7 @@ steps:
   - name: build
     image: docker
     commands:
+    - cp /var/drone/.env .
     - docker build -t vehicle-compliance-checker-frontend:latest --build-arg SECRET_KEY_BASE=${SECRET_KEY_BASE} .
     settings:
       build_args_from_env:
@@ -19,6 +20,8 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+      - name: ruby_env_file
+        path: /var/drone/.env
 
   - name: test
     image: vehicle-compliance-checker-frontend
@@ -51,6 +54,9 @@ volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
+- name: ruby_env_file
+  host:
+    path: /var/drone/.env
 
 trigger:
   event:
