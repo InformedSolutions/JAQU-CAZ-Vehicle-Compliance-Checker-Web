@@ -8,7 +8,6 @@ log/*
 .scannerwork
 coverage
 node_modules
-spec
 .idea
 public/packs
 public/packs-test
