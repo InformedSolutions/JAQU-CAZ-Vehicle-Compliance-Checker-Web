@@ -32,7 +32,7 @@ steps:
     # - bundle install
     # - yarn install --check-files
     # - bundle exec rails webpacker:compile
-    - rake
+    - rake /home/app
     volumes:
     - name: bundle
       path: /usr/local/bundle
