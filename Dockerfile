@@ -1,45 +1,26 @@
-FROM ruby:2.6.3-alpine3.9
+FROM ruby:2.6.3
 
-# Set correct environment variables.
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV NODE_ENV production
-ARG SECRET_KEY_BASE
 ARG COMPLIANCE_CHECKER_API_URL
-ARG GOOGLE_ANALYTICS_ID
-ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
 ENV COMPLIANCE_CHECKER_API_URL=$COMPLIANCE_CHECKER_API_URL
-ENV GOOGLE_ANALYTICS_ID=$GOOGLE_ANALYTICS_ID
 
-RUN apk add --no-cache --update build-base \
-  linux-headers \
-  tzdata \
-  nodejs \
-  tzdata \
-  openssh \
-  libxml2-dev \
-  libxslt-dev \
-  yarn \
-  curl-dev \
-  sqlite-dev \
-  && PACKAGES="ca-certificates procps curl pcre libstdc++ libexecinfo" \
-  && BUILD_PACKAGES="pcre-dev libexecinfo-dev" \
-  && apk add --update $PACKAGES $BUILD_PACKAGES \
-  && rm -rf /var/cache/apk/*
+RUN apt-get update && \
+      apt-get -y install sudo && \
+      useradd -m docker && \
+      echo "docker:docker" | chpasswd && \
+      adduser docker sudo
 
-# Install bundle of gems
-RUN mkdir -p /home/app
-WORKDIR /home/app
-COPY Gemfile Gemfile.lock /home/app/
-RUN gem install bundler \
-  && bundle install --without development test
+RUN sudo apt-get update && \
+      curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
+      sudo apt install npm && \
+      npm install --global yarn
+RUN gem install bundler --version 2.0.2
 
-# Install node packages and precompile assets
-COPY . /home/app
-RUN yarn install --frozen-lockfile --non-interactive \
- && bundle exec rails assets:precompile \
- && yarn cache clean \
- && rm -rf /home/app/node_modules
+COPY . /myapp
+WORKDIR /myapp
+
+RUN bundle install
+RUN yarn install --check-files
+RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
-CMD ["rails", "server", "-b", "ssl://0.0.0.0:3000?key=config/ssl/app.key&cert=config/ssl/app.crt"]
+# CMD ["rails", "server", "-b", "ssl://0.0.0.0:3000?key=config/ssl/app.key&cert=config/ssl/app.crt"]
