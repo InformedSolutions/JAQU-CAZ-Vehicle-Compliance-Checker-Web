@@ -1,30 +1,32 @@
 FROM ruby:2.6.3
 
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV NODE_ENV production
-
 ARG COMPLIANCE_CHECKER_API_URL
 ENV COMPLIANCE_CHECKER_API_URL=$COMPLIANCE_CHECKER_API_URL
 ENV GOOGLE_ANALYTICS_ID=123
 ENV SECRET_KEY_BASE=123
 
+# Enable root privileges for further installations
 RUN apt-get update && \
       apt-get -y install sudo && \
       useradd -m docker && \
       echo "docker:docker" | chpasswd && \
       adduser docker sudo
 
+# Install node, yarn and bundler
 RUN sudo apt-get update && \
       curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
       sudo apt install npm && \
       npm install --global yarn
 RUN gem install bundler --version 2.0.2
 
-COPY . /myapp
+# Copy Gemfile and bundle install before copying remainder of source to cache package installation
+COPY Gemfile Gemfile.lock /myapp/
 WORKDIR /myapp
+RUN bundle install --without development
 
-RUN bundle install
+# Copy remainder of application code
+COPY . /myapp
+
 RUN yarn install --check-files
 RUN bundle exec rails assets:precompile
 
