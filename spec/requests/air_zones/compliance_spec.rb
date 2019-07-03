@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #incorrect_details', type: :request do
-  subject(:request) { get incorrect_details_vehicle_checkers_path }
+RSpec.describe 'AirZonesController - GET #compliance', type: :request do
+  subject(:request) { get compliance_air_zones_path, params: { caz: ['London'] } }
 
   it 'returns http success' do
     request

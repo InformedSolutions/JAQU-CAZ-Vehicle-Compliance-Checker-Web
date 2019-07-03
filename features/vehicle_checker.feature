@@ -46,7 +46,7 @@ Feature: Vehicle Checker
     Then I should see the Vehicle Checker page
       And I press the Continue
     Then I should see "You must enter your registration number"
-      And I should enter a vehicle’s registration with "ABC123#%&"
+      And I should enter a vehicle’s registration with "C3#%&"
       And I press the Continue
     Then I should see "You must enter your registration number in valid format"
       And I should enter a vehicle’s registration with "ABC123ABC123"

@@ -13,4 +13,11 @@ Rails.application.routes.draw do
       get :number_not_found
     end
   end
+
+  resources :air_zones do
+    collection do
+      get :caz_selection
+      get :compliance
+    end
+  end
 end
