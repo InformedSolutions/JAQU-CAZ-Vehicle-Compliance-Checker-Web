@@ -24,7 +24,7 @@ steps:
     pull: if-not-exists
     commands:
     - ls
-    - ls /drone/src/
+    - ls public
     - yarn install --frozen-lockfile --non-interactive
     - ls /drone/src/public/packs-test/
     - cat /drone/src/public/packs-test/manifest.json
