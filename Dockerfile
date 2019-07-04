@@ -31,6 +31,8 @@ RUN bundle install
 COPY . /myapp
 
 RUN yarn install --frozen-lockfile --non-interactive
+RUN rails webpacker:install
+RUN bundle exec rails webpacker:compile
 # RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
