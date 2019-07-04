@@ -23,7 +23,8 @@ steps:
     image: vehicle-compliance-checker-frontend:latest
     pull: if-not-exists
     commands:
-    - gem list
+    - ls
+    - ls /drone/src/
     - yarn install --frozen-lockfile --non-interactive
     - ls /drone/src/public/packs-test/
     - cat /drone/src/public/packs-test/manifest.json
