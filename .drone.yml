@@ -24,10 +24,10 @@ steps:
     pull: if-not-exists
     commands:
     - ls
-    - ls /myapp/public
-    - ls /myapp/public/packs-test/
-    - cat /myapp/public/packs-test/manifest.json
-    - rake -f /myapp/Rakefile
+    - ls /drone/src/public
+    - ls /drone/src/public/packs-test/
+    - cat /drone/src/public/packs-test/manifest.json
+    - rake -f /drone/src/Rakefile
     volumes:
     - name: bundle
       path: /usr/local/bundle
