@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6.3
 
 ENV RAILS_ENV test
 ENV NODE_ENV test
