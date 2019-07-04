@@ -23,10 +23,11 @@ steps:
     image: vehicle-compliance-checker-frontend:latest
     pull: if-not-exists
     commands:
-    - ls
-    - ls /drone/src/public
-    - ls /drone/src/public/packs-test/
-    - cat /drone/src/public/packs-test/manifest.json
+    # - ls
+    # - ls /drone/src/public
+    # - ls /drone/src/public/packs-test/
+    # - cat /drone/src/public/packs-test/manifest.json
+    - bundle exec rails webpacker:compile
     - rake -f /drone/src/Rakefile
     volumes:
     - name: bundle
