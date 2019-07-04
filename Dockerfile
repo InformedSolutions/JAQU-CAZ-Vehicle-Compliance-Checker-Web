@@ -30,8 +30,8 @@ RUN bundle install
 # Copy remainder of application code
 COPY . /myapp
 
-RUN yarn install --check-files
-RUN bundle exec rails assets:precompile
+RUN yarn install --frozen-lockfile --non-interactive
+# RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
 # CMD ["rails", "server", "-b", "ssl://0.0.0.0:3000?key=config/ssl/app.key&cert=config/ssl/app.crt"]
