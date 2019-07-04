@@ -25,9 +25,8 @@ steps:
     commands:
     - ls
     - ls public
-    - yarn install --frozen-lockfile --non-interactive
-    - ls /drone/src/public/packs-test/
-    - cat /drone/src/public/packs-test/manifest.json
+    - ls public/packs-test/
+    - cat public/packs-test/manifest.json
     - rake 
     volumes:
     - name: bundle
