@@ -23,6 +23,8 @@ steps:
     image: vehicle-compliance-checker-frontend:latest
     pull: if-not-exists
     commands:
+    - ls /drone/src/public/packs-test/
+    - cat /drone/src/public/packs-test/manifest.json
     - rake 
     volumes:
     - name: bundle
