@@ -17,7 +17,7 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
     it 'redirects to enter_details' do
       http_request
       expect(response).to redirect_to(
-        enter_details_vehicle_checkers_path
+        caz_selection_air_zones_path(vrn: vrn)
       )
     end
   end

@@ -2,7 +2,7 @@
 
 module ComplianceCheckerApi
   class ConfirmDetails < Base
-    URL = '?vehicle_registration='
+    URL = '/check_vehicle_registration?vehicle_registration='
 
     def initialize(registration_number)
       @vrn = registration_number.gsub(/\s+/, '')

@@ -23,7 +23,7 @@ class VehicleCheckersController < ApplicationController
     unless form.valid?
       redirect_to confirm_details_vehicle_checkers_path(error: form.message, vrn: vrn) and return
     end
-    redirect_to enter_details_vehicle_checkers_path and return if form.confirmed?
+    redirect_to caz_selection_air_zones_path(vrn: vrn) and return if form.confirmed?
     redirect_to incorrect_details_vehicle_checkers_path(vrn: vrn)
   end
 
