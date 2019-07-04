@@ -7,7 +7,6 @@ log/*
 .github
 .scannerwork
 coverage
-node_modules
 .idea
 public/packs
 public/packs-test
