@@ -22,7 +22,7 @@ RUN gem install bundler --version 2.0.2
 # Copy Gemfile and bundle install before copying remainder of source to cache package installation
 COPY Gemfile Gemfile.lock /myapp/
 WORKDIR /myapp
-RUN bundle install --without development
+RUN bundle install
 
 # Copy remainder of application code
 COPY . /myapp
