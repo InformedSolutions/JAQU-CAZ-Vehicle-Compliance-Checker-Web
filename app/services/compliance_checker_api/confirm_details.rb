@@ -15,7 +15,7 @@ module ComplianceCheckerApi
     end
 
     def response
-      self.class.get(URL + @vrn).parsed_response
+      handle_request(URL + @vrn)
     end
   end
 end

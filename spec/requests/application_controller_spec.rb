@@ -12,7 +12,7 @@ RSpec.describe ApplicationController, type: :request do
 
     it 'redirects to root path' do
       subject
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(server_unavailable_path)
     end
   end
 end
