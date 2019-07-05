@@ -6,9 +6,10 @@ Feature: Air Zone
 
   Scenario: User enter a correct vehicle’s registration and details are correct
     Given I am on the home page
+      And I get a caz zones
     Then I should see "Start now"
       And I press the Start now button
-      And I should enter a vehicle’s registration
+      And I should enter a vehicle's registration
       And I press the Continue
       And I choose that the details are correct
       And I press the Confirm
