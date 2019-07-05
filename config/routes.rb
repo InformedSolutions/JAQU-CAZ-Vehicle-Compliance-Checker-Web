@@ -20,4 +20,6 @@ Rails.application.routes.draw do
       get :compliance
     end
   end
+
+  get '/server_unavailable', to: 'application#server_unavailable'
 end

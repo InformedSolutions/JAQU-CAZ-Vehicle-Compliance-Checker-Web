@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     Rails.logger.error "#{exception.class}: #{exception.message}"
     Rails.logger.error exception.backtrace.join("\n")
 
-    redirect_back(fallback_location: root_path)
+    redirect_to server_unavailable_path
+  end
+
+  def server_unavailable
+    render 'layouts/server_unavailable'
   end
 end
