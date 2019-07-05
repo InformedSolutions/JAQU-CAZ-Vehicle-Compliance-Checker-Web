@@ -4,15 +4,20 @@ Then('I press the Start now button') do
   click_link 'Start now'
 end
 
+Then('I get a details of the vehicle') do
+  vc_details_response = File.read('spec/fixtures/files/vehicle_details_response.json')
+  WebMock::API.stub_request(:get, /vehicle_registration/).and_return(body: vc_details_response)
+end
+
 Then('I should see the Vehicle Checker page') do
   expect(page).to have_current_path(enter_details_vehicle_checkers_path)
 end
 
-Then('I should enter a vehicle’s registration') do
+Then("I should enter a vehicle's registration") do
   fill_in('vrn', with: 'CU57ABC')
 end
 
-Then('I should enter a vehicle’s registration with {string}') do |string|
+Then("I should enter a vehicle's registration with {string}") do |string|
   fill_in('vrn', with: string)
 end
 
@@ -42,4 +47,8 @@ end
 
 Then('I press the Search Again link') do
   click_link 'search again'
+end
+
+Then('I should see the CAZ Selection page') do
+  expect(page).to have_current_path(caz_selection_air_zones_path, ignore_query: true)
 end
