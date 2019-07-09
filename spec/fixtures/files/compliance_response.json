@@ -1,0 +1,10 @@
+{
+  "vrn": "CU57ABC",
+  "compliance": {
+    "leeds": {
+      "charge": 1.0,
+      "infoUrl": "http://localhost:3000",
+      "name": "Leeds"
+    }
+  }
+}

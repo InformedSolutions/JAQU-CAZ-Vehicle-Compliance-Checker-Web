@@ -7,3 +7,8 @@ $govuk-assets-path: '/packs/media/';
   background-color: lightgray;
   padding: 1em;
 }
+
+.govuk-panel--noncompliant {
+  color: #ffffff;
+  background: #b10e1e;
+}

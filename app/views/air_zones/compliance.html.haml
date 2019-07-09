@@ -1,1 +1,49 @@
-%h2 Compliance page
+= link_to 'Back', caz_selection_air_zones_path(vrn: params[:vrn]), class: 'govuk-back-link'
+
+%main#main-content.govuk-main-wrapper{role: 'main'}
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds
+      %h1.govuk-heading-l Clean Air Zone compliance
+      %p
+        The vehicle with registration
+        = params[:vrn]
+        has been identified as having a
+        %b= @vehicle_details.euro_standard
+        emissions standard, and has
+        = @vehicle_details.retroffited? ? '' : 'not'
+        been retrofitted.
+      %details.govuk-details{role: 'group'}
+        %summary.govuk-details__summary{'aria-controls': 'incorrect_vehicle_details', 'aria-expanded': 'false', role: 'button'}
+          %span.govuk-details__summary-text
+            Incorrect vehicle details?
+        #incorrect_vehicle_details.govuk-details__text{'aria-hidden': 'true'}
+          %p
+            If your vehicle details are incorrect, you may need to
+            = link_to 'update them', 'https://www.gov.uk/change-vehicle-details-registration-certificate', target: '_blank'
+
+      - @compliance_zones.each do |zone|
+        %h1.govuk-heading-l
+          = zone['name']
+
+        - if zone['charge'] == 0.0
+          .govuk-panel.govuk-panel--confirmation
+            %h1.govuk-panel__title
+              You will not be charged
+        - else
+          .govuk-panel.govuk-panel--noncompliant
+            %h1.govuk-panel__title
+              Subject to charge
+        %br
+        %p
+          For further information on rules operated by
+          = zone['name']
+          , please see
+          = link_to 'link', zone['infoUrl'], target: '_blank'
+
+
+    .govuk-grid-column-one-third
+      %h2.govuk-heading-m
+        Related tasks
+      %ul.govuk-list.govuk-list--bullet
+        %li
+          = link_to "Check another vehicle's compliance", enter_details_vehicle_checkers_path

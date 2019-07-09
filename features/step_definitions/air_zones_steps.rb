@@ -11,3 +11,11 @@ Then('I get a caz zones') do
     headers: { 'Content-Type' => 'application/json' }
   )
 end
+
+Then('I choose the caz zone') do
+  check('caz-1')
+end
+
+Then('I should see the Compliance page') do
+  expect(page).to have_current_path(compliance_air_zones_path, ignore_query: true)
+end

@@ -10,3 +10,9 @@ WebMock::API.stub_request(:get, /clean_air_zones/).to_return(
   body: caz_list_response,
   headers: { 'Content-Type' => 'application/json' }
 )
+
+compliance_response = File.read('spec/fixtures/files/compliance_response.json')
+WebMock::API.stub_request(:get, /compliance/).to_return(
+  body: compliance_response,
+  headers: { 'Content-Type' => 'application/json' }
+)
