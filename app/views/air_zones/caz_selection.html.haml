@@ -29,7 +29,9 @@
                 .govuk-checkboxes__item
                   %input.govuk-checkboxes__input{name: "caz[]", type: 'checkbox', value: zone['id'], id: "caz-#{index}" }
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
-                    = zone['name']
+                    = "#{zone['name']} ("
+                    = link_to 'see boundary', zone['infoUrl'], target: "_blank"
+                    )
 
         %button.govuk-button{type: 'submit'}
           Continue
