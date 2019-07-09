@@ -52,3 +52,11 @@ end
 Then('I should see the CAZ Selection page') do
   expect(page).to have_current_path(caz_selection_air_zones_path, ignore_query: true)
 end
+
+Then('I get server unavailable response') do
+  WebMock::API.stub_request(:get, /vehicle_registration/).and_return(body: nil)
+end
+
+Then('I should see the Server Unavailable page') do
+  expect(page).to have_current_path(server_unavailable_path)
+end

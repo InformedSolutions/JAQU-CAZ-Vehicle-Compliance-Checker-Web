@@ -6,11 +6,9 @@ module ComplianceCheckerApi
     base_uri(ENV['COMPLIANCE_CHECKER_API_URL'])
 
     def handle_request(url)
-      begin
-        self.class.get(url).parsed_response
-      rescue
-        nil
-      end
+      self.class.get(url).parsed_response
+    rescue StandardError
+      nil
     end
   end
 end

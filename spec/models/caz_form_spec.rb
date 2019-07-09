@@ -6,6 +6,7 @@ RSpec.describe CazForm, type: :model do
   subject(:form) { described_class.new(selected_caz) }
 
   let(:selected_caz) { %w[London York] }
+  const(:has_error_message) { 'has a proper error message' }
 
   it 'is valid with a proper selected caz' do
     expect(form.valid?).to eq(true)
@@ -22,7 +23,7 @@ RSpec.describe CazForm, type: :model do
       expect(form.valid?).to eq(false)
     end
 
-    it 'has a proper error message' do
+    it has_error_message do
       expect(form.message).to eq('You must choose clean air zones')
     end
   end

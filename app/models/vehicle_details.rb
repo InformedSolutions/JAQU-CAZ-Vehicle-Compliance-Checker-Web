@@ -37,6 +37,10 @@ class VehicleDetails
     compliance_api['euro_standard']
   end
 
+  def retroffited?
+    compliance_api['retroffited']
+  end
+
   def error
     compliance_api['message']
   end

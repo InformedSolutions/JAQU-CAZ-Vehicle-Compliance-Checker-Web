@@ -10,7 +10,7 @@ RSpec.describe ApplicationController, type: :request do
       stub_request(:get, /vehicle_registration/).to_return(status: 400, body: nil)
     end
 
-    it 'redirects to root path' do
+    it 'redirects to server unavailable page' do
       subject
       expect(response).to redirect_to(server_unavailable_path)
     end

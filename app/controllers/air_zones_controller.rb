@@ -10,11 +10,11 @@ class AirZonesController < ApplicationController
     assign_error
     form = CazForm.new(selected_caz)
     unless form.valid?
-      # redirect_to caz_selection_air_zones_path(error: form.message, vrn: vrn)
-      redirect_to caz_selection_air_zones_path(error: form.message)
-      return
+      return redirect_to caz_selection_air_zones_path(error: form.message, vrn: vrn)
     end
-    # @vehicle_details = VehicleDetails.new(vrn)
+
+    @vehicle_details = VehicleDetails.new(vrn)
+    @compliance_zones = Compliance.new(vrn, selected_caz).call
   end
 
   private
