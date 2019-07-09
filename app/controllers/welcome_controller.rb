@@ -2,6 +2,6 @@
 
 class WelcomeController < ApplicationController
   def index
-    @clean_air_zones_count = ComplianceCheckerApi::CazList.new.call['zones'].length
+    @caz_count = ComplianceCheckerApi::CazList.new.call['zones'].size
   end
 end
