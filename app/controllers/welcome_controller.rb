@@ -2,6 +2,6 @@
 
 class WelcomeController < ApplicationController
   def index
-    # No variables or interactions on root page
+    @caz_count = ComplianceCheckerApi::CazList.new.call['zones'].size
   end
 end
