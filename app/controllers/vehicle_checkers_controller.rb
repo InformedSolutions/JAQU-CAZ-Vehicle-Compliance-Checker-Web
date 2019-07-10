@@ -31,7 +31,7 @@ class VehicleCheckersController < ApplicationController
   end
 
   def number_not_found
-    @vehicle_registration = params[:vrn].upcase
+    @vehicle_registration = vrn.upcase
   end
 
   private
@@ -48,7 +48,7 @@ class VehicleCheckersController < ApplicationController
     params['confirm-vehicle']
   end
 
-  def vehicle_not_found(exception)
-    redirect_to number_not_found_vehicle_checkers_path(vrn: exception.body['registrationNumber'])
+  def vehicle_not_found
+    redirect_to number_not_found_vehicle_checkers_path(vrn: vrn)
   end
 end

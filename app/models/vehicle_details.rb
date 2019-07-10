@@ -2,7 +2,7 @@
 
 class VehicleDetails
   def initialize(vrn)
-    @vrn = vrn.upcase
+    @vrn = vrn.upcase.gsub(/\s+/, '')
   end
 
   def registration_number
@@ -14,19 +14,19 @@ class VehicleDetails
   end
 
   def type
-    compliance_api['type']
+    compliance_api['type'].capitalize
   end
 
   def make
-    compliance_api['make']
+    compliance_api['make'].capitalize
   end
 
   def colour
-    compliance_api['colour']
+    compliance_api['colour'].capitalize
   end
 
   def fuel_type
-    compliance_api['fuelType']
+    compliance_api['fuelType'].capitalize
   end
 
   def taxi_private_hire_vehicle
@@ -38,7 +38,7 @@ class VehicleDetails
   end
 
   def euro_standard
-    compliance_api['euroStatus']
+    compliance_api['euroStatus'].capitalize
   end
 
   private

@@ -18,11 +18,11 @@ class BaseApi
 
     def validate_response(response_struct)
       status = response_struct.code.to_i
-      status_message = response_struct.msg
       parsed_body = parse_body(response_struct.body)
 
       return parsed_body unless status.between?(400, 599)
 
+      status_message = response_struct.msg
       raise error_klass(status).new(status, status_message, parsed_body)
     end
 
