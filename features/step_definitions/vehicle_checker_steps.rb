@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
+include MockHelpers
+
 Then('I press the Start now button') do
   click_link 'Start now'
-end
-
-Then('I get a details of the vehicle') do
-  vc_details_response = File.read('spec/fixtures/files/vehicle_details_response.json')
-  WebMock::API.stub_request(:get, /vehicle_registration/).and_return(body: vc_details_response)
 end
 
 Then('I should see the Vehicle Checker page') do
@@ -22,6 +19,12 @@ Then("I should enter a vehicle's registration with {string}") do |string|
 end
 
 Then('I press the Continue') do
+  mock_vehicle_details
+  click_button 'Continue'
+end
+
+Then('I press the Continue when server is unavailable') do
+  mock_unavailable_vehicle_details
   click_button 'Continue'
 end
 
@@ -38,6 +41,7 @@ Then('I choose that the details are incorrect') do
 end
 
 Then('I press the Confirm') do
+  mock_caz
   click_button 'Confirm'
 end
 

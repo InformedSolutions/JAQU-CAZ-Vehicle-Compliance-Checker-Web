@@ -9,17 +9,11 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
   let(:caz) { ['leeds'] }
 
   before do
-    compliance_response = file_fixture('compliance_response.json').read
-    stub_request(:get, /compliance/).to_return(
-      status: 200,
-      body: compliance_response,
-      headers: { 'Content-Type' => 'application/json' }
-    )
+    compliance = JSON.parse(file_fixture('vehicle_compliance_response.json').read)
+    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
 
-    vc_details_response = file_fixture('vehicle_details_response.json').read
-    stub_request(:get, /vehicle_registration/).and_return(
-      body: vc_details_response
-    )
+    vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
+    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
   end
 
   it 'returns http success' do

@@ -9,11 +9,8 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
 
   context 'when VRN is valid' do
     before do
-      vc_details_response = file_fixture('vehicle_details_response.json').read
-
-      stub_request(:get, /vehicle_registration/).and_return(
-        body: vc_details_response
-      )
+      vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
+      allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
     end
 
     it 'returns http success' do
@@ -36,9 +33,7 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
 
   context 'when API is unavailable' do
     before do
-      stub_request(:get, /vehicle_registration/).and_return(
-        body: nil
-      )
+      allow(ComplianceCheckerApi).to receive(:vehicle_details).and_raise(Errno::ECONNREFUSED)
     end
 
     it 'redirects to server unavailable' do
@@ -49,16 +44,13 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
     end
   end
 
-  context 'when vehicle not found' do
+  context 'when vehicle is not found' do
     let(:vrn) { 'CU57ABD' }
 
     before do
-      vc_details_not_found_response = file_fixture('vehicle_details_response_not_found.json').read
-
-      stub_request(:get, /vehicle_registration/).and_return(
-        body: vc_details_not_found_response,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+      allow(ComplianceCheckerApi).to receive(:vehicle_details)
+        .and_raise(BaseApi::Error404Exception.new(404, '',
+                                                  'registrationNumber' => vrn))
     end
 
     it 'redirects to number not found page' do

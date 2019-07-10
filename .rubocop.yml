@@ -16,3 +16,7 @@ Metrics/BlockLength:
 
 Style/AndOr:
   EnforcedStyle: conditionals
+
+Style/MixinUsage:
+  Exclude:
+    - 'features/step_definitions/*.rb'

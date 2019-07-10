@@ -1,3 +1,4 @@
 {
-  "message": "Vehicle registration not found"
+  "registration_number": "CU57ABC",
+  "message": "Vehicle with registration number CU57ABC was not found"
 }

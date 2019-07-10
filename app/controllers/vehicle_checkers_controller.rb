@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class VehicleCheckersController < ApplicationController
+  rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
+
   def enter_details
     assign_error
   end
@@ -13,9 +15,6 @@ class VehicleCheckersController < ApplicationController
       return
     end
     @vehicle_details = VehicleDetails.new(vrn)
-    return unless vehicle_not_found
-
-    redirect_to number_not_found_vehicle_checkers_path(vrn: vrn)
   end
 
   def user_confirm_details
@@ -49,7 +48,7 @@ class VehicleCheckersController < ApplicationController
     params['confirm-vehicle']
   end
 
-  def vehicle_not_found
-    @vehicle_details.error == 'Vehicle registration not found'
+  def vehicle_not_found(exception)
+    redirect_to number_not_found_vehicle_checkers_path(vrn: exception.body['registrationNumber'])
   end
 end

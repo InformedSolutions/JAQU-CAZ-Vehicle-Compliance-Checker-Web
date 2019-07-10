@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class AirZonesController < ApplicationController
+  rescue_from BaseApi::Error404Exception, with: :redirect_to_error_page
+
   def caz_selection
     assign_error
-    @clean_air_zones = ComplianceCheckerApi::CazList.new.call['zones']
+    @clean_air_zones = ComplianceCheckerApi.clean_air_zones
   end
 
   def compliance
@@ -14,7 +16,7 @@ class AirZonesController < ApplicationController
     end
 
     @vehicle_details = VehicleDetails.new(vrn)
-    @compliance_zones = Compliance.new(vrn, selected_caz).call
+    @compliance_zones = Compliance.new(vrn, selected_caz).compliance_zones
   end
 
   private

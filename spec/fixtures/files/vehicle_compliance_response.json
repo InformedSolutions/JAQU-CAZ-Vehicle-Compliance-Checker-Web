@@ -1,0 +1,15 @@
+{
+  "compliance": {
+    "birmingham": {
+      "charge": 0.0,
+      "infoUrl": "http://localhost:3000",
+      "name": "Birmingham"
+    },
+    "leeds": {
+      "charge": 1.0,
+      "infoUrl": "http://localhost:3000",
+      "name": "Leeds"
+    }
+  },
+  "registrationNumber": "CU57ABC"
+}

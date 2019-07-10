@@ -8,12 +8,8 @@ RSpec.describe 'AirZonesController - GET #caz_selection', type: :request do
   let(:vrn) { 'CU57ABC' }
 
   before do
-    caz_list_response = file_fixture('caz_list_response.json').read
-    stub_request(:get, /clean_air_zones/).to_return(
-      status: 200,
-      body: caz_list_response,
-      headers: { 'Content-Type' => 'application/json' }
-    )
+    caz_list = JSON.parse(file_fixture('caz_list_response.json').read)
+    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list)
   end
 
   it 'returns http success' do

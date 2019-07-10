@@ -1,11 +1,10 @@
 {
-  "vehicle_registration": "CU57ABC",
-  "dvla": true,
-  "dvsa": false,
+  "registration_number": "CU57ABC",
   "type": "car",
-  "make": "peugeot",
+  "make": "Peugeot",
   "colour": "grey",
-  "fuel_type": "diesel",
-  "taxi_private_hire_vehicle": false,
-  "euro_standard": "4"
+  "fuelType": "diesel",
+  "isTaxiOrPhv": false,
+  "euroStatus": "Euro 4",
+  "isRetrofitted": true
 }
