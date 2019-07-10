@@ -6,7 +6,6 @@ Feature: Air Zone
 
   Scenario: User enter a correct vehicle’s registration and details are correct
     Given I am on the home page
-      And I get a caz zones
     Then I should see "Start now"
       And I press the Start now button
       And I should enter a vehicle's registration
@@ -18,5 +17,5 @@ Feature: Air Zone
     Then I should see the CAZ selection page
       And I should see "You must choose clean air zones"
       And I choose the caz zone
-      And I press the Continue
+      And I press the Continue on CAZ selection page
     Then I should see the Compliance page

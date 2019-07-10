@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  rescue_from InvalidRequestException, with: :redirect_to_back
-
-  def redirect_to_back(exception)
-    Rails.logger.error "#{exception.class}: #{exception.message}"
-    Rails.logger.error exception.backtrace.join("\n")
-
-    redirect_to server_unavailable_path
-  end
+  rescue_from Errno::ECONNREFUSED, with: :redirect_to_error_page
+  rescue_from BaseApi::Error500Exception, with: :redirect_to_error_page
+  rescue_from BaseApi::Error422Exception, with: :redirect_to_error_page
+  rescue_from BaseApi::Error400Exception, with: :redirect_to_error_page
 
   def server_unavailable
     render 'layouts/server_unavailable'
+  end
+
+  private
+
+  def redirect_to_error_page(exception)
+    Rails.logger.error "#{exception.class}: #{exception.message}"
+
+    redirect_to server_unavailable_path
   end
 end

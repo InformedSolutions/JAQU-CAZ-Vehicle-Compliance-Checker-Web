@@ -2,7 +2,7 @@
 
 class VehicleDetails
   def initialize(vrn)
-    @vrn = vrn.upcase
+    @vrn = vrn.upcase.gsub(/\s+/, '')
   end
 
   def registration_number
@@ -14,40 +14,36 @@ class VehicleDetails
   end
 
   def type
-    compliance_api['type']
+    compliance_api['type'].capitalize
   end
 
   def make
-    compliance_api['make']
+    compliance_api['make'].capitalize
   end
 
   def colour
-    compliance_api['colour']
+    compliance_api['colour'].capitalize
   end
 
   def fuel_type
-    compliance_api['fuel_type']
+    compliance_api['fuelType'].capitalize
   end
 
   def taxi_private_hire_vehicle
-    compliance_api['taxi_private_hire_vehicle'] ? 'Yes' : 'No'
+    compliance_api['isTaxiOrPhv'] ? 'Yes' : 'No'
+  end
+
+  def retrofitted?
+    compliance_api['isRetrofitted']
   end
 
   def euro_standard
-    compliance_api['euro_standard']
-  end
-
-  def retroffited?
-    compliance_api['retroffited']
-  end
-
-  def error
-    compliance_api['message']
+    compliance_api['euroStatus'].capitalize
   end
 
   private
 
   def compliance_api
-    @compliance_api ||= ComplianceCheckerApi::ConfirmDetails.new(vrn_for_request).call
+    @compliance_api ||= ComplianceCheckerApi.vehicle_details(vrn_for_request)
   end
 end

@@ -1,25 +1,23 @@
-{
-  "corelationId": "1",
-  "zones": [
-    {
-      "name": "London",
-      "id": "london",
-      "infoUrl": "link"
-    },
-    {
-      "name": "York",
-      "id": "york",
-      "infoUrl": "link"
-    },
-    {
-      "name": "Manchester",
-      "id": "manchester",
-      "infoUrl": "link"
-    },
-    {
-      "name": "Liverpool",
-      "id": "liverpool",
-      "infoUrl": "link"
-    }
-  ]
-}
+[
+  {
+    "name": "London",
+    "id": "london",
+    "infoUrl": "link"
+  },
+  {
+    "name": "York",
+    "id": "york",
+    "infoUrl": "link"
+  },
+  {
+    "name": "Manchester",
+    "id": "manchester",
+    "infoUrl": "link"
+  },
+  {
+    "name": "Liverpool",
+    "id": "liverpool",
+    "infoUrl": "link"
+  }
+]
+

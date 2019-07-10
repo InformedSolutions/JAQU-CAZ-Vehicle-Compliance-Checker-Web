@@ -6,8 +6,6 @@ Feature: Vehicle Checker
 
   Scenario: User enter a correct vehicle's registration and details are correct
     Given I am on the home page
-      And I get a details of the vehicle
-      And I get a caz zones
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
@@ -22,7 +20,6 @@ Feature: Vehicle Checker
 
   Scenario: User enter a correct vehicle's registration but details are incorrect
     Given I am on the home page
-      And I get a details of the vehicle
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
@@ -44,7 +41,6 @@ Feature: Vehicle Checker
 
   Scenario: User doesn't fill inputs correctly
     Given I am on the home page
-      And I get a details of the vehicle
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
@@ -63,12 +59,6 @@ Feature: Vehicle Checker
     Then I should see "You must choose an answer"
 
   Scenario: Server is unavailable
-    Given I am on the home page
-      And I get server unavailable response
-    Then I should see "Start now"
-      And I press the Start now button
-    Then I should see the Vehicle Checker page
-      And I should enter a vehicle's registration
-      And I press the Continue
+    Given I am on the home page and server is unavailable
     Then I should see the Server Unavailable page
       And I should see "Try again later."
