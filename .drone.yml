@@ -1,25 +1,32 @@
 kind: pipeline
 name: ci
 
-clone:
-  depth: 1
-
 steps:
-  - name: test
-    image: ruby
+  - name: build-test
+    image: docker
     commands:
-    - gem install bundler --version 2.0.2 --force
-    - bundle install
-    - rake
+    - docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend rspec -f d
     volumes:
-    - name: bundle
-      path: /usr/local/bundle
-    build_args:
-      - secret_key_base=86da409854bc321174383cb143ce1f25bbce493846d69bf120e9489b3766616b8a0c7a2fe1242efd4180010efd4cd73ba9d3cb430974edbbe734359ff99e9733
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # move rspec command to previous test to avoid loss of node_modules folder. 
+  # - name: test
+  #   image: vehicle-compliance-checker-frontend
+  #   pull: if-not-exists
+  #   commands:
+  #   - ls
+  #   - ls public
+  #   - rspec -f d
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
 
 volumes:
-- name: bundle
-  temp: {}
+- name: docker_sock
+  host:
+    path: /var/run/docker.sock
 
 trigger:
   event:
