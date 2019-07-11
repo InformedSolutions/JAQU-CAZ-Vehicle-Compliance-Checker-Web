@@ -12,6 +12,8 @@ class BaseApi
     def request(method, path, options = {})
       response_object = public_send(method, path, options)
       validate_response(response_object.response)
+    rescue
+      raise error_klass(500).new(500, 'service unavailable', nil)
     end
 
     private
