@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  rescue_from Errno::ECONNREFUSED, with: :redirect_to_error_page
-  rescue_from BaseApi::Error500Exception, with: :redirect_to_error_page
-  rescue_from BaseApi::Error422Exception, with: :redirect_to_error_page
-  rescue_from BaseApi::Error400Exception, with: :redirect_to_error_page
+  rescue_from Errno::ECONNREFUSED,
+              SocketError,
+              BaseApi::Error500Exception,
+              BaseApi::Error422Exception,
+              BaseApi::Error400Exception,
+              with: :redirect_to_error_page
 
   def server_unavailable
     render 'layouts/server_unavailable'
