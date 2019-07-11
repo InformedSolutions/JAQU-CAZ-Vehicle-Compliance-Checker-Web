@@ -26,4 +26,16 @@ RSpec.describe CazForm, type: :model do
       expect(form.message).to eq('You must choose clean air zones')
     end
   end
+
+  context 'when selected caz is an empty array' do
+    let(:selected_caz) { [] }
+
+    it 'is not valid' do
+      expect(form.valid?).to eq(false)
+    end
+
+    it 'has a proper error message' do
+      expect(form.message).to eq('You must choose clean air zones')
+    end
+  end
 end

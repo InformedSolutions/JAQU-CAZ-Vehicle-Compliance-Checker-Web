@@ -20,4 +20,14 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
     http_request
     expect(response).to have_http_status(:success)
   end
+
+  context 'when form is invalid' do
+    let(:caz) { [] }
+
+    it 'redirects to caz_selection_air_zones_path' do
+      http_request
+      error = 'You must choose clean air zones'
+      expect(response).to redirect_to(caz_selection_air_zones_path(error: error, vrn: vrn))
+    end
+  end
 end
