@@ -4,11 +4,11 @@ $govuk-assets-path: '/packs/media/';
 @import "~govuk-frontend/all";
 
 .not-found-title {
-  background-color: lightgray;
+  background-color: govuk-colour('grey-3');
   padding: 1em;
 }
 
 .govuk-panel--noncompliant {
-  color: #ffffff;
-  background: #b10e1e;
+  background: $govuk-error-colour;
+  color: govuk-colour('white');
 }
