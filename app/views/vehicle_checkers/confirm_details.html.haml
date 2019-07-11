@@ -42,7 +42,7 @@
             %span#confirm-vehicle-error.govuk-error-message
               %span.govuk-visually-hidden Error:
               Select yes if the details are correct
-          %fieldset.govuk-fieldset{"aria-describedby" => "confirm-vehicle-hint"}
+          %fieldset.govuk-fieldset
             %input{name: 'vrn', type: 'hidden', value: @vehicle_details.registration_number}
             .govuk-radios.govuk-radios--inline
               .govuk-radios__item

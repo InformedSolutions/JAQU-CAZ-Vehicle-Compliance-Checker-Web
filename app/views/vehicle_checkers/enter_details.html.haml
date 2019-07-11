@@ -15,12 +15,12 @@
       %h1.govuk-heading-l Enter the registration of the vehicle you wish to check
       = form_tag confirm_details_vehicle_checkers_path, method: :get do
         .govuk-form-group{class: ('govuk-form-group--error' if @error)}
-          %span#vrn-hint.govuk-hint
+          %label#vrn-hint.govuk-hint{ for: 'vrn' }
             For example, CU57ABC
-          - if @error
-            %span#vrn-error.govuk-error-message
+          %span#vrn-error.govuk-error-message
+            - if @error
               %span.govuk-visually-hidden Error:
               = @error
-          %input#vrn.govuk-input.govuk-input--width-10{'aria-describedby': 'vrn-hint vrn-error', name: 'vrn', type: 'text', value: params[:vrn], class: ('govuk-input--error' if @error), style: 'text-transform: uppercase;'}
+          %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint', 'aria-describedby': 'vrn-error', name: 'vrn', type: 'text', value: params[:vrn], class: ('govuk-input--error' if @error), style: 'text-transform: uppercase;'}
         %br
         = submit_tag 'Continue', 'data-role' => 'button', class: 'govuk-button'
