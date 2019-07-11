@@ -12,14 +12,6 @@
         emissions standard, and has
         = @vehicle_details.retrofitted? ? '' : 'not'
         been retrofitted.
-      %details.govuk-details{role: 'group'}
-        %summary.govuk-details__summary{'aria-controls': 'incorrect_vehicle_details', 'aria-expanded': 'false', role: 'button'}
-          %span.govuk-details__summary-text
-            Incorrect vehicle details?
-        #incorrect_vehicle_details.govuk-details__text{'aria-hidden': 'true'}
-          %p
-            If your vehicle details are incorrect, you may need to
-            = link_to 'update them', 'https://www.gov.uk/change-vehicle-details-registration-certificate', target: '_blank'
 
       - @compliance_zones.each do |zone|
         %h1.govuk-heading-l
