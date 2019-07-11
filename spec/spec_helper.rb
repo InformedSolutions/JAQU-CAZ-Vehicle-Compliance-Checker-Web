@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'webmock/rspec'
-
 require 'simplecov'
 SimpleCov.start
 
@@ -98,4 +97,9 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+end
+
+SimpleCov.start do
+  add_filter 'config/initializers/content_security_policy.rb'
+  add_filter 'config/initializers/env_variables_checker.rb'
 end

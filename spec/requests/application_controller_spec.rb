@@ -15,4 +15,13 @@ RSpec.describe ApplicationController, type: :request do
       expect(response).to redirect_to(server_unavailable_path)
     end
   end
+
+  describe 'server_unavailable' do
+    subject { get server_unavailable_path }
+
+    it 'returns 200' do
+      subject
+      expect(response).to be_successful
+    end
+  end
 end
