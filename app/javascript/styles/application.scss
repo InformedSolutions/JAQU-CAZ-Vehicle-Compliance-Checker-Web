@@ -12,3 +12,7 @@ $govuk-assets-path: '/packs/media/';
   background: $govuk-error-colour;
   color: govuk-colour('white');
 }
+
+html {
+  background-color: govuk-colour('grey-3');
+}
