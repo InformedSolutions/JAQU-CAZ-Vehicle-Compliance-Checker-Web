@@ -33,14 +33,6 @@ class VehicleDetails
     compliance_api['isTaxiOrPhv'] ? 'Yes' : 'No'
   end
 
-  def retrofitted?
-    compliance_api['isRetrofitted']
-  end
-
-  def euro_standard
-    compliance_api['euroStatus'].capitalize
-  end
-
   private
 
   def compliance_api

@@ -10,6 +10,10 @@ class Compliance
     VrnParser.new(@vrn).call
   end
 
+  def retrofitted?
+    @compliance_api['isRetrofitted?']
+  end
+
   def compliance_zones
     @compliance_zones ||= []
     return @compliance_zones if @compliance_zones.present?

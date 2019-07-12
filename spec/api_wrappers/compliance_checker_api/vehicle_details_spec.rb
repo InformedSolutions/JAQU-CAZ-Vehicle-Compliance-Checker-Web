@@ -18,8 +18,7 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
 
     it 'returns proper fields' do
       expect(call.keys).to contain_exactly(
-        'registration_number', 'type', 'make', 'colour',
-        'fuelType', 'isTaxiOrPhv', 'euroStatus', 'isRetrofitted'
+        'registration_number', 'type', 'make', 'colour', 'fuelType', 'isTaxiOrPhv'
       )
     end
   end
