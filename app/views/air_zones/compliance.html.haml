@@ -7,10 +7,8 @@
       %p
         The vehicle with registration
         = params[:vrn]
-        has been identified as having a
-        %b= @vehicle_details.euro_standard
-        emissions standard, and has
-        = @vehicle_details.retrofitted? ? '' : 'not'
+        has
+        = @compliance.retrofitted? ? '' : 'not'
         been retrofitted.
 
       - @compliance_zones.each do |zone|
@@ -27,9 +25,7 @@
               Subject to charge
         %br
         %p
-          For further information on rules operated by
-          = zone['name']
-          , please see
+          = "For further information on rules operated by #{zone['name']}, please see"
           = link_to 'link', zone['infoUrl'], target: '_blank'
 
 

@@ -4,7 +4,5 @@
   "make": "Peugeot",
   "colour": "grey",
   "fuelType": "diesel",
-  "isTaxiOrPhv": false,
-  "euroStatus": "Euro 4",
-  "isRetrofitted": true
+  "isTaxiOrPhv": false
 }
