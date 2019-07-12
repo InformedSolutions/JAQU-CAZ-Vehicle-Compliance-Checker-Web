@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     render 'layouts/server_unavailable'
   end
 
+  def health
+    render json: 'OK', status: 200
+  end
+
   private
 
   def redirect_to_error_page(exception)
