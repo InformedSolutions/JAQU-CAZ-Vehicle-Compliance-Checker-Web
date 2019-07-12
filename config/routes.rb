@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   end
 
   get '/server_unavailable', to: 'application#server_unavailable'
+  get '/health', to: 'application#health'
 end

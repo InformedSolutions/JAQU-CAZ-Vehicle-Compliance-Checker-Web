@@ -12,8 +12,9 @@ if Rails.env.production?
     policy.font_src    :self, :https
     policy.img_src     :self, :https
     policy.object_src  :none
+    # remove unsafe_inline when valid certs will be provided
     policy.script_src  :self, :https, :unsafe_inline
-    policy.style_src   :self, :https
+    policy.style_src   :self, :https, :unsafe_inline
     policy.connect_src :self, :https
   end
 end

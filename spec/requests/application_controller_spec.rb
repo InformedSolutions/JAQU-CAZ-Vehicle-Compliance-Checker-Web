@@ -24,4 +24,13 @@ RSpec.describe ApplicationController, type: :request do
       expect(response).to be_successful
     end
   end
+
+  describe 'health' do
+    subject { get health_path }
+
+    it 'returns 200' do
+      subject
+      expect(response).to be_successful
+    end
+  end
 end
