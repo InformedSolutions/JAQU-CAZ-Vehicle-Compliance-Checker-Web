@@ -6,7 +6,7 @@ run:
 	gem install bundler --version=2.0.2
 	mkdir -p ~/src
 	rsync -av --progress /vagrant/. ~/src --exclude node_modules
-	cd ~/src; bundle install; yarn install; rails s --binding=0.0.0.0
+	cd ~/src; bundle install; yarn install; rails s -b 0.0.0.0
 
 unit-test:
 	yarn install
