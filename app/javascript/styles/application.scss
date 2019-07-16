@@ -16,3 +16,7 @@ $govuk-assets-path: '/packs/media/';
 html {
   background-color: govuk-colour('grey-3');
 }
+
+a.caz_inline_link {
+  display: inline-block;
+}

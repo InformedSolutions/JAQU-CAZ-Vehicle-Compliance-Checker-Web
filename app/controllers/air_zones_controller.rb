@@ -15,8 +15,7 @@ class AirZonesController < ApplicationController
       return redirect_to caz_selection_air_zones_path(error: form.message, vrn: vrn)
     end
 
-    @compliance = Compliance.new(vrn, selected_caz)
-    @compliance_zones = @compliance.compliance_zones
+    @compliance_zones = Compliance.new(vrn, selected_caz).compliance_zones
   end
 
   private

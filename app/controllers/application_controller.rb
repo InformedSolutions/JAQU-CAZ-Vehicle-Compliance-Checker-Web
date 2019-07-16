@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def health
-    render json: 'OK', status: 200
+    render json: 'OK', status: :ok
   end
 
   private
