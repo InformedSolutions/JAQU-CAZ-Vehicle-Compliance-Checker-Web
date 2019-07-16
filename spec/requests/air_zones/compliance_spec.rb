@@ -23,7 +23,7 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
 
     it 'redirects to caz_selection_air_zones_path' do
       http_request
-      error = 'You must choose clean air zones'
+      error = 'You must select at least one Clean Air Zone'
       expect(response).to redirect_to(caz_selection_air_zones_path(error: error, vrn: vrn))
     end
   end

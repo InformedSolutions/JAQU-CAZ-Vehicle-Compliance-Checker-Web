@@ -23,7 +23,7 @@ RSpec.describe CazForm, type: :model do
     end
 
     it 'has a proper error message' do
-      expect(form.message).to eq('You must choose clean air zones')
+      expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe CazForm, type: :model do
     end
 
     it 'has a proper error message' do
-      expect(form.message).to eq('You must choose clean air zones')
+      expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end
 end
