@@ -13,16 +13,16 @@
     .govuk-grid-column-two-thirds
       = form_tag compliance_air_zones_path, method: :get do
         .govuk-form-group{class: ('govuk-form-group--error' if @error)}
-          - if @error
-            %span#caz-select-error.govuk-error-message
-              %span.govuk-visually-hidden Error:
-              Select locations
           %fieldset.govuk-fieldset{"aria-describedby" => "cazHint"}
             %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
               %h1.govuk-fieldset__heading
                 Where do you want to drive?
             %span#cazHint.govuk-hint
               Select all locations that apply.
+            - if @error
+              %span#caz-select-error.govuk-error-message
+                %span.govuk-visually-hidden Error:
+                Select at least one Clean Air Zone
             %input{name: 'vrn', type: 'hidden', value: params[:vrn]}
             .govuk-checkboxes
               - @clean_air_zones.each_with_index do |zone, index|
