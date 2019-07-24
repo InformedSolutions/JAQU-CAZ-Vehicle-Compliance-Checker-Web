@@ -12,7 +12,6 @@ steps:
       - terraform init
       - terraform apply -auto-approve
     environment:
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
       TF_VAR_access_key: 
         from_secret: aws_access_key_id      
