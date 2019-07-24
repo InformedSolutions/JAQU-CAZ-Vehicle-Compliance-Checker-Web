@@ -1,6 +1,7 @@
 kind: pipeline
 name: ci
 
+# Build and test combined to protect from asset loss
 steps:
   - name: build-test
     image: docker
