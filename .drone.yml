@@ -24,6 +24,7 @@ steps:
       region: eu-west-2
       tags:
         - latest
+        - ${DRONE_BUILD_NUMBER}
 
 volumes:
 - name: docker_sock
