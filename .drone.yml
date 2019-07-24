@@ -4,20 +4,6 @@ name: ci
 # Build and test combined to protect from asset loss
 steps:
               
-  - name: deploy
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - terraform init
-      - terraform apply -auto-approve
-    environment:
-      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-      TF_VAR_access_key: 
-        from_secret: aws_access_key_id      
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-              
   - name: build-test
     image: docker
     commands:
@@ -27,7 +13,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  - name: publish-to-ecr
+  - name: publish-image-to-ecr
     image: plugins/ecr
     settings:
       access_key:
@@ -39,7 +25,22 @@ steps:
       region: eu-west-2
       tags:
         - latest
-        - ${DRONE_BUILD_NUMBER} 
+        - ${DRONE_BUILD_NUMBER}
+
+  - name: deploy
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - terraform init
+      - terraform apply -auto-approve
+    environment:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
+      TF_VAR_access_key: 
+        from_secret: aws_access_key_id      
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key        
 
 volumes:
 - name: docker_sock
