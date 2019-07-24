@@ -19,6 +19,10 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+    settings:
+      build_args_from_env:
+        - TF_VAR_access_key
+        - TF_VAR_secret_key
       
   - name: build-test
     image: docker
