@@ -19,7 +19,7 @@ steps:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/caz-global-ecr
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/caz-global-ecr/vccs
       registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
       region: eu-west-2
       tags:
