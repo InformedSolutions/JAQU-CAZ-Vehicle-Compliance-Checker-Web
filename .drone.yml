@@ -10,6 +10,8 @@ steps:
     root_dir: JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - terraform init
+      - terraform apply
     vars:
       build_number: ${DRONE_BUILD_NUMBER}     
 
