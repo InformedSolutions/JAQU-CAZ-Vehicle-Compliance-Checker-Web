@@ -15,14 +15,8 @@ steps:
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-    settings:
-      build_args_from_env:
-        - TF_VAR_access_key
-        - TF_VAR_secret_key
+      TF_VAR_access_key: AKIAQIREWZPQPV2P4OXV 
+      TF_VAR_secret_key: 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
       
   - name: build-test
     image: docker
