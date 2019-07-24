@@ -9,7 +9,7 @@ steps:
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - echo $${TF_VAR_build_number}
+      - echo $${TF_VAR_compliance_checker}
       - terraform init
       - terraform apply -auto-approve
     environment:
