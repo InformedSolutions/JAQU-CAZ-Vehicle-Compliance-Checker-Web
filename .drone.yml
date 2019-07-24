@@ -3,15 +3,15 @@ name: ci
 
 # Build and test combined to protect from asset loss
 steps:
-
-  - name: clone-terraform
-    image: docker:git
+        
+  - name: deploy
+    image: jmccann/drone-terraform:1
+    plan: false
+    root_dir: /terraform-tmp/JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
     commands:
-      - cd /terraform-tmp
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-    volumes:
-      - name: terraform
-        path: /terraform-tmp
+    vars:
+      build_number: ${DRONE_BUILD_NUMBER}     
 
   - name: build-test
     image: docker
@@ -34,27 +34,12 @@ steps:
       region: eu-west-2
       tags:
         - latest
-        - ${DRONE_BUILD_NUMBER}
-
-  - name: deploy
-    image: plugins/ecrjmccann/drone-terraform:1
-    plan: false
-    root_dir: /terraform-tmp/JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-    vars:
-      build_number: ${DRONE_BUILD_NUMBER}
-    volumes:
-      - name: terraform
-        path: /terraform-tmp
-      
+        - ${DRONE_BUILD_NUMBER} 
 
 volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
-
-- name: terraform
-  host:
-    path: /terraform-tmp
 
 trigger:
   event:
