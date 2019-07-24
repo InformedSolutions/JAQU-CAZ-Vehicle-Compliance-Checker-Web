@@ -6,6 +6,12 @@ steps:
         
   - name: deploy
     image: hashicorp/terraform:0.12.3
+    commands:
+      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - echo ${TF_VAR_access_key}
+      - terraform init
+      - terraform apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
@@ -13,12 +19,10 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - echo ${TF_VAR_access_key}
-      - terraform init
-      - terraform apply -auto-approve
+    settings:
+      build_args_from_env:
+        - TF_VAR_access_key
+        - TF_VAR_secret_key
       
   - name: build-test
     image: docker
