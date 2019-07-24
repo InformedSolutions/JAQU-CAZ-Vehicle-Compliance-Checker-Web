@@ -13,7 +13,6 @@ steps:
       - terraform apply -auto-approve
     environment:
       - TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      - TF_VAR_google_analytics_id: ""
       - TF_VAR_compliance_checker: "https://jaqu-caz.herokuapp.com"
     settings:
       access_key:
