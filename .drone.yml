@@ -8,8 +8,8 @@ steps:
     image: hashicorp/terraform:0.12.3
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - terraform init JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
       - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - terraform init
       - terraform apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
