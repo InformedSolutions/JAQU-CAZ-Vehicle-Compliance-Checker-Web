@@ -9,7 +9,8 @@ steps:
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - terraform init JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - terraform apply -auto-approve JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - terraform apply -auto-approve
 
   - name: build-test
     image: docker
