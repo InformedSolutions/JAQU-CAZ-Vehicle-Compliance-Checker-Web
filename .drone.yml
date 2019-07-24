@@ -12,9 +12,8 @@ steps:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
       - terraform apply -auto-approve
     environment:
-      - TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      - TF_VAR_compliance_checker: "https://jaqu-caz.herokuapp.com"
-    settings:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
       access_key:
         from_secret: aws_access_key_id
       secret_key:
