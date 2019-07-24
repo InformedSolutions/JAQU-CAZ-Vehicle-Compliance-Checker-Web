@@ -8,7 +8,8 @@ steps:
     image: jmccann/drone-terraform:1
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - cd JAQU-CAZ-IAC
+      - ls
       - terraform init
       - terraform apply
 
