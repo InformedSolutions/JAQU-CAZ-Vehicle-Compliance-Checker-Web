@@ -7,7 +7,7 @@ steps:
   - name: deploy
     image: jmccann/drone-terraform:1
     plan: false
-    root_dir: /terraform-tmp/JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+    root_dir: JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
     vars:
