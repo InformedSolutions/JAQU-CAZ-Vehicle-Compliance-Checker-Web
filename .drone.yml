@@ -6,14 +6,11 @@ steps:
         
   - name: deploy
     image: jmccann/drone-terraform:1
-    plan: false
-    root_dir: JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
       - terraform init
       - terraform apply
-    vars:
-      build_number: ${DRONE_BUILD_NUMBER}     
 
   - name: build-test
     image: docker
