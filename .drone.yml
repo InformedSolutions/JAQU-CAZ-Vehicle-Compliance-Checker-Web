@@ -1,6 +1,7 @@
 kind: pipeline
 name: ci
 
+# Build and test combined to protect from asset loss
 steps:
   - name: build-test
     image: docker
@@ -10,18 +11,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-
-  # move rspec command to previous test to avoid loss of node_modules folder. 
-  # - name: test
-  #   image: vehicle-compliance-checker-frontend
-  #   pull: if-not-exists
-  #   commands:
-  #   - ls
-  #   - ls public
-  #   - rspec -f d
-  #   volumes:
-  #     - name: docker_sock
-  #       path: /var/run/docker.sock
 
 volumes:
 - name: docker_sock
