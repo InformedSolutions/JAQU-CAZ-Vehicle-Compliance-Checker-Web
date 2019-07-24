@@ -12,6 +12,18 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
+  - name: publish-to-ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/caz-global-ecr
+      registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
+      tags:
+        - latest
+
 volumes:
 - name: docker_sock
   host:
