@@ -41,7 +41,6 @@ steps:
   - name: publish-image-to-ecr
     image: plugins/ecr
     settings:
-      secret_key_base: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       access_key:
         from_secret: aws_access_key_id
       secret_key:
@@ -53,6 +52,9 @@ steps:
       tags:
         - latest
         - ${DRONE_BUILD_NUMBER}
+      build_args:
+        - secret_key_base=dev_secret
+        
         
   # Invoke terraform scripts with tagged image number
   - name: deploy
