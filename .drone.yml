@@ -28,15 +28,15 @@ steps:
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform workspace new dev
       - terraform init
+      - terraform workspace new dev
       - terraform apply -target=module.ecr -auto-approve
     environment:
       TF_VAR_access_key:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
-        
+
 
   # Push built image to ECR registry
   - name: publish-image-to-ecr
@@ -55,15 +55,15 @@ steps:
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=secret
-        
-        
+
+
   # Invoke terraform scripts with tagged image number
   - name: deploy
     image: hashicorp/terraform:0.12.3
     commands:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform workspace new dev
       - terraform init
+      - terraform workspace new dev
       - terraform apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
