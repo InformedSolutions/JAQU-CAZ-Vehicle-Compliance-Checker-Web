@@ -16,7 +16,7 @@ steps:
   - name: build-test
     image: docker
     commands:
-    - docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
+    - docker build -f Dockerfile.test -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend rspec -f d
     volumes:
       - name: docker_sock
@@ -36,6 +36,9 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+    when:
+      branch:
+      - develop
 
 
   # Push built image to ECR registry
@@ -48,13 +51,16 @@ steps:
         from_secret: aws_secret_access_key
       repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs
       registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.build
       region: eu-west-2
       tags:
         - latest
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=secret
+    when:
+      branch:
+      - develop
 
 
   # Invoke terraform scripts with tagged image number
@@ -74,6 +80,9 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+    when:
+      branch:
+      - develop
 
 volumes:
 - name: docker_sock
