@@ -27,7 +27,7 @@ steps:
     image: hashicorp/terraform:0.12.3
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
@@ -60,7 +60,7 @@ steps:
   - name: deploy
     image: hashicorp/terraform:0.12.3
     commands:
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
       - terraform init
       - terraform apply -auto-approve
     environment:
