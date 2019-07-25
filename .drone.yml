@@ -62,6 +62,7 @@ steps:
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      TF_VAR_google_analytics_id: test
       TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
       TF_VAR_access_key:
         from_secret: aws_access_key_id
