@@ -3,6 +3,15 @@ name: ci
 
 steps:
 
+  # Clean agent images and containers to prevent disk space overuse
+  - name: clean-agent
+    image: docker
+    commands:
+    - docker system prune -f
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
   # Build docker image and execute tests
   - name: build-test
     image: docker
