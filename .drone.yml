@@ -35,6 +35,10 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+    when:
+      branch:
+      - develop
+        
 
   # Push built image to ECR registry
   - name: publish-image-to-ecr
@@ -50,6 +54,9 @@ steps:
       tags:
         - latest
         - ${DRONE_BUILD_NUMBER}
+    when:
+      branch:
+      - develop
         
   # Invoke terraform scripts with tagged image number
   - name: deploy
@@ -65,6 +72,9 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+    when:
+      branch:
+      - develop
 
 volumes:
 - name: docker_sock
