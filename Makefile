@@ -31,3 +31,9 @@ install-sonar-stack: install-sonar-scanner launch-sonarqube
 	
 sonar-scan:
 	sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.user=admin -Dsonar.password=admin 
+
+docker-build:
+	docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret -f Dockerfile.prod .
+	
+docker-run:
+	docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend
