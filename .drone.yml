@@ -33,10 +33,11 @@ steps:
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
-      TF_VAR_access_key:
+      AWS_ACCESS_KEY:
         from_secret: aws_access_key_id
-      TF_VAR_secret_key:
+      AWS_SECRET_KEY:
         from_secret: aws_secret_access_key
+      
 
   # Push built image to ECR registry
   - name: publish-image-to-ecr
