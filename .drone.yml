@@ -11,7 +11,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-              
+
   # Build docker image and execute tests
   - name: build-test
     image: docker
@@ -22,19 +22,21 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Invoke terraform scripts to ensure ecr is available for deploy step
+  # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise-ecr
     image: hashicorp/terraform:0.12.3
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - echo "$TF_VAR_access_key"
+      - echo "$TF_VAR_secret_key"
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
-      TF_VAR_access_key: 
-        from_secret: aws_access_key_id      
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
       TF_VAR_secret_key:
-        from_secret: aws_secret_access_key         
+        from_secret: aws_secret_access_key
 
   # Push built image to ECR registry
   - name: publish-image-to-ecr
@@ -62,10 +64,10 @@ steps:
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-      TF_VAR_access_key: 
-        from_secret: aws_access_key_id      
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
       TF_VAR_secret_key:
-        from_secret: aws_secret_access_key        
+        from_secret: aws_secret_access_key
 
 volumes:
 - name: docker_sock
