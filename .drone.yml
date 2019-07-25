@@ -29,7 +29,7 @@ steps:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
       - terraform init
-      - terraform workspace new dev
+      - terraform workspace select dev || terraform workspace new dev
       - terraform apply -target=module.ecr -auto-approve
     environment:
       TF_VAR_access_key:
