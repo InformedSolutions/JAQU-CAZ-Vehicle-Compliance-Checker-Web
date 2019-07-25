@@ -53,7 +53,7 @@ steps:
         - latest
         - ${DRONE_BUILD_NUMBER}
       build_args:
-        - secret_key_base=dev_secret
+        - secret_key_base=secret
         
         
   # Invoke terraform scripts with tagged image number
