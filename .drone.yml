@@ -63,7 +63,7 @@ steps:
     commands:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
       - terraform init
-      - terraform workspace new dev
+      - terraform workspace select dev
       - terraform apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
