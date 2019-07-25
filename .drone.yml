@@ -3,17 +3,27 @@ name: ci
 
 # Build and test combined to protect from asset loss
 steps:
-              
-  - name: build-test
+
+  # Clean agent images and containers to prevent disk space overuse
+  - name: clean-agent
     image: docker
     commands:
     - docker system prune -f
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+              
+  # Build docker image and execute tests
+  - name: build-test
+    image: docker
+    commands:
     - docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend rspec -f d
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
 
+  # Push built image to ECR registry
   - name: publish-image-to-ecr
     image: plugins/ecr
     settings:
@@ -28,6 +38,7 @@ steps:
         - latest
         - ${DRONE_BUILD_NUMBER}
 
+  # Invoke terraform scripts with tagged image number
   - name: deploy
     image: hashicorp/terraform:0.12.3
     commands:
