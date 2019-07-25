@@ -28,14 +28,12 @@ steps:
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - echo "$TF_VAR_access_key"
-      - echo "$TF_VAR_secret_key"
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
-      AWS_ACCESS_KEY:
+      TF_VAR_access_key:
         from_secret: aws_access_key_id
-      AWS_SECRET_KEY:
+      TF_VAR_secret_key:
         from_secret: aws_secret_access_key
       
 
