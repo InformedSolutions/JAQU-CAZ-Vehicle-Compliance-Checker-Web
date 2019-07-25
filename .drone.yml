@@ -41,7 +41,7 @@ steps:
   - name: publish-image-to-ecr
     image: plugins/ecr
     settings:
-      secret_key_base: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      secret_key_base: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
       access_key:
         from_secret: aws_access_key_id
       secret_key:
