@@ -37,8 +37,9 @@ steps:
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
     when:
-      branch:
-      - develop
+      event:
+        exclude:
+        - pull_request
 
 
   # Push built image to ECR registry
@@ -59,8 +60,9 @@ steps:
       build_args:
         - secret_key_base=secret
     when:
-      branch:
-      - develop
+      event:
+        exclude:
+        - pull_request
 
 
   # Invoke terraform scripts with tagged image number
@@ -81,8 +83,9 @@ steps:
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
     when:
-      branch:
-      - develop
+      event:
+        exclude:
+        - pull_request
 
 volumes:
 - name: docker_sock
