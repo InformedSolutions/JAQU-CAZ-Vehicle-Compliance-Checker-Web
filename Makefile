@@ -36,4 +36,4 @@ docker-build:
 	docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret -f Dockerfile.prod .
 	
 docker-run:
-	docker run --rm -e COMPLIANCE_CHECKER_API_URL="http://localhost" vehicle-compliance-checker-frontend
+	docker run -p 3000:3000 --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" vehicle-compliance-checker-frontend
