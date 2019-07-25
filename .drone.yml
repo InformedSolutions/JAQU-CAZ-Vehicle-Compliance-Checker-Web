@@ -3,15 +3,6 @@ name: ci
 
 steps:
 
-  # Clean agent images and containers to prevent disk space overuse
-  - name: clean-agent
-    image: docker
-    commands:
-    - docker system prune -f
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
   # Build docker image and execute tests
   - name: build-test
     image: docker
@@ -22,22 +13,6 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Invoke terraform scripts with tagged image number
-  - name: deploy
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - terraform init
-      - terraform apply -auto-approve
-    environment:
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise-ecr
     image: hashicorp/terraform:0.12.3
@@ -47,7 +22,6 @@ steps:
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
-      TF_VAR_region: eu-west-2
       TF_VAR_access_key:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
@@ -67,6 +41,22 @@ steps:
       tags:
         - latest
         - ${DRONE_BUILD_NUMBER}
+        
+  # Invoke terraform scripts with tagged image number
+  - name: deploy
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - terraform init
+      - terraform apply -auto-approve
+    environment:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
 
 volumes:
 - name: docker_sock
