@@ -22,37 +22,6 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Invoke terraform scripts to ensure ecr is available for deploy step.
-  - name: initialise-ecr
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
-      - terraform init
-      - terraform apply -auto-approve
-    environment:
-      TF_VAR_region: eu-west-2
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-      
-
-  # Push built image to ECR registry
-  - name: publish-image-to-ecr
-    image: plugins/ecr
-    settings:
-      access_key:
-        from_secret: aws_access_key_id
-      secret_key:
-        from_secret: aws_secret_access_key
-      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs
-      registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
-      region: eu-west-2
-      tags:
-        - latest
-        - ${DRONE_BUILD_NUMBER}
-
   # Invoke terraform scripts with tagged image number
   - name: deploy
     image: hashicorp/terraform:0.12.3
@@ -68,6 +37,36 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+
+  # Invoke terraform scripts to ensure ecr is available for deploy step.
+  - name: initialise-ecr
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs/environments/dev
+      - terraform init
+      - terraform apply -target=module.ecr -auto-approve
+    environment:
+      TF_VAR_region: eu-west-2
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+
+  # Push built image to ECR registry
+  - name: publish-image-to-ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs
+      registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
+      region: eu-west-2
+      tags:
+        - latest
+        - ${DRONE_BUILD_NUMBER}
 
 volumes:
 - name: docker_sock
