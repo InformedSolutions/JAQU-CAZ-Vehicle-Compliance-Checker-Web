@@ -28,6 +28,7 @@ steps:
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - terraform workspace new dev
       - terraform init
       - terraform apply -target=module.ecr -auto-approve
     environment:
@@ -61,6 +62,7 @@ steps:
     image: hashicorp/terraform:0.12.3
     commands:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - terraform workspace new dev
       - terraform init
       - terraform apply -auto-approve
     environment:
