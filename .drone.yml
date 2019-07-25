@@ -7,6 +7,7 @@ steps:
   - name: build-test
     image: docker
     commands:
+    - docker system prune -f
     - docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend rspec -f d
     volumes:
