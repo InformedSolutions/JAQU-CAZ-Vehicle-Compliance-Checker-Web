@@ -33,7 +33,7 @@ sonar-scan:
 	sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.user=admin -Dsonar.password=admin 
 
 docker-build:
-	docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret -f Dockerfile.prod .
+	docker build -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret --build-arg aws_region=eu-west-2 -f Dockerfile.build .
 	
 docker-run:
 	docker run -p 3000:3000 --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" vehicle-compliance-checker-frontend
