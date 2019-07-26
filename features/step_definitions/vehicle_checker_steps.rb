@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-include MockHelpers
-
 Then('I press the Start now button') do
   click_link 'Start now'
 end
