@@ -13,7 +13,7 @@ steps:
         path: /var/run/docker.sock
 
   # Build docker image and execute tests
-  - name: build-test
+  - name: unit-test
     image: docker
     commands:
     - docker build -f Dockerfile.test -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
