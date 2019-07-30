@@ -86,7 +86,7 @@ steps:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
       registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
       dockerfile: Dockerfile.build
       region: eu-west-2
