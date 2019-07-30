@@ -127,7 +127,7 @@ steps:
   - name: owasp zap tests
     image: docker
     commands:
-    - docker run -rm owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com/
+    - docker run --rm owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com/
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
