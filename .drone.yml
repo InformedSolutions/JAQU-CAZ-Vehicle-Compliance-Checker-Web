@@ -4,7 +4,7 @@ name: ci
 steps:
 
   # Clean agent images and containers to prevent disk space overuse
-  - name: clean-agent
+  - name: clean agent
     image: docker
     commands:
     - docker system prune -f
@@ -12,18 +12,55 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Build docker image and execute tests
-  - name: unit-test
+  # Build docker image
+  - name: build
     image: docker
     commands:
-    - docker build -f Dockerfile.test -t vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=secret .
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost vehicle-compliance-checker-frontend rspec -f d
+    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Trigger unit tests
+  - name: unit tests
+    image: docker
+    commands:
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Invoke static code analysis through Ruby libraries
+  - name: static code analysis
+    image: docker
+    commands:
+      - docker run --rm test-vehicle-compliance-checker-frontend rubocop
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+        
+  # Invoke security analysis through Ruby libraries
+  - name: security tests
+    image: docker
+    commands:
+       - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
+       - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
+       - docker run --rm test-vehicle-compliance-checker-frontend brakeman
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Execute integration/scenario tests
+  - name: integration tests
+    image: docker
+    commands:
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
 
   # Invoke terraform scripts to ensure ecr is available for deploy step.
-  - name: initialise-ecr
+  - name: initialise ecr
     image: hashicorp/terraform:0.12.3
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
@@ -41,16 +78,15 @@ steps:
         exclude:
         - pull_request
 
-
   # Push built image to ECR registry
-  - name: publish-image-to-ecr
+  - name: publish image to ecr
     image: plugins/ecr
     settings:
       access_key:
         from_secret: aws_access_key_id
       secret_key:
         from_secret: aws_secret_access_key
-      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs
       registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
       dockerfile: Dockerfile.build
       region: eu-west-2
