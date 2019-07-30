@@ -144,6 +144,7 @@ volumes:
 trigger:
   branch:
   - develop
+  - feature/*
   event:
   - pull_request
   - push
