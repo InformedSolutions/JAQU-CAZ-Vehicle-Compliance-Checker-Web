@@ -149,6 +149,7 @@ steps:
       - pwd
       - ls -lah /zap/
       - mkdir -p /zap/wrk
+      - chmod 777 /zap/wrk
       - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com
     volumes:
       - name: docker_sock
