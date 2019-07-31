@@ -127,13 +127,12 @@ steps:
   - name: owasp zap tests
     image: docker
     commands:
-    - docker run --rm owasp/zap2docker-stable zap-cli quick-scan --recursive --spider --self-contained --scanners all --start-options '-config api.disablekey=true' http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com
+      - docker run -t owasp/zap2docker-stable zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
     when:
       event:
-        exclude:
         - pull_request
 
 volumes:
