@@ -12,122 +12,122 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Build docker image
-  - name: build
-    image: docker
-    commands:
-    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Trigger unit tests
-  - name: unit tests
-    image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Invoke static code analysis through Ruby libraries
-  - name: static code analysis
-    image: docker
-    commands:
-      - docker run --rm test-vehicle-compliance-checker-frontend rubocop
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Invoke security analysis through Ruby libraries
-  - name: security tests
-    image: docker
-    commands:
-       - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
-       - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
-       - docker run --rm test-vehicle-compliance-checker-frontend brakeman
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Execute integration/scenario tests
-  - name: integration tests
-    image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Invoke terraform scripts to ensure ecr is available for deploy step.
-  - name: initialise ecr
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform init
-      - terraform workspace select dev || terraform workspace new dev
-      - terraform apply -target=module.ecr -auto-approve
-    environment:
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-    when:
-      event:
-        exclude:
-        - pull_request
-
-  # Push built image to ECR registry
-  - name: publish image to ecr
-    image: plugins/ecr
-    settings:
-      access_key:
-        from_secret: aws_access_key_id
-      secret_key:
-        from_secret: aws_secret_access_key
-      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
-      registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
-      dockerfile: Dockerfile.build
-      region: eu-west-2
-      tags:
-        - latest
-        - ${DRONE_BUILD_NUMBER}
-      build_args:
-        - secret_key_base=secret
-    when:
-      event:
-        exclude:
-        - pull_request
-
-
-  # Invoke terraform scripts with tagged image number
-  - name: deploy
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform init
-      - terraform workspace select dev
-      - terraform apply -auto-approve
-    environment:
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: secret
-      TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-    when:
-      event:
-        exclude:
-        - pull_request
+  # # Build docker image
+  # - name: build
+  #   image: docker
+  #   commands:
+  #   - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #
+  # # Trigger unit tests
+  # - name: unit tests
+  #   image: docker
+  #   commands:
+  #   - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #
+  # # Invoke static code analysis through Ruby libraries
+  # - name: static code analysis
+  #   image: docker
+  #   commands:
+  #     - docker run --rm test-vehicle-compliance-checker-frontend rubocop
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #
+  # # Invoke security analysis through Ruby libraries
+  # - name: security tests
+  #   image: docker
+  #   commands:
+  #      - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
+  #      - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
+  #      - docker run --rm test-vehicle-compliance-checker-frontend brakeman
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #
+  # # Execute integration/scenario tests
+  # - name: integration tests
+  #   image: docker
+  #   commands:
+  #   - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #
+  # # Invoke terraform scripts to ensure ecr is available for deploy step.
+  # - name: initialise ecr
+  #   image: hashicorp/terraform:0.12.3
+  #   commands:
+  #     - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+  #     - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+  #     - terraform init
+  #     - terraform workspace select dev || terraform workspace new dev
+  #     - terraform apply -target=module.ecr -auto-approve
+  #   environment:
+  #     TF_VAR_access_key:
+  #       from_secret: aws_access_key_id
+  #     TF_VAR_secret_key:
+  #       from_secret: aws_secret_access_key
+  #   when:
+  #     event:
+  #       exclude:
+  #       - pull_request
+  #
+  # # Push built image to ECR registry
+  # - name: publish image to ecr
+  #   image: plugins/ecr
+  #   settings:
+  #     access_key:
+  #       from_secret: aws_access_key_id
+  #     secret_key:
+  #       from_secret: aws_secret_access_key
+  #     repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
+  #     registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
+  #     dockerfile: Dockerfile.build
+  #     region: eu-west-2
+  #     tags:
+  #       - latest
+  #       - ${DRONE_BUILD_NUMBER}
+  #     build_args:
+  #       - secret_key_base=secret
+  #   when:
+  #     event:
+  #       exclude:
+  #       - pull_request
+  #
+  #
+  # # Invoke terraform scripts with tagged image number
+  # - name: deploy
+  #   image: hashicorp/terraform:0.12.3
+  #   commands:
+  #     - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+  #     - terraform init
+  #     - terraform workspace select dev
+  #     - terraform apply -auto-approve
+  #   environment:
+  #     TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+  #     TF_VAR_secret_key_base: secret
+  #     TF_VAR_google_analytics_id: UA-144774549-2
+  #     TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
+  #     TF_VAR_access_key:
+  #       from_secret: aws_access_key_id
+  #     TF_VAR_secret_key:
+  #       from_secret: aws_secret_access_key
+  #   when:
+  #     event:
+  #       exclude:
+  #       - pull_request
 
   # Execute OWASP Zap tests
   - name: owasp zap tests
     image: docker
     commands:
-      - ls -la /zap/wrk
+      - ls -la 
       - docker run --rm owasp/zap2docker-stable zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
