@@ -145,7 +145,7 @@ steps:
     commands:
       - ls -lah
       - pwd
-      - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c /drone/src/zap.conf
+      - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
