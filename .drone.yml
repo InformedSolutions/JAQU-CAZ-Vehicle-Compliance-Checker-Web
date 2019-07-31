@@ -149,6 +149,8 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+      - name: wrk
+        path: /zap/wrk
     when:
       event:
         - pull_request
@@ -157,6 +159,9 @@ volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
+- name: wrk
+  temp: {}
+
 
 trigger:
   branch:
