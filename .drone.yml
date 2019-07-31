@@ -20,7 +20,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+
   # Trigger unit tests
   - name: unit tests
     image: docker
@@ -29,7 +29,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis
     image: docker
@@ -38,7 +38,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+
   # Invoke security analysis through Ruby libraries
   - name: security tests
     image: docker
@@ -49,7 +49,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+
   # Execute integration/scenario tests
   - name: integration tests
     image: docker
@@ -58,7 +58,7 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
     image: hashicorp/terraform:0.12.3
@@ -77,7 +77,7 @@ steps:
       event:
         exclude:
         - pull_request
-  
+
   # Push built image to ECR registry
   - name: publish image to ecr
     image: plugins/ecr
@@ -99,7 +99,7 @@ steps:
       event:
         exclude:
         - pull_request
-    
+
   # Invoke terraform scripts with tagged image number
   - name: deploy
     image: hashicorp/terraform:0.12.3
@@ -135,7 +135,9 @@ steps:
         path: /var/run/docker.sock
     when:
       event:
+        exclude:
         - pull_request
+      cron: [ nightly ]
 
 volumes:
 - name: docker_sock
