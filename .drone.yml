@@ -124,13 +124,29 @@ steps:
   #       - pull_request
 
   # Execute OWASP Zap tests
+  # - name: owasp zap tests
+  #   image: docker
+  #   commands:
+  #     - ls -lah
+  #     - cp zap.conf /zap/wrk/zap.conf
+  #     - ls -lah /zap/wrk/
+  #     - docker run -v /zap/wrk/:/zap/wrk/:rw --rm owasp/zap2docker-stable zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #     - name: wrk
+  #       path: /zap/wrk
+  #   when:
+  #     event:
+  #       - pull_request
+
   - name: owasp zap tests
-    image: docker
+    image: owasp/zap2docker-stable
     commands:
       - ls -lah
       - cp zap.conf /zap/wrk/zap.conf
       - ls -lah /zap/wrk/
-      - docker run -v /zap/wrk/:/zap/wrk/:rw --rm owasp/zap2docker-stable zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
+      - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
