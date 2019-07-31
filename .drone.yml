@@ -141,15 +141,6 @@ steps:
   #       - pull_request
 
 
-  # Invoke terraform scripts to ensure ecr is available for deploy step.
-  - name: just testings
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-    when:
-      event:
-        - pull_request
-
 
   - name: owasp zap tests
     image: owasp/zap2docker-stable
@@ -160,8 +151,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-      - name: wrk
-        path: /zap/wrk
     when:
       event:
         - pull_request
@@ -170,8 +159,6 @@ volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
-- name: wrk
-  temp: {}
 
 
 trigger:
