@@ -32,9 +32,10 @@
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: "row"} Fuel type
             %th.govuk-table__cell= @vehicle_details.fuel_type
-          %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Taxi/private hire vehicle?
-            %th.govuk-table__cell= @vehicle_details.taxi_private_hire_vehicle
+          - if @vehicle_details.taxi_private_hire_vehicle.eql?('Yes')
+            %tr.govuk-table__row
+              %td.govuk-table__cell{scope: "row"} Taxi
+              %th.govuk-table__cell= @vehicle_details.taxi_private_hire_vehicle
 
       = form_tag user_confirm_details_vehicle_checkers_path, method: :get do
         .govuk-form-group{class: ('govuk-form-group--error' if @error)}
