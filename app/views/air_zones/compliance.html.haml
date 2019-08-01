@@ -23,7 +23,9 @@
         - else
           .govuk-panel.govuk-panel--noncompliant
             %h1.govuk-panel__title
-              Subject to charge
+              Subject to charge:
+              %br
+              = "£#{format('%.2f', zone['charge'].to_f)}"
           %br
           %p
             This vehicle does not comply with the
