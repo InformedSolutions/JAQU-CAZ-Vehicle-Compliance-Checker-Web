@@ -1,0 +1,15 @@
+= link_to 'Back', enter_details_vehicle_checkers_path, class: 'govuk-back-link'
+
+%main#main-content.govuk-main-wrapper{role: 'main'}
+  .govuk-grid-row
+    .govuk-grid-column-two-thirds
+      .govuk-panel.govuk-panel--confirmation
+        %h1.govuk-panel__title
+          This vehicle is exempt from charges everywhere
+      %br
+      %p
+        Vehicle registration
+        = @vehicle_registration
+        meets national Clean Air Zone standards and there is no charge to drive it in any of the zones.
+      %br
+      = link_to('Check another vehicle', enter_details_vehicle_checkers_path, target: '_blank', class: 'caz_inline_link')

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :incorrect_details
       get :user_confirm_details
       get :number_not_found
+      get :exemption
     end
   end
 
