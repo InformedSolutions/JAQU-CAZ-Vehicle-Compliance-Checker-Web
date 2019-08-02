@@ -33,6 +33,10 @@ class VehicleDetails
     compliance_api['isTaxiOrPhv'] ? 'Yes' : 'No'
   end
 
+  def exempt?
+    compliance_api['isExempt']
+  end
+
   private
 
   def compliance_api

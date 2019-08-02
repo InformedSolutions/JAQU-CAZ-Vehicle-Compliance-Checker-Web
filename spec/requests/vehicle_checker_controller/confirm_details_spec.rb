@@ -6,16 +6,25 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
   subject(:http_request) { get confirm_details_vehicle_checkers_path, params: { vrn: vrn } }
 
   let(:vrn) { 'CU57ABC' }
+  let(:vehicle_details) { JSON.parse(file_fixture('vehicle_details_response.json').read) }
 
   context 'when VRN is valid' do
     before do
-      vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
       allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
     end
 
     it 'returns http success' do
       http_request
       expect(response).to have_http_status(:success)
+    end
+
+    context 'when vehicle is exempt' do
+      let(:vehicle_details) { { 'isExempt' => true } }
+
+      it 'redirects to exemption page' do
+        http_request
+        expect(response).to redirect_to(exemption_vehicle_checkers_path(vrn: vrn))
+      end
     end
   end
 
