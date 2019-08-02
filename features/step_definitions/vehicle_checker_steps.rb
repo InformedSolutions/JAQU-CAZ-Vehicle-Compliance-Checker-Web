@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+Given('I am on the enter details page') do
+  visit enter_details_vehicle_checkers_path
+end
+
 Then('I press the Start now button') do
   click_link 'Start now'
 end
@@ -9,16 +13,13 @@ Then('I should see the Vehicle Checker page') do
 end
 
 Then("I should enter a vehicle's registration") do
-  fill_in('vrn', with: 'CU57ABC')
+  fill_in('vrn', with: vrn)
+  mock_vehicle_details
 end
 
 Then("I should enter a vehicle's registration with {string}") do |string|
   fill_in('vrn', with: string)
-end
-
-Then('I press the Continue') do
   mock_vehicle_details
-  click_button 'Continue'
 end
 
 Then('I press the Continue when server is unavailable') do
@@ -31,16 +32,12 @@ Then('I should see the Confirm Details page') do
 end
 
 Then('I choose that the details are correct') do
+  mock_caz
   choose('Yes')
 end
 
 Then('I choose that the details are incorrect') do
   choose('No')
-end
-
-Then('I press the Confirm') do
-  mock_caz
-  click_button 'Confirm'
 end
 
 Then('I should see the Incorrect Details page') do
@@ -55,10 +52,15 @@ Then('I should see the CAZ Selection page') do
   expect(page).to have_current_path(caz_selection_air_zones_path, ignore_query: true)
 end
 
-Then('I get server unavailable response') do
-  WebMock::API.stub_request(:get, /vehicle_registration/).and_return(body: nil)
-end
-
 Then('I should see the Server Unavailable page') do
   expect(page).to have_current_path(server_unavailable_path)
+end
+
+And("I enter an exempt vehicle's registration") do
+  fill_in('vrn', with: vrn)
+  mock_exempt_vehicle_details
+end
+
+Then('I should see the Exemption page') do
+  expect(page).to have_current_path(exemption_vehicle_checkers_path(vrn: vrn))
 end

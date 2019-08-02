@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
 
-  resources :vehicle_checkers do
+  resources :vehicle_checkers, only: [] do
     collection do
       get :enter_details
       get :confirm_details
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :air_zones do
+  resources :air_zones, only: [] do
     collection do
       get :caz_selection
       get :compliance
