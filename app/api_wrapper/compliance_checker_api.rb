@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ComplianceCheckerApi < BaseApi
-  base_uri ENV['COMPLIANCE_CHECKER_API_URL']
+  base_uri URI.join(ENV['COMPLIANCE_CHECKER_API_URL'], '/v1/vehicleComplianceApi').to_s
 
   headers(
     'Content-Type' => 'application/json',

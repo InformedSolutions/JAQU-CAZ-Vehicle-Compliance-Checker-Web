@@ -15,6 +15,7 @@ class VehicleCheckersController < ApplicationController
     end
 
     @vehicle_details = VehicleDetails.new(vrn)
+    redirect_to exemption_vehicle_checkers_path(vrn: vrn) if @vehicle_details.exempt?
   end
 
   def user_confirm_details
