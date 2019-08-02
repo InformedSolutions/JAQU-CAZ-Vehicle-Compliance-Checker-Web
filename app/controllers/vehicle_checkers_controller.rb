@@ -11,10 +11,11 @@ class VehicleCheckersController < ApplicationController
     assign_error
     form = VrnForm.new(vrn)
     unless form.valid?
-      redirect_to enter_details_vehicle_checkers_path(error: form.message, vrn: vrn)
-      return
+      return redirect_to enter_details_vehicle_checkers_path(error: form.message, vrn: vrn)
     end
+
     @vehicle_details = VehicleDetails.new(vrn)
+    redirect_to exemption_vehicle_checkers_path(vrn: vrn) if @vehicle_details.exempt?
   end
 
   def user_confirm_details
@@ -31,6 +32,10 @@ class VehicleCheckersController < ApplicationController
   end
 
   def number_not_found
+    @vehicle_registration = vrn.upcase
+  end
+
+  def exemption
     @vehicle_registration = vrn.upcase
   end
 
