@@ -12,7 +12,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  - name: code-analysis
+  - name: sonar scan
     image: aosapps/drone-sonar-plugin
     settings:
       sonar_host:
