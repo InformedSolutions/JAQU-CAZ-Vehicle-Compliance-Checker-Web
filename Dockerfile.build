@@ -25,6 +25,7 @@ RUN gem install bundler \
 
 # Install node packages and precompile assets
 COPY . /home/app
+
 RUN yarn install --frozen-lockfile --non-interactive \
  && bundle exec rails assets:precompile \
  && yarn cache clean \

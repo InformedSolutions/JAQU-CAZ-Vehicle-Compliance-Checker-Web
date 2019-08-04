@@ -23,38 +23,47 @@ steps:
   
   # Trigger unit tests
   - name: unit tests
-    image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: http://localhost
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-  
+    commands:
+      - yarn install
+      - rspec -f d
+
   # Execute integration/scenario tests
   - name: integration tests
-    image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    commands:
+      - cucumber
   
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
-    image: docker
-    commands:
-      - docker run --rm test-vehicle-compliance-checker-frontend rubocop
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    commands:
+      - rubocop
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
-    image: docker
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
     commands:
-       - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
-       - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
-       - docker run --rm test-vehicle-compliance-checker-frontend brakeman
+       - bundle audit check --update
+       - yarn audit
+       - brakeman
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -62,6 +71,12 @@ steps:
   # Invoke sonar scan
   - name: sonar scan
     image: aosapps/drone-sonar-plugin
+    volumes:
+      - name: coverage_reports
+        path: /coverage
+    environment:
+      sonar.exclusions: app/assets/**/*
+      sonar.ruby.coverage.reportPaths: coverage/.resultset.json
     settings:
       sonar_host:
         from_secret: sonar_host
@@ -138,7 +153,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
+      - zap-full-scan.py -t http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -146,9 +161,6 @@ steps:
       event:
         exclude:
         - pull_request
-      # Note that the cron name below is a reference to the name of the schedule setup in Drone itself, not the frequency at which the job should run. 
-      # The schedule/frequency should be configured through the drone user interface.
-      cron: [ nightly ]
 
 volumes:
 - name: docker_sock
