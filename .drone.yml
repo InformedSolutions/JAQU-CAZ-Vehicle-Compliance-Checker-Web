@@ -87,6 +87,8 @@ steps:
       sonar_token:
         from_secret: sonar_token
     commands:
+      - pwd
+      - ls
       - cd /coverage
       - ls -a
   
