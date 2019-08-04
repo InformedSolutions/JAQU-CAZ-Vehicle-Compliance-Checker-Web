@@ -30,8 +30,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-      - name: coverage_reports
-        path: /drone/src/coverage
     commands:
       - yarn install
       - rspec -f d
@@ -80,16 +78,14 @@ steps:
         path: /coverage
     environment:
       sonar.exclusions: app/assets/**/*
-      sonar.ruby.coverage.reportPaths: /coverage/.resultset.json
+      sonar.ruby.coverage.reportPaths: coverage/.resultset.json
     settings:
       sonar_host:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
     commands:
-      - pwd
-      - ls
-      - cd /coverage
+      - cd coverage
       - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
@@ -175,8 +171,6 @@ volumes:
 - name: docker_sock
   host:
     path: /var/run/docker.sock
-- name: coverage_reports
-  temp: {}
 
 # Triggers
 trigger:
