@@ -35,6 +35,8 @@ steps:
     commands:
       - yarn install
       - rspec -f d
+      - cd /drone/src/coverage
+      - ls -a
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -84,6 +86,9 @@ steps:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
+    commands:
+      - cd /coverage
+      - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
@@ -160,9 +165,6 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     when:
-      event:
-        exclude:
-        - pull_request
       # Note that the cron name below is a reference to the name of the schedule setup in Drone itself, not the frequency at which the job should run. 
       # The schedule/frequency should be configured through the drone user interface.
       cron: [ nightly ]
