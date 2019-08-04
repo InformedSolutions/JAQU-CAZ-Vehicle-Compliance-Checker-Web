@@ -33,8 +33,6 @@ steps:
     commands:
       - yarn install
       - rspec -f d
-      - cd /drone/src/coverage
-      - ls -a
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -84,9 +82,6 @@ steps:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
-    commands:
-      - cd coverage
-      - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
