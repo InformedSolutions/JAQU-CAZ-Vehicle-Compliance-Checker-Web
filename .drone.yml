@@ -27,14 +27,13 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+      - name: coverage_reports
+        path: /coverage
     environment:
       COMPLIANCE_CHECKER_API_URL: http://localhost
       COVERAGE_REPORTS_DIR: /coverage
     commands:
     - docker run --rm test-vehicle-compliance-checker-frontend rspec -f d
-    volumes:
-      - name: coverage_reports
-        path: /coverage
         
   # Execute integration/scenario tests
   - name: integration tests
