@@ -26,7 +26,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: http://localhost
+      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
       COVERAGE_REPORTS_DIR: /coverage
     volumes:
       - name: docker_sock
