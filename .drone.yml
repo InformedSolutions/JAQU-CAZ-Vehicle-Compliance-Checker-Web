@@ -3,6 +3,15 @@ name: ci
 
 steps:
 
+  # Clean agent images and containers to prevent disk space overuse
+  - name: clean agent
+    image: docker
+    commands:
+    - docker system prune -f
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
   # Build docker image
   - name: build
     image: docker
@@ -21,7 +30,7 @@ steps:
       - name: coverage_reports
         path: /home/app
     commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend "rspec -f d; cd /home/app; ls -a"
     - pwd
     - ls
     - cd /home/app
