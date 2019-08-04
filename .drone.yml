@@ -33,8 +33,8 @@ steps:
       - name: coverage_reports
         path: /drone/src/coverage
     commands:
-    - yarn install
-    - rspec -f d
+      - yarn install
+      - rspec -f d
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -46,17 +46,17 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     commands:
-    - cucumber
+      - cucumber
   
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
     image: test-vehicle-compliance-checker-frontend
     pull: never
-    commands:
-      - rubocop
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    commands:
+      - rubocop
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
@@ -84,9 +84,6 @@ steps:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
-    commands:
-      - cd /coverage
-      - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
