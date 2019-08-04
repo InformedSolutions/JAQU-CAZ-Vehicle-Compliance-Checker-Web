@@ -7,7 +7,7 @@ steps:
   - name: clean agent
     image: docker
     commands:
-      - docker system prune -f
+    - docker system prune -f
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -23,48 +23,40 @@ steps:
   
   # Trigger unit tests
   - name: unit tests
-    image: test-vehicle-compliance-checker-frontend
-    pull: never
-    environment:
-      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
-      COVERAGE_REPORTS_DIR: /coverage
+    image: docker
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
       - name: coverage_reports
         path: /coverage
     commands:
-      - rspec -f d
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost -e COVERAGE_REPORTS_DIR=/coverage test-vehicle-compliance-checker-frontend rspec -f d
     
   # Execute integration/scenario tests
   - name: integration tests
-    image: test-vehicle-compliance-checker-frontend
-    pull: never
-    environment:
-      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
+    image: docker
     commands:
-      - cucumber
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
   
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
-    image: test-vehicle-compliance-checker-frontend
+    image: docker
     commands:
-      - rubocop
+      - docker run --rm test-vehicle-compliance-checker-frontend rubocop
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
-    image: test-vehicle-compliance-checker-frontend
-    pull: never
+    image: docker
     commands:
-       - bundle audit check --update
-       - yarn audit
-       - brakeman
+       - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
+       - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
+       - docker run --rm test-vehicle-compliance-checker-frontend brakeman
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
