@@ -172,7 +172,6 @@ volumes:
 
 # Triggers
 trigger:
-  cron: [ nightly ]
   branch:
   - develop
   event:
