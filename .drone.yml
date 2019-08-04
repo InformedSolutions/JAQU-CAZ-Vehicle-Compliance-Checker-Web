@@ -31,28 +31,22 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
       - name: coverage_reports
-        path: /home/app/coverage
+        path: /drone/src/coverage
     commands:
-    - gem install bundler
-    - bundle install
     - yarn install
     - rspec -f d
-    - pwd
-    - ls -a
-    - cd coverage
-    - ls
-    - cd /home/app/coverage
-    - ls -a
 
   # Execute integration/scenario tests
   - name: integration tests
     image: test-vehicle-compliance-checker-frontend
     pull: never
-    commands:
-    - cucumber
+    environment:
+      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    commands:
+    - cucumber
   
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
