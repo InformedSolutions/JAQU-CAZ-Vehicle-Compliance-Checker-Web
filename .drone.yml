@@ -3,15 +3,6 @@ name: ci
 
 steps:
 
-  # Clean agent images and containers to prevent disk space overuse
-  - name: clean agent
-    image: docker
-    commands:
-    - docker system prune -f
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
   # Build docker image
   - name: build
     image: docker
@@ -24,15 +15,16 @@ steps:
   # Trigger unit tests
   - name: unit tests
     image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
-    - cd /home/app/coverage
-    - ls -a
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
       - name: coverage_reports
         path: /home/app/coverage
+    commands:
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+    - pwd
+    - cd /home/app/coverage
+    - ls -a
   
   # Execute integration/scenario tests
   - name: integration tests
@@ -151,7 +143,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t http://vccs-web-cluster-dev-2001703946.eu-west-2.elb.amazonaws.com -c zap.conf
+      - zap-full-scan.py -t http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
