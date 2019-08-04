@@ -31,7 +31,9 @@ steps:
         path: /coverage
     commands:
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost -e COVERAGE_REPORTS_DIR=/coverage test-vehicle-compliance-checker-frontend rspec -f d
-    
+    - cd /coverage
+    - ls -a
+
   # Execute integration/scenario tests
   - name: integration tests
     image: docker
@@ -75,6 +77,9 @@ steps:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
+    commands:
+      - cd /coverage
+      - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
