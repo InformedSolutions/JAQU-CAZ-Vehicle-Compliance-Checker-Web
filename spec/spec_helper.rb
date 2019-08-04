@@ -104,7 +104,3 @@ SimpleCov.start do
   add_filter 'config/initializers/content_security_policy.rb'
   add_filter 'config/initializers/env_variables_checker.rb'
 end
-
-SimpleCov.start 'rails' do
-  coverage_dir ENV['COVERAGE_REPORTS_DIR']
-end
