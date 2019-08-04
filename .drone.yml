@@ -158,9 +158,9 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     when:
-      # Note that the cron name below is a reference to the name of the schedule setup in Drone itself, not the frequency at which the job should run. 
-      # The schedule/frequency should be configured through the drone user interface.
-      cron: [ nightly ]
+      event:
+        exclude:
+        - pull_request
 
 volumes:
 - name: docker_sock
