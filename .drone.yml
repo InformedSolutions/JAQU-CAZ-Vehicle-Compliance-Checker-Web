@@ -58,7 +58,7 @@ steps:
         from_secret: sonar_token
   
   # Invoke security analysis through Ruby libraries
-  - name: security tests
+  - name: security tests (Ruby)
     image: docker
     commands:
        - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
