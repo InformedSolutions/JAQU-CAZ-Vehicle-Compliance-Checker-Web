@@ -12,14 +12,6 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  - name: sonar scan
-    image: aosapps/drone-sonar-plugin
-    settings:
-      sonar_host:
-        from_secret: sonar_host
-      sonar_token:
-        from_secret: sonar_token
-
   # Build docker image
   - name: build
     image: docker
@@ -38,14 +30,32 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
   
+  # Execute integration/scenario tests
+  - name: integration tests
+    image: docker
+    commands:
+    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+  
   # Invoke static code analysis through Ruby libraries
-  - name: static code analysis
+  - name: static code analysis (Ruby)
     image: docker
     commands:
       - docker run --rm test-vehicle-compliance-checker-frontend rubocop
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+  
+  # Invoke sonar scan
+  - name: sonar scan
+    image: aosapps/drone-sonar-plugin
+    settings:
+      sonar_host:
+        from_secret: sonar_host
+      sonar_token:
+        from_secret: sonar_token
   
   # Invoke security analysis through Ruby libraries
   - name: security tests
@@ -54,15 +64,6 @@ steps:
        - docker run --rm test-vehicle-compliance-checker-frontend bundle audit check --update
        - docker run --rm test-vehicle-compliance-checker-frontend yarn audit
        - docker run --rm test-vehicle-compliance-checker-frontend brakeman
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-  
-  # Execute integration/scenario tests
-  - name: integration tests
-    image: docker
-    commands:
-    - docker run --rm -e COMPLIANCE_CHECKER_API_URL="https://jaqu-caz.herokuapp.com" test-vehicle-compliance-checker-frontend cucumber
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
