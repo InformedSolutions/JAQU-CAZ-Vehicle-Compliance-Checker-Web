@@ -19,7 +19,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
       - name: coverage_reports
-        path: /home/app/coverage
+        path: /home/app
     commands:
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
     - pwd
