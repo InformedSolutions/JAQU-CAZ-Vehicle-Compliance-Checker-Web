@@ -12,6 +12,14 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
+  - name: code-analysis
+    image: aosapps/drone-sonar-plugin
+    settings:
+      sonar_host:
+        from_secret: sonar_host
+      sonar_token:
+        from_secret: sonar_token
+
   # Build docker image
   - name: build
     image: docker
