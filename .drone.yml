@@ -26,6 +26,8 @@ steps:
     image: docker
     commands:
     - docker run --rm -e COMPLIANCE_CHECKER_API_URL=http://localhost test-vehicle-compliance-checker-frontend rspec -f d
+    - cd /home/app/coverage
+    - ls -a
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -75,6 +77,9 @@ steps:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
+    commands:
+       - cd /coverage
+       - ls -a
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
@@ -167,6 +172,7 @@ volumes:
 
 # Triggers
 trigger:
+  cron: [ nightly ]
   branch:
   - develop
   event:
