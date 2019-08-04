@@ -29,14 +29,14 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
       - name: coverage_reports
-        path: /coverage
+        path: /home/app/coverage
     commands:
     - rspec -f d
     - pwd
     - ls -a
     - cd coverage
     - ls
-    - cd /coverage
+    - cd /home/app/coverage
     - ls -a
 
   # Execute integration/scenario tests
