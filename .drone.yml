@@ -33,8 +33,9 @@ steps:
       - name: coverage_reports
         path: /home/app/coverage
     commands:
-    - ls -a
-    - RAILS_ENV=test ./bin/rails webpacker:compile
+    - gem install bundler
+    - bundle install
+    - yarn install
     - rspec -f d
     - pwd
     - ls -a
