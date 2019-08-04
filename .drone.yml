@@ -77,7 +77,7 @@ steps:
         from_secret: sonar_token
     commands:
       - cd /coverage
-      - ls
+      - ll
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
