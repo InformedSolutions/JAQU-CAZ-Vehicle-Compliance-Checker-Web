@@ -75,13 +75,14 @@ steps:
       - name: coverage_reports
         path: /coverage
     environment:
-      sonar.exclusions: app/assets/**/*
       sonar.ruby.coverage.reportPaths: coverage/.resultset.json
     settings:
       sonar_host:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
+      sources: app, config, db, lib
+      exclusions: app/assets/**/*, config/**/*, app/channels/**/*, app/javascript/channels/**/*, app/javascript/packs/**/*, app/mailers/**/*, babel.config.js, features/support/**/*, features/step_definitions/**/*, postcss.config.js, spec/spec_helper.rb, app/javascript/src/**/*, public/*, spec/models/vrn_form_spec.rb, spec/services/vrn_parser_spec.rb
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
