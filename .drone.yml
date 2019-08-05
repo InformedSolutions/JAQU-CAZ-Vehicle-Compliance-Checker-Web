@@ -78,26 +78,12 @@ steps:
         from_secret: sonar_token
       sonar.ruby.coverage.reportPaths: coverage/.resultset.json
     commands:
-      - sonar-scanner -Dsonar.projectKey=${DRONE_REPO}
+      - sonar-scanner 
+        -Dsonar.projectKey=${DRONE_REPO}
         -Dsonar.projectName=${DRONE_REPO}
         -Dsonar.host.url=$sonar_host
         -Dsonar.login=$sonar_token
         -Dproject.settings=./sonar-project.properties
-  
-  - name: sonar scan
-    image: aosapps/drone-sonar-plugin
-    volumes:
-      - name: coverage_reports
-        path: /coverage
-    environment:
-      sonar.ruby.coverage.reportPaths: coverage/.resultset.json
-    settings:
-      sonar_host:
-        from_secret: sonar_host
-      sonar_token:
-        from_secret: sonar_token
-      sources: app, config, db, lib
-      exclusions: app/assets/**/*, config/**/*, app/channels/**/*, app/javascript/channels/**/*, app/javascript/packs/**/*, app/mailers/**/*, babel.config.js, features/support/**/*, features/step_definitions/**/*, postcss.config.js, spec/spec_helper.rb, app/javascript/src/**/*, public/*, spec/models/vrn_form_spec.rb, spec/services/vrn_parser_spec.rb
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
   - name: initialise ecr
