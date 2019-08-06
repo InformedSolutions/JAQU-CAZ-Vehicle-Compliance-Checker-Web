@@ -174,7 +174,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Execute jMeter
+  # Execute jMeter using local built image
   - name: run micro-performance tests
     image: jmeter
     pull: never
@@ -183,7 +183,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    
 
 volumes:
 - name: docker_sock
