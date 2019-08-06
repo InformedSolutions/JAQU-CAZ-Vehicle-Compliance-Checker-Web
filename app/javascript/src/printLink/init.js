@@ -1,5 +1,5 @@
 function init() {
-    var printLink = document.getElementById('print-page-link');
+    let printLink = document.getElementById('print-page-link');
     printLink.style.display = 'block';
 }
 
