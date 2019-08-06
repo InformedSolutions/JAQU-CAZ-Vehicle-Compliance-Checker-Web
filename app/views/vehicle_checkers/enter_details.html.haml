@@ -21,6 +21,10 @@
             - if @error
               %span.govuk-visually-hidden Error:
               = @error
-          %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint', 'aria-describedby': 'vrn-error', name: 'vrn', type: 'text', value: params[:vrn], class: ('govuk-input--error' if @error), style: 'text-transform: uppercase;'}
+          %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint',
+            'aria-describedby': 'vrn-error',
+            name: 'vrn', type: 'text',
+            value: params[:vrn],
+            class: ('govuk-input--error' if @error), style: 'text-transform: uppercase;'}
         %br
         = submit_tag 'Continue', 'data-role' => 'button', class: 'govuk-button'

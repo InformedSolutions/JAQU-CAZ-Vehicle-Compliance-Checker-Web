@@ -7,9 +7,7 @@ RSpec.describe CazForm, type: :model do
 
   let(:selected_caz) { %w[London York] }
 
-  it 'is valid with a proper selected caz' do
-    expect(form.valid?).to eq(true)
-  end
+  it { is_expected.to be_valid }
 
   it 'has selected caz set as parameter' do
     expect(form.parameter).to eq(selected_caz)
@@ -18,11 +16,10 @@ RSpec.describe CazForm, type: :model do
   context 'when selected caz is empty' do
     let(:selected_caz) { '' }
 
-    it 'is not valid' do
-      expect(form.valid?).to eq(false)
-    end
+    it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
+      form.valid?
       expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end
@@ -30,11 +27,10 @@ RSpec.describe CazForm, type: :model do
   context 'when selected caz is an empty array' do
     let(:selected_caz) { [] }
 
-    it 'is not valid' do
-      expect(form.valid?).to eq(false)
-    end
+    it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
+      form.valid?
       expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end

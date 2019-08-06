@@ -21,6 +21,7 @@ RSpec.describe VrnForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has a empty error message' do
+      form.valid?
       expect(form.message).to eq('You must enter your registration number')
     end
   end
@@ -31,6 +32,7 @@ RSpec.describe VrnForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has a too long error message' do
+      form.valid?
       expect(form.message).to eq('Your registration number is too long')
     end
   end
@@ -41,6 +43,7 @@ RSpec.describe VrnForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has a too short error message' do
+      form.valid?
       expect(form.message).to eq('Your registration number is too short')
     end
   end
@@ -51,6 +54,7 @@ RSpec.describe VrnForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has an invalid format error message' do
+      form.valid?
       expect(form.message).to eq('You must enter your registration number in valid format')
     end
   end
@@ -61,6 +65,7 @@ RSpec.describe VrnForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
+      form.valid?
       expect(form.message).to eq('You must enter your registration number in valid format')
     end
   end

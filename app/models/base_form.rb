@@ -6,6 +6,5 @@ class BaseForm
   def initialize(parameter)
     @parameter = parameter
     @message = ''
-    valid?
   end
 end
