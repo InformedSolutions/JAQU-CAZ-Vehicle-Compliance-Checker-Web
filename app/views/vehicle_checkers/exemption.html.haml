@@ -5,11 +5,14 @@
     .govuk-grid-column-two-thirds
       .govuk-panel.govuk-panel--confirmation
         %h1.govuk-panel__title
-          This vehicle is exempt from charges everywhere
+          This vehicle is exempt from charges in all Clean Air Zones
       %br
       %p
         Vehicle registration
         = @vehicle_registration
-        meets national Clean Air Zone standards and there is no charge to drive it in any of the zones.
+        is exempt from all Clean Air Zone charges and there is no charge to drive it in any of the zones.
+        The Ultra Low Emission Zone is London may have different exemption rules that you can check
+        = link_to('here', 'https://tfl.gov.uk/modes/driving/ultra-low-emission-zone/discounts-and-exemptions', target: '_blank', class: 'caz_inline_link')
+        if you need to drive in London.
       %br
-      = link_to('Check another vehicle', enter_details_vehicle_checkers_path, target: '_blank', class: 'caz_inline_link')
+      = link_to('Check another vehicle', enter_details_vehicle_checkers_path, class: 'caz_inline_link')
