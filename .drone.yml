@@ -164,6 +164,27 @@ steps:
         exclude:
         - pull_request
 
+  # Build jMeter image
+  - name: build micro-perfomance image
+    image: docker
+    commands:
+    - cd jmeter
+    - docker build -t jmeter -f Dockerfile .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Execute jMeter
+  - name: run micro-performance tests
+    image: jmeter
+    pull: never
+    commands:
+      - jmeter -n -t jmeter/valid_vehicle_compliance.jmx
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    
+
 volumes:
 - name: docker_sock
   host:
