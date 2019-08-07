@@ -49,8 +49,32 @@ var config = {
                 "click element input[type=submit]",
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
-                "screen capture screenshots/test.png",
-                "click element button[type=submit]"
+                "check field #caz-1",
+                "click element button[type=submit]",
+                "screen capture screenshots/compliance-page.png"
+            ]
+        },
+		{
+            "url": "${BASE_URL}?exemption",
+            "actions": [
+                "click element .govuk-button--start",
+                "wait for element #vrn to be visible",
+                "set field #vrn to CU57ABE",
+                "click element input[type=submit]",
+                "screen capture screenshots/exemption-page.png"
+            ]
+        },
+		{
+            "url": "${BASE_URL}?incorrect-vehicle",
+            "actions": [
+                "click element .govuk-button--start",
+                "wait for element #vrn to be visible",
+                "set field #vrn to CU57ABC",
+                "click element input[type=submit]",
+                "wait for element #confirm-vehicle-2 to be visible",
+                "click element #confirm-vehicle-2",
+                "click element input[type=submit]",
+                "screen capture screenshots/incorrect-vehicle-details-page.png"
             ]
         }
     ]
@@ -61,7 +85,7 @@ var config = {
  */
 function replacePa11yBaseUrls(urls, defaults) {
 
-    console.error('Env:', process.env.BASE_URL);
+    console.error('BASE_URL:', process.env.BASE_URL);
 
     //Iterate existing urls object from configuration
     for (var idx = 0; idx < urls.length; idx++) {
@@ -81,6 +105,10 @@ function replacePa11yBaseUrls(urls, defaults) {
         urls: urls
     }
 
+	console.log('\n')
+	console.log('Generated pa11y configuration:\n')
+	console.log(result)
+	
     return result
 };
 
