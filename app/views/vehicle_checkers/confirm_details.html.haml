@@ -44,6 +44,8 @@
               %span.govuk-visually-hidden Error:
               Select yes if the details are correct
           %fieldset.govuk-fieldset
+            %legend.govuk-visually-hidden
+              Are these the vehicle's details?
             %input{name: 'vrn', type: 'hidden', value: @vehicle_details.registration_number}
             .govuk-radios.govuk-radios--inline
               .govuk-radios__item

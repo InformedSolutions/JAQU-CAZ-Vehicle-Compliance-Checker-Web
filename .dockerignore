@@ -15,3 +15,5 @@ db/test.sqlite3
 node_modules
 public/packs
 public/packs-test
+pa11y/
+jmeter/
