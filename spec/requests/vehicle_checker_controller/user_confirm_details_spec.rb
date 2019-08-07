@@ -16,9 +16,7 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
   context 'when user confirms details' do
     it 'redirects to enter_details' do
       http_request
-      expect(response).to redirect_to(
-        caz_selection_air_zones_path(vrn: vrn)
-      )
+      expect(response).to redirect_to(caz_selection_air_zones_path(vrn: vrn))
     end
   end
 
@@ -27,21 +25,16 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
 
     it 'redirects to incorrect_details' do
       http_request
-      expect(response).to redirect_to(
-        incorrect_details_vehicle_checkers_path(vrn: vrn)
-      )
+      expect(response).to redirect_to(incorrect_details_vehicle_checkers_path(vrn: vrn))
     end
   end
 
   context 'when confirmation is empty' do
     let(:confirmation) { '' }
 
-    it 'redirects to confirm_details with error msg' do
-      error = 'You must choose an answer'
+    it 'redirects to confirm_details page' do
       http_request
-      expect(response).to redirect_to(
-        confirm_details_vehicle_checkers_path(error: error, vrn: vrn)
-      )
+      expect(response).to redirect_to(confirm_details_vehicle_checkers_path(vrn: vrn))
     end
   end
 end

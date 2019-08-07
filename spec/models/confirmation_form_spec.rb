@@ -7,9 +7,7 @@ RSpec.describe ConfirmationForm, type: :model do
 
   let(:confirmation) { 'yes' }
 
-  it 'is valid with a proper confirmation' do
-    expect(form.valid?).to eq(true)
-  end
+  it { is_expected.to be_valid }
 
   it 'has confirmation set as parameter' do
     expect(form.parameter).to eq(confirmation)

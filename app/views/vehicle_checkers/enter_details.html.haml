@@ -2,29 +2,32 @@
 = link_to 'Back', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
-  - if @error
-    .govuk-error-summary{"aria-labelledby" => "error-summary-title", "data-module" => "error-summary", role: "alert", tabindex: "-1"}
+  - if flash['errors']
+    .govuk-error-summary{"aria-labelledby" => "error-summary-title",
+                          "data-module" => "error-summary",
+                          role: "alert",
+                          tabindex: "-1"}
       %h2#error-summary-title.govuk-error-summary__title
         There is a problem
       .govuk-error-summary__body
         %ul.govuk-list.govuk-error-summary__list
           %li
-            %a{href: "#vrn-error"}= @error
+            %a{href: "#vrn-error"}= flash['errors']
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Enter the registration of the vehicle you wish to check
       = form_tag confirm_details_vehicle_checkers_path, method: :get do
-        .govuk-form-group{class: ('govuk-form-group--error' if @error)}
-          %label#vrn-hint.govuk-hint{ for: 'vrn' }
-            For example, CU57ABC
-          %span#vrn-error.govuk-error-message
-            - if @error
-              %span.govuk-visually-hidden Error:
-              = @error
-          %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint',
-            'aria-describedby': 'vrn-error',
-            name: 'vrn', type: 'text',
-            value: params[:vrn],
-            class: ('govuk-input--error' if @error), style: 'text-transform: uppercase;'}
+        - if flash['errors']
+          = render 'errored_field'
+        - else
+          .govuk-form-group
+            %label#vrn-hint.govuk-hint{ for: 'vrn' }
+              For example, CU57ABC
+            %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint',
+                                                          'aria-describedby': 'vrn-error',
+                                                          name: 'vrn',
+                                                          type: 'text',
+                                                          value: params[:vrn],
+                                                          style: 'text-transform: uppercase;'}
         %br
         = submit_tag 'Continue', 'data-role' => 'button', class: 'govuk-button'
