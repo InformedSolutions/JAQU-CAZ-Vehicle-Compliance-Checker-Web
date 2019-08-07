@@ -19,8 +19,8 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
-        <longProp name="ThreadGroup.start_time">1565170661000</longProp>
-        <longProp name="ThreadGroup.end_time">1565170661000</longProp>
+        <longProp name="ThreadGroup.start_time">1565170662000</longProp>
+        <longProp name="ThreadGroup.end_time">1565170662000</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">60</stringProp>
         <stringProp name="ThreadGroup.delay"/>
@@ -32,7 +32,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="vrn" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">CU57ABC</stringProp>
+                <stringProp name="Argument.value">A9</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">vrn</stringProp>
