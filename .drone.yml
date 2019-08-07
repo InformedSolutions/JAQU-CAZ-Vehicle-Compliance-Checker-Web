@@ -26,6 +26,8 @@ steps:
   - name: run pa11y tests
     image: pa11y-ci
     pull: never
+    environment:
+      BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
     commands:
       - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
 
