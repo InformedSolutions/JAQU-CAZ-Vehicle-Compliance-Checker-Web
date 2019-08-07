@@ -5,7 +5,7 @@ class AirZonesController < ApplicationController
 
   def caz_selection
     assign_error
-    @clean_air_zones = ComplianceCheckerApi.clean_air_zones
+    @clean_air_zones = ComplianceCheckerApi.clean_air_zones.map { |caz_data| Caz.new(caz_data) }
   end
 
   def compliance

@@ -27,10 +27,10 @@
             .govuk-checkboxes
               - @clean_air_zones.each_with_index do |zone, index|
                 .govuk-checkboxes__item
-                  %input.govuk-checkboxes__input{name: "caz[]", type: 'checkbox', value: zone['id'], id: "caz-#{index}" }
+                  %input.govuk-checkboxes__input{name: "caz[]", type: 'checkbox', value: zone.id, id: "caz-#{index}" }
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
-                    = zone['name']
-                    = link_to '(see boundary)', zone['infoUrl'], target: "_blank"
+                    = zone.name
+                    = link_to '(see boundary)', zone.boundary_url, target: "_blank"
 
         %button.govuk-button{type: 'submit'}
           Continue
