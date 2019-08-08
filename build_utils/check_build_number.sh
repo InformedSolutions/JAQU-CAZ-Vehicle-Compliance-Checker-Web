@@ -12,7 +12,7 @@ then
     echo "Build id found"
     exit
 else
-    sleep 5;
-    echo "Waiting for build number ${build_id} to appear in remote response...";
+    sleep 10;
+    echo "Waiting for build number ${build_id} to be returned by remote host...";
 fi
 done
