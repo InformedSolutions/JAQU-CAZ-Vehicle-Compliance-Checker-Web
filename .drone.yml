@@ -193,26 +193,18 @@ steps:
         exclude:
         - pull_request
 
-
-  # Build jMeter image
-  - name: build micro-performance image
-    image: docker
-    commands:
-    - cd jmeter
-    - docker build -t jmeter -f Dockerfile .
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Execute jMeter using local built image
+  # Execute jMeter scripts via taurus
   - name: micro-performance tests
-    image: jmeter
-    pull: never
+    image: blazemeter/taurus
     commands:
-      - jmeter -n -t jmeter/valid_vehicle_compliance.jmx
+      - bzt jmeter/valid_vehicle_compliance.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
 
   # Execute OWASP Zap tests
   - name: owasp zap tests

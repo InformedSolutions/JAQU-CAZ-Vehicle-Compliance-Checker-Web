@@ -1,0 +1,17 @@
+execution:
+- concurrency: 1
+  hold-for: 1m
+  scenario: validCompliance
+
+
+scenarios:
+  validCompliance:
+    default-address: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
+    requests:
+      - /air_zones/compliance?vrn=A9&caz%5B%5D=birmingham&caz%5B%5D=leeds
+
+reporting:
+- module: passfail
+  criteria:
+  - "avg-rt>300ms for 10s, continue as failed"
+  - "fail>50% for 1s, stop as failed"
