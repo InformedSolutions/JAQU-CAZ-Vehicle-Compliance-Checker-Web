@@ -188,7 +188,7 @@ steps:
         path: /var/run/docker.sock
 
   # Execute jMeter using local built image
-  - name: run micro-performance tests
+  - name: micro-performance tests
     image: jmeter
     pull: never
     commands:
