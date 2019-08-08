@@ -12,15 +12,6 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
 
-  # Execute jMeter using local built image
-  - name: run micro-performance tests
-    image: blazemeter/taurus
-    commands:
-      - bzt jmeter/valid_vehicle_compliance.yml
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
   # Build docker image
   - name: build
     image: docker
@@ -202,23 +193,11 @@ steps:
         exclude:
         - pull_request
 
-
-  # Build jMeter image
-  - name: build micro-performance image
-    image: docker
-    commands:
-    - cd jmeter
-    - docker build -t jmeter -f Dockerfile .
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
-  # Execute jMeter using local built image
+  # Execute jMeter scripts via taurus
   - name: micro-performance tests
-    image: jmeter
-    pull: never
+    image: blazemeter/taurus
     commands:
-      - jmeter -n -t jmeter/valid_vehicle_compliance.jmx
+      - bzt jmeter/valid_vehicle_compliance.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock

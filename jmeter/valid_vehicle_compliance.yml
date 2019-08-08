@@ -1,6 +1,6 @@
 execution:
 - concurrency: 1
-  hold-for: 1m
+  hold-for: 30s
   scenario: validCompliance
 
 
@@ -13,5 +13,5 @@ scenarios:
 reporting:
 - module: passfail
   criteria:
-  - "avg-rt>300ms for 10s, continue as failed"
+  - "avg-rt>500ms for 10s, continue as failed"
   - "fail>50% for 1s, stop as failed"
