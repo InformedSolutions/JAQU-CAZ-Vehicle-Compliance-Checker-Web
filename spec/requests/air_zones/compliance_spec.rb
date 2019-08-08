@@ -11,9 +11,6 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
   before do
     compliance = JSON.parse(file_fixture('vehicle_compliance_response.json').read)
     allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
-  end
-
-  before :each do
     http_request
   end
 
