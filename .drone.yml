@@ -160,15 +160,17 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
 
-  # Execute OWASP Zap tests
-  - name: owasp zap tests
-    image: owasp/zap2docker-stable
+  # Build pa11y-ci image
+  - name: build pa11y-ci image
+    image: docker
     commands:
-      - mkdir -p /zap/wrk
-      - cp zap.conf /zap/wrk/zap.conf
-      - cd /zap
-      - zap-full-scan.py -t http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com -c zap.conf
+      - cd pa11y
+      - docker build -t pa11y-ci .
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -176,6 +178,21 @@ steps:
       event:
         exclude:
         - pull_request
+        
+  # Trigger accessibility test
+  - name: accessibility tests
+    image: pa11y-ci
+    pull: never
+    environment:
+      BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
+    commands:
+      - mkdir screenshots
+      - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
+    when:
+      event:
+        exclude:
+        - pull_request
+
 
   # Build jMeter image
   - name: build micro-performance image
@@ -196,6 +213,22 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+
+  # Execute OWASP Zap tests
+  - name: owasp zap tests
+    image: owasp/zap2docker-stable
+    commands:
+      - mkdir -p /zap/wrk
+      - cp zap.conf /zap/wrk/zap.conf
+      - cd /zap
+      - zap-full-scan.py -t http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com -c zap.conf
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
 
 volumes:
 - name: docker_sock
