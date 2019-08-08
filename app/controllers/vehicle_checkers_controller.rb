@@ -4,14 +4,13 @@ class VehicleCheckersController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
 
   def enter_details
-    assign_error
+    # renders static page
   end
 
   def confirm_details
-    assign_error
     form = VrnForm.new(vrn)
     unless form.valid?
-      return redirect_to enter_details_vehicle_checkers_path(error: form.message, vrn: vrn)
+      return redirect_to enter_details_vehicle_checkers_path(vrn: vrn), alert: form.message
     end
 
     @vehicle_details = VehicleDetails.new(vrn)
@@ -21,8 +20,9 @@ class VehicleCheckersController < ApplicationController
   def user_confirm_details
     form = ConfirmationForm.new(confirmation)
     unless form.valid?
-      redirect_to confirm_details_vehicle_checkers_path(error: form.message, vrn: vrn) and return
+      return redirect_to confirm_details_vehicle_checkers_path(vrn: vrn), alert: form.message
     end
+
     redirect_to caz_selection_air_zones_path(vrn: vrn) and return if form.confirmed?
     redirect_to incorrect_details_vehicle_checkers_path(vrn: vrn)
   end
@@ -40,10 +40,6 @@ class VehicleCheckersController < ApplicationController
   end
 
   private
-
-  def assign_error
-    @error = params[:error]
-  end
 
   def vrn
     params[:vrn]

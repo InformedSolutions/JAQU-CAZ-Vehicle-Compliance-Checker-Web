@@ -31,12 +31,9 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
   context 'when VRN is not valid' do
     let(:vrn) { '' }
 
-    it 'redirects to enter_details' do
+    it 'redirects to enter_details page' do
       http_request
-      error = 'You must enter your registration number'
-      expect(response).to redirect_to(
-        enter_details_vehicle_checkers_path(error: error, vrn: vrn)
-      )
+      expect(response).to redirect_to(enter_details_vehicle_checkers_path(vrn: vrn))
     end
   end
 
@@ -47,9 +44,7 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
 
     it 'redirects to server unavailable' do
       http_request
-      expect(response).to redirect_to(
-        server_unavailable_path
-      )
+      expect(response).to redirect_to(server_unavailable_path)
     end
   end
 
@@ -64,9 +59,7 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
 
     it 'redirects to number not found page' do
       http_request
-      expect(response).to redirect_to(
-        number_not_found_vehicle_checkers_path(vrn: vrn)
-      )
+      expect(response).to redirect_to(number_not_found_vehicle_checkers_path(vrn: vrn))
     end
   end
 end

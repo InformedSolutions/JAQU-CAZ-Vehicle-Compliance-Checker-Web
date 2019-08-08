@@ -15,53 +15,59 @@ RSpec.describe VrnForm, type: :model do
     end
   end
 
-  context 'when VRN is empty' do
-    let(:vrn) { '' }
-
-    it { is_expected.not_to be_valid }
-
-    it 'has a empty error message' do
-      expect(form.message).to eq('You must enter your registration number')
+  context 'VRN validation' do
+    before :each do
+      form.valid?
     end
-  end
 
-  context 'when VRN is too long' do
-    let(:vrn) { 'ABCDEFGH' }
+    context 'when VRN is empty' do
+      let(:vrn) { '' }
 
-    it { is_expected.not_to be_valid }
+      it { is_expected.not_to be_valid }
 
-    it 'has a too long error message' do
-      expect(form.message).to eq('Your registration number is too long')
+      it 'has a empty error message' do
+        expect(form.message).to eq('You must enter your registration number')
+      end
     end
-  end
 
-  context 'when VRN is too short' do
-    let(:vrn) { 'A' }
+    context 'when VRN is too long' do
+      let(:vrn) { 'ABCDEFGH' }
 
-    it { is_expected.not_to be_valid }
+      it { is_expected.not_to be_valid }
 
-    it 'has a too short error message' do
-      expect(form.message).to eq('Your registration number is too short')
+      it 'has a too long error message' do
+        expect(form.message).to eq('Your registration number is too long')
+      end
     end
-  end
 
-  context 'when VRN has special signs' do
-    let(:vrn) { 'ABCDE$%' }
+    context 'when VRN is too short' do
+      let(:vrn) { 'A' }
 
-    it { is_expected.not_to be_valid }
+      it { is_expected.not_to be_valid }
 
-    it 'has an invalid format error message' do
-      expect(form.message).to eq('You must enter your registration number in valid format')
+      it 'has a too short error message' do
+        expect(form.message).to eq('Your registration number is too short')
+      end
     end
-  end
 
-  context 'when VRN has too many numbers' do
-    let(:vrn) { 'C111999' }
+    context 'when VRN has special signs' do
+      let(:vrn) { 'ABCDE$%' }
 
-    it { is_expected.not_to be_valid }
+      it { is_expected.not_to be_valid }
 
-    it 'has a proper error message' do
-      expect(form.message).to eq('You must enter your registration number in valid format')
+      it 'has an invalid format error message' do
+        expect(form.message).to eq('You must enter your registration number in valid format')
+      end
+    end
+
+    context 'when VRN has too many numbers' do
+      let(:vrn) { 'C111999' }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.message).to eq('You must enter your registration number in valid format')
+      end
     end
   end
 
