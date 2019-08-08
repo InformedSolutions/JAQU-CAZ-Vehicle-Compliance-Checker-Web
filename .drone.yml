@@ -160,6 +160,10 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
 
   # Build pa11y-ci image
   - name: build pa11y-ci image
