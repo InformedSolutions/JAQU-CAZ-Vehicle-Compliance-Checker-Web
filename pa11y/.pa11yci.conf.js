@@ -50,8 +50,7 @@ var config = {
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
                 "check field #caz-1",
-                "click element button[type=submit]",
-                "screen capture screenshots/compliance-page.png"
+                "click element button[type=submit]"
             ]
         },
 		{
@@ -60,8 +59,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CU57ABE",
-                "click element input[type=submit]",
-                "screen capture screenshots/exemption-page.png"
+                "click element input[type=submit]"
             ]
         },
 		{
@@ -73,8 +71,7 @@ var config = {
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-2 to be visible",
                 "click element #confirm-vehicle-2",
-                "click element input[type=submit]",
-                "screen capture screenshots/incorrect-vehicle-details-page.png"
+                "click element input[type=submit]"
             ]
         }
     ]
