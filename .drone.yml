@@ -121,10 +121,10 @@ steps:
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=secret
-    when:
-      event:
-        exclude:
-        - pull_request
+  #  when:
+  #    event:
+  #      exclude:
+  #      - pull_request
 
   # Invoke terraform scripts with tagged image number
   - name: deploy
