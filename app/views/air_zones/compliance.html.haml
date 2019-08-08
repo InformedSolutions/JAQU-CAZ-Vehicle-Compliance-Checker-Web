@@ -6,56 +6,56 @@
       %h1.govuk-heading-l Clean Air Zone compliance
       %p= "Vehicle registration #{params[:vrn]}."
 
-      - @compliance_zones.each do |zone|
+      - @compliance_zones.each do |details|
         %h1.govuk-heading-l
-          = zone['name']
+          = details.zone_name
 
-        - if zone['charge'] == 0.0
+        - unless details.charged?
           .govuk-panel.govuk-panel--confirmation
             %h1.govuk-panel__title
               You will not be charged
           %br
           %p
             There is no charge for this vehicle to travel in the
-            = link_to zone['infoUrl'], target: '_blank' do
-              = zone['name']
+            = link_to details.main_info_url, target: '_blank' do
+              = details.zone_name
               CAZ
         - else
           .govuk-panel.govuk-panel--noncompliant
             %h1.govuk-panel__title
               Subject to charge:
               %br
-              = "£#{format('%.2f', zone['charge'].to_f)}"
+              = details.charge
           %br
           %p
             This vehicle does not comply with the
             = succeed "." do
-              = link_to zone['infoUrl'], target: '_blank', class: 'caz_inline_link' do
-                = zone['name']
+              = link_to details.emissions_standards_url, target: '_blank', class: 'caz_inline_link' do
+                = details.zone_name
                 CAZ emissions standards
             It is therefore subject to a charge when driving in the
-            = link_to zone['infoUrl'], target: '_blank', class: 'caz_inline_link' do
-              = zone['name']
+            = link_to details.main_info_url, target: '_blank', class: 'caz_inline_link' do
+              = details.zone_name
               Clean Air Zone
             = ' during its'
             = succeed "." do
-              = link_to 'hours of operation', zone['infoUrl'], target: '_blank', class: 'caz_inline_link'
+              = link_to 'hours of operation', details.hours_of_operation_url, target: '_blank', class: 'caz_inline_link'
 
           %h2.govuk-heading-m
             Next steps
           %ul.govuk-list.govuk-list--bullet
             %li
-              = link_to "Find out how much the #{zone['name']} CAZ charge is", zone['infoUrl'], target: '_blank'
+              = link_to "Find out how much the #{details.zone_name} CAZ charge is", details.pricing_url, target: '_blank'
             %li
-              = link_to 'Find out if you qualify for an exemption or discount', zone['infoUrl'], target: '_blank'
+              = link_to 'Find out if you qualify for an exemption or discount', details.exemption_or_discount_url, target: '_blank'
             %li
-              = link_to "Pay the #{zone['name']} CAZ charge", zone['infoUrl'], target: '_blank'
+              = link_to "Pay the #{details.zone_name} CAZ charge", details.pay_caz_url, target: '_blank'
           %p
             If you wish to avoid the charge in the future, you can change your vehicle to
             = succeed "," do
-              = link_to 'become compliant', zone['infoUrl'], target: '_blank'
+              = link_to 'become compliant', details.become_compliant_url, target: '_blank'
             and you may qualify for
-            = link_to 'financial assistance', zone['infoUrl'], target: '_blank'
+            = link_to 'financial assistance', details.financial_assistance_url, target: '_blank'
             to help you do so.
 
       %p#print-page-link{style: 'display: none;'}
