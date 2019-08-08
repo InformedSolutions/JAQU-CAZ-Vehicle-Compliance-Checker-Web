@@ -22,7 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'server_unavailable', to: 'application#server_unavailable'
-  get 'health', to: 'application#health'
-  get 'cookies', to: 'cookies#index'
+  get :server_unavailable, to: 'application#server_unavailable'
+  get :health, to: 'application#health'
+  get :build_id, to: 'application#build_id'
+  get :cookies, to: 'cookies#index'
 end
