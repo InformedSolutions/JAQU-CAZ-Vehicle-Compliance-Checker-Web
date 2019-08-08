@@ -1,13 +1,13 @@
 = link_to 'Back', enter_details_vehicle_checkers_path(vrn: @vehicle_details.registration_number), class: 'govuk-back-link'
 %main.govuk-main-wrapper#main-content{role: 'main'}
-  - if flash['errors']
+  - if alert
     .govuk-error-summary{"aria-labelledby" => "error-summary-title", "data-module" => "error-summary", role: "alert", tabindex: "-1"}
       %h2#error-summary-title.govuk-error-summary__title
         There is a problem
       .govuk-error-summary__body
         %ul.govuk-list.govuk-error-summary__list
           %li
-            %a{href: "#confirm-vehicle-error"}= flash['errors']
+            %a{href: "#confirm-vehicle-error"}= alert
 
   .govuk-grid-row
     .govuk-grid-column-two-thirds
@@ -38,7 +38,7 @@
               %th.govuk-table__cell= @vehicle_details.taxi_private_hire_vehicle
 
       = form_tag user_confirm_details_vehicle_checkers_path, method: :get do
-        - if flash['errors']
+        - if alert
           .govuk-form-group{class: 'govuk-form-group--error'}
             %span#confirm-vehicle-error.govuk-error-message
               %span.govuk-visually-hidden Error:

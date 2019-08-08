@@ -32,12 +32,13 @@ RSpec.describe ConfirmationForm, type: :model do
   context 'when confirmation is empty' do
     let(:confirmation) { '' }
 
-    it 'is not valid' do
-      expect(form.valid?).to eq(false)
+    it { is_expected.not_to be_valid }
+
+    before do
+      form.valid?
     end
 
     it 'has a proper error message' do
-      form.valid?
       expect(form.message).to eq('You must choose an answer')
     end
   end

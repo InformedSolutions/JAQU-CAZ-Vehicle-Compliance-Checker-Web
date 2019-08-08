@@ -2,7 +2,7 @@
 = link_to 'Back', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
-  - if flash['errors']
+  - if alert
     .govuk-error-summary{"aria-labelledby" => "error-summary-title",
                           "data-module" => "error-summary",
                           role: "alert",
@@ -12,12 +12,12 @@
       .govuk-error-summary__body
         %ul.govuk-list.govuk-error-summary__list
           %li
-            %a{href: "#vrn-error"}= flash['errors']
+            %a{href: "#vrn-error"}= alert
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Enter the registration of the vehicle you wish to check
       = form_tag confirm_details_vehicle_checkers_path, method: :get do
-        - if flash['errors']
+        - if alert
           = render 'errored_field'
         - else
           .govuk-form-group

@@ -13,13 +13,16 @@ RSpec.describe CazForm, type: :model do
     expect(form.parameter).to eq(selected_caz)
   end
 
+  before :each do
+    form.valid?
+  end
+
   context 'when selected caz is empty' do
     let(:selected_caz) { '' }
 
     it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
-      form.valid?
       expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end
@@ -30,7 +33,6 @@ RSpec.describe CazForm, type: :model do
     it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
-      form.valid?
       expect(form.message).to eq('You must select at least one Clean Air Zone')
     end
   end
