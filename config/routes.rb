@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     collection do
       get :enter_details
       get :confirm_details
+      post :validate_vrn
       get :incorrect_details
       get :user_confirm_details
       get :number_not_found
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   resources :air_zones, only: [] do
     collection do
       get :caz_selection
-      get :compliance
+      post :compliance
     end
   end
 
