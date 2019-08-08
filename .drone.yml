@@ -155,7 +155,8 @@ steps:
       build_id_url: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
-    - sh build_utils/check_build_number.sh
+      - apk add curl
+      - sh build_utils/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
