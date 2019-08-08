@@ -16,4 +16,9 @@ node_modules
 public/packs
 public/packs-test
 pa11y/
+<<<<<<< HEAD
 jmeter/
+=======
+jmeter/
+build_utils/
+>>>>>>> develop

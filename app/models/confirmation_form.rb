@@ -12,7 +12,9 @@ class ConfirmationForm < BaseForm
   private
 
   def filled?
+    return true if parameter.present?
+
     @message = 'You must choose an answer'
-    parameter.present?
+    false
   end
 end

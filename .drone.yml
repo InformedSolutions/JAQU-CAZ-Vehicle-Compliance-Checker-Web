@@ -148,6 +148,72 @@ steps:
         exclude:
         - pull_request
 
+  # Build docker image
+  - name: await ecs rollout
+    image: docker
+    environment:
+      build_id_url: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com/build_id
+      build_id: ${DRONE_BUILD_NUMBER}
+    commands:
+      - apk add curl
+      - sh build_utils/check_build_number.sh
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
+
+  # Build pa11y-ci image
+  - name: build pa11y-ci image
+    image: docker
+    commands:
+      - cd pa11y
+      - docker build -t pa11y-ci .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        exclude:
+        - pull_request
+        
+  # Trigger accessibility test
+  - name: accessibility tests
+    image: pa11y-ci
+    pull: never
+    environment:
+      BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
+    commands:
+      - mkdir screenshots
+      - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
+    when:
+      event:
+        exclude:
+        - pull_request
+
+
+  # Build jMeter image
+  - name: build micro-performance image
+    image: docker
+    commands:
+    - cd jmeter
+    - docker build -t jmeter -f Dockerfile .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Execute jMeter using local built image
+  - name: micro-performance tests
+    image: jmeter
+    pull: never
+    commands:
+      - jmeter -n -t jmeter/valid_vehicle_compliance.jmx
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
   # Execute OWASP Zap tests
   - name: owasp zap tests
     image: owasp/zap2docker-stable
@@ -164,22 +230,11 @@ steps:
         exclude:
         - pull_request
 
-  # Build jMeter image
-  - name: build micro-perfomance image
-    image: docker
-    commands:
-    - cd jmeter
-    - docker build -t jmeter -f Dockerfile .
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-
   # Execute jMeter using local built image
   - name: run micro-performance tests
-    image: jmeter
-    pull: never
+    image: blazemeter/taurus
     commands:
-      - jmeter -n -t jmeter/valid_vehicle_compliance.jmx
+      - bzt jmeter/valid_vehicle_compliance.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
