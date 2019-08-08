@@ -8,23 +8,33 @@ class VrnForm < BaseForm
   private
 
   def filled?
+    return true if parameter.present?
+
     @message = 'You must enter your registration number'
-    parameter.present?
+    false
   end
 
   def valid_format?
+    return true if FORMAT_REGEXPS.any? do |reg|
+      reg.match(parameter.gsub(/\s+/, '').upcase).present?
+    end
+
     @message = 'You must enter your registration number in valid format'
-    FORMAT_REGEXPS.any? { |reg| reg.match(parameter.gsub(/\s+/, '').upcase).present? }
+    false
   end
 
   def not_to_long?
+    return true if parameter.gsub(/\s+/, '').length <= 7
+
     @message = 'Your registration number is too long'
-    parameter.gsub(/\s+/, '').length <= 7
+    false
   end
 
   def not_to_short?
+    return true if parameter.gsub(/\s+/, '').length > 1
+
     @message = 'Your registration number is too short'
-    parameter.gsub(/\s+/, '').length > 1
+    false
   end
 
   FORMAT_REGEXPS = [

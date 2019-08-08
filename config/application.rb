@@ -23,10 +23,6 @@ module JaquCaz
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # http://www.glitchwrks.com/2017/01/16/removing-cookies-sessions-rails-5
-    config.middleware.delete ActionDispatch::Cookies
-    config.middleware.delete ActionDispatch::Session::CookieStore
-
     feedback_url_default = 'https://www.surveymonkey.co.uk/r/2RNBKTV'
     config.x.feedback_url = (ENV['FEEDBACK_URL'].presence || feedback_url_default)
   end
