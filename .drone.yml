@@ -176,7 +176,7 @@ steps:
         path: /var/run/docker.sock
         
   # Trigger accessibility test
-  - name: run pa11y tests
+  - name: accessibility tests
     image: pa11y-ci
     pull: never
     environment:
