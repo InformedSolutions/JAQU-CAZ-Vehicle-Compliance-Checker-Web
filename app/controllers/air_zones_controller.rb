@@ -4,25 +4,19 @@ class AirZonesController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :redirect_to_error_page
 
   def caz_selection
-    assign_error
-    @clean_air_zones = ComplianceCheckerApi.clean_air_zones
+    @clean_air_zones = ComplianceCheckerApi.clean_air_zones.map { |caz_data| Caz.new(caz_data) }
   end
 
   def compliance
-    assign_error
     form = CazForm.new(selected_caz)
     unless form.valid?
-      return redirect_to caz_selection_air_zones_path(error: form.message, vrn: vrn)
+      return redirect_to caz_selection_air_zones_path(vrn: vrn), alert: form.message
     end
 
     @compliance_zones = Compliance.new(vrn, selected_caz).compliance_zones
   end
 
   private
-
-  def assign_error
-    @error = params[:error]
-  end
 
   def vrn
     params[:vrn]

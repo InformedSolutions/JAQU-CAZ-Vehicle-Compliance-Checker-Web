@@ -5,7 +5,7 @@ const monthInMS = 2629746000;
 
 function init() {
     if(!hasSeenMessage()){
-        var banner = document.getElementById('global-cookie-message');
+        const banner = document.getElementById('global-cookie-message');
         banner.style.display = 'block';
         const closeLink = banner.querySelector('#close-banner');
         closeLink.addEventListener('click', () => {

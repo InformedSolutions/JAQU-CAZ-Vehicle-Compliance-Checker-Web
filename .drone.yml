@@ -86,67 +86,80 @@ steps:
         -Dproject.settings=./sonar-project.properties
   
   # Invoke terraform scripts to ensure ecr is available for deploy step.
-  #- name: initialise ecr
-  #  image: hashicorp/terraform:0.12.3
-  #  commands:
-  #    - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-  #    - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-  #    - terraform init
-  #    - terraform workspace select dev || terraform workspace new dev
-  #    - terraform apply -target=module.ecr -auto-approve
-  #  environment:
-  #    TF_VAR_access_key:
-  #      from_secret: aws_access_key_id
-  #    TF_VAR_secret_key:
-  #      from_secret: aws_secret_access_key
-  #  when:
-  #    event:
-  #      exclude:
-  #      - pull_request
+  - name: initialise ecr
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - terraform init
+      - terraform workspace select dev || terraform workspace new dev
+      - terraform apply -target=module.ecr -auto-approve
+    environment:
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+    when:
+      event:
+        exclude:
+        - pull_request
   
   # Push built image to ECR registry
-  #- name: publish image to ecr
-  #  image: plugins/ecr
-  #  settings:
-  #    access_key:
-  #      from_secret: aws_access_key_id
-  #    secret_key:
-  #      from_secret: aws_secret_access_key
-  #    repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
-  #    registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
-  #    dockerfile: Dockerfile.build
-  #    region: eu-west-2
-  #    tags:
-  #      - latest
-  #      - ${DRONE_BUILD_NUMBER}
-  #    build_args:
-  #      - secret_key_base=secret
-  #  when:
-  #    event:
-  #      exclude:
-  #      - pull_request
+  - name: publish image to ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      repo: 018330602464.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
+      registry: 018330602464.dkr.ecr.eu-west-2.amazonaws.com
+      dockerfile: Dockerfile.build
+      region: eu-west-2
+      tags:
+        - latest
+        - ${DRONE_BUILD_NUMBER}
+      build_args:
+        - secret_key_base=secret
+    when:
+      event:
+        exclude:
+        - pull_request
 
   # Invoke terraform scripts with tagged image number
-  #- name: deploy
-  #  image: hashicorp/terraform:0.12.3
-  #  commands:
-  #    - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-  #    - terraform init
-  #    - terraform workspace select dev
-  #    - terraform apply -auto-approve
-  #  environment:
-  #    TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-  #    TF_VAR_secret_key_base: secret
-  #    TF_VAR_google_analytics_id: UA-144774549-2
-  #    TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
-  #    TF_VAR_access_key:
-  #      from_secret: aws_access_key_id
-  #    TF_VAR_secret_key:
-  #      from_secret: aws_secret_access_key
-  #  when:
-  #    event:
-  #      exclude:
-  #      - pull_request
+  - name: deploy
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - terraform init
+      - terraform workspace select dev
+      - terraform apply -auto-approve
+    environment:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_secret_key_base: secret
+      TF_VAR_google_analytics_id: UA-144774549-2
+      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+    when:
+      event:
+        exclude:
+        - pull_request
+
+  # Build docker image
+  - name: await ecs rollout
+    image: docker
+    environment:
+      build_id_url: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com/build_id
+      build_id: ${DRONE_BUILD_NUMBER}
+    commands:
+      - apk add curl
+      - sh build_utils/check_build_number.sh
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
 
   # Build pa11y-ci image
   - name: build pa11y-ci image
@@ -179,7 +192,7 @@ steps:
         path: /var/run/docker.sock
 
   # Execute jMeter using local built image
-  - name: run micro-performance tests
+  - name: micro-performance tests
     image: jmeter
     pull: never
     commands:
