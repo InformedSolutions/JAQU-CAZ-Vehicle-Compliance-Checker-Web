@@ -4,7 +4,7 @@ class AirZonesController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :redirect_to_error_page
 
   def caz_selection
-    @clean_air_zones = ComplianceCheckerApi.clean_air_zones
+    @clean_air_zones = ComplianceCheckerApi.clean_air_zones.map { |caz_data| Caz.new(caz_data) }
   end
 
   def compliance
