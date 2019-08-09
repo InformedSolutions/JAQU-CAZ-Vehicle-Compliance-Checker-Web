@@ -2,6 +2,7 @@
 
 class VehicleCheckersController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
+  before_action :check_vrn, except: %i[enter_details validate_vrn]
 
   def enter_details
     # renders static page

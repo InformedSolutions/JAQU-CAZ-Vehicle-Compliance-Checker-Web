@@ -8,7 +8,7 @@ RSpec.describe 'AirZonesController - GET #caz_selection', type: :request do
   before do
     caz_list = JSON.parse(file_fixture('caz_list_response.json').read)
     allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list)
-    post validate_vrn_vehicle_checkers_path, params: { vrn: 'CU57ABC' }
+    add_vrn_to_session
   end
 
   it 'returns a success response' do

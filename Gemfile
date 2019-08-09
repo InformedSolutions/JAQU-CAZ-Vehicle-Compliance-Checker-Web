@@ -7,19 +7,18 @@ ruby '2.6.3'
 
 gem 'rails', '~> 6.0.0.rc2'
 
-gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5'
-gem 'sqlite3', '~> 1.4'
-gem 'turbolinks', '~> 5'
-gem 'webpacker', '~> 4.0'
-
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', require: false
 gem 'brakeman'
 gem 'bundler-audit'
 gem 'haml'
 gem 'httparty'
 gem 'logstash-logger'
+gem 'puma'
 gem 'rubocop-rails'
+gem 'sass-rails'
+gem 'sqlite3'
+gem 'turbolinks'
+gem 'webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -28,18 +27,18 @@ group :development, :test do
   gem 'haml-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails'
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'spring-watcher-listen'
+  gem 'web-console'
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
+  gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
   gem 'simplecov', require: false

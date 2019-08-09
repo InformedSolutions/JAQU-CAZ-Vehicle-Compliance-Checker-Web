@@ -11,7 +11,10 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
 
   let(:confirmation) { 'yes' }
 
-  before { http_request }
+  before do
+    add_vrn_to_session
+    http_request
+  end
 
   context 'when user confirms details' do
     it 'redirects to enter details page' do

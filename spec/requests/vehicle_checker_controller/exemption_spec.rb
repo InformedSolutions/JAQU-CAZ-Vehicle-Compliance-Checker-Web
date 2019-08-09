@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'VehicleCheckersController - GET #exemption', type: :request do
   subject(:request) { get exemption_vehicle_checkers_path }
 
-  before { post validate_vrn_vehicle_checkers_path, params: { vrn: 'CU57ABC' } }
+  before { add_vrn_to_session }
 
   it 'returns an ok response' do
     request

@@ -5,12 +5,9 @@ require 'rails_helper'
 RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :request do
   subject(:http_request) { get confirm_details_vehicle_checkers_path }
 
-  let(:vrn) { 'CU57ABC' }
   let(:vehicle_details) { JSON.parse(file_fixture('vehicle_details_response.json').read) }
 
-  before do
-    post validate_vrn_vehicle_checkers_path, params: { vrn: vrn }
-  end
+  before { add_vrn_to_session }
 
   context 'when VRN is valid' do
     before do
@@ -43,12 +40,11 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
   end
 
   context 'when vehicle is not found' do
-    let(:vrn) { 'CU57ABD' }
-
     before do
+      add_vrn_to_session(vrn: 'CU57ABD')
       allow(ComplianceCheckerApi).to receive(:vehicle_details)
         .and_raise(BaseApi::Error404Exception.new(404, '',
-                                                  'registrationNumber' => vrn))
+                                                  'registrationNumber' => 'CU57ABD'))
       http_request
     end
 
