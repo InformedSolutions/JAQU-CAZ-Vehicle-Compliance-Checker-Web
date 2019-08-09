@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_vrn
-    redirect_to enter_details_vehicle_checkers_path unless session[:vrn]
+    redirect_to enter_details_vehicle_checkers_path unless vrn
   end
 
   def vrn
