@@ -16,7 +16,7 @@
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Enter the registration of the vehicle you wish to check
-      = form_tag confirm_details_vehicle_checkers_path, method: :get do
+      = form_tag validate_vrn_vehicle_checkers_path, method: :post do
         - if alert
           = render 'errored_field'
         - else
@@ -24,10 +24,9 @@
             %label#vrn-hint.govuk-hint{ for: 'vrn' }
               For example, CU57ABC
             %input#vrn.govuk-input.govuk-input--width-10{'aria-labelledby': 'vrn-hint',
-                                                          'aria-describedby': 'vrn-error',
+                                                          'aria-describedby': 'vrn',
                                                           name: 'vrn',
                                                           type: 'text',
-                                                          value: params[:vrn],
                                                           style: 'text-transform: uppercase;'}
         %br
-        = submit_tag 'Continue', 'data-role' => 'button', class: 'govuk-button'
+        = submit_tag 'Continue', class: 'govuk-button'

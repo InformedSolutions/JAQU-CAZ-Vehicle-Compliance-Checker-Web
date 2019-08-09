@@ -62,5 +62,5 @@ And("I enter an exempt vehicle's registration") do
 end
 
 Then('I should see the Exemption page') do
-  expect(page).to have_current_path(exemption_vehicle_checkers_path(vrn: vrn))
+  expect(page).to have_current_path(exemption_vehicle_checkers_path)
 end

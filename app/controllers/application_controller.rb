@@ -27,4 +27,12 @@ class ApplicationController < ActionController::Base
 
     redirect_to server_unavailable_path
   end
+
+  def check_vrn
+    redirect_to enter_details_vehicle_checkers_path unless vrn
+  end
+
+  def vrn
+    session[:vrn]
+  end
 end

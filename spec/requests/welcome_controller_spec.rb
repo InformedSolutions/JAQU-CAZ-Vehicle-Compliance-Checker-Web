@@ -10,10 +10,10 @@ RSpec.describe WelcomeController, type: :request do
       before do
         caz_list = JSON.parse(file_fixture('caz_list_response.json').read)
         allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list)
+        subject
       end
 
-      it 'returns http success' do
-        subject
+      it 'returns a success response' do
         expect(response).to have_http_status(:success)
       end
     end
@@ -21,22 +21,22 @@ RSpec.describe WelcomeController, type: :request do
     context 'when API is unavailable' do
       before do
         allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_raise(Errno::ECONNREFUSED)
+        subject
       end
 
       it 'redirects to server_unavailable' do
-        subject
         expect(response).to redirect_to(server_unavailable_path)
       end
     end
 
-    context 'when API returns 500' do
+    context 'when API returns 500 error' do
       before do
         allow(ComplianceCheckerApi).to receive(:clean_air_zones)
           .and_raise(BaseApi::Error500Exception.new(500, '', {}))
+        subject
       end
 
-      it 'redirects to server_unavailable' do
-        subject
+      it 'redirects to server unavailable page' do
         expect(response).to redirect_to(server_unavailable_path)
       end
     end

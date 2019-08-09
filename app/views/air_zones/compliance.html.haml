@@ -1,10 +1,10 @@
-= link_to 'Back', caz_selection_air_zones_path(vrn: params[:vrn]), class: 'govuk-back-link'
+= link_to 'Back', caz_selection_air_zones_path, class: 'govuk-back-link'
 
 %main#main-content.govuk-main-wrapper{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Clean Air Zone compliance
-      %p= "Vehicle registration #{params[:vrn]}."
+      %p= "Vehicle registration #{@vrn}."
 
       - @compliance_zones.each do |details|
         %h1.govuk-heading-l
