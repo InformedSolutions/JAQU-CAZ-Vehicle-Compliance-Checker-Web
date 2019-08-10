@@ -20,7 +20,7 @@ RSpec.describe 'ComplianceCheckerApi.clean_air_zones' do
     end
 
     it 'returns proper fields' do
-      expect(call.first.keys).to contain_exactly('name', 'id', 'infoUrl')
+      expect(call.first.keys).to contain_exactly('cleanAirZoneId', 'name', 'boundaryUrl')
     end
   end
 

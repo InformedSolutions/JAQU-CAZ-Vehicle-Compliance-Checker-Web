@@ -18,7 +18,7 @@ class ComplianceCheckerApi < BaseApi
     end
 
     def clean_air_zones
-      request(:get, '/clean-air-zones')
+      request(:get, '/clean-air-zones')['cleanAirZones']
     end
   end
 end
