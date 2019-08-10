@@ -14,7 +14,7 @@ class ComplianceCheckerApi < BaseApi
     end
 
     def vehicle_compliance(vrn, zones)
-      request(:get, "/vehicles/#{vrn}/compliance", query: { zones: zones.join(",") })
+      request(:get, "/vehicles/#{vrn}/compliance", query: { zones: zones.join(',') })
     end
 
     def clean_air_zones
