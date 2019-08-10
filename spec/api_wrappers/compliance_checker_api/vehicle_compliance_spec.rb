@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
   subject(:call) { ComplianceCheckerApi.vehicle_compliance(vrn, zones) }
 
-  let(:vrn) { 'CU57ABC' }
+  let(:vrn) { 'CAS310' }
   let(:zones) { %w[birmingham leeds] }
 
   context 'when call returns 200' do
     before do
       vehicle_details = file_fixture('vehicle_compliance_response.json').read
-      stub_request(:get, /compliance\?zones\[\]=/).to_return(
+      stub_request(:get, /compliance\?zones=/).to_return(
         status: 200,
         body: vehicle_details
       )
@@ -21,9 +21,12 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
       expect(call['registrationNumber']).to eq(vrn)
     end
 
-    it 'returns compliance data for zone' do
-      expect(call['compliance']['leeds'].keys).to contain_exactly(
-        'charge', 'name', 'infoUrl'
+    it 'returns compliance data for zones' do
+      expect(call['complianceOutcomes'][0].keys).to contain_exactly(
+        'cleanAirZoneId', 'charge', 'name', 'informationUrls'
+      )
+      expect(call['complianceOutcomes'][1].keys).to contain_exactly(
+        'cleanAirZoneId', 'charge', 'name', 'informationUrls'
       )
     end
   end

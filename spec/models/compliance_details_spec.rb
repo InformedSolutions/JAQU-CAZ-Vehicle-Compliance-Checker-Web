@@ -9,15 +9,17 @@ RSpec.describe ComplianceDetails, type: :model do
     {
       'name' => name,
       'charge' => charge,
-      'boundaryUrl' => url,
-      'emissionsStandardsUrl' => url,
-      'mainInfoUrl' => url,
-      'pricingUrl' => url,
-      'hoursOfOperationUrl' => url,
-      'exemptionOrDiscountUrl' => url,
-      'payCazUrl' => url,
-      'becomeCompliantUrl' => url,
-      'financialAssistanceUrl' => url
+      'informationUrls' => {
+        'boundary' => url,
+        'emissionsStandards' => url,
+        'mainInfo' => url,
+        'pricing' => url,
+        'hoursOfOperation' => url,
+        'exemptionOrDiscount' => url,
+        'payCaz' => url,
+        'becomeCompliant' => url,
+        'financialAssistance' => url
+      }
     }
   end
 

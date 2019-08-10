@@ -17,7 +17,7 @@ module MockHelpers
 
   def mock_caz
     caz_list = JSON.parse(File.read('spec/fixtures/files/caz_list_response.json'))
-    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list)
+    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list['cleanAirZones'])
   end
 
   def mock_unavailable_caz
