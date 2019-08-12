@@ -6,15 +6,14 @@
 # For further information see the following documentation
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
-if Rails.env.production?
+if Rails.env.production? && ENV.fetch('ENABLE_CSP', false)
   Rails.application.config.content_security_policy do |policy|
     policy.default_src :self, :https
     policy.font_src    :self, :https
     policy.img_src     :self, :https
     policy.object_src  :none
-    # remove unsafe_inline when valid certs will be provided
-    policy.script_src  :self, :https, :unsafe_inline
-    policy.style_src   :self, :https, :unsafe_inline
+    policy.script_src  :self, :https
+    policy.style_src   :self, :https
     policy.connect_src :self, :https
   end
 end
