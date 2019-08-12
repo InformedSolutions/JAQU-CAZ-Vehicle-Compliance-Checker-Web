@@ -19,7 +19,7 @@ var config = {
             "actions": [
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CU57ABC",
+                "set field #vrn to CAS310",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible"
             ]
@@ -29,11 +29,11 @@ var config = {
             "actions": [
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CU57ABC",
+                "set field #vrn to CAS310",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible",
                 "click element #confirm-vehicle-1",
-                "click element input[name='commit']",
+                "click element input[type=submit]",
                 "wait for element #caz-0 to be visible"
             ]
         },
@@ -42,7 +42,7 @@ var config = {
             "actions": [
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CU57ABC",
+                "set field #vrn to CAS310",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible",
                 "click element #confirm-vehicle-1",
@@ -50,7 +50,7 @@ var config = {
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
                 "check field #caz-1",
-                "click element button[type=submit]"
+                "click element input[type=submit]",
             ]
         },
 		{
@@ -67,7 +67,7 @@ var config = {
             "actions": [
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CU57ABC",
+                "set field #vrn to CAS310",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-2 to be visible",
                 "click element #confirm-vehicle-2",
