@@ -4,10 +4,10 @@
 # Class parses VRN according to included in the task business rules
 # See specs for examples
 
-class VrnParser
+class VrnParser < BaseService
   attr_reader :vrn, :result, :group
 
-  def initialize(vrn)
+  def initialize(vrn:)
     @vrn = vrn.upcase
     @result = ''
     @group = []

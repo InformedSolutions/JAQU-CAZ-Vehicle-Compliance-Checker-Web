@@ -10,7 +10,7 @@ class VehicleDetails
   end
 
   def vrn_for_request
-    VrnParser.new(@vrn).call
+    VrnParser.call(vrn: @vrn)
   end
 
   def type
