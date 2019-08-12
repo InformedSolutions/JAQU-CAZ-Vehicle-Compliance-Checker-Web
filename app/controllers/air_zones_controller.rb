@@ -12,7 +12,7 @@ class AirZonesController < ApplicationController
     form = CazForm.new(caz)
     return redirect_to caz_selection_air_zones_path, alert: form.message unless form.valid?
 
-    @compliance_zones = Compliance.new(vrn, caz).compliance_zones
+    @compliance_outcomes = Compliance.new(vrn, caz).compliance_outcomes
     @vrn = vrn
   end
 

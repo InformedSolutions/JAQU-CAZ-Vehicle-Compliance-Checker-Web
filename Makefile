@@ -2,6 +2,10 @@ copy-source:
 	mkdir -p ~/src
 	rsync -av --progress /vagrant/. ~/src --exclude node_modules
 
+vs-code-deps-install:
+	gem install ruby-debug-ide
+	gem install debase
+	
 run:
 	gem install bundler --version=2.0.2
 	mkdir -p ~/src

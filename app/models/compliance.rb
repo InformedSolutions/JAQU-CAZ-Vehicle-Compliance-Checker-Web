@@ -6,14 +6,16 @@ class Compliance
     @zones = zones
   end
 
-  def compliance_zones
-    @compliance_zones ||= compliance_api['compliance'].map { |_k, v| ComplianceDetails.new(v) }
+  def compliance_outcomes
+    @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
+      ComplianceDetails.new(v)
+    end
   end
 
   private
 
   def vrn_for_request
-    VrnParser.new(@vrn).call
+    VrnParser.call(vrn: @vrn)
   end
 
   def compliance_api

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe VrnParser do
-  subject(:service) { described_class.new(vrn).call }
+  subject(:service) { described_class.call(vrn: vrn) }
 
   context 'AAA999' do
     let(:vrn) { 'AAA999' }

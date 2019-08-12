@@ -39,7 +39,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://jaqu-caz.herokuapp.com
+      COMPLIANCE_CHECKER_API_URL: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -138,7 +138,7 @@ steps:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: secret
       TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_compliance_checker: https://jaqu-caz.herokuapp.com
+      TF_VAR_compliance_checker: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
       TF_VAR_access_key:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:

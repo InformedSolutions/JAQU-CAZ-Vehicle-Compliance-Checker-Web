@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ComplianceCheckerApi < BaseApi
-  base_uri URI.join(ENV['COMPLIANCE_CHECKER_API_URL'], '/v1/vehicleComplianceApi').to_s
+  base_uri ENV['COMPLIANCE_CHECKER_API_URL'] + '/v1/compliance-checker'
 
   headers(
     'Content-Type' => 'application/json',
@@ -14,11 +14,11 @@ class ComplianceCheckerApi < BaseApi
     end
 
     def vehicle_compliance(vrn, zones)
-      request(:get, "/vehicles/#{vrn}/compliance", query: { zones: zones })
+      request(:get, "/vehicles/#{vrn}/compliance", query: { zones: zones.join(',') })
     end
 
     def clean_air_zones
-      request(:get, '/clean-air-zones')
+      request(:get, '/clean-air-zones')['cleanAirZones']
     end
   end
 end
