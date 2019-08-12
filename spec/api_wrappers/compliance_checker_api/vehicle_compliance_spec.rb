@@ -25,9 +25,6 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
       expect(call['complianceOutcomes'][0].keys).to contain_exactly(
         'cleanAirZoneId', 'charge', 'name', 'informationUrls'
       )
-      expect(call['complianceOutcomes'][1].keys).to contain_exactly(
-        'cleanAirZoneId', 'charge', 'name', 'informationUrls'
-      )
     end
   end
 

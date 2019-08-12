@@ -6,7 +6,7 @@
       %h1.govuk-heading-l Clean Air Zone compliance
       %p= "Vehicle registration #{@vrn}."
 
-      - @compliance_zones.each do |details|
+      - @compliance_outcome.each do |details|
         %h1.govuk-heading-l
           = details.zone_name
 

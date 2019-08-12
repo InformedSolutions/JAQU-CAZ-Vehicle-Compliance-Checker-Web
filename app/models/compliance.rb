@@ -6,8 +6,10 @@ class Compliance
     @zones = zones
   end
 
-  def compliance_zones
-    @compliance_zones ||= compliance_api['complianceOutcomes'].map { |v| ComplianceDetails.new(v) }
+  def compliance_outcome
+    @compliance_outcome ||= compliance_api['complianceOutcomes'].map do |v|
+      ComplianceDetails.new(v)
+    end
   end
 
   private
