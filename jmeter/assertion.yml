@@ -1,0 +1,7 @@
+reporting:
+- module: passfail
+  criteria:
+  - "avg-rt>500ms for 10s, continue as failed"
+  - "rcException>99% for 1m, continue as failed"
+  - "fail>1 for 1s , continue as failed"
+
