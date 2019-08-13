@@ -17,7 +17,6 @@ gem 'puma'
 gem 'rubocop-rails'
 gem 'sass-rails'
 gem 'sqlite3'
-gem 'turbolinks'
 gem 'webpacker'
 
 group :development, :test do
