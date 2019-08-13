@@ -20,7 +20,7 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
     end
 
     context 'when vehicle is exempt' do
-      let(:vehicle_details) { { 'isExempt' => true } }
+      let(:vehicle_details) { { 'exempt' => true } }
 
       it 'redirects to exemption page' do
         expect(response).to redirect_to(exemption_vehicle_checkers_path)

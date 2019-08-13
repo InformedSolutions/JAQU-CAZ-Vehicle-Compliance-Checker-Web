@@ -14,30 +14,34 @@ class VehicleDetails
   end
 
   def type
-    compliance_api['type'].capitalize
+    string_field('type')
   end
 
   def make
-    compliance_api['make'].capitalize
+    string_field('make')
   end
 
   def colour
-    compliance_api['colour'].capitalize
+    string_field('colour')
   end
 
   def fuel_type
-    compliance_api['fuelType'].capitalize
+    string_field('fuelType')
   end
 
   def taxi_private_hire_vehicle
-    compliance_api['isTaxiOrPhv'] ? 'Yes' : 'No'
+    compliance_api['taxiOrPhv'] ? 'Yes' : 'No'
   end
 
   def exempt?
-    compliance_api['isExempt']
+    compliance_api['exempt']
   end
 
   private
+
+  def string_field(key)
+    compliance_api[key]&.capitalize
+  end
 
   def compliance_api
     @compliance_api ||= ComplianceCheckerApi.vehicle_details(vrn_for_request)
