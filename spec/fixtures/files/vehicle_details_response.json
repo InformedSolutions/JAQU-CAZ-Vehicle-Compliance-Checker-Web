@@ -4,5 +4,5 @@
   "make": "Peugeot",
   "colour": "grey",
   "fuelType": "diesel",
-  "isTaxiOrPhv": false
+  "taxiOrPhv": false
 }

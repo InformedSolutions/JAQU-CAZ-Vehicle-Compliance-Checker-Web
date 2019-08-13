@@ -7,7 +7,7 @@ module MockHelpers
   end
 
   def mock_exempt_vehicle_details
-    details = { 'isExempt' => true }
+    details = { 'exempt' => true }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 

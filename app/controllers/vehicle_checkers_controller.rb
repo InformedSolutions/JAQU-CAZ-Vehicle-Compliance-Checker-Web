@@ -12,7 +12,7 @@ class VehicleCheckersController < ApplicationController
     form = VrnForm.new(params[:vrn])
     return redirect_to enter_details_vehicle_checkers_path, alert: form.message unless form.valid?
 
-    session[:vrn] = params[:vrn]
+    session[:vrn] = params[:vrn].upcase
     redirect_to confirm_details_vehicle_checkers_path
   end
 

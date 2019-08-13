@@ -1,7 +1,7 @@
 {
     "registrationNumber": "CAS310",
-    "isRetrofitted": false,
-    "isExempt": false,
+    "retrofitted": false,
+    "exempt": false,
     "complianceOutcomes": [
         {
             "cleanAirZoneId": "7d0c4240-1618-446b-bde2-2f3458c8a520",
