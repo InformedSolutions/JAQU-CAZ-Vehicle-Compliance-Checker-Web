@@ -197,7 +197,8 @@ steps:
   - name: micro-performance tests
     image: blazemeter/taurus
     commands:
-      - bzt jmeter/valid_vehicle_compliance.yml
+      - bzt jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+      - bzt jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
