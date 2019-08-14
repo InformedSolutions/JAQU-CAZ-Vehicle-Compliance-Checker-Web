@@ -3,9 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'VehicleCheckersController - GET #validate_vrn', type: :request do
-  subject(:http_request) { post validate_vrn_vehicle_checkers_path, params: { vrn: vrn } }
+  subject(:http_request) do
+    post validate_vrn_vehicle_checkers_path, params: { vrn: vrn, 'registration-country': country }
+  end
 
   let(:vrn) { 'CU57ABC' }
+  let(:country) { 'UK' }
   let(:vehicle_details) { JSON.parse(file_fixture('vehicle_details_response.json').read) }
 
   before { http_request }
@@ -24,7 +27,15 @@ RSpec.describe 'VehicleCheckersController - GET #validate_vrn', type: :request d
     let(:vrn) { '' }
 
     it 'redirects to enter details page' do
-      expect(response).to redirect_to(enter_details_vehicle_checkers_path)
+      expect(response).to render_template(:enter_details)
+    end
+  end
+
+  context 'when registration country is not valid' do
+    let(:country) { '' }
+
+    it 'redirects to enter details page' do
+      expect(response).to render_template(:enter_details)
     end
   end
 end

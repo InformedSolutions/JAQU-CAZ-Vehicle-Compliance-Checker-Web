@@ -1,39 +1,68 @@
 # frozen_string_literal: true
 
-class VrnForm < BaseForm
+class VrnForm
+  attr_reader :vrn, :country, :error_object
+
+  def initialize(vrn, country)
+    @vrn = vrn
+    @country = country
+  end
+
   def valid?
-    filled? && not_to_long? && not_to_short? && valid_format?
+    filled_vrn? && not_to_long? && not_to_short? && valid_format? && filled_country?
   end
 
   private
 
-  def filled?
-    return true if parameter.present?
+  def filled_vrn?
+    return true if vrn.present?
 
-    @message = 'You must enter your registration number'
+    @error_object = {
+      message: I18n.t('vrn_form.vrn_missing'),
+      field: 'vrn'
+    }
+    false
+  end
+
+  def filled_country?
+    return true if country.present?
+
+    @error_object = {
+      message: I18n.t('vrn_form.country_missing'),
+      field: 'country'
+    }
     false
   end
 
   def valid_format?
     return true if FORMAT_REGEXPS.any? do |reg|
-      reg.match(parameter.gsub(/\s+/, '').upcase).present?
+      reg.match(vrn.gsub(/\s+/, '').upcase).present?
     end
 
-    @message = 'You must enter your registration number in valid format'
+    @error_object = {
+      message: I18n.t('vrn_form.vrn_invalid'),
+      field: 'vrn'
+    }
     false
   end
 
   def not_to_long?
-    return true if parameter.gsub(/\s+/, '').length <= 7
+    return true if vrn.gsub(/\s+/, '').length <= 7
 
-    @message = 'Your registration number is too long'
+    @error_object = {
+      message: I18n.t('vrn_form.vrn_too_long'),
+      field: 'vrn'
+    }
     false
   end
 
   def not_to_short?
-    return true if parameter.gsub(/\s+/, '').length > 1
+    return true if vrn.gsub(/\s+/, '').length > 1
 
-    @message = 'Your registration number is too short'
+    @error_object = {
+      message: I18n.t('vrn_form.vrn_too_short'),
+      field: 'vrn'
+    }
     false
   end
 

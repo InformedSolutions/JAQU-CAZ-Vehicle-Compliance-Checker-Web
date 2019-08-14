@@ -10,11 +10,11 @@ Feature: Vehicle Checker
       And I press the Start now button
     Then I should see the Vehicle Checker page
       And I should see "Check vehicle compliance" title
-      And I should see "Enter the registration of the vehicle you wish to check"
+      And I should see "Enter the registration details of the vehicle you wish to check"
 
   Scenario: User enters a correct vehicle's registration and details are correct
     Given I am on the enter details page
-    Then I should enter a vehicle's registration
+    Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
       And I choose that the details are correct
@@ -23,7 +23,7 @@ Feature: Vehicle Checker
 
   Scenario: User enters a correct vehicle's registration but details are incorrect
     Given I am on the enter details page
-    Then I should enter a vehicle's registration
+    Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
       And I choose that the details are incorrect
@@ -32,17 +32,32 @@ Feature: Vehicle Checker
       And I should see "Check vehicle compliance" title
       And I should see "Incorrect vehicle details"
 
-  Scenario: User doesn't fill inputs correctly
+  Scenario: User selects Non-UK place of registration
+    Given I am on the enter details page
+    Then I enter a vehicle's registration and choose Non-UK
+      And I press the Continue
+    Then I should see the Non-UK vehicle page
+
+  Scenario: User doesn't fill VRN input
     Given I am on the enter details page
       And I press the Continue
     Then I should see "You must enter your registration number"
-      And I should enter a vehicle's registration with "C3#%&"
+
+  Scenario: User doesn't select country
+    Given I am on the enter details page
+      And I enter a vehicle's registration without selecting country
+      And I press the Continue
+    Then I should see "You must select the place of the registration"
+
+  Scenario: User fills invalid VRN
+    Given I am on the enter details page
+      And I enter a vehicle's registration with "C3#%&"
       And I press the Continue
     Then I should see "You must enter your registration number in valid format"
-      And I should enter a vehicle's registration with "ABC123ABC123"
-      And I press the Continue
-    Then I should see "Your registration number is too long"
-      And I should enter a vehicle's registration
+
+  Scenario: User doesn't select confirmation
+    Given I am on the enter details page
+    And I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
       And I press the Confirm

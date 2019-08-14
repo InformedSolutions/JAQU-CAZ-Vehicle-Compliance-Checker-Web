@@ -1,0 +1,9 @@
+.govuk-form-group
+  %label#vrn-label.govuk-label{ for: 'vrn' }
+    = I18n.t('labels.vrn')
+  %input#vrn.govuk-input.govuk-input--width-10{ 'aria-labelledby': 'vrn-label',
+                                                'aria-describedby': 'vrn',
+                                                name: 'vrn',
+                                                type: 'text',
+                                                style: 'text-transform: uppercase;',
+                                                value: params[:vrn] }

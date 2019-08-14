@@ -12,13 +12,26 @@ Then('I should see the Vehicle Checker page') do
   expect(page).to have_current_path(enter_details_vehicle_checkers_path)
 end
 
-Then("I should enter a vehicle's registration") do
+Then("I enter a vehicle's registration") do
+  fill_in('vrn', with: vrn)
+  choose('UK')
+  mock_vehicle_details
+end
+
+Then("I enter a vehicle's registration without selecting country") do
   fill_in('vrn', with: vrn)
   mock_vehicle_details
 end
 
-Then("I should enter a vehicle's registration with {string}") do |string|
+Then("I enter a vehicle's registration and choose Non-UK") do
+  fill_in('vrn', with: vrn)
+  choose('Non-UK')
+  mock_vehicle_details
+end
+
+Then("I enter a vehicle's registration with {string}") do |string|
   fill_in('vrn', with: string)
+  choose('UK')
   mock_vehicle_details
 end
 
@@ -58,9 +71,14 @@ end
 
 And("I enter an exempt vehicle's registration") do
   fill_in('vrn', with: vrn)
+  choose('UK')
   mock_exempt_vehicle_details
 end
 
 Then('I should see the Exemption page') do
   expect(page).to have_current_path(exemption_vehicle_checkers_path)
+end
+
+Then('I should see the Non-UK vehicle page') do
+  expect(page).to have_current_path(non_uk_vehicle_checkers_path)
 end
