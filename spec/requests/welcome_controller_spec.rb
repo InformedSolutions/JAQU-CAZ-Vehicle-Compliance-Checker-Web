@@ -25,7 +25,11 @@ RSpec.describe WelcomeController, type: :request do
       end
 
       it 'redirects to server_unavailable' do
-        expect(response).to redirect_to(server_unavailable_path)
+        expect(response).to have_http_status(:service_unavailable)
+      end
+
+      it 'renders 503 error page' do
+        expect(response).to render_template(:service_unavailable)
       end
     end
 
@@ -36,8 +40,12 @@ RSpec.describe WelcomeController, type: :request do
         subject
       end
 
-      it 'redirects to server unavailable page' do
-        expect(response).to redirect_to(server_unavailable_path)
+      it 'redirects to server_unavailable' do
+        expect(response).to have_http_status(:service_unavailable)
+      end
+
+      it 'renders 503 error page' do
+        expect(response).to render_template(:service_unavailable)
       end
     end
   end

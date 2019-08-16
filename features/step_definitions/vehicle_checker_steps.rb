@@ -65,8 +65,8 @@ Then('I should see the CAZ Selection page') do
   expect(page).to have_current_path(caz_selection_air_zones_path, ignore_query: true)
 end
 
-Then('I should see the Server Unavailable page') do
-  expect(page).to have_current_path(server_unavailable_path)
+Then('I should see the Service Unavailable page') do
+  expect(page).to have_title 'Sorry, the service is unavailable – Clean Air Zones – GOV.UK'
 end
 
 And("I enter an exempt vehicle's registration") do

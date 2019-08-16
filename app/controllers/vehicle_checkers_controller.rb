@@ -40,6 +40,7 @@ class VehicleCheckersController < ApplicationController
 
   def number_not_found
     @vehicle_registration = vrn
+    render(status: :not_found)
   end
 
   def exemption
