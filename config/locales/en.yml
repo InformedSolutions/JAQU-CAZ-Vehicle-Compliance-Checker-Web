@@ -31,3 +31,14 @@
 
 en:
   hello: "Hello world"
+  labels:
+    vrn: Registration number (for example, CU57ABC)
+    country: Place of vehicle's registration
+  vrn_form:
+    vrn_missing: 'You must enter your registration number'
+    country_missing: 'You must select the place of the registration'
+    vrn_invalid: 'You must enter your registration number in valid format'
+    vrn_too_long: 'Your registration number is too long'
+    vrn_too_short: 'Your registration number is too short'
+
+

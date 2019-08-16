@@ -3,30 +3,65 @@
 require 'rails_helper'
 
 RSpec.describe VrnForm, type: :model do
-  subject(:form) { described_class.new(vrn) }
+  subject(:form) { described_class.new(vrn, country) }
 
   let(:vrn) { 'CU57ABC' }
+  let(:country) { 'UK' }
 
   context 'with proper VRN' do
     it { is_expected.to be_valid }
 
-    it 'has VRN set as parameter' do
-      expect(form.parameter).to eq(vrn)
+    it 'has nil error_object' do
+      expect(form.error_object).to be_nil
+    end
+  end
+
+  context 'country validation' do
+    before { form.valid? }
+
+    context 'when country is nil' do
+      let(:country) { nil }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.country_missing'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('country')
+      end
+    end
+
+    context 'when country is empty' do
+      let(:country) { '' }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.country_missing'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('country')
+      end
     end
   end
 
   context 'VRN validation' do
-    before :each do
-      form.valid?
-    end
+    before { form.valid? }
 
     context 'when VRN is empty' do
       let(:vrn) { '' }
 
       it { is_expected.not_to be_valid }
 
-      it 'has a empty error message' do
-        expect(form.message).to eq('You must enter your registration number')
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_missing'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('vrn')
       end
     end
 
@@ -35,8 +70,12 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a too long error message' do
-        expect(form.message).to eq('Your registration number is too long')
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_too_long'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('vrn')
       end
     end
 
@@ -45,8 +84,12 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a too short error message' do
-        expect(form.message).to eq('Your registration number is too short')
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_too_short'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('vrn')
       end
     end
 
@@ -55,8 +98,12 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has an invalid format error message' do
-        expect(form.message).to eq('You must enter your registration number in valid format')
+      it 'has a proper error message' do
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_invalid'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('vrn')
       end
     end
 
@@ -66,7 +113,11 @@ RSpec.describe VrnForm, type: :model do
       it { is_expected.not_to be_valid }
 
       it 'has a proper error message' do
-        expect(form.message).to eq('You must enter your registration number in valid format')
+        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_invalid'))
+      end
+
+      it 'has a proper error field' do
+        expect(form.error_object[:field]).to eq('vrn')
       end
     end
   end

@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #number_not_found', type: :request do
-  subject { get number_not_found_vehicle_checkers_path }
+RSpec.describe 'VehicleCheckersController - GET #non_uk', type: :request do
+  subject { get non_uk_vehicle_checkers_path }
 
   context 'with VRN in session' do
     before { add_vrn_to_session }

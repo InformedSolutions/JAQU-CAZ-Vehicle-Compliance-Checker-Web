@@ -6,7 +6,7 @@ Feature: Air Zone
 
   Scenario: User with correct vehicle’s registration selects CAZs
     Given I am on the enter details page
-    Then I should enter a vehicle's registration
+    Then I enter a vehicle's registration
       And I press the Continue
     Then I choose that the details are correct
       And I press the Confirm
@@ -17,7 +17,7 @@ Feature: Air Zone
 
   Scenario: User with correct vehicle’s registration does not select any CAZ
     Given I am on the enter details page
-    Then I should enter a vehicle's registration
+    Then I enter a vehicle's registration
       And I press the Continue
     Then I choose that the details are correct
       And I press the Confirm

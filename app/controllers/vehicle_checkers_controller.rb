@@ -9,11 +9,14 @@ class VehicleCheckersController < ApplicationController
   end
 
   def validate_vrn
-    form = VrnForm.new(params[:vrn])
-    return redirect_to enter_details_vehicle_checkers_path, alert: form.message unless form.valid?
+    form = VrnForm.new(params_vrn, country)
+    unless form.valid?
+      @error = form.error_object
+      return render enter_details_vehicle_checkers_path
+    end
 
-    session[:vrn] = params[:vrn].upcase
-    redirect_to confirm_details_vehicle_checkers_path
+    session[:vrn] = params_vrn
+    redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
   def confirm_details
@@ -43,10 +46,26 @@ class VehicleCheckersController < ApplicationController
     @vehicle_registration = vrn
   end
 
+  def non_uk
+    @vehicle_registration = vrn
+  end
+
   private
+
+  def params_vrn
+    params[:vrn].upcase
+  end
 
   def confirmation
     params['confirm-vehicle']
+  end
+
+  def country
+    params['registration-country']
+  end
+
+  def non_uk?
+    country == 'Non-UK'
   end
 
   def vehicle_not_found
