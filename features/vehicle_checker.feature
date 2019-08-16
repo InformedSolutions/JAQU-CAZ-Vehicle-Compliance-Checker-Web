@@ -65,8 +65,8 @@ Feature: Vehicle Checker
 
   Scenario: Server is unavailable
     Given I am on the home page and server is unavailable
-    Then I should see the Server Unavailable page
-      And I should see "Try again later."
+    Then I should see the Service Unavailable page
+      And I should see "Sorry, the service is unavailable"
 
   Scenario: User enters an exempt vehicle's registration
     Given I am on the enter details page

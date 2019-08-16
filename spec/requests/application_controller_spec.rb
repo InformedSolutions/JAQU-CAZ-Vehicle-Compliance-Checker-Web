@@ -3,15 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :request do
-  describe 'server_unavailable' do
-    subject { get server_unavailable_path }
-
-    it 'returns a ok response' do
-      subject
-      expect(response).to be_successful
-    end
-  end
-
   describe 'health' do
     subject { get health_path }
 

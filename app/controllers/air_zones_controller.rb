@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AirZonesController < ApplicationController
-  rescue_from BaseApi::Error404Exception, with: :redirect_to_error_page
+  rescue_from BaseApi::Error404Exception, with: :redirect_to_server_unavailable
   before_action :check_vrn
 
   def caz_selection

@@ -6,11 +6,17 @@ RSpec.describe 'VehicleCheckersController - GET #number_not_found', type: :reque
   subject { get number_not_found_vehicle_checkers_path }
 
   context 'with VRN in session' do
-    before { add_vrn_to_session }
-
-    it 'returns a success response' do
+    before do
+      add_vrn_to_session
       subject
-      expect(response).to be_successful
+    end
+
+    it 'returns a not_found response' do
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'renders the view' do
+      expect(response).to render_template(:number_not_found)
     end
   end
 end

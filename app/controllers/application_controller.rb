@@ -6,11 +6,7 @@ class ApplicationController < ActionController::Base
               BaseApi::Error500Exception,
               BaseApi::Error422Exception,
               BaseApi::Error400Exception,
-              with: :redirect_to_error_page
-
-  def server_unavailable
-    render 'layouts/server_unavailable'
-  end
+              with: :redirect_to_server_unavailable
 
   def health
     render json: 'OK', status: :ok
@@ -22,10 +18,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def redirect_to_error_page(exception)
+  def redirect_to_server_unavailable(exception)
     Rails.logger.error "#{exception.class}: #{exception.message}"
 
-    redirect_to server_unavailable_path
+    render template: 'errors/service_unavailable', status: :service_unavailable
   end
 
   def check_vrn

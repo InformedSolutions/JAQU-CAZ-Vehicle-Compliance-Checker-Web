@@ -35,7 +35,7 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
     end
 
     it 'redirects to server unavailable' do
-      expect(response).to redirect_to(server_unavailable_path)
+      expect(response).to have_http_status(:service_unavailable)
     end
   end
 
