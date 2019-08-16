@@ -3,10 +3,10 @@
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   - if @error
-    .govuk-error-summary{"aria-labelledby" => "error-summary-title",
-                          "data-module" => "error-summary",
-                          role: "alert",
-                          tabindex: "-1"}
+    .govuk-error-summary{'aria-labelledby': 'error-summary-title',
+                         'data-module': 'govuk-error-summary',
+                         role: 'alert',
+                         tabindex: '-1'}
       %h2#error-summary-title.govuk-error-summary__title
         There is a problem
       .govuk-error-summary__body
@@ -30,4 +30,4 @@
           - else
             = render 'vehicle_checkers/country_input/normal'
 
-          = submit_tag 'Continue', class: 'govuk-button'
+          = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'

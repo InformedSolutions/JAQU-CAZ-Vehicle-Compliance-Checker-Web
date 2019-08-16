@@ -4,7 +4,18 @@
       %h1.govuk-heading-l Check a vehicle's Clean Air Zone compliance
       %p Use this service to check if a specific vehicle will incur a charge when it drives through a charging Clean Air Zone.
       %p You'll need to know the registration of the vehicle you wish to check.
-      = link_to 'Start now', enter_details_vehicle_checkers_path, 'data-role' => 'button', 'data-draggable' => false, class: 'govuk-button govuk-button--start'
+      %a.govuk-button.govuk-button--start{class: 'govuk-button govuk-button--start',
+                                          'data-draggable': false,
+                                          'data-module': 'govuk-button',
+                                          'href': enter_details_vehicle_checkers_path}
+        Start now
+        %svg.govuk-button__start-icon{focusable: 'false',
+                                      height: '19',
+                                      role: 'presentation',
+                                      viewbox: '0 0 33 40',
+                                      width: '17.5',
+                                      xmlns: 'http://www.w3.org/2000/svg'}
+          %path{d: 'M0 0h13l20 20-20 20H0l20-20z', fill: 'currentColor'}
       %h2.govuk-heading-m More information
       %p
         There are
@@ -12,7 +23,7 @@
         charging Clean Air Zones in England, each with their own emissions standards, charges, discounts and exemptions.
       %h2.govuk-heading-m Related content
       %p
-        %a{href: '#'} Pay a CAZ charge
+        = link_to 'Pay a CAZ charge', '#'
       %h2.govuk-heading-m Explore the topic
       %p
-        %a{href: '#'} Clean Air Zones
+        = link_to 'Clean Air Zones', '#'

@@ -1,6 +1,6 @@
 = link_to 'Back', caz_selection_air_zones_path, class: 'govuk-back-link'
 
-%main#main-content.govuk-main-wrapper{role: 'main'}
+%main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Clean Air Zone compliance
@@ -29,7 +29,7 @@
           %br
           %p
             This vehicle does not comply with the
-            = succeed "." do
+            = succeed '.' do
               = link_to details.emissions_standards_url, target: '_blank', class: 'caz_inline_link' do
                 = details.zone_name
                 CAZ emissions standards
@@ -38,7 +38,7 @@
               = details.zone_name
               Clean Air Zone
             = ' during its'
-            = succeed "." do
+            = succeed '.' do
               = link_to 'hours of operation', details.hours_of_operation_url, target: '_blank', class: 'caz_inline_link'
 
           %h2.govuk-heading-m
@@ -68,5 +68,7 @@
         %li
           = link_to "Check another vehicle's compliance", enter_details_vehicle_checkers_path
         %li
-          = link_to 'Find out about alternative travel options', 'https://www.gov.uk/government/publications/air-quality-clean-air-zone-framework-for-england', target: '_blank'
+          = link_to 'Find out about alternative travel options',
+            'https://www.gov.uk/government/publications/air-quality-clean-air-zone-framework-for-england',
+            target: '_blank'
 

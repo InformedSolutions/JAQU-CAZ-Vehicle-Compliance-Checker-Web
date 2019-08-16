@@ -1,7 +1,10 @@
 = link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link'
 %main.govuk-main-wrapper#main-content{role: 'main'}
   - if alert
-    .govuk-error-summary{"aria-labelledby" => "error-summary-title", "data-module" => "error-summary", role: "alert", tabindex: "-1"}
+    .govuk-error-summary{'aria-labelledby': 'error-summary-title',
+                         'data-module': 'govuk-error-summary',
+                         role: 'alert',
+                         tabindex: '-1'}
       %h2#error-summary-title.govuk-error-summary__title
         There is a problem
       .govuk-error-summary__body
@@ -13,7 +16,7 @@
     .govuk-grid-column-two-thirds
       = form_tag compliance_air_zones_path, method: :post do
         .govuk-form-group{class: ('govuk-form-group--error' if alert)}
-          %fieldset.govuk-fieldset{"aria-describedby" => "cazHint"}
+          %fieldset.govuk-fieldset{'aria-describedby': 'cazHint'}
             %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
               %h1.govuk-fieldset__heading
                 Where do you want to drive?
@@ -26,9 +29,12 @@
             .govuk-checkboxes
               - @clean_air_zones.each_with_index do |zone, index|
                 .govuk-checkboxes__item
-                  %input.govuk-checkboxes__input{name: "caz[]", type: 'checkbox', value: zone.id, id: "caz-#{index}" }
+                  %input.govuk-checkboxes__input{name: 'caz[]',
+                                                 type: 'checkbox',
+                                                 value: zone.id,
+                                                 id: "caz-#{index}"}
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
                     = zone.name
-                    = link_to '(see boundary)', zone.boundary_url, target: "_blank"
+                    = link_to '(see boundary)', zone.boundary_url, target: '_blank'
 
-        = submit_tag 'Continue', class: 'govuk-button'
+        = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'
