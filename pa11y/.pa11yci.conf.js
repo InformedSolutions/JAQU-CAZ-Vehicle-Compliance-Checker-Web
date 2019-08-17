@@ -20,6 +20,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS310",
+				"click element #registration-country-1",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible"
             ]
@@ -30,6 +31,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS310",
+				"click element #registration-country-1",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible",
                 "click element #confirm-vehicle-1",
@@ -43,6 +45,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS310",
+				"click element #registration-country-1",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-1 to be visible",
                 "click element #confirm-vehicle-1",
@@ -59,6 +62,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CU57ABE",
+				"click element #registration-country-1",
                 "click element input[type=submit]"
             ]
         },
@@ -68,6 +72,7 @@ var config = {
                 "click element .govuk-button--start",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS310",
+				"click element #registration-country-1",
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-2 to be visible",
                 "click element #confirm-vehicle-2",
