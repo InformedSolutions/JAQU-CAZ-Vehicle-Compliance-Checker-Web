@@ -228,6 +228,13 @@
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
+                  <elementProp name="registration-country" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">UK</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                    <stringProp name="Argument.name">registration-country</stringProp>
+                  </elementProp>
                 </collectionProp>
               </elementProp>
               <stringProp name="HTTPSampler.domain">vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com</stringProp>
