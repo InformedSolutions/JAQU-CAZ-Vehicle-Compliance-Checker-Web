@@ -1,10 +1,10 @@
 $govuk-global-styles: true;
 $govuk-assets-path: '/packs/media/';
 
-@import "~govuk-frontend/all";
+@import "~govuk-frontend/govuk/all";
 
 .not-found-title {
-  background-color: govuk-colour('grey-3');
+  background-color: govuk-colour('light-grey');
   padding: 1em;
 }
 
@@ -14,7 +14,7 @@ $govuk-assets-path: '/packs/media/';
 }
 
 html {
-  background-color: govuk-colour('grey-3');
+  background-color: govuk-colour('light-grey');
 }
 
 a.caz_inline_link {

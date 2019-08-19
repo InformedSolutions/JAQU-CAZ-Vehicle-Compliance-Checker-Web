@@ -15,6 +15,7 @@ RUN apk add --no-cache --update build-base \
   yarn \
   curl-dev \
   sqlite-dev \
+  git \
   && PACKAGES="ca-certificates procps curl pcre libstdc++ libexecinfo" \
   && BUILD_PACKAGES="pcre-dev libexecinfo-dev" \
   && apk add --update $PACKAGES $BUILD_PACKAGES \
