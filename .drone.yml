@@ -202,10 +202,10 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    when:
-      event:
-        exclude:
-        - pull_request
+        #when:
+        # event:
+        #exclude:
+        #- pull_request
 
   # Execute OWASP Zap tests
   - name: owasp zap tests
