@@ -40,5 +40,9 @@ en:
     vrn_invalid: 'You must enter your registration number in valid format'
     vrn_too_long: 'Your registration number is too long'
     vrn_too_short: 'Your registration number is too short'
+  errors:
+    500: Internal server error
+    503: Service is unavailable
+    404: Not found
 
 
