@@ -4,17 +4,17 @@ $govuk-assets-path: '/packs/media/';
 @import "~govuk-frontend/govuk/all";
 
 .not-found-title {
-  background-color: govuk-colour('light-grey');
+  background-color: govuk-colour($colour: 'light-grey');
   padding: 1em;
 }
 
 .govuk-panel--noncompliant {
   background: $govuk-error-colour;
-  color: govuk-colour('white');
+  color: govuk-colour($colour: 'white');
 }
 
 html {
-  background-color: govuk-colour('light-grey');
+  background-color: govuk-colour($colour: 'light-grey');
 }
 
 a.caz_inline_link {
