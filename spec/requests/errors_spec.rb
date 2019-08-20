@@ -6,14 +6,40 @@ RSpec.describe ErrorsController, type: :request do
   before { subject }
 
   describe '#not_found' do
-    subject { get '/404.html' }
+    context 'when format is HTML' do
+      subject { get '/404.html' }
 
-    it 'returns a not_found response' do
-      expect(response).to have_http_status(:not_found)
+      it 'returns a not_found response' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'renders the view' do
+        expect(response).to render_template(:not_found)
+      end
     end
 
-    it 'renders the view' do
-      expect(response).to render_template(:not_found)
+    context 'when format is JSON' do
+      subject { get '/404.json' }
+
+      it 'returns a not_found response' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns an error message' do
+        expect(json_response['error']).to eq(I18n.t('errors.404'))
+      end
+    end
+
+    context 'when format is XML' do
+      subject { get '/404.xml' }
+
+      it 'returns a not_found response' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns an error message' do
+        expect(xml_response['error']).to eq(I18n.t('errors.404'))
+      end
     end
   end
 
@@ -27,6 +53,22 @@ RSpec.describe ErrorsController, type: :request do
     it 'renders the view' do
       expect(response).to render_template(:internal_server_error)
     end
+
+    context 'when format is JSON' do
+      subject { get '/500.json' }
+
+      it 'returns an error message' do
+        expect(json_response['error']).to eq(I18n.t('errors.500'))
+      end
+    end
+
+    context 'when format is XML' do
+      subject { get '/500.xml' }
+
+      it 'returns an error message' do
+        expect(xml_response['error']).to eq(I18n.t('errors.500'))
+      end
+    end
   end
 
   describe '#server_unavailable' do
@@ -38,6 +80,22 @@ RSpec.describe ErrorsController, type: :request do
 
     it 'renders the view' do
       expect(response).to render_template(:service_unavailable)
+    end
+
+    context 'when format is JSON' do
+      subject { get '/503.json' }
+
+      it 'returns an error message' do
+        expect(json_response['error']).to eq(I18n.t('errors.503'))
+      end
+    end
+
+    context 'when format is XML' do
+      subject { get '/503.xml' }
+
+      it 'returns an error message' do
+        expect(xml_response['error']).to eq(I18n.t('errors.503'))
+      end
     end
   end
 
