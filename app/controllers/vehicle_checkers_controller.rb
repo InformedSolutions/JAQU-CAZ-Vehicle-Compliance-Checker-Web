@@ -11,7 +11,7 @@ class VehicleCheckersController < ApplicationController
   def validate_vrn
     form = VrnForm.new(params_vrn, country)
     unless form.valid?
-      @error = form.error_object
+      @errors = form.error_object
       return render enter_details_vehicle_checkers_path
     end
 

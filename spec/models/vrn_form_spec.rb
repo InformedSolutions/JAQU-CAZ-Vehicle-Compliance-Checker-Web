@@ -11,8 +11,22 @@ RSpec.describe VrnForm, type: :model do
   context 'with proper VRN' do
     it { is_expected.to be_valid }
 
-    it 'has nil error_object' do
-      expect(form.error_object).to be_nil
+    it 'has an empty hash as error_object' do
+      expect(form.error_object).to eq({})
+    end
+  end
+
+  describe 'both fields validation' do
+    before { form.valid? }
+
+    context 'when country and vrn are nil' do
+      let(:country) { nil }
+      let(:vrn) { nil }
+
+      it { is_expected.not_to be_valid }
+
+      it_behaves_like 'an invalid country input'
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_missing')
     end
   end
 
@@ -24,13 +38,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.country_missing'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('country')
-      end
+      it_behaves_like 'an invalid country input'
     end
 
     context 'when country is empty' do
@@ -38,13 +46,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.country_missing'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('country')
-      end
+      it_behaves_like 'an invalid country input'
     end
   end
 
@@ -56,13 +58,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_missing'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('vrn')
-      end
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_missing')
     end
 
     context 'when VRN is too long' do
@@ -70,13 +66,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_too_long'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('vrn')
-      end
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_too_long')
     end
 
     context 'when VRN is too short' do
@@ -84,13 +74,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_too_short'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('vrn')
-      end
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_too_short')
     end
 
     context 'when VRN has special signs' do
@@ -98,13 +82,7 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_invalid'))
-      end
-
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('vrn')
-      end
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
     end
 
     context 'when VRN has too many numbers' do
@@ -112,12 +90,42 @@ RSpec.describe VrnForm, type: :model do
 
       it { is_expected.not_to be_valid }
 
-      it 'has a proper error message' do
-        expect(form.error_object[:message]).to eq(I18n.t('vrn_form.vrn_invalid'))
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
+    end
+
+    context 'when country in Non-UK' do
+      let(:country) { 'Non-UK' }
+
+      context 'when VRN is empty' do
+        let(:vrn) { '' }
+
+        it { is_expected.not_to be_valid }
+
+        it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_missing')
       end
 
-      it 'has a proper error field' do
-        expect(form.error_object[:field]).to eq('vrn')
+      context 'when VRN is too long' do
+        let(:vrn) { 'ABCDEFGH' }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when VRN is too short' do
+        let(:vrn) { 'A' }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when VRN has special signs' do
+        let(:vrn) { 'ABCDE$%' }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'when VRN has too many numbers' do
+        let(:vrn) { 'C111999' }
+
+        it { is_expected.to be_valid }
       end
     end
   end
