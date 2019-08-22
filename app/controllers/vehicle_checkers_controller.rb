@@ -5,7 +5,7 @@ class VehicleCheckersController < ApplicationController
   before_action :check_vrn, except: %i[enter_details validate_vrn]
 
   def enter_details
-    # renders static page
+    @errors = {}
   end
 
   def validate_vrn
