@@ -25,8 +25,8 @@ RSpec.describe ErrorsController, type: :request do
         expect(response).to have_http_status(:not_found)
       end
 
-      it 'returns an error message' do
-        expect(json_response['error']).to eq(I18n.t('errors.404'))
+      it 'renders the view' do
+        expect(response).to render_template(:not_found)
       end
     end
 
@@ -37,8 +37,8 @@ RSpec.describe ErrorsController, type: :request do
         expect(response).to have_http_status(:not_found)
       end
 
-      it 'returns an error message' do
-        expect(xml_response['error']).to eq(I18n.t('errors.404'))
+      it 'renders the view' do
+        expect(response).to render_template(:not_found)
       end
     end
   end
@@ -57,16 +57,16 @@ RSpec.describe ErrorsController, type: :request do
     context 'when format is JSON' do
       subject { get '/500.json' }
 
-      it 'returns an error message' do
-        expect(json_response['error']).to eq(I18n.t('errors.500'))
+      it 'renders the view' do
+        expect(response).to render_template(:internal_server_error)
       end
     end
 
     context 'when format is XML' do
       subject { get '/500.xml' }
 
-      it 'returns an error message' do
-        expect(xml_response['error']).to eq(I18n.t('errors.500'))
+      it 'renders the view' do
+        expect(response).to render_template(:internal_server_error)
       end
     end
   end
@@ -85,16 +85,16 @@ RSpec.describe ErrorsController, type: :request do
     context 'when format is JSON' do
       subject { get '/503.json' }
 
-      it 'returns an error message' do
-        expect(json_response['error']).to eq(I18n.t('errors.503'))
+      it 'renders the view' do
+        expect(response).to render_template(:service_unavailable)
       end
     end
 
     context 'when format is XML' do
       subject { get '/503.xml' }
 
-      it 'returns an error message' do
-        expect(xml_response['error']).to eq(I18n.t('errors.503'))
+      it 'renders the view' do
+        expect(response).to render_template(:service_unavailable)
       end
     end
   end

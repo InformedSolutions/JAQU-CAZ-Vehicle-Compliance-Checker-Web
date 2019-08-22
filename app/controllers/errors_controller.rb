@@ -1,25 +1,23 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
+  before_action :set_html_response_format
+
   def not_found
-    general_error_response(:not_found, I18n.t('errors.404'))
+    render(status: :not_found)
   end
 
   def internal_server_error
-    general_error_response(:internal_server_error, I18n.t('errors.500'))
+    render(status: :internal_server_error)
   end
 
   def service_unavailable
-    general_error_response(:service_unavailable, I18n.t('errors.503'))
+    render(status: :service_unavailable)
   end
 
   private
 
-  def general_error_response(status, message)
-    respond_to do |format|
-      format.xml { render xml: "<error>#{message}</error>", status: status }
-      format.html { render(status: status) }
-      format.json { render json: { error: message }.to_json, status: status }
-    end
+  def set_html_response_format
+    request.format = :html
   end
 end
