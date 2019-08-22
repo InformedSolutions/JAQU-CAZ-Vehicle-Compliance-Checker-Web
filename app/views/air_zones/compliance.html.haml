@@ -30,16 +30,16 @@
           %p
             This vehicle does not comply with the
             = succeed '.' do
-              = link_to details.emissions_standards_url, target: '_blank', class: 'caz_inline_link' do
+              = link_to details.emissions_standards_url, target: '_blank', class: 'caz-inline-link' do
                 = details.zone_name
                 CAZ emissions standards
             It is therefore subject to a charge when driving in the
-            = link_to details.main_info_url, target: '_blank', class: 'caz_inline_link' do
+            = link_to details.main_info_url, target: '_blank', class: 'caz-inline-link' do
               = details.zone_name
               Clean Air Zone
             = ' during its'
             = succeed '.' do
-              = link_to 'hours of operation', details.hours_of_operation_url, target: '_blank', class: 'caz_inline_link'
+              = link_to 'hours of operation', details.hours_of_operation_url, target: '_blank', class: 'caz-inline-link'
 
           %h2.govuk-heading-m
             Next steps
