@@ -53,6 +53,10 @@ class ComplianceDetails
     url(:boundary)
   end
 
+  def html_id
+    zone_name.delete(' ').underscore
+  end
+
   private
 
   def url(name)
