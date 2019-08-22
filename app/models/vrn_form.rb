@@ -6,32 +6,36 @@ class VrnForm
   def initialize(vrn, country)
     @vrn = vrn
     @country = country
+    @error_object = {}
   end
 
   def valid?
-    filled_vrn? && not_to_long? && not_to_short? && valid_format? && filled_country?
+    return filled? if country == 'Non-UK'
+
+    filled? && not_to_long? && not_to_short? && valid_format?
   end
 
   private
 
-  def filled_vrn?
-    return true if vrn.present?
+  def filled?
+    filled_vrn?
+    filled_country?
+    error_object.empty?
+  end
 
-    @error_object = {
-      message: I18n.t('vrn_form.vrn_missing'),
-      field: 'vrn'
-    }
-    false
+  def filled_vrn?
+    return if vrn.present?
+
+    vrn_error(I18n.t('vrn_form.vrn_missing'))
   end
 
   def filled_country?
-    return true if country.present?
+    return if country.present?
 
-    @error_object = {
+    @error_object[:country] = {
       message: I18n.t('vrn_form.country_missing'),
-      field: 'country'
+      link: '#country-error'
     }
-    false
   end
 
   def valid_format?
@@ -39,31 +43,26 @@ class VrnForm
       reg.match(vrn.gsub(/\s+/, '').upcase).present?
     end
 
-    @error_object = {
-      message: I18n.t('vrn_form.vrn_invalid'),
-      field: 'vrn'
-    }
+    vrn_error(I18n.t('vrn_form.vrn_invalid'))
     false
   end
 
   def not_to_long?
     return true if vrn.gsub(/\s+/, '').length <= 7
 
-    @error_object = {
-      message: I18n.t('vrn_form.vrn_too_long'),
-      field: 'vrn'
-    }
+    vrn_error(I18n.t('vrn_form.vrn_too_long'))
     false
   end
 
   def not_to_short?
     return true if vrn.gsub(/\s+/, '').length > 1
 
-    @error_object = {
-      message: I18n.t('vrn_form.vrn_too_short'),
-      field: 'vrn'
-    }
+    vrn_error(I18n.t('vrn_form.vrn_too_short'))
     false
+  end
+
+  def vrn_error(msg)
+    @error_object[:vrn] = { message: msg, link: '#vrn-error' }
   end
 
   FORMAT_REGEXPS = [

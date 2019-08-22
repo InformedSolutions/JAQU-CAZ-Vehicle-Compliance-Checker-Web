@@ -33,13 +33,13 @@ en:
   hello: "Hello world"
   labels:
     vrn: Registration number (for example, CU57ABC)
-    country: Place of vehicle's registration
+    country: Where was the vehicle registered?
   vrn_form:
-    vrn_missing: 'You must enter your registration number'
-    country_missing: 'You must select the place of the registration'
-    vrn_invalid: 'You must enter your registration number in valid format'
-    vrn_too_long: 'Your registration number is too long'
-    vrn_too_short: 'Your registration number is too short'
+    vrn_missing: 'Enter the registration number of the vehicle'
+    country_missing: 'Tell us if your vehicle is UK or non-UK registered'
+    vrn_invalid: 'Enter the registration number of the vehicle in valid format'
+    vrn_too_long: 'The registration number of the vehicle is too long'
+    vrn_too_short: 'The registration number of the vehicle is too short'
   errors:
     500: Internal server error
     503: Service is unavailable
