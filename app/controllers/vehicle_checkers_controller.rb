@@ -5,13 +5,13 @@ class VehicleCheckersController < ApplicationController
   before_action :check_vrn, except: %i[enter_details validate_vrn]
 
   def enter_details
-    # renders static page
+    @errors = {}
   end
 
   def validate_vrn
     form = VrnForm.new(params_vrn, country)
     unless form.valid?
-      @error = form.error_object
+      @errors = form.error_object
       return render enter_details_vehicle_checkers_path
     end
 

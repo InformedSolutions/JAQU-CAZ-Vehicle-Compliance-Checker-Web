@@ -41,19 +41,19 @@ Feature: Vehicle Checker
   Scenario: User doesn't fill VRN input
     Given I am on the enter details page
       And I press the Continue
-    Then I should see "You must enter your registration number"
+    Then I should see "Enter the registration number of the vehicle"
 
   Scenario: User doesn't select country
     Given I am on the enter details page
       And I enter a vehicle's registration without selecting country
       And I press the Continue
-    Then I should see "You must select the place of the registration"
+    Then I should see "Tell us if your vehicle is UK or non-UK registered"
 
   Scenario: User fills invalid VRN
     Given I am on the enter details page
       And I enter a vehicle's registration with "C3#%&"
       And I press the Continue
-    Then I should see "You must enter your registration number in valid format"
+    Then I should see "Enter the registration number of the vehicle in valid format"
 
   Scenario: User doesn't select confirmation
     Given I am on the enter details page
