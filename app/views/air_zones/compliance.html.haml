@@ -1,4 +1,4 @@
-= link_to 'Back', caz_selection_air_zones_path, class: 'govuk-back-link'
+= link_to 'Back', caz_selection_air_zones_path, class: 'govuk-back-link', id: 'back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
@@ -12,17 +12,17 @@
 
         - unless details.charged?
           .govuk-panel.govuk-panel--confirmation
-            %h1.govuk-panel__title
+            %h1.govuk-panel__title{id: "uncharged-title-#{details.html_id}"}
               You will not be charged
           %br
           %p
             There is no charge for this vehicle to travel in the
-            = link_to details.main_info_url, target: '_blank' do
+            = link_to details.main_info_url, target: '_blank', id: "no-charge-#{details.html_id}" do
               = details.zone_name
               CAZ
         - else
           .govuk-panel.govuk-panel--noncompliant
-            %h1.govuk-panel__title
+            %h1.govuk-panel__title{id: "charged-title-#{details.html_id}"}
               Subject to charge:
               %br
               = details.charge
@@ -30,36 +30,44 @@
           %p
             This vehicle does not comply with the
             = succeed '.' do
-              = link_to details.emissions_standards_url, target: '_blank', class: 'caz-inline-link' do
+              = link_to details.emissions_standards_url,
+                target: '_blank', class: 'caz-inline-link', id: 'emissions-standards' do
                 = details.zone_name
                 CAZ emissions standards
             It is therefore subject to a charge when driving in the
-            = link_to details.main_info_url, target: '_blank', class: 'caz-inline-link' do
+            = link_to details.main_info_url,
+              target: '_blank', class: 'caz-inline-link', id: 'main_info' do
               = details.zone_name
               Clean Air Zone
             = ' during its'
             = succeed '.' do
-              = link_to 'hours of operation', details.hours_of_operation_url, target: '_blank', class: 'caz-inline-link'
+              = link_to 'hours of operation', details.hours_of_operation_url,
+                target: '_blank', class: 'caz-inline-link', id: 'hours-of-operation'
 
           %h2.govuk-heading-m
             Next steps
           %ul.govuk-list.govuk-list--bullet
             %li
-              = link_to "Find out how much the #{details.zone_name} CAZ charge is", details.pricing_url, target: '_blank'
+              = link_to "Find out how much the #{details.zone_name} CAZ charge is",
+                details.pricing_url, target: '_blank', id: 'caz-charge'
             %li
-              = link_to 'Find out if you qualify for an exemption or discount', details.exemption_or_discount_url, target: '_blank'
+              = link_to 'Find out if you qualify for an exemption or discount',
+                details.exemption_or_discount_url, target: '_blank', id: 'exemption-or-discount'
             %li
-              = link_to "Pay the #{details.zone_name} CAZ charge", details.pay_caz_url, target: '_blank'
+              = link_to "Pay the #{details.zone_name} CAZ charge",
+                details.pay_caz_url, target: '_blank', id: 'pay-caz'
           %p
             If you wish to avoid the charge in the future, you can change your vehicle to
             = succeed "," do
-              = link_to 'become compliant', details.become_compliant_url, target: '_blank'
+              = link_to 'become compliant', details.become_compliant_url,
+                target: '_blank', id: 'become-compliant'
             and you may qualify for
-            = link_to 'financial assistance', details.financial_assistance_url, target: '_blank'
+            = link_to 'financial assistance', details.financial_assistance_url,
+              target: '_blank', id: 'financial-assistance'
             to help you do so.
 
       %p#print-page-link{style: 'display: none;'}
-        = link_to "Print this page", 'javascript:window.print()'
+        = link_to "Print this page", 'javascript:window.print()', id: 'print-this-page'
 
     .govuk-grid-column-one-third
       %h2.govuk-heading-m

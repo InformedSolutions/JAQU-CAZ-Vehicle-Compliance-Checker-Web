@@ -7,7 +7,8 @@
       %a.govuk-button.govuk-button--start{role: 'button',
                                           'data-draggable': false,
                                           'data-module': 'govuk-button',
-                                          'href': enter_details_vehicle_checkers_path}
+                                          href: enter_details_vehicle_checkers_path,
+                                          id: 'start-now'}
         Start now
         %svg.govuk-button__start-icon{focusable: 'false',
                                       height: '19',
@@ -23,7 +24,7 @@
         charging Clean Air Zones in England, each with their own emissions standards, charges, discounts and exemptions.
       %h2.govuk-heading-m Related content
       %p
-        = link_to 'Pay a CAZ charge', '#'
+        = link_to 'Pay a CAZ charge', '#', id: 'pay-caz'
       %h2.govuk-heading-m Explore the topic
       %p
-        = link_to 'Clean Air Zones', '#'
+        = link_to 'Clean Air Zones', '#', id: 'caz'

@@ -10,7 +10,7 @@
       .govuk-error-summary__body
         %ul.govuk-list.govuk-error-summary__list
           %li
-            %a{href: "#confirm-vehicle-error"}= alert
+            %a{href: "#confirm-vehicle-error", id: 'error-summary'}= alert
 
   .govuk-grid-row
     .govuk-grid-column-two-thirds
@@ -18,27 +18,27 @@
       %table.govuk-table
         %tbody.govuk-table__body
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"}
+            %td.govuk-table__cell{scope: 'row'}
             %td.govuk-table__cell
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Registration
-            %th.govuk-table__cell= @vehicle_details.registration_number
+            %td.govuk-table__cell{scope: 'row'} Registration
+            %th.govuk-table__cell{id: 'registration-number'}= @vehicle_details.registration_number
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Type
-            %th.govuk-table__cell= @vehicle_details.type
+            %td.govuk-table__cell{scope: 'row'} Type
+            %th.govuk-table__cell{id: 'type'}= @vehicle_details.type
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Make
-            %th.govuk-table__cell= @vehicle_details.make
+            %td.govuk-table__cell{scope: 'row'} Make
+            %th.govuk-table__cell{id: 'make'}= @vehicle_details.make
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Colour
-            %th.govuk-table__cell= @vehicle_details.colour
+            %td.govuk-table__cell{scope: 'row'} Colour
+            %th.govuk-table__cell{id: 'colour'}= @vehicle_details.colour
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: "row"} Fuel type
-            %th.govuk-table__cell= @vehicle_details.fuel_type
+            %td.govuk-table__cell{scope: 'row'} Fuel type
+            %th.govuk-table__cell{id: 'fuel-type'}= @vehicle_details.fuel_type
           - if @vehicle_details.taxi_private_hire_vehicle.eql?('Yes')
             %tr.govuk-table__row
-              %td.govuk-table__cell{scope: "row"} Taxi
-              %th.govuk-table__cell= @vehicle_details.taxi_private_hire_vehicle
+              %td.govuk-table__cell{scope: 'row'} Taxi
+              %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.taxi_private_hire_vehicle
 
       = form_tag user_confirm_details_vehicle_checkers_path, method: :get do
         - if alert
