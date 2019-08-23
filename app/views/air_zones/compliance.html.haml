@@ -7,7 +7,7 @@
       %p= "Vehicle registration #{@vrn}."
 
       - @compliance_outcomes.each do |details|
-        %h1.govuk-heading-l
+        %h1.govuk-heading-l{id: details.html_id}
           = details.zone_name
 
         - unless details.charged?
