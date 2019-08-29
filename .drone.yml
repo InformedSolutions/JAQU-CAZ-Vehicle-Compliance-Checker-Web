@@ -143,6 +143,9 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
+      TF_VAR_enable_redirect: false
+      TF_VAR_disable_redirect: true
+        
     when:
       event:
         exclude:
@@ -222,6 +225,26 @@ steps:
       event:
         exclude:
         - pull_request
+        
+    # Invoke terraform scripts with tagged image number
+  - name: Enable authentication
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - terraform init
+      - terraform workspace select dev
+      - terraform apply -auto-approve
+    environment:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_secret_key_base: secret
+      TF_VAR_google_analytics_id: UA-144774549-2
+      TF_VAR_compliance_checker: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+      TF_VAR_enable_redirect: true
+      TF_VAR_disable_redirect: false
 
 volumes:
 - name: docker_sock
