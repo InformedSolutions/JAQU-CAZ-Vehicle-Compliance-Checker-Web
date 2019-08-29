@@ -143,8 +143,7 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
-      TF_VAR_enable_redirect: false
-      TF_VAR_disable_redirect: true
+      TF_VAR_enable_https_redirect: false
         
     when:
       event:
@@ -183,18 +182,18 @@ steps:
         - pull_request
         
   # Trigger accessibility test
-  #- name: accessibility tests
-  #  image: pa11y-ci
-  #  pull: never
-  #  environment:
-  #    BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
-  #  commands:
-  #    - mkdir screenshots
-  #    - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
-  #  when:
-  #    event:
-  #      exclude:
-  #      - pull_request
+  - name: accessibility tests
+    image: pa11y-ci
+    pull: never
+    environment:
+      BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
+    commands:
+      - mkdir screenshots
+      - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
+    when:
+      event:
+        exclude:
+        - pull_request
 
   # Execute jMeter scripts via taurus
   - name: micro-performance tests
@@ -243,8 +242,7 @@ steps:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
-      TF_VAR_enable_redirect: true
-      TF_VAR_disable_redirect: false
+      TF_VAR_enable_https_redirect: true
 
 volumes:
 - name: docker_sock
