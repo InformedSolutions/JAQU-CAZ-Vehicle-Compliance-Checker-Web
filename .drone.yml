@@ -183,18 +183,18 @@ steps:
         - pull_request
         
   # Trigger accessibility test
-  - name: accessibility tests
-    image: pa11y-ci
-    pull: never
-    environment:
-      BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
-    commands:
-      - mkdir screenshots
-      - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
-    when:
-      event:
-        exclude:
-        - pull_request
+  #- name: accessibility tests
+  #  image: pa11y-ci
+  #  pull: never
+  #  environment:
+  #    BASE_URL: http://vccs-web-dev-1715195167.eu-west-2.elb.amazonaws.com
+  #  commands:
+  #    - mkdir screenshots
+  #    - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
+  #  when:
+  #    event:
+  #      exclude:
+  #      - pull_request
 
   # Execute jMeter scripts via taurus
   - name: micro-performance tests
@@ -227,7 +227,7 @@ steps:
         - pull_request
         
     # Invoke terraform scripts with tagged image number
-  - name: Enable authentication
+  - name: enable authentication
     image: hashicorp/terraform:0.12.3
     commands:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
