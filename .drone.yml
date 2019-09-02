@@ -90,10 +90,10 @@ steps:
     image: hashicorp/terraform:0.12.3
     commands:
       - git clone https://github.com/InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/global
       - terraform init
-      - terraform workspace select dev || terraform workspace new dev
-      - terraform apply -target=module.ecr -auto-approve
+      - terraform workspace select default || terraform workspace new default
+      - terraform apply -auto-approve
     environment:
       TF_VAR_access_key:
         from_secret: aws_access_key_id
