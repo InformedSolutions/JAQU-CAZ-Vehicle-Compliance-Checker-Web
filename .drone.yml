@@ -251,6 +251,10 @@ steps:
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
       TF_VAR_enable_https_redirect: true
+    when:
+      event:
+        exclude:
+        - pull_request
 
 volumes:
 - name: docker_sock
