@@ -235,7 +235,7 @@ steps:
 
     # Build end to end tests docker image
   - name: build end to end test image
-    image: docker
+    image: docker:git
     commands:
       - mkdir ~/.ssh
       - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
