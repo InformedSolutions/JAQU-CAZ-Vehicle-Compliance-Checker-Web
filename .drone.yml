@@ -246,10 +246,10 @@ steps:
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-QA-selenium.git
       - cd JAQU-CAZ-QA-selenium
       - docker build -t selenium-jaqu .
-    when:
-      event:
-        exclude:
-        - pull_request
+    # when:
+    #   event:
+    #     exclude:
+    #     - pull_request
 
     # Run end to end tests
   - name: run end to end tests
@@ -260,6 +260,8 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
+      BASEURL_NTR: 'http://ntr-web-dev-1233262176.eu-west-2.elb.amazonaws.com'
+      BASEURL_RETRO: 'http://retrofit-web-dev-1746958844.eu-west-2.elb.amazonaws.com'
       BASEURL_VCCS: 'https://vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
