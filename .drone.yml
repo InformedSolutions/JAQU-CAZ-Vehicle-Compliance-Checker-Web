@@ -246,6 +246,9 @@ steps:
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-QA-selenium.git
       - cd JAQU-CAZ-QA-selenium
       - docker build -t selenium-jaqu .
+    environment:
+      GIT_PRIVATE_SSH:
+        from_secret: github_private_key
     # when:
     #   event:
     #     exclude:
@@ -254,10 +257,15 @@ steps:
     # Run end to end tests
   - name: run end to end tests
     image: selenium-jaqu
+nothing added to commit but untracked files present (use "git add" to track)
     pull: never
+nothing added to commit but untracked files present (use "git add" to track)
     environment:
+nothing added to commit but untracked files present (use "git add" to track)
       BS_USERNAME:
-        from_secret: browserstack_username
+nothing added to commit but untracked files present (use "git add" to track)
+        from_secret: browsers
+nothing added to commit but untracked files present (use "git add" to track)tack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_NTR: 'http://ntr-web-dev-1233262176.eu-west-2.elb.amazonaws.com'
