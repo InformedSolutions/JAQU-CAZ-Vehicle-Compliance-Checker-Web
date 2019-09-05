@@ -279,9 +279,7 @@ steps:
       SPECTRE: false
       LOCATION: browserstack
     commands:
-      - ls
-      - pwd
-      - cd selenium
+      - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS
     # when:
     #   event:
