@@ -10,8 +10,14 @@ class BaseApi
 
   class << self
     def request(method, path, options = {})
-      response_object = public_send(method, path, options)
-      validate_response(response_object.response)
+      response_object = public_send(method, path, options).response
+      parsed_body = validate_response(response_object.response)
+      log_action 'The call was successful'
+      parsed_body
+    end
+
+    def log_action(msg)
+      Rails.logger.info "[#{name}] #{msg}"
     end
 
     private
