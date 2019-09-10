@@ -128,14 +128,14 @@ steps:
         - latest
         - ${DRONE_BUILD_NUMBER}
       build_args:
-        - secret_key_base=secret
+        - secret_key_base=${DRONE_COMMIT}
     when:
       event:
         exclude:
         - pull_request
 
   # Invoke terraform scripts with tagged image number
-  - name: deploy
+  - name: deploy to dev
     image: hashicorp/terraform:0.12.3
     commands:
       - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
@@ -144,7 +144,7 @@ steps:
       - terraform apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: secret
+      TF_VAR_secret_key_base: ${DRONE_COMMIT}
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_compliance_checker: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
       TF_VAR_access_key:
@@ -152,11 +152,35 @@ steps:
       TF_VAR_secret_key:
         from_secret: aws_secret_access_key
       TF_VAR_enable_https_redirect: false
-        
     when:
       event:
         exclude:
         - pull_request
+      branch: develop
+
+  # Invoke terraform scripts with tagged image number
+  - name: deploy to sit
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/sit
+      - terraform init
+      - terraform workspace select sit
+      - terraform apply -auto-approve
+    environment:
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_google_analytics_id: UA-144774549-2
+      TF_VAR_compliance_checker: https://grr1loxnzi.execute-api.eu-west-2.amazonaws.com/sit
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+      TF_VAR_enable_https_redirect: false
+    when:
+      event:
+        exclude:
+        - pull_request
+      branch: release/*
 
   # Build docker image
   - name: await ecs rollout
@@ -174,6 +198,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
 
   # Build pa11y-ci image
   - name: build pa11y-ci image
@@ -188,6 +213,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
         
   # Trigger accessibility test
   - name: accessibility tests
@@ -202,6 +228,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
 
   # Execute jMeter scripts via taurus
   - name: micro-performance tests
@@ -216,6 +243,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
 
   # Execute OWASP Zap tests
   - name: owasp zap tests
@@ -232,6 +260,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
         
     # Invoke terraform scripts with tagged image number
   - name: enable authentication
@@ -255,6 +284,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
 
 volumes:
 - name: docker_sock
