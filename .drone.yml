@@ -285,6 +285,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
 
     # Run end to end tests
   - name: run end to end tests
@@ -314,6 +315,7 @@ steps:
       event:
         exclude:
         - pull_request
+      branch: develop
         
     # Invoke terraform scripts with tagged image number
   - name: enable authentication
