@@ -16,6 +16,7 @@ gem 'logstash-logger'
 gem 'puma'
 gem 'rubocop-rails'
 gem 'sass-rails'
+gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
 
@@ -31,7 +32,6 @@ end
 
 group :development do
   gem 'listen'
-  gem 'sdoc'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'
