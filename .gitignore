@@ -50,3 +50,5 @@ config/ssl/
 .env
 .vagrant
 /sonar-scanner*
+
+/doc
