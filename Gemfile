@@ -31,6 +31,7 @@ end
 
 group :development do
   gem 'listen'
+  gem 'sdoc'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'
