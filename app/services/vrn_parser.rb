@@ -65,7 +65,7 @@ class VrnParser < BaseService
 
   # Prepends dashes or zeros to the group.
   # Zeroes are prepended only to the numeric group if it is the first one.
-  # Returns a string
+  # Returns a string, eg. 0009-AA
   def prepend_to_result
     @result += if result.empty? && numeric?(group.last)
                  prepend_zeroes
@@ -75,7 +75,7 @@ class VrnParser < BaseService
   end
 
   # Merges last group to the result and appends dashes if needed.
-  # Returns a string with up to 7 characters.
+  # Returns a string with up to 7 characters, eg. 0009-AA
   def finalize_result
     @result += if result.length > 5
                  group.join
@@ -98,19 +98,19 @@ class VrnParser < BaseService
   end
 
   # Checks if last member of the group is tha same type as given character.
-  # Returns true or false.
+  # Returns a boolean.
   def same_type(char)
     (numeric?(group.last) && numeric?(char)) || (letter?(group.last) && letter?(char))
   end
 
   # Checks if given character is a number.
-  # Returns true or false.
+  # Returns a boolean.
   def numeric?(char)
     !(char =~ /[0-9]/).nil?
   end
 
   # Checks if given character is a letter.
-  # Returns true or false.
+  # Returns a boolean.
   def letter?(char)
     !(char =~ /[A-Z]/).nil?
   end
