@@ -1,14 +1,28 @@
 # frozen_string_literal: true
 
+##
+# This class is used to validate user data filled in +app/views/vehicle_checkers/enter_details.html.haml+.
 class VrnForm
   attr_reader :vrn, :country, :error_object
 
+  ##
+  # Initializer method
+  #
+  # ==== Attributes
+  #
+  # * +vrn+ - string, eg. 'CU57ABC'
+  # * +country+ - string, eg. 'UK'
+  # * +error_object+ - empty hash, default error object
   def initialize(vrn, country)
     @vrn = vrn
     @country = country
     @error_object = {}
   end
 
+  ##
+  # Validate user data.
+  #
+  # Returns a boolean.
   def valid?
     if country == 'Non-UK'
       filled_vrn?
@@ -21,6 +35,10 @@ class VrnForm
 
   private
 
+  # Checks if at least one +vrn+ was selected.
+  # If not, add error message to +error_object+.
+  #
+  # Returns a boolean.
   def filled_vrn?
     return true if vrn.present?
 
@@ -28,6 +46,10 @@ class VrnForm
     false
   end
 
+  # Checks if at least one +country+ was selected.
+  # If not, add error message to +error_object+.
+  #
+  # Returns a boolean.
   def filled_country?
     return true if country.present?
 
@@ -38,6 +60,10 @@ class VrnForm
     false
   end
 
+  # Checks if +vrn+ format is valid.
+  # If not, add error message to +error_object+.
+  #
+  # Returns a boolean.
   def valid_format?
     return true if FORMAT_REGEXPS.any? do |reg|
       reg.match(vrn.gsub(/\s+/, '').upcase).present?
@@ -47,6 +73,10 @@ class VrnForm
     false
   end
 
+  # Checks if +vrn+ not to long.
+  # If not, add error message to +error_object+.
+  #
+  # Returns a boolean.
   def not_to_long?
     return true if vrn.gsub(/\s+/, '').length <= 7
 
@@ -54,6 +84,11 @@ class VrnForm
     false
   end
 
+  # Checks if +vrn+ not to short.
+  #
+  # If not, add error message to +error_object+.
+  #
+  # Returns a boolean.
   def not_to_short?
     return true if vrn.gsub(/\s+/, '').length > 1
 
@@ -61,10 +96,21 @@ class VrnForm
     false
   end
 
+  # Add error message to +error_object+.
+  #
+  # ==== Attributes
+  #
+  # * +msg+ - string, eg. 'Enter the registration number of the vehicle'
+
+  # ==== Result
+  #
+  # Returns +error_object+ as hash.
   def vrn_error(msg)
     @error_object[:vrn] = { message: msg, link: '#vrn-error' }
   end
 
+  # Regexps formats to validate +vrn+.
+  #
   FORMAT_REGEXPS = [
     /^[A-Z]{3}[0-9]{3}$/, # AAA999
     /^[A-Z][0-9]{3}[A-Z]{3}$/, # A999AAA
