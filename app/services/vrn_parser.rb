@@ -65,7 +65,7 @@ class VrnParser < BaseService
 
   # Prepends dashes or zeros to the group.
   # Zeroes are prepended only to the numeric group if it is the first one.
-  # Returns a string, eg. 0009-AA
+  # Returns a string, eg. '0009-AA'
   def prepend_to_result
     @result += if result.empty? && numeric?(group.last)
                  prepend_zeroes
@@ -75,7 +75,7 @@ class VrnParser < BaseService
   end
 
   # Merges last group to the result and appends dashes if needed.
-  # Returns a string with up to 7 characters, eg. 0009-AA
+  # Returns a string with up to 7 characters, eg. '0009-AA'
   def finalize_result
     @result += if result.length > 5
                  group.join
