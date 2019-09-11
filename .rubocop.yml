@@ -9,7 +9,7 @@ Style/Documentation:
 
 Metrics/LineLength:
   Max: 99
-  IgnoredPatterns: ['\A#']
+  IgnoredPatterns: ['(\A|\s)#']
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
