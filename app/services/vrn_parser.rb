@@ -63,8 +63,9 @@ class VrnParser < BaseService
   # Attributes used internally to save values
   attr_reader :vrn, :result, :group
 
-  # Prepends dashes or zeros to the group
+  # Prepends dashes or zeros to the group.
   # Zeroes are prepended only to the numeric group if it is the first one.
+  # Returns a string
   def prepend_to_result
     @result += if result.empty? && numeric?(group.last)
                  prepend_zeroes
@@ -74,7 +75,7 @@ class VrnParser < BaseService
   end
 
   # Merges last group to the result and appends dashes if needed.
-  # It returns up to 7 characters.
+  # Returns a string with up to 7 characters.
   def finalize_result
     @result += if result.length > 5
                  group.join
@@ -84,27 +85,32 @@ class VrnParser < BaseService
     result[-7..-1] || result
   end
 
-  # prepends up to 3 dashes to the group
+  # Prepends up to 3 dashes to the group.
+  # Returns a string based on the current group eg. '\--A'.
   def prepend_dashes
     group.join.rjust(3, '-')
   end
 
-  # prepends up to 4 zeros to the group
+  # Prepends up to 4 zeros to the group.
+  # Returns a string based on the current group eg. '0003'.
   def prepend_zeroes
     group.join.rjust(4, '0')
   end
 
-  # checks if last member of the group is tha same type as given character
+  # Checks if last member of the group is tha same type as given character.
+  # Returns true or false.
   def same_type(char)
     (numeric?(group.last) && numeric?(char)) || (letter?(group.last) && letter?(char))
   end
 
-  # checks if given character is a number
+  # Checks if given character is a number.
+  # Returns true or false.
   def numeric?(char)
     !(char =~ /[0-9]/).nil?
   end
 
-  # checks if given character is a letter
+  # Checks if given character is a letter.
+  # Returns true or false.
   def letter?(char)
     !(char =~ /[A-Z]/).nil?
   end

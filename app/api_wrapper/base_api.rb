@@ -23,7 +23,7 @@ class BaseApi
 
   class << self
     ##
-    # Performs a HTTP request and returns parsed body
+    # Performs a HTTP request and returns a hash with parsed body
     #
     # ==== Attributes
     #
@@ -62,7 +62,8 @@ class BaseApi
 
     ##
     # validates an API response and parses its body from JSON.
-    # Raises exception if status is above 400 or parsing fails.
+    # Returns parsed JSON object to hash or
+    # raises exception if status is above 400 or parsing fails.
     #
     def validate_response(response_struct)
       status = response_struct.code.to_i
@@ -75,8 +76,8 @@ class BaseApi
     end
 
     ##
-    # Parses response body
-    # +JSON::ParserError+ is treated as 500
+    # Parses response body and returns a hash.
+    # +JSON::ParserError+ is treated as 500.
     def parse_body(body)
       JSON.parse(body.presence || '{}')
     rescue JSON::ParserError
@@ -84,7 +85,8 @@ class BaseApi
     end
 
     ##
-    # Matches error status with a proper exception class
+    # Matches error status with a proper exception class.
+    # Returns an error class.
     def error_klass(status)
       case status
       when 400
