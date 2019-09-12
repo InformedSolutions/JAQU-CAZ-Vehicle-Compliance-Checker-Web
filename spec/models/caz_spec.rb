@@ -8,7 +8,7 @@ RSpec.describe Caz, type: :model do
   let(:data) { { 'name' => name, 'cleanAirZoneId' => id, 'boundaryUrl' => url } }
   let(:name) { 'Birmingham' }
   let(:id) { SecureRandom.uuid }
-  let(:url) { 'www.wp.pl' }
+  let(:url) { 'www.example.com' }
 
   describe '.id' do
     it 'returns a proper id' do

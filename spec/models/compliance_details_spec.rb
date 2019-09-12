@@ -25,7 +25,7 @@ RSpec.describe ComplianceDetails, type: :model do
 
   let(:name) { 'Birmingham' }
   let(:charge) { 5.1 }
-  let(:url) { 'www.wp.pl' }
+  let(:url) { 'www.example.com' }
 
   describe '.zone_name' do
     it 'returns a proper name' do
