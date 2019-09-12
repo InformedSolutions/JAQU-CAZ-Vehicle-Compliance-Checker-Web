@@ -3,7 +3,12 @@
 ##
 # This class is used to validate user data filled in +app/views/vehicle_checkers/enter_details.html.haml+.
 class VrnForm
-  attr_reader :vrn, :country, :error_object
+  # Submitted vehicle registration number
+  attr_reader :vrn
+  # Selected country value, possible values: 'UK', 'Non-UK'
+  attr_reader :country
+  # Hash containing validation errors
+  attr_reader :error_object
 
   ##
   # Initializer method

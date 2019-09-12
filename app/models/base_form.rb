@@ -3,7 +3,10 @@
 ##
 # This is an abstract class used as a base form BY all form classes.
 class BaseForm
-  attr_reader :parameter, :message
+  # Attribute that is being checked in the form, can be any type
+  attr_reader :parameter
+  # Returned error message, string
+  attr_reader :message
 
   ##
   # Creates an instance of a form class.
