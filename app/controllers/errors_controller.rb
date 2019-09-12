@@ -32,7 +32,7 @@ class ErrorsController < ApplicationController
 
   private
 
-  # changes the request format to HTML to always display the error pages
+  # Changes the request format to HTML to always display the error pages
   def set_html_response_format
     request.format = :html
   end

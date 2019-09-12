@@ -3,9 +3,9 @@
 ##
 # This is an abstract class used as a base form BY all form classes.
 class BaseForm
-  # attribute that is being checked in the form, can be any type
+  # Attribute that is being checked in the form, can be any type
   attr_reader :parameter
-  # returned error message, string
+  # Returned error message, string
   attr_reader :message
 
   ##

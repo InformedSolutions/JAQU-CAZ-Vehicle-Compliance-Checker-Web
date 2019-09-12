@@ -43,19 +43,21 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # function used as a rescue from API errors. Logs the exception and redirects to ErrorsController#service_unavailable
+  # Function used as a rescue from API errors.
+  # Logs the exception and redirects to ErrorsController#service_unavailable
   def redirect_to_server_unavailable(exception)
     Rails.logger.error "#{exception.class}: #{exception}"
 
     render template: 'errors/service_unavailable', status: :service_unavailable
   end
 
-  # checks if VRN is present in session. If not, redirects to VehicleCheckersController#enter_details
+  # Checks if VRN is present in session.
+  # If not, redirects to VehicleCheckersController#enter_details
   def check_vrn
     redirect_to enter_details_vehicle_checkers_path unless vrn
   end
 
-  # gets VRN from session. Returns string, eg 'CU1234'
+  # Gets VRN from session. Returns string, eg 'CU1234'
   def vrn
     session[:vrn]
   end

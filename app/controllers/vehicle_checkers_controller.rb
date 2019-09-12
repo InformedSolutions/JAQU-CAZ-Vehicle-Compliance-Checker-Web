@@ -192,7 +192,8 @@ class VehicleCheckersController < ApplicationController
     params['registration-country']
   end
 
-  # Checks if selected registration country equals Non-UK, returns boolean
+  # Checks if selected registration country equals Non-UK.
+  # Returns boolean.
   def non_uk?
     country == 'Non-UK'
   end
