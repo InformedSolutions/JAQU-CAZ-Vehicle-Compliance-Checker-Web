@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# This class is used to display data in +app/views/vehicle_checkers/confirm_details.html.haml+.
+# This class is represents data return by {CAZ API endpoint}[rdoc-ref:ComplianceCheckerApi.vehicle_details]
 class VehicleDetails
   ##
   # Creates an instance of a class, make +vrn+ uppercase and remove all spaces.

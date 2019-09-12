@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# This is an abstract class used as a base form for all form classes.
+# This is an abstract class used as a base form BY all form classes.
 class BaseForm
   attr_reader :parameter, :message
 
