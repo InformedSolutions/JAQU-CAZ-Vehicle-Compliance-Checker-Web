@@ -2,7 +2,7 @@
 
 ##
 # This class represents data returned by {CAZ API endpoint}[rdoc-ref:ComplianceCheckerApi.clean_air_zones]
-# And used to display data in +app/views/air_zones/caz_selection.html.haml+.
+# and is used to display data in +app/views/air_zones/caz_selection.html.haml+.
 class Caz
   ##
   # Creates an instance of a form class, make keys underscore and transform to symbols.
