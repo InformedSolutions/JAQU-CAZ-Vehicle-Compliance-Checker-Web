@@ -17,6 +17,8 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
+      And I should see "Vehicle type approval"
+      And I should see "Model"
       And I choose that the details are correct
       And I press the Confirm
     Then I should see the CAZ Selection page

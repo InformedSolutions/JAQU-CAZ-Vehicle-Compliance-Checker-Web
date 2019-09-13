@@ -21,14 +21,20 @@
             %td.govuk-table__cell{scope: 'row'}
             %td.govuk-table__cell
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: 'row'} Registration
+            %td.govuk-table__cell{scope: 'row'} Vehicle registration
             %th.govuk-table__cell{id: 'registration-number'}= @vehicle_details.registration_number
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: 'row'} Type
+            %td.govuk-table__cell{scope: 'row'} Vehicle type approval
+            %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.type_approval
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: 'row'} CAZ vehicle type
             %th.govuk-table__cell{id: 'type'}= @vehicle_details.type
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Make
             %th.govuk-table__cell{id: 'make'}= @vehicle_details.make
+          %tr.govuk-table__row
+            %td.govuk-table__cell{scope: 'row'} Model
+            %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.model
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Colour
             %th.govuk-table__cell{id: 'colour'}= @vehicle_details.colour

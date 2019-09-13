@@ -60,6 +60,16 @@ class VehicleDetails
     compliance_api['exempt']
   end
 
+  # Returns a string, eg. 'M1'.
+  def type_approval
+    string_field('typeApproval')
+  end
+
+  # Returns a string, eg. 'i20'.
+  def model
+    string_field('model')
+  end
+
   private
 
   ##
