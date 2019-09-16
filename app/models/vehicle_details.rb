@@ -24,7 +24,7 @@ class VehicleDetails
     VrnParser.call(vrn: @vrn)
   end
 
-  # Returns a string, eg. 'car'.
+  # Returns a string, eg. 'Car'.
   def type
     string_field('type')
   end
@@ -60,6 +60,14 @@ class VehicleDetails
     compliance_api['exempt']
   end
 
+  # Check if type is 'null'
+  #
+  # Returns a boolean 'true' if type is 'null'.
+  # Returns a boolean 'false' if type is not 'null'.
+  def undetermined?
+    compliance_api['type']&.downcase == 'null'
+  end
+
   # Returns a string, eg. 'M1'.
   def type_approval
     string_field('typeApproval')
@@ -80,9 +88,12 @@ class VehicleDetails
   # * +key+ - string, eg. 'type'
   #
   # ==== Result
+  # Returns a nil if +key+ value is blank or equal to 'null'.
   # Returns a string, eg. 'Car' if +key+ value is present.
   # Returns a nil if +key+ value is not present.
   def string_field(key)
+    return nil if compliance_api[key].blank? || compliance_api[key].downcase == 'null'
+
     compliance_api[key]&.capitalize
   end
 

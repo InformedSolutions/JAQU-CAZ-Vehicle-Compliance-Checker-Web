@@ -78,6 +78,7 @@ class VehicleCheckersController < ApplicationController
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
     redirect_to exemption_vehicle_checkers_path if @vehicle_details.exempt?
+    session[:undetermined] = true if @vehicle_details.undetermined?
   end
 
   ##
@@ -102,8 +103,7 @@ class VehicleCheckersController < ApplicationController
       return redirect_to confirm_details_vehicle_checkers_path, alert: form.message
     end
 
-    redirect_to caz_selection_air_zones_path and return if form.confirmed?
-    redirect_to incorrect_details_vehicle_checkers_path
+    determinate_next_page(form)
   end
 
   ##
@@ -159,6 +159,17 @@ class VehicleCheckersController < ApplicationController
   end
 
   ##
+  # Renders a Cannot determine compliance page
+  #
+  # ==== Path
+  #
+  #    GET /vehicle_checkers/cannot_determinate
+  #
+  def cannot_determinate
+    @vehicle_registration = session[:vrn]
+  end
+
+  ##
   # Renders a page for vehicles that are not registered within the UK
   #
   # ==== Path
@@ -201,5 +212,23 @@ class VehicleCheckersController < ApplicationController
   # Redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
   def vehicle_not_found
     redirect_to number_not_found_vehicle_checkers_path
+  end
+
+  ##
+  # Verifies if vehicles's registration not determined and if user confirms data returned from the API.
+  # If vehicles's registration not determined and form confirmed, redirects to
+  #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
+  # If yes and form confirmed, redirects to
+  #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
+  # If yes and and form not confirmed, redirects to
+  #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
+  def determinate_next_page(form)
+    if session[:undetermined]
+      redirect_to cannot_determinate_vehicle_checkers_path
+    elsif form.confirmed?
+      redirect_to caz_selection_air_zones_path
+    else
+      redirect_to incorrect_details_vehicle_checkers_path
+    end
   end
 end

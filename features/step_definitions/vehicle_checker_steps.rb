@@ -82,3 +82,13 @@ end
 Then('I should see the Non-UK vehicle page') do
   expect(page).to have_current_path(non_uk_vehicle_checkers_path)
 end
+
+And("I enter an undetermined vehicle's registration") do
+  fill_in('vrn', with: vrn)
+  choose('UK')
+  mock_undetermined_type
+end
+
+Then('I should see the Cannot determine compliance page') do
+  expect(page).to have_current_path(cannot_determinate_vehicle_checkers_path)
+end
