@@ -23,7 +23,7 @@ class ApiException < StandardError
   def initialize(status, status_message, body)
     @status         = status.to_i
     @status_message = status_message
-    @message        = body['message'] if body.is_a?(Hash)
+    @message        = body.is_a?(Hash) ? body['message'] : status_message
     @body           = body
   end
 
@@ -34,7 +34,7 @@ class ApiException < StandardError
   #
   #    "Status: 404; Message: 'Vehicle was not found'"
   def message
-    "Status: #{status}; Message: #{@message || 'not received'}"
+    "Error status: #{status}; Message: #{@message || 'not received'}"
   end
 
   ##

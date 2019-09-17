@@ -61,6 +61,17 @@ class BaseApi
     end
 
     ##
+    # Logs given exception at +error+ level with a proper tag
+    #
+    # ==== Attributes
+    #
+    # * +exception+ - exception
+    #
+    def log_exception(exception)
+      Rails.logger.error "[#{name}] #{exception.message}"
+    end
+
+    ##
     # validates an API response and parses its body from JSON.
     # Returns parsed JSON object to hash or
     # raises exception if status is above 400 or parsing fails.
@@ -72,7 +83,9 @@ class BaseApi
       return parsed_body unless status.between?(400, 599)
 
       status_message = response_struct.msg
-      raise error_klass(status).new(status, status_message, parsed_body)
+      exception = error_klass(status).new(status, status_message, parsed_body)
+      log_exception(exception)
+      raise exception
     end
 
     ##
@@ -81,7 +94,9 @@ class BaseApi
     def parse_body(body)
       JSON.parse(body.presence || '{}')
     rescue JSON::ParserError
-      raise Error500Exception
+      exception = Error500Exception.new(500, 'Response body parsing failed', body)
+      log_exception(exception)
+      raise exception
     end
 
     ##

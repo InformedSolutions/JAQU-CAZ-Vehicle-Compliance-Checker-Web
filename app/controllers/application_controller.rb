@@ -54,11 +54,19 @@ class ApplicationController < ActionController::Base
   # Checks if VRN is present in session.
   # If not, redirects to VehicleCheckersController#enter_details
   def check_vrn
-    redirect_to enter_details_vehicle_checkers_path unless vrn
+    return if vrn
+
+    Rails.logger.warn 'VRN is missing in the session. Redirecting to :enter_details'
+    redirect_to enter_details_vehicle_checkers_path
   end
 
   # Gets VRN from session. Returns string, eg 'CU1234'
   def vrn
     session[:vrn]
+  end
+
+  # Logs invalid form on +warn+ level
+  def log_invalid_form(msg)
+    Rails.logger.warn "The form is invalid. #{msg}"
   end
 end
