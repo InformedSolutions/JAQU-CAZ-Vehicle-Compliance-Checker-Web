@@ -78,7 +78,6 @@ class VehicleCheckersController < ApplicationController
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
     redirect_to exemption_vehicle_checkers_path if @vehicle_details.exempt?
-    session[:undetermined] = true if @vehicle_details.undetermined?
   end
 
   ##
@@ -166,7 +165,7 @@ class VehicleCheckersController < ApplicationController
   #    GET /vehicle_checkers/cannot_determinate
   #
   def cannot_determinate
-    @vehicle_registration = session[:vrn]
+    @vehicle_registration = vrn
   end
 
   ##
@@ -215,15 +214,18 @@ class VehicleCheckersController < ApplicationController
   end
 
   ##
+  # ==== Params
+  # * +undetermined+ - status for the vehicle type if it is not possible to determine, eg. 'true'
+
   # Verifies if vehicles's registration not determined and if user confirms data returned from the API.
-  # If vehicles's registration not determined and form confirmed, redirects to
+  # If vehicles's registration not determined and form was confirmed, redirects to
   #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
-  # If yes and form confirmed, redirects to
+  # If vehicles's registration determined and form was confirmed, redirects to
   #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
-  # If yes and and form not confirmed, redirects to
+  # If vehicles's registration determined and form was not confirmed, redirects to
   #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   def determinate_next_page(form)
-    if session[:undetermined]
+    if params['undetermined'] == 'true'
       redirect_to cannot_determinate_vehicle_checkers_path
     elsif form.confirmed?
       redirect_to caz_selection_air_zones_path
