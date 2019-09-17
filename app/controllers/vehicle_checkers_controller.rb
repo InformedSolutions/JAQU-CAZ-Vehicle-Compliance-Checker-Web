@@ -47,6 +47,7 @@ class VehicleCheckersController < ApplicationController
     form = VrnForm.new(params_vrn, country)
     unless form.valid?
       @errors = form.error_object
+      log_invalid_form 'Rendering :enter_details.'
       return render enter_details_vehicle_checkers_path
     end
 
@@ -77,7 +78,10 @@ class VehicleCheckersController < ApplicationController
   #
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
-    redirect_to exemption_vehicle_checkers_path if @vehicle_details.exempt?
+    return unless @vehicle_details.exempt?
+
+    Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
+    redirect_to exemption_vehicle_checkers_path
   end
 
   ##
@@ -99,6 +103,7 @@ class VehicleCheckersController < ApplicationController
   def user_confirm_details
     form = ConfirmationForm.new(confirmation)
     unless form.valid?
+      log_invalid_form 'Redirecting back.'
       return redirect_to confirm_details_vehicle_checkers_path, alert: form.message
     end
 
