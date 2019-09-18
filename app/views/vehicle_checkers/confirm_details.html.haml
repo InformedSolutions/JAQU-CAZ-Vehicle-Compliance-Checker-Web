@@ -25,7 +25,7 @@
             %th.govuk-table__cell{id: 'registration-number'}= @vehicle_details.registration_number
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Vehicle type approval
-            %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.type_approval
+            %th.govuk-table__cell{id: 'type-approval'}= @vehicle_details.type_approval
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} CAZ vehicle type
             %th.govuk-table__cell{id: 'type'}= @vehicle_details.type
@@ -34,7 +34,7 @@
             %th.govuk-table__cell{id: 'make'}= @vehicle_details.make
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Model
-            %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.model
+            %th.govuk-table__cell{id: 'model'}= @vehicle_details.model
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Colour
             %th.govuk-table__cell{id: 'colour'}= @vehicle_details.colour
@@ -56,6 +56,7 @@
           %legend.govuk-visually-hidden
             Are these the vehicle's details?
           %input{name: 'vrn', type: 'hidden', value: @vehicle_details.registration_number}
+          %input{name: 'undetermined', type: 'hidden', value: @vehicle_details.undetermined?}
           .govuk-form-group
             .govuk-radios.govuk-radios--inline
               .govuk-radios__item

@@ -75,3 +75,12 @@ Feature: Vehicle Checker
       And I enter an exempt vehicle's registration
       And I press the Continue
     Then I should see the Exemption page
+
+  Scenario: User enters a vehicle's registration which cannot be determined
+    Given I am on the enter details page
+      And I enter an undetermined vehicle's registration
+      And I press the Continue
+    Then I should see the Confirm Details page
+      And I choose that the details are correct
+      And I press the Confirm
+    Then I should see the Cannot determine compliance page

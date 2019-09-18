@@ -107,8 +107,7 @@ class VehicleCheckersController < ApplicationController
       return redirect_to confirm_details_vehicle_checkers_path, alert: form.message
     end
 
-    redirect_to caz_selection_air_zones_path and return if form.confirmed?
-    redirect_to incorrect_details_vehicle_checkers_path
+    determinate_next_page(form)
   end
 
   ##
@@ -164,6 +163,17 @@ class VehicleCheckersController < ApplicationController
   end
 
   ##
+  # Renders a Cannot determine compliance page
+  #
+  # ==== Path
+  #
+  #    GET /vehicle_checkers/cannot_determinate
+  #
+  def cannot_determinate
+    @vehicle_registration = vrn
+  end
+
+  ##
   # Renders a page for vehicles that are not registered within the UK
   #
   # ==== Path
@@ -206,5 +216,26 @@ class VehicleCheckersController < ApplicationController
   # Redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
   def vehicle_not_found
     redirect_to number_not_found_vehicle_checkers_path
+  end
+
+  ##
+  # ==== Params
+  # * +undetermined+ - status for the vehicle type if it is not possible to determine, eg. 'true'
+
+  # Verifies if vehicles's registration not determined and if user confirms data returned from the API.
+  # If vehicles's registration not determined and form was confirmed, redirects to
+  #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
+  # If vehicles's registration determined and form was confirmed, redirects to
+  #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
+  # If vehicles's registration determined and form was not confirmed, redirects to
+  #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
+  def determinate_next_page(form)
+    if params['undetermined'] == 'true'
+      redirect_to cannot_determinate_vehicle_checkers_path
+    elsif form.confirmed?
+      redirect_to caz_selection_air_zones_path
+    else
+      redirect_to incorrect_details_vehicle_checkers_path
+    end
   end
 end

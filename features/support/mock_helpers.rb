@@ -11,6 +11,11 @@ module MockHelpers
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
+  def mock_undetermined_type
+    details = { 'type' => 'null' }
+    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
+  end
+
   def mock_unavailable_vehicle_details
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_raise(Errno::ECONNREFUSED)
   end
