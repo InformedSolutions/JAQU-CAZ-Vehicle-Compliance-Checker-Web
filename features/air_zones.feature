@@ -11,9 +11,10 @@ Feature: Air Zone
     Then I choose that the details are correct
       And I press the Confirm
     Then I should see the CAZ selection page
-      And I choose the caz zone
+      And I choose Birmingham and Leeds
       And I press the Continue
     Then I should see the Compliance page
+      And I should see "Clean Air Zone compliance"
 
   Scenario: User with correct vehicle’s registration does not select any CAZ
     Given I am on the enter details page

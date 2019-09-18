@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'VehicleCheckersController - GET #number_not_found', type: :request do
-  subject { get number_not_found_vehicle_checkers_path }
+  subject(:http_request) { get number_not_found_vehicle_checkers_path }
 
   context 'with VRN in session' do
     before do
       add_vrn_to_session
-      subject
+      http_request
     end
 
     it 'returns a not_found response' do
