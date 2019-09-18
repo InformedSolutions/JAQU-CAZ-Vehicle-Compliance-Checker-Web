@@ -22,6 +22,11 @@ Feature: Vehicle Checker
       And I choose that the details are correct
       And I press the Confirm
     Then I should see the CAZ Selection page
+      And I should see "Where do you want to drive?"
+      And I choose Birmingham and Leeds
+      And I press the Continue
+    Then I should see the Compliance page
+      And I should see "Clean Air Zone compliance"
 
   Scenario: User enters a correct vehicle's registration but details are incorrect
     Given I am on the enter details page
@@ -84,3 +89,17 @@ Feature: Vehicle Checker
       And I choose that the details are correct
       And I press the Confirm
     Then I should see the Cannot determine compliance page
+
+  Scenario: User enters a correct data and use check another caz link
+    Given I am on the enter details page
+    Then I enter a vehicle's registration
+    And I press the Continue
+    Then I should see the Confirm Details page
+    And I choose that the details are correct
+    And I press the Confirm
+    Then I should see the CAZ Selection page
+    And I choose Birmingham and Leeds
+    And I press the Continue
+    Then I should see the Compliance page
+    And I press the Check another Clean Air Zone link
+    Then I should see "Where do you want to drive?"

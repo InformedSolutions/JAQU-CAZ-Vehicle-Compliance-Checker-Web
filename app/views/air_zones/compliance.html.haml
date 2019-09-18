@@ -74,9 +74,16 @@
         Related tasks
       %ul.govuk-list.govuk-list--bullet
         %li
-          = link_to "Check another vehicle's compliance", enter_details_vehicle_checkers_path
+          = link_to "Check another vehicle's compliance",
+            enter_details_vehicle_checkers_path,
+            id: 'check-another-vrn'
+        %li
+          = link_to "Check another Clean Air Zone",
+            caz_selection_air_zones_path,
+            id: 'check-another-caz'
         %li
           = link_to 'Find out about alternative travel options',
             'https://www.gov.uk/government/publications/air-quality-clean-air-zone-framework-for-england',
-            target: '_blank'
+            target: '_blank',
+            id: 'alternative-travel-options'
 

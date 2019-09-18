@@ -41,7 +41,7 @@ Then('I press the Continue when server is unavailable') do
 end
 
 Then('I should see the Confirm Details page') do
-  expect(page).to have_current_path(confirm_details_vehicle_checkers_path, ignore_query: true)
+  expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
 end
 
 Then('I choose that the details are correct') do
@@ -54,7 +54,7 @@ Then('I choose that the details are incorrect') do
 end
 
 Then('I should see the Incorrect Details page') do
-  expect(page).to have_current_path(incorrect_details_vehicle_checkers_path, ignore_query: true)
+  expect(page).to have_current_path(incorrect_details_vehicle_checkers_path)
 end
 
 Then('I press the Search Again link') do
@@ -62,7 +62,7 @@ Then('I press the Search Again link') do
 end
 
 Then('I should see the CAZ Selection page') do
-  expect(page).to have_current_path(caz_selection_air_zones_path, ignore_query: true)
+  expect(page).to have_current_path(caz_selection_air_zones_path)
 end
 
 Then('I should see the Service Unavailable page') do
@@ -91,4 +91,8 @@ end
 
 Then('I should see the Cannot determine compliance page') do
   expect(page).to have_current_path(cannot_determinate_vehicle_checkers_path)
+end
+
+And('I press the Check another Clean Air Zone link') do
+  click_link('Check another Clean Air Zone')
 end

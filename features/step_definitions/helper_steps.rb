@@ -31,3 +31,17 @@ end
 Then('I press the Confirm') do
   click_button 'Confirm'
 end
+
+Then('I should see the CAZ selection page') do
+  expect(page).to have_current_path(caz_selection_air_zones_path)
+end
+
+Then('I should see the Compliance page') do
+  expect(page).to have_current_path(compliance_air_zones_path)
+end
+
+Then('I choose Birmingham and Leeds') do
+  mock_vehicle_compliance
+  check('Birmingham')
+  check('Leeds')
+end
