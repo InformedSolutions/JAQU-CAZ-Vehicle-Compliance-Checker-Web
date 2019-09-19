@@ -163,7 +163,6 @@ steps:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: ${DRONE_COMMIT}
       TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_compliance_checker: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
       TF_VAR_access_key:
         from_secret: aws_access_key_id
       TF_VAR_secret_key:
@@ -203,7 +202,7 @@ steps:
   - name: await ecs rollout
     image: docker
     environment:
-      build_id_url: http://vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com/build_id
+      build_id_url: http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -237,7 +236,7 @@ steps:
     image: pa11y-ci
     pull: never
     environment:
-      BASE_URL: http://vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com
+      BASE_URL: http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com
     commands:
       - mkdir screenshots
       - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
@@ -269,7 +268,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t http://vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com -c zap.conf
+      - zap-full-scan.py -t http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -315,7 +314,7 @@ steps:
         from_secret: browserstack_auth_key
       BASEURL_NTR: 'http://ntr-web-dev-1233262176.eu-west-2.elb.amazonaws.com'
       BASEURL_RETRO: 'http://retrofit-web-dev-1746958844.eu-west-2.elb.amazonaws.com'
-      BASEURL_VCCS: 'https://vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com'
+      BASEURL_VCCS: 'https://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
       BROWSER_SET: 'min'
@@ -335,28 +334,27 @@ steps:
       branch: develop
         
     # Invoke terraform scripts with tagged image number
-  - name: enable authentication
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform init
-      - terraform workspace select dev
-      - terraform apply -auto-approve
-    environment:
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: secret
-      TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_compliance_checker: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-      TF_VAR_enable_https_redirect: true
-    when:
-      event:
-        exclude:
-        - pull_request
-      branch: develop
+#  - name: enable authentication
+#    image: hashicorp/terraform:0.12.3
+#    commands:
+#      - cd JAQU-CAZ-IAC/terraform/projects/vccs/layers/04.web
+#      - terraform init
+#      - terraform workspace select dev
+#      - terraform apply -auto-approve
+#    environment:
+#      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+#      TF_VAR_secret_key_base: secret
+#      TF_VAR_google_analytics_id: UA-144774549-2
+#      TF_VAR_access_key:
+#        from_secret: aws_access_key_id
+#      TF_VAR_secret_key:
+#        from_secret: aws_secret_access_key
+#      TF_VAR_enable_https_redirect: true
+#    when:
+#      event:
+#        exclude:
+#        - pull_request
+#      branch: develop
 
 volumes:
 - name: docker_sock
