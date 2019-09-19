@@ -45,3 +45,7 @@ Then('I choose Birmingham and Leeds') do
   check('Birmingham')
   check('Leeds')
 end
+
+Then('I press the Back link') do
+  click_link('Back')
+end

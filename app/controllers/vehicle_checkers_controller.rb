@@ -101,7 +101,7 @@ class VehicleCheckersController < ApplicationController
   # * +confirm-vehicle+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
   #
   def user_confirm_details
-    form = ConfirmationForm.new(confirmation)
+    form = ConfirmationForm.new(confirmation, undetermined)
     unless form.valid?
       log_invalid_form 'Redirecting back.'
       return redirect_to confirm_details_vehicle_checkers_path, alert: form.message
@@ -207,6 +207,11 @@ class VehicleCheckersController < ApplicationController
     params['registration-country']
   end
 
+  # Returns status for the vehicle type, values: 'true', 'false'
+  def undetermined
+    params['undetermined']
+  end
+
   # Checks if selected registration country equals Non-UK.
   # Returns boolean.
   def non_uk?
@@ -223,17 +228,17 @@ class VehicleCheckersController < ApplicationController
   # * +undetermined+ - status for the vehicle type if it is not possible to determine, eg. 'true'
 
   # Verifies if vehicles's registration not determined and if user confirms data returned from the API.
+  # If vehicles's registration determined and form was confirmed, redirects to
+  #   the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
   # If vehicles's registration not determined and form was confirmed, redirects to
   #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
-  # If vehicles's registration determined and form was confirmed, redirects to
-  #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
   # If vehicles's registration determined and form was not confirmed, redirects to
   #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   def determinate_next_page(form)
-    if params['undetermined'] == 'true'
-      redirect_to cannot_determinate_vehicle_checkers_path
-    elsif form.confirmed?
+    if form.confirmed_and_determined?
       redirect_to caz_selection_air_zones_path
+    elsif form.confirmed_and_undetermined?
+      redirect_to cannot_determinate_vehicle_checkers_path
     else
       redirect_to incorrect_details_vehicle_checkers_path
     end
