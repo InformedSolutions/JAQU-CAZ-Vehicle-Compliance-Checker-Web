@@ -30,18 +30,18 @@ class ConfirmationForm
     filled?
   end
 
-  # Checks if +confirmation+ equality to 'yes' and +undetermined+ equality to 'false'.
+  # Checks if +confirmation+ equality to 'yes'.
   #
   # Returns a boolean.
-  def confirmed_and_determined?
-    confirmation == 'yes' && undetermined == 'false'
+  def confirmed?
+    confirmation == 'yes'
   end
 
-  # Checks if +confirmation+ equality to 'yes' and +undetermined+ equality to 'true'.
+  # Checks if +undetermined+ equality to 'true'.
   #
   # Returns a boolean.
-  def confirmed_and_undetermined?
-    confirmation == 'yes' && undetermined == 'true'
+  def undetermined?
+    undetermined == 'true'
   end
 
   private

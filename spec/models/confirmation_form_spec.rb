@@ -3,14 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe ConfirmationForm, type: :model do
-  subject(:form) { described_class.new(confirmation) }
+  subject(:form) { described_class.new(confirmation, undetermined) }
 
   let(:confirmation) { 'yes' }
+  let(:undetermined) { 'false' }
 
   it { is_expected.to be_valid }
 
   it 'has confirmation set as parameter' do
-    expect(form.parameter).to eq(confirmation)
+    expect(form.confirmation).to eq(confirmation)
+  end
+
+  it 'has undetermined set as parameter' do
+    expect(form.undetermined).to eq(undetermined)
   end
 
   describe '.confirmed?' do
@@ -25,6 +30,22 @@ RSpec.describe ConfirmationForm, type: :model do
 
       it 'returns false' do
         expect(form.confirmed?).to eq(false)
+      end
+    end
+  end
+
+  describe '.undetermined?' do
+    context 'when undetermined equals false' do
+      it 'returns false' do
+        expect(form.undetermined?).to eq(false)
+      end
+    end
+
+    context 'when undetermined equals true' do
+      let(:undetermined) { 'true' }
+
+      it 'returns true' do
+        expect(form.undetermined?).to eq(true)
       end
     end
   end
