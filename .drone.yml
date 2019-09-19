@@ -89,6 +89,7 @@ steps:
   - name: initialise ecr
     image: hashicorp/terraform:0.12.3
     commands:
+      - apk update && apk add bash
       - mkdir ~/.ssh
       - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa
@@ -96,10 +97,13 @@ steps:
       - chmod 600 ~/.ssh/known_hosts
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/global
-      - terraform init
-      - terraform workspace select default || terraform workspace new default
-      - terraform apply -auto-approve
+      - cd JAQU-CAZ-IAC
+      - cd terraform/projects/vccs/layers/00.global
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select default
+      - tf apply -auto-approve
     environment:
       TF_VAR_access_key:
         from_secret: aws_access_key_id
@@ -138,10 +142,22 @@ steps:
   - name: deploy to dev
     image: hashicorp/terraform:0.12.3
     commands:
-      - cd JAQU-CAZ-IAC/terraform/projects/vccs-web/environments/dev
-      - terraform init
-      - terraform workspace select dev
-      - terraform apply -auto-approve
+      - apk update && apk add bash
+      - cd JAQU-CAZ-IAC
+      - cd terraform/projects/vccs/layers/01.networking
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select dev
+      - tf apply -auto-approve
+      - cd ../02.backends
+      - tf init
+      - tf workspace select dev
+      - tf apply -auto-approve
+      - cd ../04.web
+      - tf init
+      - tf workspace select dev
+      - tf apply -auto-approve
     environment:
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: ${DRONE_COMMIT}
