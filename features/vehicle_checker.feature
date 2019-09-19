@@ -86,6 +86,11 @@ Feature: Vehicle Checker
       And I enter an undetermined vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
+      And I choose that the details are incorrect
+      And I press the Confirm
+    Then I should see the Incorrect Details page
+      And I should see "Incorrect vehicle details"
+    Then I press the Back link
       And I choose that the details are correct
       And I press the Confirm
     Then I should see the Cannot determine compliance page

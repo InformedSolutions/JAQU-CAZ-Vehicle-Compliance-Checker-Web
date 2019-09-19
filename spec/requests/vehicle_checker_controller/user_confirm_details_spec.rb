@@ -5,7 +5,8 @@ require 'rails_helper'
 RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :request do
   subject(:http_request) do
     get user_confirm_details_vehicle_checkers_path, params: {
-      'confirm-vehicle' => confirmation
+      'confirm-vehicle' => confirmation,
+      'undetermined' => 'false'
     }
   end
 
