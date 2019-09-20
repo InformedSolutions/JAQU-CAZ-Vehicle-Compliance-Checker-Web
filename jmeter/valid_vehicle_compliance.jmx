@@ -76,7 +76,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -127,7 +127,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -237,7 +237,7 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -305,7 +305,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -391,7 +391,7 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -455,7 +455,7 @@
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -548,7 +548,7 @@
                   </elementProp>
                 </collectionProp>
               </elementProp>
-              <stringProp name="HTTPSampler.domain">vccs-web-dev-1342354925.eu-west-2.elb.amazonaws.com</stringProp>
+              <stringProp name="HTTPSampler.domain">vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com</stringProp>
               <stringProp name="HTTPSampler.port"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
