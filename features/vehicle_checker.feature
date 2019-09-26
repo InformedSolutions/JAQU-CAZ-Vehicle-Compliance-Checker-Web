@@ -38,6 +38,8 @@ Feature: Vehicle Checker
     Then I should see the Incorrect Details page
       And I should see "Check vehicle compliance" title
       And I should see "Incorrect vehicle details"
+      And I press the Search Again link
+    Then I am on the enter details page
 
   Scenario: User selects Non-UK place of registration
     Given I am on the enter details page
