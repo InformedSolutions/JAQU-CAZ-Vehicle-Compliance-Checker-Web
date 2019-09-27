@@ -296,11 +296,11 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    when:
-      event:
-        exclude:
-        - pull_request
-      branch: develop
+    # when:
+    #   event:
+    #     exclude:
+    #     - pull_request
+    #   branch: develop
 
     # Run end to end tests
   - name: run end to end tests
@@ -314,21 +314,21 @@ steps:
       BASEURL_VCCS: 'http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
-      BROWSER_SET: 'min'
+      BROWSER_SET: 'mid'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
-      BUILD: ${DRONE_BUILD_NUMBER}
+      BUILD: VCCS-UI-${DRONE_BUILD_NUMBER}
       SPECTRE: false
       LOCATION: browserstack
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
-    when:
-      event:
-        exclude:
-        - pull_request
-      branch: develop
+    # when:
+    #   event:
+    #     exclude:
+    #     - pull_request
+    #   branch: develop
         
     # Invoke terraform scripts with tagged image number
 #  - name: enable authentication
