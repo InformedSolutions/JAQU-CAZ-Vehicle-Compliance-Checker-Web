@@ -48,7 +48,7 @@ class ComplianceDetails
   # Returns a string, eg. '£10.00'
   # rubocop:enable Style/AsciiComments
   def charge
-    "£#{format('%.2f', compliance_data[:charge].to_f)}"
+    "£#{format('%<pay>.2f', pay: compliance_data[:charge].to_f)}"
   end
 
   # Returns a string, eg. 'www.example.com'.
