@@ -90,7 +90,7 @@ class VehicleCheckersController < ApplicationController
   # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   #
   # ==== Path
-  #    GET /vehicle_checkers/confirm_details
+  #    GET /vehicle_checkers/user_confirm_details
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
