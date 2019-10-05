@@ -201,7 +201,7 @@ steps:
   - name: await ecs rollout
     image: docker
     environment:
-      build_id_url: http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com/build_id
+      build_id_url: http://vccs-alb-dev-149543272.eu-west-2.elb.amazonaws.com/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -235,7 +235,7 @@ steps:
     image: pa11y-ci
     pull: never
     environment:
-      BASE_URL: http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com
+      BASE_URL: http://vccs-alb-dev-149543272.eu-west-2.elb.amazonaws.com/
     commands:
       - mkdir screenshots
       - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
@@ -267,7 +267,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com -c zap.conf
+      - zap-full-scan.py -t http://vccs-alb-dev-149543272.eu-west-2.elb.amazonaws.com -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -311,7 +311,7 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
-      BASEURL_VCCS: 'http://vccs-alb-dev-193923475.eu-west-2.elb.amazonaws.com'
+      BASEURL_VCCS: 'http://vccs-alb-dev-149543272.eu-west-2.elb.amazonaws.com'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
       BROWSER_SET: 'min'
