@@ -13,7 +13,7 @@ class ComplianceCheckerApi < BaseApi
 
   headers(
     'Content-Type' => 'application/json',
-    'X-Correlation-ID' => SecureRandom.uuid
+    'X-Correlation-ID' => -> { SecureRandom.uuid }
   )
 
   class << self
