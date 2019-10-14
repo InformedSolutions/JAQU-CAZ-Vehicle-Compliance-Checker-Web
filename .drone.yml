@@ -112,10 +112,10 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      event:
-        - push
-      
-    # Push built image to ECR registry
+      when:
+        event:
+          - push
+        
   - name: publish image to ecr
     image: plugins/ecr
     settings:
