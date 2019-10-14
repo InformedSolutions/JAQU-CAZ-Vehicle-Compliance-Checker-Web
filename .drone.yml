@@ -25,9 +25,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    when:
-      event:
-        - push
 
     # Build end to end tests docker image
   - name: build end to end test image
