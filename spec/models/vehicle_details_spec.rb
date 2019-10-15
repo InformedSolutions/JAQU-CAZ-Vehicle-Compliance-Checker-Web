@@ -32,16 +32,6 @@ RSpec.describe VehicleDetails, type: :model do
     end
   end
 
-  describe '.vrn_for_request' do
-    before do
-      allow(VrnParser).to receive(:call).and_return(vrn)
-    end
-
-    it 'returns a proper vrn' do
-      expect(subject.vrn_for_request).to eq(vrn)
-    end
-  end
-
   describe '.make' do
     it 'returns a proper type' do
       expect(subject.make).to eq('Peugeot')

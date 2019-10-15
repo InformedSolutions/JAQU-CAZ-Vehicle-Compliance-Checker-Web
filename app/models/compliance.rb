@@ -11,7 +11,7 @@ class Compliance
   # * +vrn+ - string, eg. 'CU57ABC'
   # * +zones+ - array, eg. '["39e54ed8-3ed2-441d-be3f-38fc9b70c8d3"]'
   def initialize(vrn, zones)
-    @vrn = vrn.upcase
+    @vrn = vrn
     @zones = zones
   end
 
@@ -41,10 +41,8 @@ class Compliance
 
   private
 
-  # Returns a string, eg. 'CU57ABC'.
-  def vrn_for_request
-    VrnParser.call(vrn: @vrn)
-  end
+  # Reader function for the vehicle registration number
+  attr_reader :vrn
 
   ##
   # Calls +/v1/compliance-checker/vehicles/:vrn/compliance+ endpoint with +GET+ method
@@ -71,6 +69,6 @@ class Compliance
   #     * +financialAssistance+
   #     * +boundary+
   def compliance_api
-    @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn_for_request, @zones)
+    @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn, @zones)
   end
 end
