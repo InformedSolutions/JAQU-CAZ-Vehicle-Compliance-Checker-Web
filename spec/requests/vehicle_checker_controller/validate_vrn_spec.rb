@@ -21,6 +21,18 @@ RSpec.describe 'VehicleCheckersController - GET #validate_vrn', type: :request d
     it 'returns a found response' do
       expect(response).to have_http_status(:found)
     end
+
+    it 'adds VRN to the session' do
+      expect(session[:vrn]).to eq(vrn)
+    end
+
+    context 'when VRN has spaces and small letters' do
+      let(:vrn) { 'cu57 aBC' }
+
+      it 'adds VRN with spaces and capitalized to the session' do
+        expect(session[:vrn]).to eq('CU57ABC')
+      end
+    end
   end
 
   context 'when VRN is not valid' do
