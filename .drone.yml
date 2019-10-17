@@ -276,6 +276,22 @@ steps:
       event:
         - push
 
+  - name: codedeploy ui dev
+    image: golang:alpine
+    commands:
+      - apk add --update bash python python-dev py-pip build-base
+      - pip install awscli
+      - aws deploy create-deployment --application-name vccs-codedeploy-service-dev --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-dev --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/dev/appspec.yaml
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+    when:
+      event:
+        - push
+
   - name: await ecs rollout
     image: docker
     environment:
@@ -599,6 +615,22 @@ steps:
       TF_VAR_secret_key_base: ${DRONE_COMMIT}
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
+    when:
+      event:
+        - push
+
+  - name: codedeploy ui sit
+    image: golang:alpine
+    commands:
+      - apk add --update bash python python-dev py-pip build-base
+      - pip install awscli
+      - aws deploy create-deployment --application-name vccs-codedeploy-service-sit --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-sit --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/sit/appspec.yaml
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
     when:
       event:
         - push
