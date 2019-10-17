@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     end
   end
 
+  get :contact_form, to: 'contact_forms#contact_form'
+  post :contact_form, to: 'contact_forms#validate_contact_form'
+  get :contact_form_result, to: 'contact_forms#contact_form_result'
+
   get :service_unavailable, to: 'application#server_unavailable'
   get :health, to: 'application#health'
   get :build_id, to: 'application#build_id'

@@ -29,7 +29,18 @@ module JaquCaz
     contact_email_default = 'something@something.com'
     config.x.contact_email = (ENV['CONTACT_EMAIL'].presence || contact_email_default)
 
+    # email address for sending emails, eg 'from@example.com'
+    default_email = 'TaxiandPHVCentralised.Database@defra.gov.uk'
+    config.x.service_email = ENV.fetch('SES_FROM_EMAIL', default_email)
+
+    # email address for receiving emails from users who left message in contact form.
+    contact_form_email_defaut = 'to@example.com'
+    config.x.contact_form_email = (ENV['CONTACT_FORM_EMAIL'].presence || contact_form_email_defaut)
+
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
+
+    # https://github.com/aws/aws-sdk-rails
+    config.action_mailer.delivery_method = :aws_sdk
   end
 end
