@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 ##
-# Base class for mailers, generated automatically during new application creation
+# Base class for mailers. Sets default from value and layout
 #
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  add_template_helper(ApplicationHelper)
+  default from: Rails.configuration.x.service_email
   layout 'mailer'
 end
