@@ -325,7 +325,7 @@ steps:
     image: pa11y-ci
     pull: never
     environment:
-      BASE_URL: https://https://dev.cleanairzonevehiclecheck.co.uk/
+      BASE_URL: https://dev.cleanairzonevehiclecheck.co.uk/
     commands:
       - mkdir screenshots
       - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
