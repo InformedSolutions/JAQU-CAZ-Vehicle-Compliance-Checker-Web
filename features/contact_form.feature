@@ -9,7 +9,6 @@ Feature: Contact Form
       And I fill all fields and press Send button
     Then I should see the Result page
       And I should see "Contact form was sent"
-      And I should send contact form email
 
   Scenario: Filling not all required fields
     Given I am on the Contact Form page
