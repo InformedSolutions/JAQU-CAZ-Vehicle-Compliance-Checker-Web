@@ -10,10 +10,11 @@
         %ul.govuk-list.govuk-error-summary__list
           %li
             - @errors.each do |error|
-              %li.custom-csv-error
-                = link_to(error.second.join(''),
-                          '#govuk-error-message',
-                          id: error.first)
+              - error.second.each do |err|
+                %li.custom-csv-error
+                  = link_to(err,
+                            '#govuk-error-message',
+                            id: error.first)
 
   .govuk-grid-row
     .govuk-grid-column-two-thirds

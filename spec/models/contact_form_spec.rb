@@ -76,7 +76,7 @@ RSpec.describe ContactForm, type: :model do
 
       it 'has a proper error message' do
         expect(form.errors.messages[:email])
-          .to include('The Email is in an invalid format')
+          .to include('Email is in an invalid format')
       end
     end
 
