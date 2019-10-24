@@ -21,7 +21,7 @@ class ContactForm
   # validates email and email_confirmation format
   validates :email, :email_confirmation, format: {
     with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/,
-    message: 'The %{attribute} is in an invalid format'
+    message: '%{attribute} is in an invalid format'
   }
   # rubocop:enable Style/FormatStringToken:
 

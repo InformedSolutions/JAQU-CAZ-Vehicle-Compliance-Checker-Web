@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# Controls the flow for sending emails
+# Controls the flow for sending contact forms
 #
 class ContactFormsController < ApplicationController
   ##

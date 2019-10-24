@@ -7,7 +7,6 @@ ruby '2.6.3'
 
 gem 'rails', '~> 6.0'
 
-gem 'aws-sdk-rails'
 gem 'bootsnap', require: false
 gem 'brakeman'
 gem 'bundler-audit'
