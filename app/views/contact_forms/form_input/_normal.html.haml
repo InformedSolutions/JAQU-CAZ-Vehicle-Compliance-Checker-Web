@@ -17,7 +17,7 @@
 .govuk-form-group
   = form.label :query_type, 'Query Type', class: 'govuk-label'
   = form.select(:query_type,
-    ['General Enquiry', 'Charge Query', 'Payment', 'Fleets'],
+    ['General Enquiry', 'Charge Query', 'Payment', 'Fleets', 'Non-UK Vehicle'],
     { prompt: 'Select One' },
     { class: 'govuk-select' })
 

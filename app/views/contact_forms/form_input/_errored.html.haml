@@ -1,6 +1,6 @@
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:first_name].present?)}
   = form.label :first_name, class: 'govuk-label'
-  %span#govuk-error-message.govuk-error-message
+  %span#govuk-error-first_name.govuk-error-message
     - if errors[:first_name].present?
       %span.govuk-visually-hidden Error:
       = errors[:first_name].join(', ')
@@ -8,7 +8,7 @@
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:last_name].present?)}
   = form.label :last_name, class: 'govuk-label'
-  %span#govuk-error-message.govuk-error-message
+  %span#govuk-error-last_name.govuk-error-message
     - if errors[:last_name].present?
       %span.govuk-visually-hidden Error:
       = errors[:last_name].join(', ')
@@ -16,7 +16,7 @@
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:email].present?)}
   = form.label :email, 'Email address', class: 'govuk-label'
-  %span.govuk-error-message
+  %span#govuk-error-email.govuk-error-message
     - if errors[:email].present?
       %span.govuk-visually-hidden Error:
       = errors[:email].join(', ')
@@ -24,7 +24,7 @@
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:email_confirmation].present?)}
   = form.label :email_confirmation, 'Emails address confirmation', class: 'govuk-label'
-  %span.govuk-error-message
+  %span#govuk-error-email_confirmation.govuk-error-message
     - if errors[:email_confirmation].present?
       %span.govuk-visually-hidden Error:
       = errors[:email_confirmation].join(', ')
@@ -32,22 +32,22 @@
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:query_type].present?)}
   = form.label :query_type, 'Query Type', class: 'govuk-label'
-  %span.govuk-error-message
+  %span#govuk-error-query_type.govuk-error-message
     - if errors[:query_type].present?
       %span.govuk-visually-hidden Error:
       = errors[:query_type].join(', ')
   = form.select(:query_type,
-    ['General Enquiry', 'Charge Query', 'Payment', 'Fleets'],
-    { prompt: 'Select One' },
-    { class: "govuk-select #{'govuk-input--error' if errors[:message].present?}" })
+                ['General Enquiry', 'Charge Query', 'Payment', 'Fleets', 'Non-UK Vehicle'],
+                { prompt: 'Select One' },
+                { class: "govuk-select #{'govuk-input--error' if errors[:message].present?}" })
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:message].present?)}
   = form.label :message, class: 'govuk-label'
-  %span.govuk-error-message
+  %span#govuk-error-message.govuk-error-message
     - if errors[:message].present?
       %span.govuk-visually-hidden Error:
       = errors[:message].join(', ')
   = form.text_area :message,
-    class: "govuk-textarea #{'govuk-input--error' if errors[:message].present?}",
-    rows: 10,
-    maxlength: 2000
+                    class: "govuk-textarea #{'govuk-input--error' if errors[:message].present?}",
+                    rows: 10,
+                    maxlength: 2000
