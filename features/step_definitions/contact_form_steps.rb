@@ -18,10 +18,6 @@ Then('I should see the Result page') do
   expect(page).to have_current_path(contact_form_result_path)
 end
 
-And('I should send contact form email') do
-  expect(ActionMailer::Base.deliveries.size).to eq(1)
-end
-
 Then('I am not fill First Name field and press Send button') do
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
