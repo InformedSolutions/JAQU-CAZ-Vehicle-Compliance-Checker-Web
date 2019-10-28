@@ -20,7 +20,7 @@
         %fieldset.govuk-fieldset
           %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
             %h1.govuk-fieldset__heading
-              Enter the registration details of the vehicle you wish to check
+              Enter the registration details of the vehicle you want to check
           - if @errors[:vrn]
             = render 'vehicle_checkers/vrn_input/errored', message: @errors[:vrn][:message]
           - else

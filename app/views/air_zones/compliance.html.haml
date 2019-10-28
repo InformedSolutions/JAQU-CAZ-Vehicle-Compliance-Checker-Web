@@ -3,7 +3,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l Clean Air Zone compliance
+      %h1.govuk-heading-l Clean Air Zone charge
       %p= "Vehicle registration #{@vrn}."
 
       - @compliance_outcomes.each do |details|
@@ -16,19 +16,22 @@
               You will not be charged
           %br
           %p
-            There is no charge for this vehicle to travel in the
-            = link_to details.main_info_url, target: '_blank', id: "no-charge-#{details.html_id}" do
-              = details.zone_name
-              CAZ
+            There is no charge for driving in
+            = succeed ', ' do
+              = link_to "#{details.zone_name} Clean Air Zone",
+                        details.main_info_url,
+                        target: '_blank',
+                        id: "no-charge-#{details.html_id}"
+            but you may be subject to charge in other Clean Air Zones.
         - else
           .govuk-panel.govuk-panel--noncompliant
             %h1.govuk-panel__title{id: "charged-title-#{details.html_id}"}
-              Subject to charge:
+              Subject to daily charge:
               %br
               = details.charge
           %br
           %p
-            This vehicle does not comply with the
+            This vehicle does not meet with the
             = succeed '.' do
               = link_to details.emissions_standards_url,
                 target: '_blank', class: 'caz-inline-link', id: 'emissions-standards' do
@@ -75,15 +78,14 @@
       %ul.govuk-list.govuk-list--bullet
         %li
           = link_to "Check another vehicle's compliance",
-            enter_details_vehicle_checkers_path,
-            id: 'check-another-vrn'
+                    enter_details_vehicle_checkers_path,
+                    id: 'check-another-vrn'
         %li
-          = link_to "Check another Clean Air Zone",
-            caz_selection_air_zones_path,
-            id: 'check-another-caz'
+          = link_to 'Check another Clean Air Zone',
+                    caz_selection_air_zones_path,
+                    id: 'check-another-caz'
         %li
-          = link_to 'Find out about alternative travel options',
-            'https://www.gov.uk/government/publications/air-quality-clean-air-zone-framework-for-england',
-            target: '_blank',
-            id: 'alternative-travel-options'
-
+          = link_to 'Find new ways to make your journey',
+                    'https://www.gov.uk/government/publications/air-quality-clean-air-zone-framework-for-england',
+                    target: '_blank',
+                    id: 'alternative-travel-options'

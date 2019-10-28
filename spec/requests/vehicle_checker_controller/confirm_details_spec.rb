@@ -28,17 +28,6 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
     end
   end
 
-  context 'when API is unavailable' do
-    before do
-      allow(ComplianceCheckerApi).to receive(:vehicle_details).and_raise(Errno::ECONNREFUSED)
-      http_request
-    end
-
-    it 'redirects to server unavailable' do
-      expect(response).to have_http_status(:service_unavailable)
-    end
-  end
-
   context 'when vehicle is not found' do
     before do
       add_vrn_to_session(vrn: 'CU57ABD')
@@ -50,6 +39,33 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
 
     it 'redirects to number not found page' do
       expect(response).to redirect_to(number_not_found_vehicle_checkers_path)
+    end
+  end
+
+  context 'when API is unavailable' do
+    before do
+      allow(ComplianceCheckerApi).to receive(:vehicle_details).and_raise(Errno::ECONNREFUSED)
+      http_request
+    end
+
+    it 'redirects to server unavailable' do
+      expect(response).to have_http_status(:service_unavailable)
+    end
+  end
+
+  context 'when API returns 500 error' do
+    before do
+      allow(ComplianceCheckerApi).to receive(:vehicle_details)
+        .and_raise(BaseApi::Error500Exception.new(500, '', {}))
+      subject
+    end
+
+    it 'redirects to server_unavailable' do
+      expect(response).to have_http_status(:service_unavailable)
+    end
+
+    it 'renders 503 error page' do
+      expect(response).to render_template(:service_unavailable)
     end
   end
 end
