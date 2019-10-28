@@ -5,5 +5,5 @@ Feature: Welcome
 
   Scenario: User see welcome page
     When I go to the home page
-    Then I should see "Check a vehicle's Clean Air Zone compliance"
+    Then I should see "Check if you need to pay to enter a Clean Air Zone"
       And I should see "Clean Air Zone" title
