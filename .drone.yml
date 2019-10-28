@@ -723,9 +723,13 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: 
         from_secret: vccs_ruby_secret
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -779,9 +783,13 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: 
         from_secret: vccs_ruby_secret
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
