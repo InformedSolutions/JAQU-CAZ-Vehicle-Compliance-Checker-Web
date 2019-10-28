@@ -269,7 +269,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -561,7 +562,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -612,7 +614,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -706,7 +709,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -761,7 +765,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -843,5 +848,12 @@ name: browserstack_username
 get:
   path: /secret/drone.global
   name: browserStackUsername
+
+---
+kind: secret
+name: vccs_ruby_secret
+get:
+  path: /secret/drone.global
+  name: vccsRubySecret
 
   ################################################ End Secrets #########################################################
