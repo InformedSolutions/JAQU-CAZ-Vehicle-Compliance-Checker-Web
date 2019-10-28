@@ -779,7 +779,6 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
       TF_VAR_secret_key_base: 
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
