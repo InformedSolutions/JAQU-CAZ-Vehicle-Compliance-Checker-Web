@@ -337,14 +337,15 @@ steps:
   - name: micro-performance tests
     image: blazemeter/taurus
     commands:
-      - bzt jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
-      - bzt jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
+      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
     when:
       event:
         - push
+        - pull_request
 
   # Execute OWASP Zap tests
   - name: owasp zap tests
