@@ -269,9 +269,9 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_enable_https_redirect: false
     when:
       event:
         - push
@@ -409,6 +409,8 @@ steps:
     when:
       event:
         - push
+        
+        
   ################################################# End DEV Steps #######################################################
 ---
 
@@ -456,6 +458,9 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        - push
 
   # Trigger unit tests
   - name: unit tests
@@ -469,6 +474,9 @@ steps:
     commands:
       - yarn install
       - rspec -f d
+    when:
+      event:
+        - push
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -481,6 +489,9 @@ steps:
         path: /var/run/docker.sock
     commands:
       - cucumber
+    when:
+      event:
+        - push
 
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
@@ -491,6 +502,9 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
+    when:
+      event:
+        - push
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
@@ -503,6 +517,9 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        - push
 
     # Push built image to ECR registry
   - name: publish image to ecr
@@ -561,7 +578,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -612,7 +630,8 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: ${DRONE_COMMIT}
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
     when:
@@ -637,7 +656,165 @@ steps:
 
   ################################################# End SIT Steps #######################################################
 
+---
 
+
+
+
+
+
+
+
+
+
+
+  #################################################### Pre-prod Steps ############################################################
+
+kind: pipeline
+type: docker
+name: vccs-web-preprod
+trigger:
+  branch:
+    - staging
+  event:
+    - pull_request
+    - push
+concurrency:
+  limit: 1
+
+steps:
+
+
+  - name: plan updates in preprod
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - apk add --update bash python python-dev py-pip build-base jq
+      - pip install awscli
+      - TASKDEF=`aws ecs describe-services --cluster vccs-cluster-sit --services vccs-sit-ecs-service | jq --raw-output '.services[0].taskDefinition'`
+      - export TF_VAR_build_number=`aws ecs describe-task-definition --task-definition $TASKDEF | jq --raw-output '.taskDefinition.containerDefinitions[0].image' | cut -f 2 -d ':'`
+      - mkdir ~/.ssh
+      - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC
+      - git checkout release/vccs-preprod
+      - cd terraform/projects/vccs/layers/01.networking
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf plan
+      - cd ../02.backends
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf plan
+      - cd ../04.web
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf plan
+    environment:
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+      TF_VAR_account_id:
+        from_secret: aws_account_id
+      GIT_PRIVATE_SSH:
+        from_secret: github_private_key
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+      TF_VAR_google_analytics_id: UA-144774549-2
+      TF_VAR_enable_https_redirect: false
+    when:
+      event:
+        - pull_request
+
+  - name: provisioning warning
+    image: docker:git
+    commands:
+      - echo "Pipeline failed. If a deployment is being made for the first time into an environment terraform backends will not yet exist which means this is to be expected. If not terraform related, please see logs for further details"
+    when:
+      status:
+        - failure
+
+  - name: deploy to preprod
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - apk add --update bash python python-dev py-pip build-base jq
+      - pip install awscli
+      - TASKDEF=`aws ecs describe-services --cluster vccs-cluster-sit --services vccs-sit-ecs-service | jq --raw-output '.services[0].taskDefinition'`
+      - export TF_VAR_build_number=`aws ecs describe-task-definition --task-definition $TASKDEF | jq --raw-output '.taskDefinition.containerDefinitions[0].image' | cut -f 2 -d ':'`
+      - mkdir ~/.ssh
+      - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC
+      - git checkout release/vccs-preprod
+      - cd terraform/projects/vccs/layers/01.networking
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf apply -auto-approve
+      - cd ../02.backends
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf apply -auto-approve
+      - cd ../04.web
+      - tf init
+      - tf workspace select preprod || tf workspace new preprod
+      - tf apply -auto-approve
+    environment:
+      TF_VAR_access_key:
+        from_secret: aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: aws_secret_access_key
+      TF_VAR_account_id:
+        from_secret: aws_account_id
+      GIT_PRIVATE_SSH:
+        from_secret: github_private_key
+      TF_VAR_secret_key_base: 
+        from_secret: vccs_ruby_secret
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+      TF_VAR_google_analytics_id: UA-144774549-2
+      TF_VAR_enable_https_redirect: false
+    when:
+      event:
+        - push
+
+  - name: codedeploy ui preprod
+    image: golang:alpine
+    commands:
+      - apk add --update bash python python-dev py-pip build-base
+      - pip install awscli
+      - aws deploy create-deployment --application-name vccs-codedeploy-service-preprod --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-preprod --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/preprod/appspec.yaml
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+    when:
+      event:
+        - push
+
+
+  ################################################# End Preprod Steps ############################################################
 
 
 
@@ -696,4 +873,12 @@ get:
   path: /secret/drone.global
   name: browserStackUsername
 
+---
+kind: secret
+name: vccs_ruby_secret
+get:
+  path: /secret/drone.global
+  name: vccsRubySecret
+
   ################################################ End Secrets #########################################################
+
