@@ -14,6 +14,10 @@ class ContactForm
   validates :first_name, :last_name, :email, :email_confirmation, :query_type, :message,
             presence: { message: '%{attribute} is required' }
 
+  # validates max length
+  validates :first_name, :last_name, :email, :email_confirmation,
+            length: { maximum: 45, message: '%{attribute} is too long (maximum is 45 characters)' }
+
   # validates max length of message
   validates :message, length: { maximum: 2000,
                                 message: '%{attribute} is too long (maximum is 2000 characters)' }

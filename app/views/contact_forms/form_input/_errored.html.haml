@@ -4,7 +4,7 @@
     - if errors[:first_name].present?
       %span.govuk-visually-hidden Error:
       = errors[:first_name].join(', ')
-  = form.text_field :first_name, class: "govuk-input #{'govuk-input--error' if errors[:first_name].present?}"
+  = form.text_field :first_name, class: "govuk-input #{'govuk-input--error' if errors[:first_name].present?}", maxlength: 45
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:last_name].present?)}
   = form.label :last_name, class: 'govuk-label'
@@ -12,7 +12,7 @@
     - if errors[:last_name].present?
       %span.govuk-visually-hidden Error:
       = errors[:last_name].join(', ')
-  = form.text_field :last_name, class: "govuk-input #{'govuk-input--error' if errors[:last_name].present?}"
+  = form.text_field :last_name, class: "govuk-input #{'govuk-input--error' if errors[:last_name].present?}", maxlength: 45
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:email].present?)}
   = form.label :email, 'Email address', class: 'govuk-label'
@@ -20,7 +20,7 @@
     - if errors[:email].present?
       %span.govuk-visually-hidden Error:
       = errors[:email].join(', ')
-  = form.email_field :email, class: "govuk-input #{'govuk-input--error' if errors[:email].present?}"
+  = form.email_field :email, class: "govuk-input #{'govuk-input--error' if errors[:email].present?}", maxlength: 45
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:email_confirmation].present?)}
   = form.label :email_confirmation, 'Emails address confirmation', class: 'govuk-label'
@@ -28,7 +28,7 @@
     - if errors[:email_confirmation].present?
       %span.govuk-visually-hidden Error:
       = errors[:email_confirmation].join(', ')
-  = form.email_field :email_confirmation, class: "govuk-input #{'govuk-input--error' if errors[:email_confirmation].present?}"
+  = form.email_field :email_confirmation, class: "govuk-input #{'govuk-input--error' if errors[:email_confirmation].present?}", maxlength: 45
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:query_type].present?)}
   = form.label :query_type, 'Query Type', class: 'govuk-label'
