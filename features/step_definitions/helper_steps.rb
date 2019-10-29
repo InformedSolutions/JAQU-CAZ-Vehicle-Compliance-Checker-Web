@@ -49,3 +49,7 @@ end
 Then('I press the Back link') do
   click_link('Back')
 end
+
+Then('I should see the Contact Form page') do
+  expect(page).to have_current_path(contact_form_path)
+end

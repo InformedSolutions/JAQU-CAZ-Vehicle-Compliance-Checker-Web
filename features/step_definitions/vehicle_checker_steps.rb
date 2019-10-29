@@ -102,3 +102,7 @@ And("I enter a vehicle's registration when server is unavailable") do
   fill_in('vrn', with: vrn)
   choose('UK')
 end
+
+And('I press the Contact Us link') do
+  click_link 'contact us'
+end
