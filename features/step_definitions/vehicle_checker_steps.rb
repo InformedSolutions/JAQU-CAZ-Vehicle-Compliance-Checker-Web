@@ -57,7 +57,7 @@ Then('I should see the Incorrect Details page') do
   expect(page).to have_current_path(incorrect_details_vehicle_checkers_path)
 end
 
-Then('I press the Search Again link') do
+And('I press the Search Again link') do
   click_link 'search again'
 end
 
@@ -95,4 +95,10 @@ end
 
 And('I press the Check another Clean Air Zone link') do
   click_link('Check another Clean Air Zone')
+end
+
+And("I enter a vehicle's registration when server is unavailable") do
+  mock_unavailable_vehicle_details
+  fill_in('vrn', with: vrn)
+  choose('UK')
 end

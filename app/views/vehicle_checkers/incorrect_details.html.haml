@@ -8,3 +8,7 @@
         If your vehicle details are incorrect, you may need to
         = link_to 'update them', 'https://www.gov.uk/change-vehicle-details-registration-certificate',
           target: '_blank'
+      %p
+        = succeed '.' do
+          If you would like to check the compliance of another vehicle,
+          = link_to 'search again', enter_details_vehicle_checkers_path

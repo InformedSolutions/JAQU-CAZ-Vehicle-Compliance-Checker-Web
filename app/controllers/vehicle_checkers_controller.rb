@@ -44,14 +44,14 @@ class VehicleCheckersController < ApplicationController
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
   def validate_vrn
-    form = VrnForm.new(params_vrn, country)
+    form = VrnForm.new(parsed_vrn, country)
     unless form.valid?
       @errors = form.error_object
       log_invalid_form 'Rendering :enter_details.'
       return render enter_details_vehicle_checkers_path
     end
 
-    session[:vrn] = params_vrn
+    session[:vrn] = parsed_vrn
     redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
@@ -90,7 +90,7 @@ class VehicleCheckersController < ApplicationController
   # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   #
   # ==== Path
-  #    GET /vehicle_checkers/confirm_details
+  #    GET /vehicle_checkers/user_confirm_details
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
@@ -191,9 +191,9 @@ class VehicleCheckersController < ApplicationController
 
   private
 
-  # Returns uppercased VRN from the query params, eg. 'CU1234'
-  def params_vrn
-    params[:vrn].upcase
+  # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
+  def parsed_vrn
+    @parsed_vrn ||= params[:vrn].upcase&.delete(' ')
   end
 
   # Returns user's form confirmation from the query params, values: 'yes', 'no', nil

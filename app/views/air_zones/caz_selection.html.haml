@@ -19,7 +19,7 @@
           %fieldset.govuk-fieldset{'aria-describedby': 'cazHint'}
             %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
               %h1.govuk-fieldset__heading
-                Where do you want to drive?
+                Which Clean Air Zone do you want to drive through?
             %span#cazHint.govuk-hint
               Select all locations that apply.
             - if alert
@@ -35,6 +35,6 @@
                                                  id: "caz-#{index}"}
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
                     = zone.name
-                    = link_to '(see boundary)', zone.boundary_url, target: '_blank'
+                    = link_to '(see Clean Air Zone map)', zone.boundary_url, target: '_blank'
 
         = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'
