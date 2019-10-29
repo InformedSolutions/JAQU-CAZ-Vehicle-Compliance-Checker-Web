@@ -47,6 +47,17 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
+    context 'when first_name is too long' do
+      let(:first_name) { SecureRandom.alphanumeric(46) }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.errors.messages[:first_name])
+          .to include('First name is too long (maximum is 45 characters)')
+      end
+    end
+
     context 'when last_name is empty' do
       let(:last_name) { '' }
 
@@ -55,6 +66,17 @@ RSpec.describe ContactForm, type: :model do
       it 'has a proper error message' do
         expect(form.errors.messages[:last_name])
           .to include('Last name is required')
+      end
+    end
+
+    context 'when last_name is too long' do
+      let(:last_name) { SecureRandom.alphanumeric(46) }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.errors.messages[:last_name])
+          .to include('Last name is too long (maximum is 45 characters)')
       end
     end
 
@@ -80,6 +102,17 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
+    context 'when email is too long' do
+      let(:email) { "#{SecureRandom.alphanumeric(36)}@email.com" }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.errors.messages[:email])
+          .to include('Email is too long (maximum is 45 characters)')
+      end
+    end
+
     context 'when email_confirmation is empty' do
       let(:email_confirmation) { '' }
 
@@ -91,6 +124,17 @@ RSpec.describe ContactForm, type: :model do
             'Email confirmation is required',
             'Email and email address confirmation must be the same'
           )
+      end
+    end
+
+    context 'when email_confirmation is too long' do
+      let(:email_confirmation) { "#{SecureRandom.alphanumeric(36)}@email.com" }
+
+      it { is_expected.not_to be_valid }
+
+      it 'has a proper error message' do
+        expect(form.errors.messages[:email_confirmation])
+          .to include('Email confirmation is too long (maximum is 45 characters)')
       end
     end
 
