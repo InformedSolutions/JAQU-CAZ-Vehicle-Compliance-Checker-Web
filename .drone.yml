@@ -411,38 +411,6 @@ steps:
         - push
         
         
- # Invoke terraform scripts with tagged image number
-  - name: enable site auth on dev
-    image: hashicorp/terraform:0.12.3
-    commands:
-      - apk update && apk add bash
-      - cd JAQU-CAZ-IAC
-      - cd terraform/projects/vccs/layers/01.networking
-      - PATH=$PATH:../../../../bin/
-      - chmod +x ../../../../bin/tf
-      - tf init
-      - cd ../04.web
-      - tf init
-      - tf workspace select dev || tf workspace new dev
-      - tf apply -auto-approve
-    environment:
-      TF_VAR_access_key:
-        from_secret: aws_access_key_id
-      TF_VAR_secret_key:
-        from_secret: aws_secret_access_key
-      TF_VAR_account_id:
-        from_secret: aws_account_id
-      GIT_PRIVATE_SSH:
-        from_secret: github_private_key
-      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: 
-        from_secret: vccs_ruby_secret
-      TF_VAR_google_analytics_id: UA-144774549-2
-      TF_VAR_enable_site_auth: true
-    when:
-      event:
-        - push
-        
   ################################################# End DEV Steps #######################################################
 ---
 
