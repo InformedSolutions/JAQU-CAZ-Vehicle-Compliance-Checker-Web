@@ -2,14 +2,15 @@ import './styles.scss'
 
 const cookieKey = 'seen_cookie_message';
 const monthInMS = 2629746000;
+const hideClass = 'global-cookie-message__hidden';
 
 function init() {
     if(!hasSeenMessage()){
         const banner = document.getElementById('global-cookie-message');
-        banner.style.display = 'block';
+        banner.classList.remove(hideClass);
         const closeLink = banner.querySelector('#close-banner');
         closeLink.addEventListener('click', () => {
-            banner.style.display = 'none';
+            banner.classList.add(hideClass);
             setCookie()
         })
     }
