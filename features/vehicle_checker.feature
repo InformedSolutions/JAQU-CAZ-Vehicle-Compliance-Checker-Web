@@ -6,6 +6,7 @@ Feature: Vehicle Checker
 
   Scenario: User wants to check vehicle
     Given I am on the home page
+      And I should see "Contact Clean Air Zones"
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
@@ -112,3 +113,4 @@ Feature: Vehicle Checker
       And I choose Birmingham and Leeds
       And I press the Continue
     Then I should see the Compliance page
+      And I should see "Contact Clean Air Zones"
