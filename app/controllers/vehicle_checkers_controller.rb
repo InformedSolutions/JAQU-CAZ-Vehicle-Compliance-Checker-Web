@@ -230,10 +230,10 @@ class VehicleCheckersController < ApplicationController
   # If vehicles's registration form was not confirmed, redirects to
   #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   # If vehicles's registration not determined redirects to
-  #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
+  #   {the next step}[rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
   # If vehicles's registration determined redirects to
   #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
-
+  #
   def determinate_next_page(form)
     return redirect_to incorrect_details_vehicle_checkers_path unless form.confirmed?
 
