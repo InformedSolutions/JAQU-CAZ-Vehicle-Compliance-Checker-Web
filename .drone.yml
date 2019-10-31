@@ -397,11 +397,11 @@ steps:
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
-      BROWSER_SET: 'min'
+      BROWSER_SET: 'mid'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
-      BUILD: ${DRONE_BUILD_NUMBER}
+      BUILD: VCCS-UI-${DRONE_BUILD_NUMBER}
       SPECTRE: false
       LOCATION: browserstack
     commands:
@@ -410,7 +410,6 @@ steps:
     when:
       event:
         - push
-        
         
   ################################################# End DEV Steps #######################################################
 ---
