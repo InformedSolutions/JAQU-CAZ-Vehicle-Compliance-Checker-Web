@@ -246,6 +246,7 @@ steps:
     commands:
       - apk update && apk add bash
       - cd JAQU-CAZ-IAC
+      - git checkout feature/protect-vccs-ui
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
@@ -270,7 +271,7 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
     when:
@@ -410,7 +411,7 @@ steps:
     when:
       event:
         - push
-        
+
   ################################################# End DEV Steps #######################################################
 ---
 
@@ -578,7 +579,7 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
@@ -630,7 +631,7 @@ steps:
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
       TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-144774549-2
       TF_VAR_enable_https_redirect: false
@@ -724,7 +725,7 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
@@ -784,7 +785,7 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
