@@ -938,7 +938,7 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
@@ -998,7 +998,7 @@ steps:
         from_secret: aws_account_id
       GIT_PRIVATE_SSH:
         from_secret: github_private_key
-      TF_VAR_secret_key_base: 
+      TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
@@ -1014,19 +1014,25 @@ steps:
   - name: codedeploy ui prod
     image: golang:alpine
     commands:
-      - apk add --update bash python python-dev py-pip build-base
+      - apk add --update bash python python-dev py-pip build-base jq
       - pip install awscli
-      - aws deploy create-deployment --application-name vccs-codedeploy-service-prod --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-prod --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/prod/appspec.yaml
-    environment:
+      - aws s3 cp s3://$LAMBDA_BUCKET/$PROJECT/$DEPLOY_ENVIRONMENT/wait_deploy.sh .
+      - bash wait_deploy.sh $APPLICATION_NAME $DEPLOYMENT_GROUP
+      - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name $DEPLOYMENT_GROUP --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=$PROJECT/$DEPLOY_ENVIRONMENT/appspec.yaml
+     environment:
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
       AWS_SECRET_ACCESS_KEY:
         from_secret: aws_secret_access_key
       AWS_DEFAULT_REGION: eu-west-2
+      APPLICATION_NAME: vccs-codedeploy-service-prod
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-prod
+      PROJECT: vccs
+      DEPLOY_ENVIRONMENT: prod
+      LAMBDA_BUCKET: jaqu-projects-lambda-bucket
     when:
       event:
         - push
-
 
   ################################################# End Production Steps ############################################################
 
