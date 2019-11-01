@@ -246,6 +246,7 @@ steps:
     commands:
       - apk update && apk add bash
       - cd JAQU-CAZ-IAC
+      - git checkout feature/protect-vccs-ui
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
@@ -280,15 +281,22 @@ steps:
   - name: codedeploy ui dev
     image: golang:alpine
     commands:
-      - apk add --update bash python python-dev py-pip build-base
+      - apk add --update bash python python-dev py-pip build-base jq
       - pip install awscli
-      - aws deploy create-deployment --application-name vccs-codedeploy-service-dev --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-dev --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/dev/appspec.yaml
-    environment:
+      - aws s3 cp s3://$LAMBDA_BUCKET/$PROJECT/$DEPLOY_ENVIRONMENT/wait_deploy.sh .
+      - bash wait_deploy.sh $APPLICATION_NAME $DEPLOYMENT_GROUP
+      - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name $DEPLOYMENT_GROUP --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=$PROJECT/$DEPLOY_ENVIRONMENT/appspec.yaml
+     environment:
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
       AWS_SECRET_ACCESS_KEY:
         from_secret: aws_secret_access_key
       AWS_DEFAULT_REGION: eu-west-2
+      APPLICATION_NAME: vccs-codedeploy-service-dev
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-dev
+      PROJECT: vccs
+      DEPLOY_ENVIRONMENT: dev
+      LAMBDA_BUCKET: jaqu-projects-lambda-bucket
     when:
       event:
         - push
@@ -397,11 +405,11 @@ steps:
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
-      BROWSER_SET: 'min'
+      BROWSER_SET: 'mid'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
-      BUILD: ${DRONE_BUILD_NUMBER}
+      BUILD: VCCS-UI-${DRONE_BUILD_NUMBER}
       SPECTRE: false
       LOCATION: browserstack
     commands:
@@ -642,15 +650,22 @@ steps:
   - name: codedeploy ui sit
     image: golang:alpine
     commands:
-      - apk add --update bash python python-dev py-pip build-base
+      - apk add --update bash python python-dev py-pip build-base jq
       - pip install awscli
-      - aws deploy create-deployment --application-name vccs-codedeploy-service-sit --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-sit --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/sit/appspec.yaml
-    environment:
+      - aws s3 cp s3://$LAMBDA_BUCKET/$PROJECT/$DEPLOY_ENVIRONMENT/wait_deploy.sh .
+      - bash wait_deploy.sh $APPLICATION_NAME $DEPLOYMENT_GROUP
+      - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name $DEPLOYMENT_GROUP --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=$PROJECT/$DEPLOY_ENVIRONMENT/appspec.yaml
+     environment:
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
       AWS_SECRET_ACCESS_KEY:
         from_secret: aws_secret_access_key
       AWS_DEFAULT_REGION: eu-west-2
+      APPLICATION_NAME: vccs-codedeploy-service-sit
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-sit
+      PROJECT: vccs
+      DEPLOY_ENVIRONMENT: sit
+      LAMBDA_BUCKET: jaqu-projects-lambda-bucket
     when:
       event:
         - push
@@ -816,15 +831,22 @@ steps:
   - name: codedeploy ui preprod
     image: golang:alpine
     commands:
-      - apk add --update bash python python-dev py-pip build-base
+      - apk add --update bash python python-dev py-pip build-base jq
       - pip install awscli
-      - aws deploy create-deployment --application-name vccs-codedeploy-service-preprod --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name vccs-codedeploy-service-preprod --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=vccs/preprod/appspec.yaml
-    environment:
+      - aws s3 cp s3://$LAMBDA_BUCKET/$PROJECT/$DEPLOY_ENVIRONMENT/wait_deploy.sh .
+      - bash wait_deploy.sh $APPLICATION_NAME $DEPLOYMENT_GROUP
+      - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name $DEPLOYMENT_GROUP --description "Deployment ECS" --s3-location bucket=jaqu-projects-lambda-bucket,bundleType=yaml,key=$PROJECT/$DEPLOY_ENVIRONMENT/appspec.yaml
+     environment:
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
       AWS_SECRET_ACCESS_KEY:
         from_secret: aws_secret_access_key
       AWS_DEFAULT_REGION: eu-west-2
+      APPLICATION_NAME: vccs-codedeploy-service-preprod
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-preprod
+      PROJECT: vccs
+      DEPLOY_ENVIRONMENT: preprod
+      LAMBDA_BUCKET: jaqu-projects-lambda-bucket
     when:
       event:
         - push
