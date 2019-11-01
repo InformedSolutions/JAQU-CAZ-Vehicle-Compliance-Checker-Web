@@ -246,7 +246,6 @@ steps:
     commands:
       - apk update && apk add bash
       - cd JAQU-CAZ-IAC
-      - git checkout feature/protect-vccs-ui
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
