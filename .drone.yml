@@ -56,8 +56,6 @@ steps:
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
-      VALID_USERNAME: 'edmond.chhung@informed.com'
-      VALID_PASSWORD: 'Edc123.,'
       BROWSER_SET: 'min'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
@@ -483,7 +481,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://s5fbiclr6j.execute-api.eu-west-2.amazonaws.com/dev
+      COMPLIANCE_CHECKER_API_URL: https://sit-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -653,6 +651,47 @@ steps:
     when:
       event:
         - push
+
+    # Build end to end tests docker image
+  - name: build end to end test image
+    image: docker:git
+    commands:
+      - mkdir ~/.ssh
+      - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-QA-selenium.git
+      - cd JAQU-CAZ-QA-selenium
+      - docker build -t selenium-jaqu .
+    environment:
+      GIT_PRIVATE_SSH:
+        from_secret: github_private_key
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+    # Run end to end tests
+  - name: run end to end tests
+    image: selenium-jaqu
+    pull: never
+    environment:
+      BS_USERNAME:
+        from_secret: browserstack_username
+      BS_AUTHKEY:
+        from_secret: browserstack_auth_key
+      BASEURL_VCCS: 'https://sit.cleanairzonevehiclecheck.co.uk'
+      BROWSER_SET: 'min'
+      SCREENSHOT_TYPE: 'base'
+      VCCS_USER: 'vccsservice'
+      VCCS_PASSWORD: 'Password001!'
+      BUILD: ${DRONE_BUILD_NUMBER}-SIT
+      SPECTRE: false
+      LOCATION: browserstack
+    commands:
+      - cd JAQU-CAZ-QA-selenium
+      - cucumber -t @VCCS --retry 3
 
   ################################################# End SIT Steps #######################################################
 
