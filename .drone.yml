@@ -77,9 +77,6 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
-    when:
-      event:
-        - pull_request
 
   ################################################# End Nightly Steps ############################################################
 
@@ -401,6 +398,7 @@ steps:
     when:
       event:
         - push
+        - pull_request
 
     # Run end to end tests
   - name: run end to end tests
@@ -412,6 +410,11 @@ steps:
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
+      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'http://retrofit-alb-dev-1428410439.eu-west-2.elb.amazonaws.com'
+      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
+      BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
+      BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
       BROWSER_SET: 'mid'
@@ -421,12 +424,18 @@ steps:
       BUILD: VCCS-UI-${DRONE_BUILD_NUMBER}
       SPECTRE: false
       LOCATION: browserstack
+      CLIENT_ID:
+        from_secret: awsIdEToE
+      CLIENT_SECRET: 
+        from_secret: awsSecretEToE
+      MAIN_SUB_ID: 
+        from_secret: cognitoSubIdEToE
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
     when:
       event:
-        - push
+        - pull_request
 
   ################################################# End DEV Steps #######################################################
 ---
@@ -732,11 +741,11 @@ steps:
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://sit.cleanairzonevehiclecheck.co.uk'
-      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
-      BASEURL_RETRO: 'http://retrofit-alb-dev-1428410439.eu-west-2.elb.amazonaws.com'
-      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
-      BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
-      BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
+      BASEURL_NTR: 'http://sit-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'http://retrofit-alb-sit-726319303.eu-west-2.elb.amazonaws.com'
+      BASEURL_MOD: 'http://mod-alb-sit-591321415.eu-west-2.elb.amazonaws.com'
+      BASEURL_NTR_API: 'https://pnxa3wccpk.execute-api.eu-west-2.amazonaws.com/sit/'
+      BASEURL_NTR_OAUTH: 'https://ntr-userpool-sit.auth.eu-west-2.amazoncognito.com'
       BROWSER_SET: 'min'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
@@ -753,9 +762,6 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
-    when:
-      event:
-        - pull_request
 
   ################################################# End SIT Steps #######################################################
 
