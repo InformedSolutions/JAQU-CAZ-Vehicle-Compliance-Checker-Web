@@ -51,9 +51,6 @@
             Next steps
           %ul.govuk-list.govuk-list--bullet
             %li
-              = link_to "Find out how much the #{details.zone_name} CAZ charge is",
-                details.pricing_url, target: '_blank', id: 'caz-charge'
-            %li
               = link_to 'Find out if you qualify for an exemption or discount',
                 details.exemption_or_discount_url, target: '_blank', id: 'exemption-or-discount'
             -#%li
@@ -82,10 +79,6 @@
               = link_to 'Check another vehicle',
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn'
-            %li
-              = link_to 'Find out about alternative travel options',
-                        '#',
-                        id: 'alternative-travel-options'
             %li
               = link_to 'Find new ways to make your journey',
                         '#',
