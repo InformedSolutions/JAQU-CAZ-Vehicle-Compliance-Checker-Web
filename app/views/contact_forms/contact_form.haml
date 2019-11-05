@@ -29,3 +29,12 @@
             = render 'contact_forms/form_input/normal', form: f
 
           = f.submit 'Send', class: 'govuk-button', 'data-module': 'govuk-button'
+
+    .govuk-grid-column-one-third
+      %aside#related-items-label.app-related-items{role: 'complementary'}
+        %h2.govuk-heading-m
+          Related tasks
+        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
+          %ul.govuk-list{class: 'govuk-!-font-size-16'}
+            %li
+              = link_to 'Check another vehicle', root_path, id: 'check-another-vrn'
