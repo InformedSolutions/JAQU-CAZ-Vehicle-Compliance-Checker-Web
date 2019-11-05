@@ -61,8 +61,6 @@ steps:
       BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
       BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
-      CLIENT_ID: '1q457ok7vr6cq9h6ktj9cg8n5p'
-      CLIENT_SECRET: '974e0s7p494kq82a2ptvaqfqjgrbkor0qaopvj5lu9lsjr3v5ar'
       BROWSER_SET: 'min'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
@@ -70,7 +68,12 @@ steps:
       BUILD: ${DRONE_BUILD_NUMBER}
       SPECTRE: false
       LOCATION: browserstack
-      MAIN_SUB_ID: 'ea8f5b8e-c663-451c-b3c0-d21db53dba5d'
+      CLIENT_ID:
+        from_secret: awsIdEToE
+      CLIENT_SECRET: 
+        from_secret: awsSecretEToE
+      MAIN_SUB_ID: 
+        from_secret: cognitoSubIdEToE
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
@@ -731,8 +734,6 @@ steps:
       BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
       BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
-      CLIENT_ID: '1q457ok7vr6cq9h6ktj9cg8n5p'
-      CLIENT_SECRET: '974e0s7p494kq82a2ptvaqfqjgrbkor0qaopvj5lu9lsjr3v5ar'
       BROWSER_SET: 'min'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
@@ -740,7 +741,12 @@ steps:
       BUILD: ${DRONE_BUILD_NUMBER}-SIT
       SPECTRE: false
       LOCATION: browserstack
-      MAIN_SUB_ID: 'ea8f5b8e-c663-451c-b3c0-d21db53dba5d'
+      CLIENT_ID:
+        from_secret: awsIdEToE
+      CLIENT_SECRET: 
+        from_secret: awsSecretEToE
+      MAIN_SUB_ID: 
+        from_secret: cognitoSubIdEToE
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
