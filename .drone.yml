@@ -77,6 +77,9 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
+    when:
+      event:
+        - pull_request
 
   ################################################# End Nightly Steps ############################################################
 
@@ -750,6 +753,9 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
+    when:
+      event:
+        - pull_request
 
   ################################################# End SIT Steps #######################################################
 
