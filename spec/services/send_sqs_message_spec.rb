@@ -7,20 +7,15 @@ describe SendSqsMessage do
 
   let(:message_id) { SecureRandom.uuid }
   let(:form) { ContactForm.new(params) }
-  let(:first_name) { 'James' }
-  let(:last_name) { 'Smith' }
-  let(:email) { 'test@example.com' }
-  let(:query_type) { 'Fleets' }
-  let(:message) { 'Test message' }
 
   let(:params) do
     {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      email_confirmation: email,
-      query_type: query_type,
-      message: message
+      first_name: 'James',
+      last_name: 'Smith',
+      email: 'test@example.com',
+      email_confirmation: 'test@example.com',
+      query_type: 'Fleets',
+      message: 'Test message'
     }
   end
 

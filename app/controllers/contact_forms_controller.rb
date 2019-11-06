@@ -11,7 +11,11 @@ class ContactFormsController < ApplicationController
   #    GET /contact_forms
   #
   def index
-    # renders contact form
+    @return_url = if request.referer&.include?(non_uk_vehicle_checkers_path)
+                    non_uk_vehicle_checkers_path
+                  else
+                    root_path
+                  end
   end
 
   ##
