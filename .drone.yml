@@ -403,7 +403,7 @@ steps:
     # Run end to end tests
   - name: run end to end tests
     image: selenium-jaqu
-    #pull: never
+    pull: never
     environment:
       BS_USERNAME:
         from_secret: browserstack_username
@@ -734,7 +734,7 @@ steps:
     # Run end to end tests
   - name: run end to end tests
     image: selenium-jaqu
-    #pull: never
+    pull: never
     environment:
       BS_USERNAME:
         from_secret: browserstack_username
