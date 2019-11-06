@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   resources :vehicle_checkers, only: [] do
     collection do
       get :enter_details
-      post :validate_vrn
-      get :validate_vrn, to: redirect('vehicle_checkers/enter_details')
+      post :enter_details, to: 'vehicle_checkers#submit_details'
       get :confirm_details
       get :incorrect_details
       get :user_confirm_details

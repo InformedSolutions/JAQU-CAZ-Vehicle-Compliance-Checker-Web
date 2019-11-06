@@ -1,19 +1,12 @@
 = link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link'
 %main.govuk-main-wrapper#main-content{role: 'main'}
-  - if alert
-    .govuk-error-summary{'aria-labelledby': 'error-summary-title',
-                         'data-module': 'govuk-error-summary',
-                         role: 'alert',
-                         tabindex: '-1'}
-      %h2#error-summary-title.govuk-error-summary__title
-        There is a problem
-      .govuk-error-summary__body
-        %ul.govuk-list.govuk-error-summary__list
-          %li
-            %a{href: "#caz-select-error"}= alert
-
   .govuk-grid-row
     .govuk-grid-column-two-thirds
+      - if alert
+        = render 'common/error_summary',
+          error_msg_div: '#caz-selection-error',
+          error_msg: alert
+
       = form_tag compliance_air_zones_path, method: :post do
         .govuk-form-group{class: ('govuk-form-group--error' if alert)}
           %fieldset.govuk-fieldset{'aria-describedby': 'cazHint'}
@@ -23,7 +16,7 @@
             %span#cazHint.govuk-hint
               Select all locations that apply.
             - if alert
-              %span#caz-select-error.govuk-error-message
+              %span#caz-selection-error.govuk-error-message
                 %span.govuk-visually-hidden Error:
                 Select at least one Clean Air Zone
             .govuk-checkboxes
