@@ -57,6 +57,8 @@ steps:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
       BROWSER_SET: 'min'
+      VCCS_BASIC_USER: 'jaqu'
+      VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
@@ -401,6 +403,8 @@ steps:
       VALID_USERNAME: 'edmond.chhung@informed.com'
       VALID_PASSWORD: 'Edc123.,'
       BROWSER_SET: 'mid'
+      VCCS_BASIC_USER: 'jaqu'
+      VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
@@ -719,6 +723,8 @@ steps:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://sit.cleanairzonevehiclecheck.co.uk'
       BROWSER_SET: 'min'
+      VCCS_BASIC_USER: 'jaqu'
+      VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
