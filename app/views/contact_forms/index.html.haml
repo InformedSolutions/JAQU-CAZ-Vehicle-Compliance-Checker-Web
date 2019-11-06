@@ -1,3 +1,5 @@
+= link_to 'Back', @return_url, class: 'govuk-back-link'
+
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
@@ -18,7 +20,7 @@
 
       %h1.govuk-heading-xl
         Contact Form
-      = form_for(ContactForm.new, url: contact_form_path, method: :post, html: { autocomplete: 'off' }) do |f|
+      = form_for(ContactForm.new, url: contact_forms_path, method: :post, html: { autocomplete: 'off' }) do |f|
         %fieldset.govuk-fieldset
           %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
           - if @errors.present?
@@ -35,4 +37,4 @@
         %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
           %ul.govuk-list{class: 'govuk-!-font-size-16'}
             %li
-              = link_to 'Check another vehicle', root_path, id: 'check-another-vrn'
+              = link_to 'Check another vehicle', enter_details_vehicle_checkers_path, id: 'check-another-vrn'

@@ -20,6 +20,8 @@ gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
 
+gem 'aws-sdk-sqs'
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'

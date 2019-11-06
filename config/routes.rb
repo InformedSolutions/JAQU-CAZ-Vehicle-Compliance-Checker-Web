@@ -26,9 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get :contact_form, to: 'contact_forms#contact_form'
-  post :contact_form, to: 'contact_forms#validate_contact_form'
-  get :contact_form_result, to: 'contact_forms#contact_form_result'
+  resources :contact_forms, only: :index do
+    collection do
+      post :index, to: 'contact_forms#validate'
+      get :result
+    end
+  end
 
   get :service_unavailable, to: 'application#server_unavailable'
   get :health, to: 'application#health'
