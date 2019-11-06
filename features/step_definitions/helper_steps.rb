@@ -51,5 +51,5 @@ Then('I press the Back link') do
 end
 
 Then('I should see the Contact Form page') do
-  expect(page).to have_current_path(contact_form_path)
+  expect(page).to have_current_path(contact_forms_path)
 end

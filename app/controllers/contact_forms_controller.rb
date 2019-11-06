@@ -8,19 +8,19 @@ class ContactFormsController < ApplicationController
   # Renders the contact form page
   #
   # ==== Path
-  #    GET /contact_form
+  #    GET /contact_forms
   #
-  def contact_form
+  def index
     # renders contact form
   end
 
   ##
   # Validates user data entered in contact form
-  # If successful, redirects to {contact_form_result}[rdoc-ref:ContactFormsController.contact_form_result]
-  # If not successful, renders {contact_form}[rdoc-ref:ContactFormsController.contact_form] with errors
+  # If successful, redirects to {result}[rdoc-ref:ContactFormsController.result]
+  # If not successful, renders {index view}[rdoc-ref:ContactFormsController.index] with errors
   #
   # ==== Path
-  #    POST /validate_contact_form
+  #    POST /contact_forms
   #
   # ==== Params
   # * +params+ - hash
@@ -31,14 +31,15 @@ class ContactFormsController < ApplicationController
   #   * +query_type+ - string, users's type of query
   #   * +message+ - string, users's message typed in form
   #
-  def validate_contact_form
+  def validate
     form = ContactForm.new(params['contact_form'])
     if form.valid?
-      redirect_to contact_form_result_path
+      message_id = SendSqsMessage.call(contact_form: form)
+      redirect_to result_contact_forms_path, alert: message_id.blank?
     else
       @errors = form.errors.messages
-      log_invalid_form 'Rendering :new_contact_form.'
-      render 'contact_form'
+      log_invalid_form 'Rendering :index'
+      render :index
     end
   end
 
@@ -46,9 +47,9 @@ class ContactFormsController < ApplicationController
   # Renders the contact form result page
   #
   # ==== Path
-  #    GET /contact_form_result
+  #    GET /contact_forms/result
   #
-  def contact_form_result
-    render 'result'
+  def result
+    # renders static view
   end
 end
