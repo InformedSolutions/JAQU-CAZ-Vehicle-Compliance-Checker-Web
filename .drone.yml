@@ -215,6 +215,7 @@ steps:
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=${DRONE_COMMIT}
+        - aws_region=eu-west-2
     when:
       event:
         - push
@@ -489,6 +490,7 @@ steps:
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=${DRONE_COMMIT}
+        - aws_region=eu-west-2
     when:
       event:
         - push
