@@ -51,9 +51,6 @@
             Next steps
           %ul.govuk-list.govuk-list--bullet
             %li
-              = link_to "Find out how much the #{details.zone_name} CAZ charge is",
-                details.pricing_url, target: '_blank', id: 'caz-charge'
-            %li
               = link_to 'Find out if you qualify for an exemption or discount',
                 details.exemption_or_discount_url, target: '_blank', id: 'exemption-or-discount'
             -#%li
@@ -69,22 +66,24 @@
               target: '_blank', id: 'financial-assistance'
             to help you do so.
 
-      %p#print-page-link{style: 'display: none;'}
+      %p#print-page-link.print-page-link.print-page-link__hidden
         = link_to "Print this page", 'javascript:window.print()', id: 'print-this-page'
 
     .govuk-grid-column-one-third
-      %h2.govuk-heading-m
-        Related tasks
-      %ul.govuk-list.govuk-list--bullet
-        %li
-          = link_to "Check another vehicle's compliance",
-                    enter_details_vehicle_checkers_path,
-                    id: 'check-another-vrn'
-        %li
-          = link_to 'Find out about alternative travel options',
-                    '#',
-                    id: 'alternative-travel-options'
-        %li
-          = link_to 'Find new ways to make your journey',
-                    '#',
-                    id: 'new-ways'
+      %aside#related-items-label.app-related-items{role: 'complementary'}
+        %h2.govuk-heading-m
+          Related tasks
+        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
+          %ul.govuk-list{class: 'govuk-!-font-size-16'}
+            %li
+              = link_to 'Check another vehicle',
+                        enter_details_vehicle_checkers_path,
+                        id: 'check-another-vrn'
+            %li
+              = link_to 'Find new ways to make your journey',
+                        '#',
+                        id: 'new-ways'
+            %li
+              = link_to 'Contact Clean Air Zones',
+                        contact_forms_path,
+                        id: 'contact-form'

@@ -33,4 +33,10 @@ module MockHelpers
     compliance = JSON.parse(File.read('spec/fixtures/files/vehicle_compliance_response.json'))
     allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
   end
+
+  def mock_sqs
+    allow(SendSqsMessage).to receive(:call).and_return(SecureRandom.uuid)
+  end
 end
+
+World(MockHelpers)

@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   resources :vehicle_checkers, only: [] do
     collection do
       get :enter_details
-      post :validate_vrn
-      get :validate_vrn, to: redirect('vehicle_checkers/enter_details')
+      post :enter_details, to: 'vehicle_checkers#submit_details'
       get :confirm_details
       get :incorrect_details
       get :user_confirm_details
@@ -27,9 +26,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get :contact_form, to: 'contact_forms#contact_form'
-  post :contact_form, to: 'contact_forms#validate_contact_form'
-  get :contact_form_result, to: 'contact_forms#contact_form_result'
+  resources :contact_forms, only: :index do
+    collection do
+      post :index, to: 'contact_forms#validate'
+      get :result
+    end
+  end
 
   get :service_unavailable, to: 'application#server_unavailable'
   get :health, to: 'application#health'

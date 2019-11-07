@@ -2,6 +2,7 @@ $govuk-global-styles: true;
 $govuk-assets-path: '/packs/media/';
 
 @import "~govuk-frontend/govuk/all";
+@import "related_components";
 
 .not-found-title {
   background-color: govuk-colour($colour: 'light-grey');
@@ -23,4 +24,9 @@ html {
 
 .draft-label {
   margin-bottom: 30px;
+}
+
+.vrn-input {
+  max-width: 20ex + 3ex;
+  text-transform: uppercase;
 }

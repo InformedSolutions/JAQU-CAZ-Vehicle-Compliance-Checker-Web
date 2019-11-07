@@ -28,7 +28,9 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def caz_selection
-    @clean_air_zones = ComplianceCheckerApi.clean_air_zones.map { |caz_data| Caz.new(caz_data) }
+    @clean_air_zones = ComplianceCheckerApi.clean_air_zones
+                                           .map { |caz_data| Caz.new(caz_data) }
+                                           .sort_by(&:name)
   end
 
   ##

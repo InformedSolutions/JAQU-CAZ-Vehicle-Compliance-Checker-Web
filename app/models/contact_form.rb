@@ -45,7 +45,7 @@ class ContactForm
   # Overrides default initializer for compliance with form_for method in content_form view
   def initialize(attributes = {})
     attributes.each do |name, value|
-      send("#{name}=", value)
+      public_send("#{name}=", value)
     end
   end
 

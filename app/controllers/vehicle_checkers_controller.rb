@@ -8,7 +8,7 @@ class VehicleCheckersController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
 
   # checks if VRN is present in the session
-  before_action :check_vrn, except: %i[enter_details validate_vrn]
+  before_action :check_vrn, except: %i[enter_details submit_details]
 
   ##
   # Renders the first step of checking the vehicle compliance.
@@ -32,7 +32,7 @@ class VehicleCheckersController < ApplicationController
   #
   # ==== Path
   #
-  #    POST /vehicle_checkers/validate_vrn
+  #    POST /vehicle_checkers/submit_details
   #
   # GET method redirects to {enter details}[rdoc-ref:VehicleCheckersController.enter_details]
   #
@@ -43,7 +43,7 @@ class VehicleCheckersController < ApplicationController
   # ==== Validations
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
-  def validate_vrn
+  def submit_details
     form = VrnForm.new(parsed_vrn, country)
     unless form.valid?
       @errors = form.error_object
@@ -230,10 +230,10 @@ class VehicleCheckersController < ApplicationController
   # If vehicles's registration form was not confirmed, redirects to
   #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   # If vehicles's registration not determined redirects to
-  #   {the next step}[rdoc-ref:rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
+  #   {the next step}[rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
   # If vehicles's registration determined redirects to
   #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
-
+  #
   def determinate_next_page(form)
     return redirect_to incorrect_details_vehicle_checkers_path unless form.confirmed?
 
