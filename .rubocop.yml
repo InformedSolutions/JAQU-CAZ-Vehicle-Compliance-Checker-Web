@@ -15,6 +15,7 @@ Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
   Exclude:
     - 'config/routes.rb'
+    - 'config/environments/*.rb'
 
 Style/AndOr:
   EnforcedStyle: conditionals
