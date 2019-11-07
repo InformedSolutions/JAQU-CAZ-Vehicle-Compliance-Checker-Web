@@ -638,6 +638,9 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        - push
 
   ################################################# End SIT Steps #######################################################
 
