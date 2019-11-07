@@ -507,7 +507,7 @@ steps:
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC
-      - git checkout release/vccs-preprod
+      - git checkout sit
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
@@ -560,7 +560,7 @@ steps:
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC
-      - git checkout release/vccs-preprod
+      - git checkout sit
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
@@ -692,7 +692,7 @@ steps:
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC
-      - git checkout release/vccs-preprod
+      - git checkout preprod
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
@@ -752,7 +752,7 @@ steps:
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
       - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC
-      - git checkout release/vccs-preprod
+      - git checkout preprod
       - cd terraform/projects/vccs/layers/01.networking
       - PATH=$PATH:../../../../bin/
       - chmod +x ../../../../bin/tf
