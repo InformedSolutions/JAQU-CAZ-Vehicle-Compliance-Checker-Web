@@ -343,6 +343,7 @@ steps:
     image: blazemeter/taurus
     commands:
       - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -664,6 +665,9 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        - push
 
     # Run end to end tests
   - name: run end to end tests
