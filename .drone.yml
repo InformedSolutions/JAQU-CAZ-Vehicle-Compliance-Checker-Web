@@ -685,6 +685,9 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
+    when:
+      event:
+        - push
 
   ################################################# End SIT Steps #######################################################
 
