@@ -14,9 +14,9 @@
             %ul.govuk-list.govuk-error-summary__list
               %li
                 -# Remove duplicated messages `Email and email address confirmation must be the same`
-                - (@errors.map { |error| error.second.map { |msg| [msg, error.first] } }.flatten(1).uniq { |arr| arr.first }).each do |error|
+                - remove_duplicated_messages(@errors).each_with_index do |error, index|
                   %li.custom-csv-error
-                    = link_to(error.first, "#govuk-error-#{error.second}", id: error.second)
+                    = link_to(error.first, "#govuk-error-#{error.second}", id: "#{error.second}-#{index}")
 
       %h1.govuk-heading-xl
         Contact Clean Air Zones
