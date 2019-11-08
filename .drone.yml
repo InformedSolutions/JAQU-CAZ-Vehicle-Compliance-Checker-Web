@@ -67,6 +67,31 @@ steps:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
 
+    # Run end to end tests for the cross-service integration features
+  - name: run end to end tests
+    image: selenium-jaqu
+    pull: never
+    environment:
+      BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
+      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
+      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
+      BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
+      BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
+      VCCS_USER: 'vccsservice'
+      VCCS_PASSWORD: 'Password001!'
+      LOCATION: local
+      CLIENT_ID:
+        from_secret: awsIdEToE
+      CLIENT_SECRET: 
+        from_secret: awsSecretEToE
+      COGNITO_ID: 
+        from_secret: cognitoSubIdEToE
+    commands:
+      - cd JAQU-CAZ-QA-selenium
+      - cucumber -t @VCCSINT --retry 3
+      
+
   ################################################# End Nightly Steps ############################################################
 
 ---
@@ -1139,6 +1164,27 @@ name: vccs_ruby_secret
 get:
   path: /secret/drone.global
   name: vccsRubySecret
+
+---
+kind: secret
+name: cognito_sub_id_e_to_e
+get:
+  path: /secret/drone.global
+  name: cognitoSubIdEToE
+
+---
+kind: secret
+name: aws_id_e_to_e
+get:
+  path: /secret/drone.global
+  name: awsIdEToE
+
+---
+kind: secret
+name: aws_secret_e_to_e
+get:
+  path: /secret/drone.global
+  name: awsSecretEToE
 
 
   ################################################ End Secrets #########################################################
