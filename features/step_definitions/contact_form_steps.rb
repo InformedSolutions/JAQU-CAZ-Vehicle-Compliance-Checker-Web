@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 When('I am on the Contact Form page') do
-  visit contact_form_path
+  visit contact_forms_path
 end
 
 Then('I fill all fields and press Send button') do
+  mock_sqs
   fill_in('contact_form_first_name', with: 'James')
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
@@ -15,7 +16,7 @@ Then('I fill all fields and press Send button') do
 end
 
 Then('I should see the Result page') do
-  expect(page).to have_current_path(contact_form_result_path)
+  expect(page).to have_current_path(result_contact_forms_path)
 end
 
 Then('I am not fill First Name field and press Send button') do
@@ -89,7 +90,7 @@ Then('I fill too long message and press Send button') do
 end
 
 Then('I remain on the Contact Form page') do
-  expect(page).to have_current_path(contact_form_path)
+  expect(page).to have_current_path(contact_forms_path)
 end
 
 private

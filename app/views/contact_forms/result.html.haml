@@ -1,5 +1,8 @@
+= link_to 'Back', contact_forms_path, class: 'govuk-back-link'
+
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l
-        Contact form was sent
+        = "Contact form was #{alert ? "not sent" : "sent"}"
+

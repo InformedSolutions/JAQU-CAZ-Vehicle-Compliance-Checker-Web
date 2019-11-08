@@ -10,23 +10,43 @@ Feature: Contact Form
     Then I should see the Result page
       And I should see "Contact form was sent"
 
-  Scenario: Filling not all required fields
+  Scenario: User does not fill first name
     Given I am on the Contact Form page
       And I am not fill First Name field and press Send button
     Then I remain on the Contact Form page
       And I should see "First name is required"
-    Then I am not fill Last Name field and press Send button
+
+  Scenario: User does not fill last name
+    Given I am on the Contact Form page
+      And I am not fill Last Name field and press Send button
+    Then I remain on the Contact Form page
       And I should see "Last name is required"
-    Then I am not fill Email Address field and press Send button
+
+  Scenario: User does not fill email
+    Given I am on the Contact Form page
+      And I am not fill Email Address field and press Send button
+    Then I remain on the Contact Form page
       And I should see "Email is required"
-    Then I am not fill Email Confirmation field and press Send button
+
+  Scenario: User does not fill email confirmation
+    Given I am on the Contact Form page
+      And I am not fill Email Confirmation field and press Send button
+    Then I remain on the Contact Form page
       And I should see "Email confirmation is required"
-    Then I am not select any Query Type and press Send button
+
+  Scenario: User does not select query type
+    Given I am on the Contact Form page
+      And I am not select any Query Type and press Send button
+    Then I remain on the Contact Form page
       And I should see "Query type is required"
-    Then I am not fill Message field and press Send button
+
+  Scenario: User does not fill message
+    Given I am on the Contact Form page
+      And I am not fill Message field and press Send button
+    Then I remain on the Contact Form page
       And I should see "Message is required"
 
-  Scenario: Filling not the same email and email confirmation addresses
+  Scenario: User fill not the same email and email confirmation addresses
     Given I am on the Contact Form page
       And I fill not the same email and email_confirmation fields and press Send button
     Then I remain on the Contact Form page

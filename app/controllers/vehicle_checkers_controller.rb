@@ -8,7 +8,7 @@ class VehicleCheckersController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
 
   # checks if VRN is present in the session
-  before_action :check_vrn, except: %i[enter_details validate_vrn]
+  before_action :check_vrn, except: %i[enter_details submit_details]
 
   ##
   # Renders the first step of checking the vehicle compliance.
@@ -32,7 +32,7 @@ class VehicleCheckersController < ApplicationController
   #
   # ==== Path
   #
-  #    POST /vehicle_checkers/validate_vrn
+  #    POST /vehicle_checkers/submit_details
   #
   # GET method redirects to {enter details}[rdoc-ref:VehicleCheckersController.enter_details]
   #
@@ -43,7 +43,7 @@ class VehicleCheckersController < ApplicationController
   # ==== Validations
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
-  def validate_vrn
+  def submit_details
     form = VrnForm.new(parsed_vrn, country)
     unless form.valid?
       @errors = form.error_object
