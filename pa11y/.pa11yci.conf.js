@@ -77,7 +77,8 @@ var config = {
                 "click element input[type=submit]",
                 "wait for element #confirm-vehicle-2 to be visible",
                 "click element #confirm-vehicle-2",
-                "click element input[type=submit]"
+                "click element input[type=submit]",
+                "wait for element [href='/vehicle_checkers/enter_details'] to be visible"
             ]
         }
     ]
