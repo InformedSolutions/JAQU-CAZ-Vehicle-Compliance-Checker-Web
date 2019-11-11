@@ -69,8 +69,8 @@ steps:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
 
-    # Run end to end tests for the cross-service integration features
-  - name: run end to end tests
+    # Run system integration tests
+  - name: run system integration tests
     image: selenium-jaqu
     pull: never
     environment:
