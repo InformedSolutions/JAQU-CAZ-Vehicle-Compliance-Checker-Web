@@ -5,8 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.0.1'
 
+gem 'aws-sdk-sqs'
 gem 'bootsnap', require: false
 gem 'brakeman'
 gem 'bundler-audit'
@@ -19,8 +20,6 @@ gem 'sass-rails'
 gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
-
-gem 'aws-sdk-sqs'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
