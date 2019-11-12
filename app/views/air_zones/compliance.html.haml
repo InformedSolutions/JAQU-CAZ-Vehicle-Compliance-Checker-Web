@@ -66,6 +66,8 @@
               target: '_blank', id: 'financial-assistance'
             to help you do so.
 
+      = render 'go_ultra_low_icon'
+
       %p#print-page-link.print-page-link.print-page-link__hidden
         = link_to "Print this page", 'javascript:window.print()', id: 'print-this-page'
 
@@ -79,6 +81,10 @@
               = link_to 'Check another vehicle',
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn'
+            %li
+              = link_to 'Check another Clean Air Zone',
+                        caz_selection_air_zones_path,
+                        id: 'check-another-caz'
             %li
               = link_to 'Find new ways to make your journey',
                         '#',

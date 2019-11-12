@@ -31,6 +31,18 @@ RSpec.describe ContactForm, type: :model do
     it 'has an empty hash as error_object' do
       expect(form.errors.messages).to eq({})
     end
+
+    context 'when first_name contains space' do
+      let(:first_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when last_name contains space' do
+      let(:last_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
+    end
   end
 
   context 'with invalid params' do
@@ -58,6 +70,30 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
+    context 'when invalid first_name format' do
+      context 'when first_name has special signs' do
+        let(:first_name) { 'FirstName$%' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:first_name])
+            .to include('First name is in an invalid format')
+        end
+      end
+
+      context 'when first_name has numbers' do
+        let(:first_name) { 'FirstName9' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:first_name])
+            .to include('First name is in an invalid format')
+        end
+      end
+    end
+
     context 'when last_name is empty' do
       let(:last_name) { '' }
 
@@ -77,6 +113,30 @@ RSpec.describe ContactForm, type: :model do
       it 'has a proper error message' do
         expect(form.errors.messages[:last_name])
           .to include('Last name is too long (maximum is 45 characters)')
+      end
+    end
+
+    context 'when invalid last_name format' do
+      context 'when last_name has special signs' do
+        let(:last_name) { 'LastName$%' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:last_name])
+            .to include('Last name is in an invalid format')
+        end
+      end
+
+      context 'when first_name has numbers' do
+        let(:last_name) { 'LastName9' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:last_name])
+            .to include('Last name is in an invalid format')
+        end
       end
     end
 

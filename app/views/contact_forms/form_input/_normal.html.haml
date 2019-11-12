@@ -8,17 +8,17 @@
 
 .govuk-form-group
   = form.label :email, 'Email address', class: 'govuk-label'
-  = form.email_field :email, class: 'govuk-input', maxlength: 45
+  = form.text_field :email, class: 'govuk-input', maxlength: 45
 
 .govuk-form-group
   = form.label :email_confirmation, 'Email address confirmation', class: 'govuk-label'
-  = form.email_field :email_confirmation, class: 'govuk-input', maxlength: 45
+  = form.text_field :email_confirmation, class: 'govuk-input', maxlength: 45
 
 .govuk-form-group
   = form.label :query_type, 'Query Type', class: 'govuk-label'
   = form.select(:query_type,
                 ['General Enquiry', 'Charge Query', 'Payment', 'Fleets', 'Non-UK Vehicle'],
-                { prompt: 'Select One' },
+                { prompt: 'Please select...' },
                 { class: 'govuk-select' })
 
 .govuk-form-group
