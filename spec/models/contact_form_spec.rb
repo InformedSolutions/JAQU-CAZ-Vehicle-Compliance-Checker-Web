@@ -31,6 +31,18 @@ RSpec.describe ContactForm, type: :model do
     it 'has an empty hash as error_object' do
       expect(form.errors.messages).to eq({})
     end
+
+    context 'when first_name contains space' do
+      let(:first_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when last_name contains space' do
+      let(:last_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
+    end
   end
 
   context 'with invalid params' do
