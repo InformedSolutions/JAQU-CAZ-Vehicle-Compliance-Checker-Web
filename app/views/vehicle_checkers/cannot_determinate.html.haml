@@ -3,7 +3,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l.not-found-title Cannot determine compliance
+      %h1.govuk-heading-l.not-found-title Unable to determine compliance
       %table.govuk-table
         %tbody.govuk-table__body
           %tr.govuk-table__row
@@ -14,5 +14,6 @@
             %th.govuk-table__cell= @vehicle_registration
 
       %p
-        If you are sure that you entered the correct registration number and you need to make a further enquiries please contact
-        = link_to 'DVLA', 'https://www.gov.uk/change-vehicle-details-registration-certificate', target: '_blank'
+        To equire about your vehicle's compliance please use our
+        = link_to 'Contact Clean Air Zones', contact_forms_path, target: '_blank', id: 'contact-form'
+        web form
