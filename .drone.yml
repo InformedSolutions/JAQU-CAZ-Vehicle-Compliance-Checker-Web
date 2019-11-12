@@ -364,14 +364,12 @@ steps:
     when:
       event:
         - push
-        - pull_request
 
   # Execute jMeter scripts via taurus
   - name: micro-performance tests
     image: blazemeter/taurus
     commands:
       - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
-      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
