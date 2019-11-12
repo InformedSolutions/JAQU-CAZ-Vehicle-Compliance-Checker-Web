@@ -77,12 +77,12 @@ steps:
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
       BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
       BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
-      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com'
+      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com/'
       BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
-      VCCS_USER: 'vccsservice'
-      VCCS_PASSWORD: 'Password001!'
-      LOCATION: local
+      VALID_USERNAME=tester@informed.com
+      VALID_PASSWORD=Tester123..
+      LOCATION=local
       CLIENT_ID:
         from_secret: awsIdEToE
       CLIENT_SECRET: 
@@ -91,7 +91,10 @@ steps:
         from_secret: cognitoSubIdEToE
     commands:
       - cd JAQU-CAZ-QA-selenium
-      - cucumber -t @VCCSINT --retry 3
+      - cucumber -t @VCCSINT
+    when:
+      event:
+    - pull_request
       
 
   ################################################# End Nightly Steps ############################################################
