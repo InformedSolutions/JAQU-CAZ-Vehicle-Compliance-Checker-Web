@@ -27,4 +27,18 @@ RSpec.describe Caz, type: :model do
       expect(caz.boundary_url).to eq(url)
     end
   end
+
+  describe '.checked?' do
+    it 'returns true' do
+      expect(caz.checked?([id])).to eq(true)
+    end
+
+    context 'when another caz was selected' do
+      let(:another_id) { SecureRandom.uuid }
+
+      it 'returns false' do
+        expect(caz.checked?([another_id])).to eq(false)
+      end
+    end
+  end
 end
