@@ -6,8 +6,8 @@
 # For further information see the following documentation
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
-if Rails.env.production?
-  Rails.application.config.content_security_policy do |policy|
+Rails.application.config.content_security_policy do |policy|
+  if Rails.env.production?
     policy.default_src     :none
     policy.font_src        :self, :https, :data
     policy.img_src         :self, :https
@@ -16,6 +16,10 @@ if Rails.env.production?
     policy.style_src       :self, :https
     policy.connect_src     :self, :https
     policy.frame_ancestors :none
+  else
+    # testing CSP on development
+    policy.default_src     :self, :blob
+    policy.font_src        :self, :data, :blob
   end
 end
 
