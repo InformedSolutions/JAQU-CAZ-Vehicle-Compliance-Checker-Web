@@ -51,7 +51,7 @@ class VehicleCheckersController < ApplicationController
       return render enter_details_vehicle_checkers_path
     end
 
-    session[:vrn] = parsed_vrn
+    add_vrn_to_session
     redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
@@ -242,5 +242,11 @@ class VehicleCheckersController < ApplicationController
     else
       redirect_to caz_selection_air_zones_path
     end
+  end
+
+  # add vrn to session and clear checked_zones from session
+  def add_vrn_to_session
+    session[:vrn] = parsed_vrn
+    session[:checked_zones] = []
   end
 end

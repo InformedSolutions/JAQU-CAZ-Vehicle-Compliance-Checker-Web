@@ -34,6 +34,12 @@ class Caz
     caz_data[:boundary_url]
   end
 
+  # Checks if zones was already checked by user before.
+  # Returns a boolean.
+  def checked?(checked_zones)
+    checked_zones.include?(caz_data[:clean_air_zone_id])
+  end
+
   private
 
   attr_reader :caz_data

@@ -31,6 +31,8 @@ class AirZonesController < ApplicationController
     @clean_air_zones = ComplianceCheckerApi.clean_air_zones
                                            .map { |caz_data| Caz.new(caz_data) }
                                            .sort_by(&:name)
+
+    @checked_zones = session[:checked_zones]
   end
 
   ##
@@ -61,6 +63,7 @@ class AirZonesController < ApplicationController
       return redirect_to caz_selection_air_zones_path, alert: form.message
     end
 
+    session[:checked_zones] = caz
     @compliance_outcomes = Compliance.new(vrn, caz).compliance_outcomes
     @vrn = vrn
   end
