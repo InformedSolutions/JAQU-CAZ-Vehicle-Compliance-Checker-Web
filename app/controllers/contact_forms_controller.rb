@@ -59,6 +59,8 @@ class ContactFormsController < ApplicationController
 
   private
 
+  # Calls Sqs::JaquMessage and Sqs::UserMessage with submitted form data
+  # Returns an array of message IDs
   def send_emails(form)
     [Sqs::JaquMessage, Sqs::UserMessage].map { |klass| klass.call(contact_form: form) }
   end
