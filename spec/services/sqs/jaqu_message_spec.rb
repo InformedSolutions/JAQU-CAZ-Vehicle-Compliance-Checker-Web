@@ -2,11 +2,12 @@
 
 require 'rails_helper'
 
-describe SendSqsMessage do
+describe Sqs::JaquMessage do
   subject(:service) { described_class.call(contact_form: form) }
 
   let(:message_id) { SecureRandom.uuid }
   let(:form) { ContactForm.new(params) }
+  let(:mocked_msg) { OpenStruct.new(message_id: message_id) }
 
   let(:params) do
     {
@@ -20,13 +21,7 @@ describe SendSqsMessage do
   end
 
   context 'when the call to SQS is successful' do
-    before do
-      allow(AWS_SQS).to receive(:send_message).and_return(OpenStruct.new(message_id: message_id))
-    end
-
-    it 'returns the message id' do
-      expect(service).to eq(message_id)
-    end
+    it_behaves_like 'a SQS email', Rails.configuration.x.contact_email
   end
 
   context 'when the call to SQS is unsuccessful' do
