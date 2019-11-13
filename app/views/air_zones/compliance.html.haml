@@ -32,39 +32,19 @@
           %br
           %p
             This vehicle does not meet with the
-            = succeed '.' do
+            = succeed ' ' do
               = link_to details.emissions_standards_url,
                 target: '_blank', class: 'caz-inline-link', id: 'emissions-standards' do
                 = details.zone_name
                 CAZ emissions standards
-            It is therefore subject to a charge when driving in the
-            = link_to details.main_info_url,
-              target: '_blank', class: 'caz-inline-link', id: 'main_info' do
-              = details.zone_name
-              Clean Air Zone
-            = ' during its'
+            so may be subject to a charge when it comes into effect in summer 2020. Even if your
+            vehicle is subject to a charge, you might be eligible for an exemption or discount
             = succeed '.' do
-              = link_to 'hours of operation', details.hours_of_operation_url,
-                target: '_blank', class: 'caz-inline-link', id: 'hours-of-operation'
-
-          %h2.govuk-heading-m
-            Next steps
-          %ul.govuk-list.govuk-list--bullet
-            %li
-              = link_to 'Find out if you qualify for an exemption or discount',
-                details.exemption_or_discount_url, target: '_blank', id: 'exemption-or-discount'
-            -#%li
-              = link_to "Pay the #{details.zone_name} CAZ charge",
-                details.pay_caz_url, target: '_blank', id: 'pay-caz'
+              = link_to 'find out if you qualify', details.exemption_or_discount_url,
+                target: '_blank', id: 'exemption-or-discount'
           %p
-            If you wish to avoid the charge in the future, you can change your vehicle to
-            = succeed "," do
-              = link_to 'become compliant', details.become_compliant_url,
-                target: '_blank', id: 'become-compliant'
-            and you may qualify for
-            = link_to 'financial assistance', details.financial_assistance_url,
-              target: '_blank', id: 'financial-assistance'
-            to help you do so.
+            The zone will operate 24 hours a day, 7 days a week, every day of the year.
+            You will be able to pay for up to 6 previous days and 6 days in the future.
 
       = render 'go_ultra_low_icon'
 
