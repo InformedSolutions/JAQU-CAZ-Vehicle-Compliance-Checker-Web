@@ -28,7 +28,7 @@
                                                  id: "caz-#{index}",
                                                  checked: zone.checked?(@checked_zones)}
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
-                    = "#{zone.name} - charging starts in summer 2020"
-                    %p= link_to '(see Clean Air Zone map)', zone.boundary_url, target: '_blank'
+                    = zone.name
+                    = link_to '(see Clean Air Zone map)', zone.boundary_url, target: '_blank'
 
         = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'
