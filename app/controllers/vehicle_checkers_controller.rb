@@ -247,6 +247,6 @@ class VehicleCheckersController < ApplicationController
   # add vrn to session and clear checked_zones from session
   def add_vrn_to_session
     session[:vrn] = parsed_vrn
-    session[:checked_zones] = []
+    clear_checked_la
   end
 end
