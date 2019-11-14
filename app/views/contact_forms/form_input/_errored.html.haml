@@ -26,7 +26,7 @@
     - if errors[:email].present?
       %span.govuk-visually-hidden Error:
       = errors[:email].join(', ')
-  = form.email_field :email,
+  = form.text_field :email,
                      class: "govuk-input #{'govuk-input--error' if errors[:email].present?}",
                      value: params.dig(:contact_form, :email),
                      maxlength: 45
@@ -37,7 +37,7 @@
     - if errors[:email_confirmation].present?
       %span.govuk-visually-hidden Error:
       = errors[:email_confirmation].join(', ')
-  = form.email_field :email_confirmation,
+  = form.text_field :email_confirmation,
                      class: "govuk-input #{'govuk-input--error' if errors[:email_confirmation].present?}",
                      value: params.dig(:contact_form, :email_confirmation),
                      maxlength: 45
@@ -50,7 +50,7 @@
       = errors[:query_type].join(', ')
   = form.select(:query_type,
                 ['General Enquiry', 'Charge Query', 'Payment', 'Fleets', 'Non-UK Vehicle'],
-                { prompt: 'Select One', selected: params.dig(:contact_form, :query_type) },
+                { prompt: 'Please select...', selected: params.dig(:contact_form, :query_type) },
                 { class: "govuk-select #{'govuk-input--error' if errors[:query_type].present?}" })
 
 .govuk-form-group{class: ('govuk-form-group--error' if errors[:message].present?)}

@@ -27,6 +27,13 @@ class ContactForm
     with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/,
     message: '%{attribute} is in an invalid format'
   }
+
+  # validates first_name and last_name format and allow double name, e.g. 'Wojciech Bogdan'
+  validates :first_name, :last_name, format: {
+    with: /\A[a-zA-Z ]+\z/,
+    message: '%{attribute} is in an invalid format'
+  }
+
   # rubocop:enable Style/FormatStringToken:
 
   # validates +email+ and +email_confirmation+

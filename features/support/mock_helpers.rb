@@ -35,7 +35,9 @@ module MockHelpers
   end
 
   def mock_sqs
-    allow(SendSqsMessage).to receive(:call).and_return(SecureRandom.uuid)
+    [Sqs::JaquMessage, Sqs::UserMessage].each do |service|
+      allow(service).to receive(:call).and_return(SecureRandom.uuid)
+    end
   end
 end
 
