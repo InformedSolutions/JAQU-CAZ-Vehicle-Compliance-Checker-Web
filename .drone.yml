@@ -378,7 +378,6 @@ steps:
     when:
       event:
         - push
-        - pull_request
 
   # Execute OWASP Zap tests
   - name: owasp zap tests
