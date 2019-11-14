@@ -18,6 +18,7 @@ Rails.application.config.content_security_policy do |policy|
     policy.frame_ancestors :none
   else
     # testing CSP on development
+    # TODO: Review it
     # policy.default_src     :self, :blob
     policy.font_src        :self, :data, :blob
   end
