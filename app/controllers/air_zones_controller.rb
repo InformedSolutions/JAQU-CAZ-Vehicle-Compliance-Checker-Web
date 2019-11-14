@@ -58,10 +58,7 @@ class AirZonesController < ApplicationController
   #
   def compliance
     form = CazForm.new(caz)
-    unless form.valid?
-      log_invalid_form 'Redirecting back to :caz_selection.'
-      return redirect_to caz_selection_air_zones_path, alert: form.message
-    end
+    return redirect_to_caz_selection(form) unless form.valid?
 
     session[:checked_zones] = caz
     @compliance_outcomes = Compliance.new(vrn, caz).compliance_outcomes
@@ -73,5 +70,12 @@ class AirZonesController < ApplicationController
   # Returns a list of Clean Air Zones from params
   def caz
     params[:caz]
+  end
+
+  # redirects to caz selection page and clear checked_zones from session
+  def redirect_to_caz_selection(form)
+    log_invalid_form 'Redirecting back to :caz_selection.'
+    clear_checked_la
+    redirect_to caz_selection_air_zones_path, alert: form.message
   end
 end

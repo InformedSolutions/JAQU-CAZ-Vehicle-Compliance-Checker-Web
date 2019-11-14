@@ -48,6 +48,11 @@ class ApplicationController < ActionController::Base
     render json: ENV.fetch('BUILD_ID', 'undefined'), status: :ok
   end
 
+  # clear checked_zones from session
+  def clear_checked_la
+    session[:checked_zones] = []
+  end
+
   private
 
   # Function used as a rescue from API errors.
