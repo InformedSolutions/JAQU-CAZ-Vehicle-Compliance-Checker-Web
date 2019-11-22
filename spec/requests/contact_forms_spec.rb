@@ -31,7 +31,7 @@ describe ContactFormsController, type: :request do
           email_confirmation: user_email,
           first_name: 'James',
           last_name: 'Smith',
-          type_of_enquiry: 'Fleets',
+          type_of_enquiry: 'Compliance',
           message: 'Test message'
         }
       end

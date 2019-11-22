@@ -13,7 +13,7 @@ describe Sqs::UserMessage do
       last_name: 'Smith',
       email: 'test@example.com',
       email_confirmation: 'test@example.com',
-      type_of_enquiry: 'Fleets',
+      type_of_enquiry: 'Compliance',
       message: 'Test message'
     }
   end
