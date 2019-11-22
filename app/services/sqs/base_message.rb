@@ -79,10 +79,10 @@ module Sqs
       "#{form.last_name.upcase.delete(' ')}#{Time.current.strftime('%H%M%S')}"
     end
 
-    # Creates email subject by combining the reference and the selected query type
-    # Returns string, eg. "Fleets - SMITH010435"
+    # Creates email subject by combining the reference and the selected type of enquiry
+    # Returns string, eg. "Compliance - SMITH010435"
     def email_subject(form)
-      "#{form.query_type} - #{reference}"
+      "#{form.type_of_enquiry} - #{reference}"
     end
   end
 end
