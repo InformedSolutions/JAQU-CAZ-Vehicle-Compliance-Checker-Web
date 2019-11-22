@@ -5,10 +5,10 @@ Feature: Contact Form
 
   Scenario: User wants to send a contact form
     Given I am on the Contact Form page
-      And I should see "Contact Form"
+      And I should see "Contact Clean Air Zones"
       And I fill all fields and press Send button
     Then I should see the Result page
-      And I should see "Contact form was sent"
+      And I should see "Clean Air Zones Contact Form Sent"
 
   Scenario: User does not fill first name
     Given I am on the Contact Form page
@@ -38,7 +38,7 @@ Feature: Contact Form
     Given I am on the Contact Form page
       And I am not select any Query Type and press Send button
     Then I remain on the Contact Form page
-      And I should see "Query type is required"
+      And I should see "Type of enquiry is required"
 
   Scenario: User does not fill message
     Given I am on the Contact Form page
@@ -57,4 +57,3 @@ Feature: Contact Form
       And I fill too long message and press Send button
     Then I remain on the Contact Form page
       And I should see "Message is too long (maximum is 2000 characters)"
-

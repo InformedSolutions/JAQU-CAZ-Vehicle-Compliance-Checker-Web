@@ -21,8 +21,8 @@ describe ContactFormsController, type: :request do
 
     context 'when the form is valid' do
       before do
-        allow(SendSqsMessage).to receive(:call).and_return(sqs_response)
-        http_request
+        allow(Sqs::JaquMessage).to receive(:call).and_return(sqs_response)
+        allow(Sqs::UserMessage).to receive(:call).and_return(sqs_response)
       end
 
       let(:params) do
@@ -31,18 +31,30 @@ describe ContactFormsController, type: :request do
           email_confirmation: user_email,
           first_name: 'James',
           last_name: 'Smith',
-          query_type: 'Fleets',
+          type_of_enquiry: 'Compliance',
           message: 'Test message'
         }
       end
       let(:sqs_response) { SecureRandom.uuid }
 
       it 'redirects to :result' do
+        http_request
         expect(response).to redirect_to(result_contact_forms_path)
       end
 
       it 'has not an alert set to true' do
+        http_request
         expect(request.flash[:alert]).to be_nil
+      end
+
+      it 'calls Sqs::JaquMessage' do
+        expect(Sqs::JaquMessage).to receive(:call).with(contact_form: instance_of(ContactForm))
+        http_request
+      end
+
+      it 'calls Sqs::UserMessage' do
+        expect(Sqs::UserMessage).to receive(:call).with(contact_form: instance_of(ContactForm))
+        http_request
       end
 
       context 'when SQS call fails' do
@@ -72,8 +84,13 @@ describe ContactFormsController, type: :request do
         expect(http_request).to render_template(:index)
       end
 
-      it "doesn't call SQS" do
-        expect(SendSqsMessage).not_to receive(:call)
+      it "doesn't call SQS Jaqu message" do
+        expect(Sqs::JaquMessage).not_to receive(:call)
+        http_request
+      end
+
+      it "doesn't call SQS user message" do
+        expect(Sqs::UserMessage).not_to receive(:call)
         http_request
       end
     end

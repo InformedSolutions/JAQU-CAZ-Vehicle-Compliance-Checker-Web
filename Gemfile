@@ -3,10 +3,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.6.5'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 6.0.1'
 
+gem 'aws-sdk-sqs'
 gem 'bootsnap', require: false
 gem 'brakeman'
 gem 'bundler-audit'
@@ -20,16 +21,14 @@ gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
 
-gem 'aws-sdk-sqs'
-
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
-  gem 'govuk-lint'
   gem 'haml-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'scss_lint-govuk', require: false
 end
 
 group :development do

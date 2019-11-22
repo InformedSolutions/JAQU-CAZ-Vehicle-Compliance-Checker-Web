@@ -7,11 +7,11 @@ class ContactForm
   include ActiveModel::Validations
 
   # Attribute used in contact_form view
-  attr_accessor :first_name, :last_name, :email, :email_confirmation, :query_type, :message
+  attr_accessor :first_name, :last_name, :email, :email_confirmation, :type_of_enquiry, :message
 
   # validates attributes to presence
   # rubocop:disable Style/FormatStringToken:
-  validates :first_name, :last_name, :email, :email_confirmation, :query_type, :message,
+  validates :first_name, :last_name, :email, :email_confirmation, :type_of_enquiry, :message,
             presence: { message: '%{attribute} is required' }
 
   # validates max length
@@ -27,6 +27,13 @@ class ContactForm
     with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/,
     message: '%{attribute} is in an invalid format'
   }
+
+  # validates first_name and last_name format and allow double name, e.g. 'Wojciech Bogdan'
+  validates :first_name, :last_name, format: {
+    with: /\A[a-zA-Z ]+\z/,
+    message: '%{attribute} is in an invalid format'
+  }
+
   # rubocop:enable Style/FormatStringToken:
 
   # validates +email+ and +email_confirmation+

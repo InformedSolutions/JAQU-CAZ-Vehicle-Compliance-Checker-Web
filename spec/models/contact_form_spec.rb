@@ -9,7 +9,7 @@ RSpec.describe ContactForm, type: :model do
   let(:last_name) { 'Smith' }
   let(:email) { 'test@example.com' }
   let(:email_confirmation) { 'test@example.com' }
-  let(:query_type) { 'Fleets' }
+  let(:type_of_enquiry) { 'Compliance' }
   let(:message) { 'Test message' }
 
   let(:params) do
@@ -18,7 +18,7 @@ RSpec.describe ContactForm, type: :model do
       'last_name': last_name,
       'email': email,
       'email_confirmation': email_confirmation,
-      'query_type': query_type,
+      'type_of_enquiry': type_of_enquiry,
       'message': message
     }
   end
@@ -30,6 +30,18 @@ RSpec.describe ContactForm, type: :model do
 
     it 'has an empty hash as error_object' do
       expect(form.errors.messages).to eq({})
+    end
+
+    context 'when first_name contains space' do
+      let(:first_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when last_name contains space' do
+      let(:last_name) { 'Wojciech Bogdan' }
+
+      it { is_expected.to be_valid }
     end
   end
 
@@ -58,6 +70,30 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
+    context 'when invalid first_name format' do
+      context 'when first_name has special signs' do
+        let(:first_name) { 'FirstName$%' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:first_name])
+            .to include('First name is in an invalid format')
+        end
+      end
+
+      context 'when first_name has numbers' do
+        let(:first_name) { 'FirstName9' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:first_name])
+            .to include('First name is in an invalid format')
+        end
+      end
+    end
+
     context 'when last_name is empty' do
       let(:last_name) { '' }
 
@@ -77,6 +113,30 @@ RSpec.describe ContactForm, type: :model do
       it 'has a proper error message' do
         expect(form.errors.messages[:last_name])
           .to include('Last name is too long (maximum is 45 characters)')
+      end
+    end
+
+    context 'when invalid last_name format' do
+      context 'when last_name has special signs' do
+        let(:last_name) { 'LastName$%' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:last_name])
+            .to include('Last name is in an invalid format')
+        end
+      end
+
+      context 'when first_name has numbers' do
+        let(:last_name) { 'LastName9' }
+
+        it { is_expected.not_to be_valid }
+
+        it 'has a proper error message' do
+          expect(form.errors.messages[:last_name])
+            .to include('Last name is in an invalid format')
+        end
       end
     end
 
@@ -158,15 +218,15 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
-    context 'when query_type is empty' do
-      let(:query_type) { '' }
+    context 'when type_of_enquiry is empty' do
+      let(:type_of_enquiry) { '' }
 
       it { is_expected.not_to be_valid }
 
       it 'has a proper error message' do
-        expect(form.errors.messages[:query_type])
+        expect(form.errors.messages[:type_of_enquiry])
           .to include(
-            'Query type is required'
+            'Type of enquiry is required'
           )
       end
     end

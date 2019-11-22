@@ -13,13 +13,16 @@
           .govuk-error-summary__body
             %ul.govuk-list.govuk-error-summary__list
               %li
-                - @errors.each do |error|
-                  - error.second.each do |err|
-                    %li.custom-csv-error
-                      = link_to(err, "#govuk-error-#{error.first}", id: error.first)
+                -# Remove duplicated messages `Email and email address confirmation must be the same`
+                - remove_duplicated_messages(@errors).each_with_index do |error, index|
+                  %li.custom-csv-error
+                    = link_to(error.first, "#govuk-error-#{error.second}", id: "#{error.second}-#{index}")
 
       %h1.govuk-heading-xl
-        Contact Form
+        Contact Clean Air Zones
+      %p
+        You can use this form to send us your questions and comments. Please provide as much
+        information as possible and select a type of enquiry most suited to your question.
       = form_for(ContactForm.new, url: contact_forms_path, method: :post, html: { autocomplete: 'off' }) do |f|
         %fieldset.govuk-fieldset
           %legend.govuk-fieldset__legend.govuk-fieldset__legend--l

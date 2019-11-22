@@ -57,6 +57,8 @@ steps:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
       BROWSER_SET: 'min'
+      VCCS_BASIC_USER: 'jaqu'
+      VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
@@ -66,6 +68,33 @@ steps:
     commands:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCS --retry 3
+
+  # Run system integration tests
+  - name: run system integration tests
+    image: selenium-jaqu
+    pull: never
+    environment:
+      BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
+      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
+      BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com/'
+      BASEURL_NTR_API: 'https://6peqaav570.execute-api.eu-west-2.amazonaws.com/dev/'
+      BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
+      VCCS_USER: 'vccsservice'
+      VCCS_PASSWORD: 'Password001!'
+      VALID_USERNAME: 'tester@informed.com'
+      VALID_PASSWORD: 'Tester123..'
+      LOCATION: local
+      CLIENT_ID:
+        from_secret: aws_id_e_to_e
+      CLIENT_SECRET: 
+        from_secret: aws_secret_e_to_e
+      COGNITO_ID: 
+        from_secret: cognito_sub_id_e_to_e
+    commands:
+      - cd JAQU-CAZ-QA-selenium
+      - cucumber -t @VCCSINT --retry 3
+      
 
   ################################################# End Nightly Steps ############################################################
 
@@ -153,7 +182,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-      - govuk-lint-sass app/javascript
+      - scss-lint app/javascript
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
@@ -343,7 +372,6 @@ steps:
     image: blazemeter/taurus
     commands:
       - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
-      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/invalid_vehicle_compliance.jmx jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -410,9 +438,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    when:
-      event:
-        - push
 
   # Trigger unit tests
   - name: unit tests
@@ -426,9 +451,6 @@ steps:
     commands:
       - yarn install
       - rspec -f d
-    when:
-      event:
-        - push
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -441,9 +463,6 @@ steps:
         path: /var/run/docker.sock
     commands:
       - cucumber
-    when:
-      event:
-        - push
 
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
@@ -454,9 +473,6 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-    when:
-      event:
-        - push
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
@@ -469,9 +485,6 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
-    when:
-      event:
-        - push
 
     # Push built image to ECR registry
   - name: publish image to ecr
@@ -642,6 +655,55 @@ steps:
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
+    when:
+      event:
+        - push
+
+    # Build end to end tests docker image
+  - name: build end to end test image
+    image: docker:git
+    commands:
+      - mkdir ~/.ssh
+      - echo -n "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-QA-selenium.git
+      - cd JAQU-CAZ-QA-selenium
+      - docker build -t selenium-jaqu .
+    environment:
+      GIT_PRIVATE_SSH:
+        from_secret: github_private_key
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
+
+    # Run end to end tests
+  - name: run end to end tests
+    image: selenium-jaqu
+    pull: never
+    environment:
+      BS_USERNAME:
+        from_secret: browserstack_username
+      BS_AUTHKEY:
+        from_secret: browserstack_auth_key
+      BASEURL_VCCS: 'https://sit.cleanairzonevehiclecheck.co.uk'
+      BROWSER_SET: 'min'
+      VCCS_BASIC_USER: 'jaqu'
+      VCCS_BASIC_PASSWORD: 'beta'
+      SCREENSHOT_TYPE: 'base'
+      VCCS_USER: 'vccsservice'
+      VCCS_PASSWORD: 'Password001!'
+      BUILD: ${DRONE_BUILD_NUMBER}
+      SPECTRE: false
+      LOCATION: browserstack
+    commands:
+      - cd JAQU-CAZ-QA-selenium
+      - cucumber -t @VCCS --retry 3
     when:
       event:
         - push
@@ -1098,6 +1160,28 @@ name: vccs_ruby_secret
 get:
   path: /secret/drone.global
   name: vccsRubySecret
+
+---
+kind: secret
+name: cognito_sub_id_e_to_e
+get:
+  path: /secret/drone.global
+  name: cognitoSubIdEToE
+
+---
+kind: secret
+name: aws_id_e_to_e
+get:
+  path: /secret/drone.global
+  name: awsIdEToE
+
+---
+kind: secret
+name: aws_secret_e_to_e
+get:
+  path: /secret/drone.global
+  name: awsSecretEToE
+
 
 
   ################################################ End Secrets #########################################################

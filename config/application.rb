@@ -3,11 +3,6 @@
 require_relative 'boot'
 
 require 'rails/all'
-# Pick the frameworks you want:
-require 'active_model/railtie'
-require 'action_controller/railtie'
-require 'action_view/railtie'
-require 'sprockets/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -31,5 +26,7 @@ module JaquCaz
 
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
+
+    config.time_zone = 'London'
   end
 end

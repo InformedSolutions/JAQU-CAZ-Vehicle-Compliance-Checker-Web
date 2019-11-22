@@ -32,14 +32,14 @@ class ContactFormsController < ApplicationController
   #   * +last_name+ - string, users's  last name
   #   * +email+ - string, user's email address
   #   * +email_confirmation+ - string, user's email confirmation address
-  #   * +query_type+ - string, users's type of query
+  #   * +type_of_enquiry+ - string, users's type of enquiry
   #   * +message+ - string, users's message typed in form
   #
   def validate
     form = ContactForm.new(params['contact_form'])
     if form.valid?
-      message_id = SendSqsMessage.call(contact_form: form)
-      redirect_to result_contact_forms_path, alert: message_id.blank?
+      message_ids = send_emails(form)
+      redirect_to result_contact_forms_path, alert: message_ids.any?(&:blank?)
     else
       @errors = form.errors.messages
       log_invalid_form 'Rendering :index'
@@ -55,5 +55,13 @@ class ContactFormsController < ApplicationController
   #
   def result
     # renders static view
+  end
+
+  private
+
+  # Calls Sqs::JaquMessage and Sqs::UserMessage with submitted form data
+  # Returns an array of message IDs
+  def send_emails(form)
+    [Sqs::JaquMessage, Sqs::UserMessage].map { |klass| klass.call(contact_form: form) }
   end
 end
