@@ -27,5 +27,5 @@
 - [ ] I have added tests to cover my changes.
 
 <!--- Branch naming conventions: --->
-<!--- - feature/VCC-123/... for new features cards (branched of master) --->
-<!--- - hotfix/VCC-123/... for hotfixes (branched of master) --->
+<!--- - feature/VCC-123/... for new features cards (branched of develop) --->
+<!--- - bug/VCC-123/... for bugs (branched of develop) --->

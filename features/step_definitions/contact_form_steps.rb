@@ -10,7 +10,7 @@ Then('I fill all fields and press Send button') do
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
   fill_in('contact_form_email_confirmation', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end
@@ -23,7 +23,7 @@ Then('I am not fill First Name field and press Send button') do
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
   fill_in('contact_form_email_confirmation', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end
@@ -32,7 +32,7 @@ Then('I am not fill Last Name field and press Send button') do
   fill_in('contact_form_first_name', with: 'James')
   fill_in('contact_form_email', with: email)
   fill_in('contact_form_email_confirmation', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end
@@ -41,7 +41,7 @@ Then('I am not fill Email Address field and press Send button') do
   fill_in('contact_form_first_name', with: 'James')
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email_confirmation', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end
@@ -50,7 +50,7 @@ Then('I am not fill Email Confirmation field and press Send button') do
   fill_in('contact_form_first_name', with: 'James')
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end
@@ -69,7 +69,7 @@ Then('I am not fill Message field and press Send button') do
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
   fill_in('contact_form_email_confirmation', with: email)
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   click_button 'Send'
 end
 
@@ -78,7 +78,7 @@ Then('I fill not the same email and email_confirmation fields and press Send but
   fill_in('contact_form_last_name', with: 'Smith')
   fill_in('contact_form_email', with: email)
   fill_in('contact_form_email_confirmation', with: 'another_email@example.com')
-  select('Fleets', from: 'contact_form_query_type')
+  select('Compliance', from: 'contact_form_type_of_enquiry')
   fill_in('contact_form_message', with: 'Test message')
   click_button 'Send'
 end

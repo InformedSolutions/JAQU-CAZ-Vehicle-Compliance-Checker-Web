@@ -38,7 +38,7 @@ Feature: Contact Form
     Given I am on the Contact Form page
       And I am not select any Query Type and press Send button
     Then I remain on the Contact Form page
-      And I should see "Query type is required"
+      And I should see "Type of enquiry is required"
 
   Scenario: User does not fill message
     Given I am on the Contact Form page

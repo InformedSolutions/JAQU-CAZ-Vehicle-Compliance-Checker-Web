@@ -7,11 +7,11 @@ class ContactForm
   include ActiveModel::Validations
 
   # Attribute used in contact_form view
-  attr_accessor :first_name, :last_name, :email, :email_confirmation, :query_type, :message
+  attr_accessor :first_name, :last_name, :email, :email_confirmation, :type_of_enquiry, :message
 
   # validates attributes to presence
   # rubocop:disable Style/FormatStringToken:
-  validates :first_name, :last_name, :email, :email_confirmation, :query_type, :message,
+  validates :first_name, :last_name, :email, :email_confirmation, :type_of_enquiry, :message,
             presence: { message: '%{attribute} is required' }
 
   # validates max length

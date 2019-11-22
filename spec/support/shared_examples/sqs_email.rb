@@ -25,7 +25,7 @@ RSpec.shared_examples 'a SQS email' do |expected_email|
     expect(AWS_SQS).to receive(:send_message) do |attributes|
       body = JSON.parse(attributes[:message_body])['personalisation']
       subject = JSON.parse(body)['subject']
-      expect(subject).to eq('Fleets - SMITH010435')
+      expect(subject).to eq('Compliance - SMITH010435')
       mocked_msg
     end
     service
