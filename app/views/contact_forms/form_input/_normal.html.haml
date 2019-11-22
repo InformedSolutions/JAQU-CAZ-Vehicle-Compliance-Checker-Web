@@ -15,9 +15,9 @@
   = form.text_field :email_confirmation, class: 'govuk-input', maxlength: 45
 
 .govuk-form-group
-  = form.label :query_type, 'Query Type', class: 'govuk-label'
-  = form.select(:query_type,
-                ['General Enquiry', 'Charge Query', 'Payment', 'Fleets', 'Non-UK Vehicle'],
+  = form.label :type_of_enquiry, 'Type of enquiry', class: 'govuk-label'
+  = form.select(:type_of_enquiry,
+                ['Compliance', 'General enquiry', 'Non-UK reg vehicle', 'Paying a charge'],
                 { prompt: 'Please select...' },
                 { class: 'govuk-select' })
 

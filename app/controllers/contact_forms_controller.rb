@@ -32,7 +32,7 @@ class ContactFormsController < ApplicationController
   #   * +last_name+ - string, users's  last name
   #   * +email+ - string, user's email address
   #   * +email_confirmation+ - string, user's email confirmation address
-  #   * +query_type+ - string, users's type of query
+  #   * +type_of_enquiry+ - string, users's type of enquiry
   #   * +message+ - string, users's message typed in form
   #
   def validate

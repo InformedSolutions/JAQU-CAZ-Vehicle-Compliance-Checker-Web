@@ -9,7 +9,7 @@ RSpec.describe ContactForm, type: :model do
   let(:last_name) { 'Smith' }
   let(:email) { 'test@example.com' }
   let(:email_confirmation) { 'test@example.com' }
-  let(:query_type) { 'Fleets' }
+  let(:type_of_enquiry) { 'Compliance' }
   let(:message) { 'Test message' }
 
   let(:params) do
@@ -18,7 +18,7 @@ RSpec.describe ContactForm, type: :model do
       'last_name': last_name,
       'email': email,
       'email_confirmation': email_confirmation,
-      'query_type': query_type,
+      'type_of_enquiry': type_of_enquiry,
       'message': message
     }
   end
@@ -218,15 +218,15 @@ RSpec.describe ContactForm, type: :model do
       end
     end
 
-    context 'when query_type is empty' do
-      let(:query_type) { '' }
+    context 'when type_of_enquiry is empty' do
+      let(:type_of_enquiry) { '' }
 
       it { is_expected.not_to be_valid }
 
       it 'has a proper error message' do
-        expect(form.errors.messages[:query_type])
+        expect(form.errors.messages[:type_of_enquiry])
           .to include(
-            'Query type is required'
+            'Type of enquiry is required'
           )
       end
     end
