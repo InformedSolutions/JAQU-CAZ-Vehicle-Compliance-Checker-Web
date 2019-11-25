@@ -9,11 +9,11 @@
 
       = form_tag compliance_air_zones_path, method: :post do
         .govuk-form-group{class: ('govuk-form-group--error' if alert)}
-          %fieldset.govuk-fieldset{'aria-describedby': 'cazHint'}
+          %fieldset.govuk-fieldset{'aria-describedby': 'caz-hint'}
             %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
               %h1.govuk-fieldset__heading
                 Which Clean Air Zone do you want to drive through?
-            %span#cazHint.govuk-hint
+            %span#caz-hint.govuk-hint
               Select all locations that apply.
             - if alert
               %span#caz-selection-error.govuk-error-message
