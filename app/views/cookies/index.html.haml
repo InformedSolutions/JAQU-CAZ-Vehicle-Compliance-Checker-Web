@@ -1,15 +1,13 @@
-= link_to 'Back', root_path, class: 'govuk-back-link'
+= link_to 'Return to the homepage', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
-    .govuk-grid-column-full
-      %h1.govuk-heading-l
-        Details about cookies on Clean Air Zones
-      %strong.govuk-tag.draft-label
-        DRAFT Content
+    .govuk-grid-column-two-thirds
+      %h1.govuk-heading-xl
+        Cookies
       %p
-        A cookie is a small piece of data that’s stored on your computer, tablet, or phone when you visit a website.
-        Most websites need cookies to work properly.
+        A cookie is a small piece of data that’s stored on your computer, tablet, or phone when you
+        visit a website. Most websites need cookies to work properly.
       %p How cookies are used in this service:
       %ul.govuk-list-govuk-list--bullet
         %li
@@ -18,11 +16,11 @@
           %p temporarily store the answers you give
       %p
         Find out more about
-        = link_to 'how to manage cookies', 'https://www.aboutcookies.org', target: '_blank'
-
+        = link_to 'how to manage cookies',
+                  'https://www.aboutcookies.org/',
+                  target: '_blank'
       = render 'ga'
-      = render 'seen_message'
       = render 'session'
-      = render 'identify'
-      = render 'security'
+      = render 'seen_message'
+
 
