@@ -56,7 +56,7 @@ steps:
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
-      BROWSER_SET: 'min'
+      BROWSER_SET: 'mid'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
