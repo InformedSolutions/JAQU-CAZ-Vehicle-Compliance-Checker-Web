@@ -11,7 +11,14 @@ module Sqs
   #    end
   #
   class UserMessage < BaseMessage
+    def initialize(contact_form:)
+      @forename = contact_form.first_name
+      super(contact_form: contact_form)
+    end
+
     private
+
+    attr_reader :forename
 
     # Returns assigned Notify Copy Template ID
     def template_id
@@ -26,7 +33,11 @@ module Sqs
     # Serializes email personalisation details containing the email's subject
     # Returns a JSON string
     def message_details
-      { subject: subject }.to_json
+      {
+        subject: subject,
+        forename: forename,
+        reference: reference
+      }.to_json
     end
   end
 end

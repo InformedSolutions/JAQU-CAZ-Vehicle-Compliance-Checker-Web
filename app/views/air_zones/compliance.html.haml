@@ -6,6 +6,18 @@
       %h1.govuk-heading-l Clean Air Zone charge
       %p= "Vehicle registration #{@vrn}."
 
+      %details.govuk-details{'data-module': 'govuk-details'}
+        %summary.govuk-details__summary
+          %span.govuk-details__summary-text
+            %b Please Note:
+            Results are updated on an ongoing basis. See what this means for you
+        .govuk-details__text
+          The Vehicle Checker service is in private beta, which means we are testing it with a
+          small group of users before launching to the public in 2020. We are continually enhancing
+          and improving the data that underpins the Vehicle Checker, as part of on-going development
+          of the service. It is recommended that users check their vehicles shortly before entering
+          any Clean Air Zones, the first of which are due to launch in summer 2020.
+
       - @compliance_outcomes.each do |details|
         %h1.govuk-heading-l{id: details.html_id}
           = details.zone_name
