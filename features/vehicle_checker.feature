@@ -28,6 +28,7 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Compliance page
       And I should see "Clean Air Zone charge"
+      And I should see "Please Note: Results are updated on an ongoing basis. See what this means for you"
 
   Scenario: User enters a correct vehicle's registration but details are incorrect
     Given I am on the enter details page
