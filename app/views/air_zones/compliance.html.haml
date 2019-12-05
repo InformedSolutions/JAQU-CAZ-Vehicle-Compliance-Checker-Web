@@ -79,9 +79,7 @@
             to help you do so.
 
       = render 'go_ultra_low_icon'
-
-      %p#print-page-link.print-page-link.print-page-link__hidden
-        = link_to "Print this page", 'javascript:window.print()', id: 'print-this-page'
+      = render 'common/print_page'
 
     .govuk-grid-column-one-third
       %aside#related-items-label.app-related-items{role: 'complementary'}
