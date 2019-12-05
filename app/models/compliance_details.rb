@@ -87,8 +87,8 @@ class ComplianceDetails
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def financial_assistance_url
-    url(:financial_assistance)
+  def transport_options_url
+    url(:transport_options)
   end
 
   # Returns a string, eg. 'www.example.com'.
