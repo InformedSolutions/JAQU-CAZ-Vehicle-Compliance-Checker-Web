@@ -25,7 +25,9 @@
         information as possible and select a type of enquiry most suited to your question.
       = form_for(ContactForm.new, url: contact_forms_path, method: :post, html: { autocomplete: 'off' }) do |f|
         %fieldset.govuk-fieldset
-          %legend.govuk-fieldset__legend.govuk-fieldset__legend--l
+          %legend.govuk-visually-hidden
+            Contact Clean Air Zones
+
           - if @errors.present?
             = render 'contact_forms/form_input/errored', form: f, errors: @errors
           - else

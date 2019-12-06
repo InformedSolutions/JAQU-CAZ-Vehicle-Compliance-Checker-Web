@@ -56,7 +56,7 @@ steps:
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
       BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
-      BROWSER_SET: 'min'
+      BROWSER_SET: 'mid'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
@@ -1078,7 +1078,7 @@ steps:
       AWS_DEFAULT_REGION: eu-west-2
     commands:
       - apk add --update bash python python-dev py-pip build-base jq
-      - TASKDEF=`aws ecs describe-services --cluster vccs-cluster-sit --services vccs-sit-ecs-service | jq --raw-output '.services[0].taskDefinition'`
+      - TASKDEF=`aws ecs describe-services --cluster vccs-cluster-preprod --services vccs-preprod-ecs-service | jq --raw-output '.services[0].taskDefinition'`
       - export build_id=`aws ecs describe-task-definition --task-definition $TASKDEF | jq --raw-output '.taskDefinition.containerDefinitions[0].image' | cut -f 2 -d ':'`
       - apk add curl
       - sh build_utils/check_build_number.sh

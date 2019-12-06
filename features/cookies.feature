@@ -6,4 +6,4 @@ Feature: Cookies
   Scenario: User sees cookies page
     Given I am on the home page
     When I press Cookies link
-    Then I should see "Details about cookies on Clean Air Zones"
+    Then I should see "Cookies"
