@@ -14,6 +14,7 @@ Feature: Contact Form
     Given I am on the Contact Form page
       And I am not fill First Name field and press Send button
     Then I remain on the Contact Form page
+      And I should see "There is a problem"
       And I should see "First name is required"
 
   Scenario: User does not fill last name
