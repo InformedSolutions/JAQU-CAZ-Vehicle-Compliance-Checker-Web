@@ -6,6 +6,8 @@
 class AirZonesController < ApplicationController
   # rescues also from 404 -> the rest is in ApplicationController
   rescue_from BaseApi::Error404Exception, with: :redirect_to_server_unavailable
+  # 422 HTTP status from API means vehicle data incomplete so the compliance calculation is not possible.
+  rescue_from BaseApi::Error422Exception, with: :unable_to_determine_compliance
 
   # checks if vrn is present in the session
   before_action :check_vrn
@@ -78,4 +80,10 @@ class AirZonesController < ApplicationController
     clear_checked_la
     redirect_to caz_selection_air_zones_path, alert: form.message
   end
+
+  # Redirects to 'Unable to determine compliance' page
+  def unable_to_determine_compliance
+    redirect_to cannot_determinate_vehicle_checkers_path
+  end
+
 end
