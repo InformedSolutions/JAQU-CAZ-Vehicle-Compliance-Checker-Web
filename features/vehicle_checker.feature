@@ -60,7 +60,7 @@ Feature: Vehicle Checker
     Given I am on the enter details page
       And I enter a vehicle's registration without selecting country
       And I press the Continue
-    Then I should see "Tell us if your vehicle is UK or non-UK registered"
+    Then I should see "You must choose an answer"
 
   Scenario: User fills invalid VRN
     Given I am on the enter details page
