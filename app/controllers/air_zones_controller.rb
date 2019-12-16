@@ -85,5 +85,4 @@ class AirZonesController < ApplicationController
   def unable_to_determine_compliance
     redirect_to cannot_determinate_vehicle_checkers_path
   end
-
 end
