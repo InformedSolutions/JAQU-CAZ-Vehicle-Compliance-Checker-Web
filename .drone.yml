@@ -171,7 +171,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     commands:
-      - bundle exec cucumber
+      - cucumber
 
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
@@ -181,17 +181,17 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     commands:
-      - bundle exec rubocop
-      - bundle exec scss-lint app/javascript
+      - rubocop
+      - scss-lint app/javascript
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
-       - bundle exec bundle audit check --update
+       - bundle audit check --update
        - yarn audit
-       - bundle exec brakeman
+       - brakeman
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -450,7 +450,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - yarn install
-      - bundle exec rspec -f d
+      - rspec -f d
 
   # Execute integration/scenario tests
   - name: integration tests
@@ -462,7 +462,7 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     commands:
-      - bundle exec cucumber
+      - cucumber
 
   # Invoke static code analysis through Ruby libraries
   - name: static code analysis (Ruby)
@@ -472,16 +472,16 @@ steps:
       - name: docker_sock
         path: /var/run/docker.sock
     commands:
-      - bundle exec rubocop
+      - rubocop
 
   # Invoke security analysis through Ruby libraries
   - name: security tests (Ruby)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
-       - bundle exec bundle audit check --update
+       - bundle audit check --update
        - yarn audit
-       - bundle exec brakeman
+       - brakeman
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -703,7 +703,7 @@ steps:
       LOCATION: browserstack
     commands:
       - cd JAQU-CAZ-QA-selenium
-      - bundle exec cucumber -t @VCCS --retry 3
+      - cucumber -t @VCCS --retry 3
     when:
       event:
         - push
@@ -1185,4 +1185,3 @@ get:
 
 
   ################################################ End Secrets #########################################################
-
