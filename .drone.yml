@@ -159,7 +159,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - yarn install
-      - bundle exec rspec -f d
+      - rspec -f d
 
   # Execute integration/scenario tests
   - name: integration tests
