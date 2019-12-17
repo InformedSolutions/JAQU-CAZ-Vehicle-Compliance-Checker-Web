@@ -159,6 +159,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - yarn install
+      - gem install bundler -v '>2.0.2'
       - bundle exec rspec -f d
 
   # Execute integration/scenario tests
