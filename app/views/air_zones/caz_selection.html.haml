@@ -18,7 +18,7 @@
             - if alert
               %span#caz-selection-error.govuk-error-message
                 %span.govuk-visually-hidden Error:
-                Select at least one Clean Air Zone
+                = I18n.t('caz_selection_form.la_missing')
             .govuk-checkboxes
               - @clean_air_zones.each_with_index do |zone, index|
                 .govuk-checkboxes__item
