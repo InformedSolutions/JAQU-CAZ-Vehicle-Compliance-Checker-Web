@@ -49,4 +49,15 @@ Feature: Air Zone
       And I press the Continue
     And I should see "You must select at least one Clean Air Zone"
 
+  Scenario: When server returns 422 status
+    Given I am on the enter details page
+    Then I enter a vehicle's registration
+      And I press the Continue
+    Then I choose that the details are correct
+      And I press the Confirm
+    Then I should see the CAZ selection page
+      And I choose Birmingham and Leeds
+      And I press the Continue when server returns 422 status
+    Then I should see the Cannot determine compliance page
+      And I should see "Unable to determine compliance"
 

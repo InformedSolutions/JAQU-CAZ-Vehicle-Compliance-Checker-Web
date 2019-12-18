@@ -5,11 +5,13 @@ en:
     vrn_example: For example, CU57ABC
     country: Where is the vehicle registered?
   vrn_form:
-    vrn_missing: 'Enter the registration number of the vehicle'
-    country_missing: 'Tell us if your vehicle is UK or non-UK registered'
-    vrn_invalid: 'Enter the registration number of the vehicle in valid format'
-    vrn_too_long: 'The registration number of the vehicle is too long'
-    vrn_too_short: 'The registration number of the vehicle is too short'
+    vrn_missing: Enter the registration number of the vehicle
+    country_missing: You must choose an answer
+    vrn_invalid: Enter the registration number of the vehicle in valid format
+    vrn_too_long: The registration number of the vehicle is too long
+    vrn_too_short: The registration number of the vehicle is too short
+  caz_selection_form:
+    la_missing: You must select at least one Clean Air Zone
   errors:
     500: Internal server error
     503: Service is unavailable
