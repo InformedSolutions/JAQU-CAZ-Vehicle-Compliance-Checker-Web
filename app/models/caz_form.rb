@@ -18,7 +18,7 @@ class CazForm < BaseForm
   # Returns a boolean.
   def chosen?
     if !parameter.is_a?(Array) || parameter.reject(&:empty?).blank?
-      @message = 'You must select at least one Clean Air Zone'
+      @message = I18n.t('caz_selection_form.la_missing')
       false
     else
       true
