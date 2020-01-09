@@ -16,6 +16,10 @@ RSpec.describe 'AirZonesController - POST #submit_caz_selection', type: :request
     expect(response).to redirect_to(compliance_air_zones_path)
   end
 
+  it 'adds checked zones to the session' do
+    expect(session[:checked_zones]).to eq(caz)
+  end
+
   context 'when form is invalid' do
     let(:caz) { [] }
 
