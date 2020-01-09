@@ -60,4 +60,8 @@ Feature: Air Zone
       And I press the Continue when server returns 422 status
     Then I should see the Cannot determine compliance page
       And I should see "Unable to determine compliance"
+    Then I press "Contact Clean Air Zones" link
+      And I should see "Contact Clean Air Zones"
+    Then I press the Back link
+      And I should see "Unable to determine compliance"
 

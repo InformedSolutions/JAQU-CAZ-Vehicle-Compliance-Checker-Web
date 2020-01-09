@@ -11,11 +11,7 @@ class ContactFormsController < ApplicationController
   #    GET /contact_forms
   #
   def index
-    @return_url = if request.referer&.include?(non_uk_vehicle_checkers_path)
-                    non_uk_vehicle_checkers_path
-                  else
-                    root_path
-                  end
+    @return_url = request.referer ? determinate_back_path : root_path
   end
 
   ##
@@ -63,5 +59,19 @@ class ContactFormsController < ApplicationController
   # Returns an array of message IDs
   def send_emails(form)
     [Sqs::JaquMessage, Sqs::UserMessage].map { |klass| klass.call(contact_form: form) }
+  end
+
+  # Returns path depends on last request
+  def determinate_back_path
+    last_request = request.referer
+    if last_request.include?(non_uk_vehicle_checkers_path)
+      non_uk_vehicle_checkers_path
+    elsif last_request.include?(compliance_air_zones_path)
+      compliance_air_zones_path
+    elsif last_request.include?(cannot_determinate_vehicle_checkers_path)
+      cannot_determinate_vehicle_checkers_path
+    else
+      root_path
+    end
   end
 end

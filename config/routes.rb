@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   resources :air_zones, only: [] do
     collection do
       get :caz_selection
-      post :compliance
-      get :compliance, to: redirect('air_zones/caz_selection')
+      post :submit_caz_selection
+      get :compliance
     end
   end
 
