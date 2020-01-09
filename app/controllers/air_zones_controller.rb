@@ -38,11 +38,34 @@ class AirZonesController < ApplicationController
   end
 
   ##
+  # Validates selected CAZ.
+  # If successful, redirects to {compliance}[rdoc-ref:ComplianceCheckerApi.compliance]
+  # If not successful, renders {caz_selection}[rdoc-ref:ComplianceCheckerApi.caz_selection] with errors
+  #
+  # ==== Path
+  #    POST /air_zones/submit_caz_selection
+  #
+  # ==== Params
+  # * +caz+ - list of the selected CAZ ids, required in the query params
+  #
+  # ==== Validations
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +caz+ - no selected CAZ redirects back to {caz_selection}[rdoc-ref:AirZonesController.caz_selection]
+  #
+  def submit_caz_selection
+    session[:checked_zones] = params[:caz]
+    form = CazForm.new(params[:caz])
+    return redirect_to_caz_selection(form) unless form.valid?
+
+    redirect_to compliance_air_zones_path
+  end
+
+  ##
   # Renders a result of checking compliance of the vehicle against selected CAZ.
   # It {calls API}[rdoc-ref:ComplianceCheckerApi.vehicle_compliance] for the results.
   #
   # ==== Path
-  #    POST /air_zones/caz_selection
+  #    GET /air_zones/compliance
   #
   # +GET+ will result with redirect to {caz_selection}[rdoc-ref:AirZonesController.caz_selection]
   #
@@ -59,19 +82,15 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    form = CazForm.new(caz)
-    return redirect_to_caz_selection(form) unless form.valid?
-
-    session[:checked_zones] = caz
     @compliance_outcomes = Compliance.new(vrn, caz).compliance_outcomes
     @vrn = vrn
   end
 
   private
 
-  # Returns a list of Clean Air Zones from params
+  # Returns a list of Clean Air Zones from session
   def caz
-    params[:caz]
+    session[:checked_zones]
   end
 
   # redirects to caz selection page and clear checked_zones from session

@@ -53,3 +53,7 @@ end
 Then('I should see the Contact Form page') do
   expect(page).to have_current_path(contact_forms_path)
 end
+
+Then('I press {string} link') do |string|
+  first(:link, string).click
+end

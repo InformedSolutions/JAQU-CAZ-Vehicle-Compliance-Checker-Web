@@ -7,7 +7,7 @@
           error_msg_div: '#caz-selection-error',
           error_msg: alert
 
-      = form_tag compliance_air_zones_path, method: :post do
+      = form_tag submit_caz_selection_air_zones_path, method: :post do
         .govuk-form-group{class: ('govuk-form-group--error' if alert)}
           %fieldset.govuk-fieldset{'aria-describedby': 'caz-hint'}
             %legend.govuk-fieldset__legend.govuk-fieldset__legend--l

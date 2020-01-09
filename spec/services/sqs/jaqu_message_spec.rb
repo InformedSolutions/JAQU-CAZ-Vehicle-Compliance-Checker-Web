@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Sqs::JaquMessage do
   subject(:service) { described_class.call(contact_form: form) }
 
-  let(:message_id) { SecureRandom.uuid }
+  let(:message_id) { 'a49afb83-d1b3-48b6-b08b-5db8142045dc' }
   let(:form) { ContactForm.new(params) }
   let(:mocked_msg) { OpenStruct.new(message_id: message_id) }
 
