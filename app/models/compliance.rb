@@ -24,14 +24,11 @@ class Compliance
   # * +name+ - string, eg. 'Birmingham'
   # * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
   # * +information_urls+ - object containing CAZ dedicated info links
-  #   * +emissions_standards+
   #   * +main_info+
-  #   * +hours_of_operation+
+  #   * +public_transport_options+
   #   * +pricing+
   #   * +exemption_or_discount+
-  #   * +pay_caz+
   #   * +become_compliant+
-  #   * +financial_assistance+
   #   * +boundary+
   def compliance_outcomes
     @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
