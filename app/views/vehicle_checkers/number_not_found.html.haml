@@ -15,4 +15,6 @@
 
       %p
         If you are sure that you entered the correct registration number and you need to make a further enquiries please contact
-        = link_to 'DVLA', 'https://www.gov.uk/change-vehicle-details-registration-certificate', target: '_blank'
+        = external_link_to('DVLA',
+                           'https://www.gov.uk/change-vehicle-details-registration-certificate',
+                           id: 'dvla-link')

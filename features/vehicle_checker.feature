@@ -23,12 +23,12 @@ Feature: Vehicle Checker
       And I choose that the details are correct
       And I press the Confirm
     Then I should see the CAZ Selection page
-      And I should see "Which Clean Air Zone do you want to drive through?"
+      And I should see "Which Clean Air Zone do you want to drive in?"
       And I choose Birmingham and Leeds
       And I press the Continue
     Then I should see the Compliance page
       And I should see "Clean Air Zone charge"
-      And I should see "Please Note: Results are updated on an ongoing basis. See what this means for you"
+      And I should see "Important information about vehicle data"
 
   Scenario: User enters a correct vehicle's registration but details are incorrect
     Given I am on the enter details page
@@ -48,8 +48,6 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration and choose Non-UK
       And I press the Continue
     Then I should see the Non-UK vehicle page
-      And I press the Contact Us link
-    Then I should see the Contact Form page
 
   Scenario: User doesn't fill VRN input
     Given I am on the enter details page

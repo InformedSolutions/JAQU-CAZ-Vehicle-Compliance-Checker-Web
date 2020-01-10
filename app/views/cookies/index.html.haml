@@ -16,9 +16,7 @@
           %p temporarily store the answers you give
       %p
         Find out more about
-        = link_to 'how to manage cookies',
-                  'https://www.aboutcookies.org/',
-                  target: '_blank'
+        = external_link_to('how to manage cookies', 'https://www.aboutcookies.org/', id: 'manage-cookies-link')
       = render 'ga'
       = render 'session'
       = render 'seen_message'
