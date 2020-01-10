@@ -6,17 +6,11 @@
       %h1.govuk-heading-l Clean Air Zone charge
       %p= "Vehicle registration #{@vrn}."
 
-      %details.govuk-details{'data-module': 'govuk-details'}
-        %summary.govuk-details__summary
-          %span.govuk-details__summary-text
-            %b Please Note:
-            Results are updated on an ongoing basis. See what this means for you
-        .govuk-details__text
-          The Vehicle Checker service is in private beta, which means we are testing it with a
-          small group of users before launching to the public in 2020. We are continually enhancing
-          and improving the data that underpins the Vehicle Checker, as part of on-going development
-          of the service. It is recommended that users check their vehicles shortly before entering
-          any Clean Air Zones, the first of which are due to launch in summer 2020.
+      .govuk-error-summary
+        %h2.govuk-heading-m Important information about vehicle data
+        %p
+          The data accuracy of this service is always improving. Therefore, it is recommended you
+          recheck your vehicle shortly before you intend to drive in any Clean Air Zones.
 
       - @compliance_outcomes.each do |details|
         %h1.govuk-heading-l{id: details.html_id}
@@ -30,10 +24,9 @@
           %p
             There is no charge for driving in
             = succeed ', ' do
-              = link_to "#{details.zone_name} Clean Air Zone",
-                        details.main_info_url,
-                        target: '_blank',
-                        id: "no-charge-#{details.html_id}"
+              = external_link_to("#{details.zone_name} Clean Air Zone",
+                                 details.main_info_url,
+                                 id: "no-charge-#{details.html_id}")
             but you may be subject to charge in other Clean Air Zones.
         - else
           .govuk-panel.govuk-panel--noncompliant
@@ -63,19 +56,19 @@
             Next steps
           %ul.govuk-list.govuk-list--bullet
             %li
-              = link_to 'Find out if you qualify for an exemption or discount',
-                details.exemption_or_discount_url, target: '_blank', id: 'exemption-or-discount'
-            -#%li
-              = link_to "Pay the #{details.zone_name} CAZ charge",
-                details.pay_caz_url, target: '_blank', id: 'pay-caz'
+              = external_link_to('Find out if you qualify for an exemption or discount',
+                                 details.exemption_or_discount_url,
+                                 id: 'exemption-or-discount-link')
           %p
             If you wish to avoid the charge in the future, you can change your vehicle to
             = succeed "," do
-              = link_to 'become compliant', details.become_compliant_url,
-                target: '_blank', id: 'become-compliant'
+              = external_link_to('become compliant',
+                                 details.become_compliant_url,
+                                 id: 'become-compliant-link')
             and you may qualify for
-            = link_to 'financial assistance', details.financial_assistance_url,
-              target: '_blank', id: 'financial-assistance'
+            = external_link_to('financial assistance',
+                               details.financial_assistance_url,
+                               id: 'financial-assistance-link')
             to help you do so.
 
       = render 'go_ultra_low_icon'

@@ -6,8 +6,9 @@
       %h1.govuk-heading-l Incorrect vehicle details
       %p
         If your vehicle details are incorrect, you may need to
-        = link_to 'update them', 'https://www.gov.uk/change-vehicle-details-registration-certificate',
-          target: '_blank'
+        = external_link_to('update them',
+                           'https://www.gov.uk/change-vehicle-details-registration-certificate',
+                           id: 'update-them-link')
       %p
         = succeed '.' do
           If you would like to check the compliance of another vehicle,
