@@ -57,3 +57,9 @@ end
 Then('I press {string} link') do |string|
   first(:link, string).click
 end
+
+Then('I press {string} footer link') do |string|
+  within('footer.govuk-footer') do
+    click_link string
+  end
+end

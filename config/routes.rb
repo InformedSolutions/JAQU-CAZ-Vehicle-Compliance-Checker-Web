@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get :build_id, to: 'application#build_id'
   get :cookies, to: 'cookies#index'
   get :privacy_notice, to: 'privacy_notice#index'
+  get :accessibility_statement, to: 'accessibility#index'
 
   match '/404', to: 'errors#not_found', via: :all
   # There is no 422 error page in design systems
