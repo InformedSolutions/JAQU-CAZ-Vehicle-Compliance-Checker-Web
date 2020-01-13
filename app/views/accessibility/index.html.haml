@@ -3,8 +3,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-xl Accessibility statement
-      %h2.govuk-heading-m
+      %h1.govuk-heading-xl
         Accessibility statement for Check if you’ll be charged to drive in a Clean Air Zone
       %p
         This website is run by the Joint Air Quality Unit (JAQU) supported by the Department of
@@ -27,7 +26,11 @@
               listen to most of the website using a screen reader (including the most recent
               versions of JAWS, NVDA and VoiceOver).
       %p We've also made the website text as simple as possible to understand.
-      %p AbilityNet has advice on making your device easier to use if you have a disability.
+      %p
+        = external_link_to('AbilityNet',
+                           'https://mcmw.abilitynet.org.uk/',
+                           id: 'ability-net-link')
+        has advice on making your device easier to use if you have a disability.
 
       %h2.govuk-heading-m Reporting accessibility problems with this website
       %p
@@ -44,20 +47,26 @@
         The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public
         Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
         (the 'accessibility regulations'). If you're not happy with how we respond to your
-        complaint, contact the Equality Advisory and Support Service (EASS).
+        complaint,
+        = external_link_to('contact the Equality Advisory and Support Service (EASS).',
+                           'https://www.equalityadvisoryservice.com/',
+                           id: 'eass-link')
 
       %h2.govuk-heading-m Technical information about this website's accessibility
       %p
         JAQU is committed to making its website accessible, in accordance with the Public Sector B
         odies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
       %p
-        This website is fully compliant with the Web Content Accessibility Guidelines version 2.1
+        This website is fully compliant with the
+        = external_link_to('Web Content Accessibility Guidelines version 2.1',
+                           'https://www.w3.org/TR/WCAG21/',
+                           id: 'guidelines-link')
         AAA standard.
 
       %h2.govuk-heading-m How we tested this website
       %p
         This website was last tested at least monthly by the team that maintains it, and
-        periodically by external bodies. At time of publish, it was last tested externally on
+        periodically by external bodies. At the time of publishing, it was last tested externally on
         26 November 2019 by Digital Accessibility Centre Limited.
       %p We tested all routes through the service
       %p This statement was prepared on 7 January 2020.
