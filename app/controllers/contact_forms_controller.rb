@@ -64,12 +64,12 @@ class ContactFormsController < ApplicationController
   # Returns path depends on last request
   def determinate_back_path
     last_request = request.referer
-    if last_request.include?(non_uk_vehicle_checkers_path)
-      non_uk_vehicle_checkers_path
-    elsif last_request.include?(compliance_air_zones_path)
-      compliance_air_zones_path
-    elsif last_request.include?(cannot_determinate_vehicle_checkers_path)
+    if [
+      non_uk_vehicle_checkers_path,
+      compliance_air_zones_path,
       cannot_determinate_vehicle_checkers_path
+    ].any? { |path| last_request.include?(path) }
+      last_request
     else
       root_path
     end
