@@ -168,7 +168,7 @@ class VehicleCheckersController < ApplicationController
   #
   #    GET /vehicle_checkers/cannot_determinate
   #
-  def cannot_determinate
+  def cannot_determine
     @vehicle_registration = vrn
   end
 
@@ -238,7 +238,7 @@ class VehicleCheckersController < ApplicationController
     return redirect_to incorrect_details_vehicle_checkers_path unless form.confirmed?
 
     if form.undetermined?
-      redirect_to cannot_determinate_vehicle_checkers_path
+      redirect_to cannot_determine_vehicle_checkers_path
     else
       redirect_to caz_selection_air_zones_path
     end

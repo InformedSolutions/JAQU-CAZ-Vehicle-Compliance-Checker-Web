@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get :user_confirm_details
       get :number_not_found
       get :exemption
-      get :cannot_determinate
+      get :cannot_determine
       get :non_uk
     end
   end

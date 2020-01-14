@@ -67,7 +67,7 @@ class ContactFormsController < ApplicationController
     if [
       non_uk_vehicle_checkers_path,
       compliance_air_zones_path,
-      cannot_determinate_vehicle_checkers_path
+      cannot_determine_vehicle_checkers_path
     ].any? { |path| last_request.include?(path) }
       last_request
     else

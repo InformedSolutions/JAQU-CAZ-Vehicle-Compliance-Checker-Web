@@ -28,7 +28,7 @@ RSpec.describe 'AirZonesController - GET #caz_selection', type: :request do
     end
 
     it 'redirects to unable to determine compliance page' do
-      expect(response).to redirect_to(cannot_determinate_vehicle_checkers_path)
+      expect(response).to redirect_to(cannot_determine_vehicle_checkers_path)
     end
   end
 end
