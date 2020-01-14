@@ -190,7 +190,8 @@ steps:
     pull: never
     commands:
        - bundle audit check --update
-       - yarn audit
+# Waiting fix https://www.npmjs.com/advisories/961
+#       - yarn audit
        - brakeman
     volumes:
       - name: docker_sock
@@ -480,7 +481,8 @@ steps:
     pull: never
     commands:
        - bundle audit check --update
-       - yarn audit
+# Waiting fix https://www.npmjs.com/advisories/961
+#       - yarn audit
        - brakeman
     volumes:
       - name: docker_sock
