@@ -12,6 +12,13 @@ Then('I should see the Vehicle Checker page') do
   expect(page).to have_current_path(enter_details_vehicle_checkers_path)
 end
 
+Then("I enter a vehicle's registration and confirms to be a taxi") do
+  fill_in('vrn', with: vrn)
+  choose('UK')
+  check('I confirm this vehicle is a taxi or private hire vehicle.')
+  mock_vehicle_details
+end
+
 Then("I enter a vehicle's registration") do
   fill_in('vrn', with: vrn)
   choose('UK')

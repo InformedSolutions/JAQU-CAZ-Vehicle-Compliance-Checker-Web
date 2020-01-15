@@ -51,7 +51,7 @@ class VehicleCheckersController < ApplicationController
       return render enter_details_vehicle_checkers_path
     end
 
-    add_vrn_to_session
+    add_details_to_session
     redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
@@ -78,6 +78,7 @@ class VehicleCheckersController < ApplicationController
   #
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
+    session[:taxi_in_db] = @vehicle_details.taxi_or_phv?
     return unless @vehicle_details.exempt?
 
     Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
@@ -244,9 +245,10 @@ class VehicleCheckersController < ApplicationController
     end
   end
 
-  # add vrn to session and clear checked_zones from session
-  def add_vrn_to_session
+  # add vrn and is_taxi to session and clear checked_zones from session
+  def add_details_to_session
+    session[:user_choose_taxi] = params['confirm-taxi-or-phv'] == 'yes'
     session[:vrn] = parsed_vrn
-    clear_checked_la
+    clear_session_details
   end
 end
