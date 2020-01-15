@@ -47,6 +47,13 @@ class VehicleDetails
     compliance_api['taxiOrPhv'] ? 'Yes' : 'No'
   end
 
+  # Check 'taxiOrPhv' value.
+  #
+  # Returns boolean
+  def taxi_or_phv?
+    compliance_api['taxiOrPhv']
+  end
+
   # Check 'exempt' key.
   #
   # Returns a boolean 'true' if key is present.

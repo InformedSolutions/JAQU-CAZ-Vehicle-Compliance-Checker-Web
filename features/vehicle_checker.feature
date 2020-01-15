@@ -113,3 +113,14 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Compliance page
       And I should see "Contact Clean Air Zones"
+
+  Scenario: User enters a correct vehicle's registration and confirms to be a taxi
+    Given I am on the enter details page
+    Then I enter a vehicle's registration and confirms to be a taxi
+      And I press the Continue
+    Then I choose that the details are correct
+      And I press the Confirm
+    Then I should see the CAZ Selection page
+      And I choose Birmingham and Leeds
+      And I press the Continue
+    Then I should see the Compliance page
