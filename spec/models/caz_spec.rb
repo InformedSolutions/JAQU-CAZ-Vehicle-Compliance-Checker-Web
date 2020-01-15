@@ -7,7 +7,7 @@ RSpec.describe Caz, type: :model do
 
   let(:data) { { 'name' => name, 'cleanAirZoneId' => id, 'boundaryUrl' => url } }
   let(:name) { 'Birmingham' }
-  let(:id) { SecureRandom.uuid }
+  let(:id) { 'a49afb83-d1b3-48b6-b08b-5db8142045dc' }
   let(:url) { 'www.example.com' }
 
   describe '.id' do

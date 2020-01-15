@@ -35,7 +35,7 @@ describe ContactFormsController, type: :request do
           message: 'Test message'
         }
       end
-      let(:sqs_response) { SecureRandom.uuid }
+      let(:sqs_response) { 'a49afb83-d1b3-48b6-b08b-5db8142045dc' }
 
       it 'redirects to :result' do
         http_request

@@ -17,14 +17,11 @@ class ComplianceDetails
   # * +name+ - string, eg. 'Birmingham'
   # * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
   # * +information_urls+ - object containing CAZ dedicated info links
-  #   * +emissions_standards+
   #   * +main_info+
-  #   * +hours_of_operation+
+  #   * +public_transport_options+
   #   * +pricing+
   #   * +exemption_or_discount+
-  #   * +pay_caz+
   #   * +become_compliant+
-  #   * +financial_assistance+
   #   * +boundary+
   def initialize(details)
     @compliance_data = details.deep_transform_keys { |key| key.underscore.to_sym }
@@ -57,18 +54,13 @@ class ComplianceDetails
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def emissions_standards_url
-    url(:emissions_standards)
-  end
-
-  # Returns a string, eg. 'www.example.com'.
   def pricing_url
     url(:pricing)
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def hours_of_operation_url
-    url(:hours_of_operation)
+  def public_transport_options_url
+    url(:public_transport_options)
   end
 
   # Returns a string, eg. 'www.example.com'.
@@ -77,18 +69,8 @@ class ComplianceDetails
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def pay_caz_url
-    url(:pay_caz)
-  end
-
-  # Returns a string, eg. 'www.example.com'.
   def become_compliant_url
     url(:become_compliant)
-  end
-
-  # Returns a string, eg. 'www.example.com'.
-  def financial_assistance_url
-    url(:financial_assistance)
   end
 
   # Returns a string, eg. 'www.example.com'.
