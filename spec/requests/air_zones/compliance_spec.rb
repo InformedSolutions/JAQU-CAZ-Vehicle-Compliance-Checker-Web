@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'AirZonesController - GET #compliance', type: :request do
-  subject(:http_request) { post compliance_air_zones_path, params: { caz: caz } }
+  subject(:http_request) { get compliance_air_zones_path }
 
-  let(:caz) { ['leeds'] }
+  let(:caz) { ['a49afb83-d1b3-48b6-b08b-5db8142045dc'] }
 
-  before { add_vrn_to_session }
+  before do
+    add_vrn_to_session(vrn: 'CU57ABC', checked_zones: caz)
+  end
 
   context 'when api returns 200 status' do
     before do
@@ -18,6 +20,10 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
 
     it 'returns an ok response' do
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'renders the compliance view' do
+      expect(response).to render_template(:compliance)
     end
   end
 
@@ -30,16 +36,7 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
     end
 
     it 'redirects to unable to determine compliance page' do
-      expect(response).to redirect_to(cannot_determinate_vehicle_checkers_path)
-    end
-  end
-
-  context 'when form is invalid' do
-    let(:caz) { [] }
-
-    it 'redirects to caz selection page' do
-      http_request
-      expect(response).to redirect_to(caz_selection_air_zones_path)
+      expect(response).to redirect_to(cannot_determine_vehicle_checkers_path)
     end
   end
 end

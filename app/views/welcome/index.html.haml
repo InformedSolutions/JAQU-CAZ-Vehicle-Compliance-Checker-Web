@@ -22,16 +22,20 @@
                                       width: '17.5',
                                       xmlns: 'http://www.w3.org/2000/svg'}
           %path{d: 'M0 0h13l20 20-20 20H0l20-20z', fill: 'currentColor'}
-      %h2.govuk-heading-m More information
+      %h2.govuk-heading-m Differences in Clean Air Zones
       %p
-        Charging Clean Air Zones in England will have their own emissions standards, charges and
-        exemptions.
+        Each Clean Air Zone in England will have different guidelines about who will be charged.
+      %p
+        Find out more about the
+        = external_link_to('different types of Clean Air Zone',
+                           'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                           id: 'different-caz-types-link')
+
       %h2.govuk-heading-m Explore the topic
       %p
-        = link_to 'Clean Air Zones',
-                  'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/612592/clean-air-zone-framework.pdf',
-                  id: 'caz',
-                  target: '_blank'
+        = external_link_to('Clean Air Zones',
+                           'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                           id: 'caz-link')
 
     .govuk-grid-column-one-third
       %aside#related-items-label.app-related-items{role: 'complementary'}

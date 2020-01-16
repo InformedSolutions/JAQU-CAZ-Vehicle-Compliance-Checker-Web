@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get :user_confirm_details
       get :number_not_found
       get :exemption
-      get :cannot_determinate
+      get :cannot_determine
       get :non_uk
     end
   end
@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   resources :air_zones, only: [] do
     collection do
       get :caz_selection
-      post :compliance
-      get :compliance, to: redirect('air_zones/caz_selection')
+      post :submit_caz_selection
+      get :compliance
     end
   end
 
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get :build_id, to: 'application#build_id'
   get :cookies, to: 'cookies#index'
   get :privacy_notice, to: 'privacy_notice#index'
+  get :accessibility_statement, to: 'accessibility#index'
 
   match '/404', to: 'errors#not_found', via: :all
   # There is no 422 error page in design systems

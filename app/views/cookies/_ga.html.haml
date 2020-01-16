@@ -17,14 +17,14 @@
 %p
   We allow Google to use or share our analytics data. You can find out more about how Google
   use this information in their
-  = link_to 'Privacy Policy',
-            'https://policies.google.com/technologies/partner-sites',
-            target: '_blank'
+  = external_link_to('Privacy Policy',
+                     'https://policies.google.com/technologies/partner-sites',
+                     id: 'privacy-policy-link')
 %p
   You can
-  = link_to 'opt out of Google Analytics',
-            'https://tools.google.com/dlpage/gaoptout',
-            target: '_blank'
+  = external_link_to('opt out of Google Analytics',
+                     'https://tools.google.com/dlpage/gaoptout',
+                     id: 'ga-link')
   if you do not want Google to have access to your information.
 
 %p Google Analytics sets the following cookies.
