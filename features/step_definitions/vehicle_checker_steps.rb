@@ -51,13 +51,17 @@ Then('I should see the Confirm Details page') do
   expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
 end
 
-Then('I choose that the details are correct') do
+Then('I choose {string} when confirms vehicle details') do |string|
   mock_caz
-  choose('Yes')
+  within('#confirm_details_radios') do
+    choose(string)
+  end
 end
 
-Then('I choose that the details are incorrect') do
-  choose('No')
+Then('I choose {string} when confirms what vehicle a taxi or private hire vehicle') do |string|
+  within('#taxi_or_phv_radios') do
+    choose(string)
+  end
 end
 
 Then('I should see the Incorrect Details page') do
