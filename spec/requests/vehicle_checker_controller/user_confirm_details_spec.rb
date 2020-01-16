@@ -5,19 +5,21 @@ require 'rails_helper'
 RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :request do
   subject(:http_request) do
     get user_confirm_details_vehicle_checkers_path, params: {
-      'confirm-vehicle' => confirmation,
+      'confirm_details' => confirmation,
+      'confirm_taxi_or_phv' => confirmation,
       'undetermined' => 'false'
     }
   end
 
   let(:confirmation) { 'yes' }
+  let(:confirmation_taxi_or_phv) { 'false' }
 
   before do
     add_vrn_to_session
     http_request
   end
 
-  context 'when user confirms details' do
+  context 'when user confirms details and what his vehicle not a taxi or PHV' do
     it 'redirects to enter details page' do
       expect(response).to redirect_to(caz_selection_air_zones_path)
     end

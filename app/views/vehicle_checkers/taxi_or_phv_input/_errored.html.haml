@@ -1,0 +1,31 @@
+.govuk-form-group{class: ('govuk-form-group--error' if alert['confirm_details'].present?)}
+  .govuk-radios.govuk-radios--inline
+    - if alert['confirm_details'].present?
+      %span#confirm_details-error.govuk-error-message
+        %span.govuk-visually-hidden Error:
+        = alert['confirm_details'].join(',')
+    .govuk-radios__item
+      %input#confirm_details-1.govuk-radios__input{name: 'confirm_details', type: 'radio', value: 'yes'}
+      %label.govuk-label.govuk-radios__label{for: "confirm_details-1"}
+        Yes
+    .govuk-radios__item
+      %input#confirm_details-2.govuk-radios__input{name: 'confirm_details', type: 'radio', value: 'no'}
+      %label.govuk-label.govuk-radios__label{for: "confirm_details-2"}
+        No
+
+.govuk-form-group{class: ('govuk-form-group--error' if alert['confirm_taxi_or_phv'].present?)}
+  - if alert['confirm_taxi_or_phv'].present?
+    %span#confirm_taxi_or_phv-error.govuk-error-message
+      %span.govuk-visually-hidden Error:
+      = alert['confirm_taxi_or_phv'].join(',')
+  %p
+    Is your vehicle a taxi or private hire vehicle (PHV)?
+  .govuk-radios.govuk-radios--inline
+    .govuk-radios__item
+      %input#confirm_taxi_or_phv-1.govuk-radios__input{name: 'confirm_taxi_or_phv', type: 'radio', value: 'true'}
+      %label.govuk-label.govuk-radios__label{for: 'confirm_taxi_or_phv-1'}
+        Yes
+    .govuk-radios__item
+      %input#confirm_taxi_or_phv-2.govuk-radios__input{name: 'confirm_taxi_or_phv', type: 'radio', value: 'false'}
+      %label.govuk-label.govuk-radios__label{for: 'confirm_taxi_or_phv-2'}
+        No
