@@ -58,7 +58,7 @@ Feature: Vehicle Checker
     Given I am on the enter details page
       And I enter a vehicle's registration without selecting country
       And I press the Continue
-    Then I should see "You must choose an answer"
+    Then I should see "Choose UK or Non-UK"
 
   Scenario: User fills invalid VRN
     Given I am on the enter details page
@@ -72,7 +72,7 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I press the Confirm
-    Then I should see "You must choose an answer"
+    Then I should see "Select yes if the details are correct"
 
   Scenario: Server is unavailable
     Given I am on the enter details page
