@@ -5,7 +5,7 @@
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Clean Air Zone charge
-      %p= "Vehicle registration #{@vrn}."
+      %p Vehicle registration #{@vrn}.
 
       .govuk-error-summary
         %h2.govuk-heading-m Important information about vehicle data
@@ -16,27 +16,11 @@
       - @compliance_outcomes.each do |details|
         %h2.govuk-heading-l{id: details.html_id}
           = details.zone_name
-
-        - unless details.charged?
-          %p{id: "uncharged-title-#{details.html_id}"}
-            The vehicle will not be charged.
-          %br
-          %p
-            There is no charge for driving in
-            = external_link_to "#{details.zone_name} Clean Air Zone",
-                               details.main_info_url,
-                               id: "no-charge-#{details.html_id}"
-          %p
-            Each Clean Air Zone (CAZ) has different guidance for charging vehicles. Find out more about
-            = external_link_to 'different types of Clean Air Zones',
-                               'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                               id: 'guidance-url'
-        - else
+        - if details.charged?
           %p{id: "charged-title-#{details.html_id}"}
-            The vehicle is subject to daily charge of 
-            %strong
-              #{details.charge}
-          %br
+            The vehicle is subject to daily charge of
+            %strong #{details.charge}
+          %p This vehicle does not meet the emission standards in #{details.zone_name}
           %p
             If your vehicle is subject to a charge you may still be eligible for an exemption or
             discount,
@@ -58,6 +42,20 @@
               = external_link_to "Explore cycling and public transport options in #{details.zone_name}",
                                  details.public_transport_options_url,
                                  id: 'public-transport-options-url'
+        - else
+          %p{id: "uncharged-title-#{details.html_id}"}
+            The vehicle will not be charged.
+          %p
+            There is no charge for driving in
+            = external_link_to "#{details.zone_name} Clean Air Zone",
+                               details.main_info_url,
+                               id: "no-charge-in-#{details.html_id}-url"
+          %p
+            Each Clean Air Zone (CAZ) has different guidance for charging vehicles. Find out more about
+            = external_link_to 'different types of Clean Air Zones',
+                               'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                               id: 'guidance-url'
+
       = render 'go_ultra_low_icon'
       = render 'common/print_page'
 
