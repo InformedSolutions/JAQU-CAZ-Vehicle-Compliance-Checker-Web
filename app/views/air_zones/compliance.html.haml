@@ -18,7 +18,7 @@
           = details.zone_name
 
         - unless details.charged?
-          %p
+          %p{id: "uncharged-title-#{details.html_id}"}
             The vehicle will not be charged.
           %br
           %p
@@ -32,7 +32,7 @@
                                'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
                                id: 'guidance-url'
         - else
-          %p
+          %p{id: "charged-title-#{details.html_id}"}
             The vehicle is subject to daily charge of 
             %strong
               #{details.charge}
