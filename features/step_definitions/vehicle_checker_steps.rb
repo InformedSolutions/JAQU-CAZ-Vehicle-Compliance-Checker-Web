@@ -90,7 +90,7 @@ And("I enter an undetermined vehicle's registration") do
 end
 
 Then('I should see the Cannot determine compliance page') do
-  expect(page).to have_current_path(cannot_determinate_vehicle_checkers_path)
+  expect(page).to have_current_path(cannot_determine_vehicle_checkers_path)
 end
 
 And('I press the Check another Clean Air Zone link') do

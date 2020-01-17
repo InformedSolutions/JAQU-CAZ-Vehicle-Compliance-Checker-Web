@@ -4,7 +4,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l.not-found-title Unable to determine compliance
+      %h1.govuk-heading-l.not-found-title Vehicle details are incomplete
       %table.govuk-table
         %tbody.govuk-table__body
           %tr.govuk-table__row
@@ -15,9 +15,13 @@
             %th.govuk-table__cell= @vehicle_registration
 
       %p
-        To enquire about your vehicle's compliance please use our
-        = link_to 'Contact Clean Air Zones', contact_forms_path, target: '_blank', id: 'contact-form'
-        web form
+        Data used to calculate the compliance of your vehicle is missing from your V5C registration
+        certificate (log book).
+      %p
+        You may be charged for driving in a Clean Air Zone when the zones start charging in summer 2020.
+      %p
+        If you want to discuss this matter further
+        = link_to 'Contact Clean Air Zones', contact_forms_path, id: 'contact-form'
 
     .govuk-grid-column-one-third
       %aside#related-items-label.app-related-items{role: 'complementary'}
