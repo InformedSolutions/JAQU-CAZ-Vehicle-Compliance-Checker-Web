@@ -6,7 +6,7 @@ en:
     country: Where is the vehicle registered?
   vrn_form:
     vrn_missing: Enter the registration number of the vehicle
-    country_missing: You must choose an answer
+    country_missing: Choose UK or Non-UK
     vrn_invalid: Enter the registration number of the vehicle in valid format
     vrn_too_long: The registration number of the vehicle is too long
     vrn_too_short: The registration number of the vehicle is too short
@@ -18,5 +18,3 @@ en:
     404: Not found
   content:
     external_link: Opens in new window - External website
-
-

@@ -60,7 +60,7 @@ RSpec.describe ConfirmationForm, type: :model do
     end
 
     it 'has a proper error message' do
-      expect(form.message).to eq('You must choose an answer')
+      expect(form.message).to eq('Select yes if the details are correct')
     end
   end
 end
