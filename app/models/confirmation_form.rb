@@ -53,7 +53,7 @@ class ConfirmationForm
   def filled?
     return true if confirmation.present?
 
-    @message = 'You must choose an answer'
+    @message = 'Select yes if the details are correct'
     false
   end
 end
