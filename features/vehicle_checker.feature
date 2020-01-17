@@ -10,7 +10,7 @@ Feature: Vehicle Checker
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
-      And I should see "Check vehicle compliance" title
+      And I should see "Enter the registration details of the vehicle you want to check" title
       And I should see "Enter the registration details of the vehicle you want to check"
 
   Scenario: User enters a correct vehicle's registration and details are correct
@@ -38,7 +38,7 @@ Feature: Vehicle Checker
       And I choose that the details are incorrect
       And I press the Confirm
     Then I should see the Incorrect Details page
-      And I should see "Check vehicle compliance" title
+      And I should see "Incorrect vehicle details" title
       And I should see "Incorrect vehicle details"
       And I press the Search Again link
     Then I am on the enter details page

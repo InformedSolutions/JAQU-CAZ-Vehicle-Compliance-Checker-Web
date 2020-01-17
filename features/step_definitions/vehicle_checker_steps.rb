@@ -73,7 +73,7 @@ Then('I should see the CAZ Selection page') do
 end
 
 Then('I should see the Service Unavailable page') do
-  expect(page).to have_title 'Sorry, the service is unavailable – Clean Air Zones – GOV.UK'
+  expect(page).to have_title 'Sorry, the service is unavailable'
 end
 
 And("I enter an exempt vehicle's registration") do
