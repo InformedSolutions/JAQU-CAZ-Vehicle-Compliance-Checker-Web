@@ -2,12 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :request do
+RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type: :request do
   subject(:http_request) do
-    get user_confirm_details_vehicle_checkers_path, params: {
-      'confirm_details' => confirmation,
-      'confirm_taxi_or_phv' => confirmation,
-      'undetermined' => 'false'
+    post confirm_details_vehicle_checkers_path, params: {
+      confirm_details_form:
+        {
+          'confirm_details' => confirmation,
+          'confirm_taxi_or_phv' => confirmation,
+          'undetermined' => 'false'
+        }
     }
   end
 
@@ -15,6 +18,8 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
   let(:confirmation_taxi_or_phv) { 'false' }
 
   before do
+    vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
+    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
     add_vrn_to_session
     http_request
   end
@@ -36,8 +41,8 @@ RSpec.describe 'VehicleCheckersController - GET #user_confirm_details', type: :r
   context 'when confirmation is empty' do
     let(:confirmation) { '' }
 
-    it 'redirects to confirm details page' do
-      expect(response).to redirect_to(confirm_details_vehicle_checkers_path)
+    it 'renders to confirm details page' do
+      expect(response).to render_template(:confirm_details)
     end
   end
 end

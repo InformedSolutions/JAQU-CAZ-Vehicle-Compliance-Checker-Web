@@ -6,7 +6,7 @@ class ConfirmDetailsForm
   # allow using ActiveRecord validation
   include ActiveModel::Validations
 
-  # Attribute used in user_confirm_details view
+  # Attribute used in confirm_details view
   attr_accessor :confirm_details, :confirm_taxi_or_phv, :undetermined, :taxi_or_phv_in_db
 
   # validates attributes to presence
@@ -40,5 +40,10 @@ class ConfirmDetailsForm
     attributes.each do |name, value|
       public_send("#{name}=", value)
     end
+  end
+
+  # Used in confirm details view and should return nil when the object is not persisted.
+  def to_key
+    nil
   end
 end

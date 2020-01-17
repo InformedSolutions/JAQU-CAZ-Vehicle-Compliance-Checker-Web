@@ -9,8 +9,8 @@ Rails.application.routes.draw do
       get :enter_details
       post :enter_details, to: 'vehicle_checkers#submit_details'
       get :confirm_details
+      post :confirm_details, to: 'vehicle_checkers#submit_confirm_details'
       get :incorrect_details
-      get :user_confirm_details
       get :number_not_found
       get :exemption
       get :cannot_determine

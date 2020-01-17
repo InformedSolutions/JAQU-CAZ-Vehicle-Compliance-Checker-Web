@@ -4,16 +4,16 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      - if alert.present?
+      - if @errors.present?
         .govuk-error-summary{'aria-labelledby': 'error-summary-title',
                              'data-module': 'govuk-error-summary',
-                             role: 'alert',
+                             role: '@errors',
                              tabindex: '-1'}
           %h2#error-summary-title.govuk-error-summary__title
             There is a problem
           .govuk-error-summary__body
             %ul.govuk-list.govuk-error-summary__list
-              - remove_duplicated_messages(alert).each_with_index do |error, index|
+              - remove_duplicated_messages(@errors).each_with_index do |error, index|
                 %li
                   = link_to(error.first, "##{error.second}-error", id: "#{error.second}-#{index}")
 
@@ -49,16 +49,12 @@
               %td.govuk-table__cell{scope: 'row'} Taxi
               %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.taxi_private_hire_vehicle
 
-      = form_tag user_confirm_details_vehicle_checkers_path, method: :get do
+      = form_for(ConfirmDetailsForm.new, url: confirm_details_vehicle_checkers_path, method: :post) do |form|
         %fieldset.govuk-fieldset
           %legend.govuk-visually-hidden
             Are these the vehicle's details?
-          %input{name: 'undetermined', type: 'hidden', value: @vehicle_details.undetermined?}
-          %input{name: 'taxi_or_phv_in_db', type: 'hidden', value: @vehicle_details.taxi_or_phv?}
-
-          - if alert.present?
-            = render 'vehicle_checkers/taxi_or_phv_input/errored'
-          - else
-            = render 'vehicle_checkers/taxi_or_phv_input/normal'
+          = form.hidden_field(:undetermined, value: @vehicle_details.undetermined?)
+          = form.hidden_field(:taxi_or_phv_in_db, value: @vehicle_details.taxi_or_phv?)
+          = render 'vehicle_checkers/taxi_or_phv_input/radio_buttons', form: form
 
         = submit_tag 'Confirm', class: 'govuk-button', 'data-module': 'govuk-button'

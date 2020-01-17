@@ -45,14 +45,14 @@ class VehicleCheckersController < ApplicationController
   #
   def submit_details
     form = VrnForm.new(parsed_vrn, country)
-    unless form.valid?
+    if form.valid?
+      add_details_to_session
+      redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+    else
       @errors = form.error_object
-      log_invalid_form 'Rendering :enter_details.'
-      return render enter_details_vehicle_checkers_path
+      log_invalid_form 'Rendering :enter_details'
+      render :enter_details
     end
-
-    add_details_to_session
-    redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
   ##
@@ -78,6 +78,7 @@ class VehicleCheckersController < ApplicationController
   #
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
+    @errors = {}
     return unless @vehicle_details.exempt?
 
     Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
@@ -90,7 +91,7 @@ class VehicleCheckersController < ApplicationController
   # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   #
   # ==== Path
-  #    GET /vehicle_checkers/user_confirm_details
+  #    POST /vehicle_checkers/confirm_details
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
@@ -102,13 +103,15 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
   #
-  def user_confirm_details
+  def submit_confirm_details
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
     else
       log_invalid_form 'Redirecting back.'
-      redirect_to confirm_details_vehicle_checkers_path, alert: form.errors.messages
+      @vehicle_details = VehicleDetails.new(vrn)
+      @errors = form.errors.messages
+      render :confirm_details
     end
   end
 
@@ -246,6 +249,11 @@ class VehicleCheckersController < ApplicationController
 
   # Returns the list of permitted params
   def confirm_details_params
-    params.permit(:confirm_details, :confirm_taxi_or_phv, :undetermined, :taxi_or_phv_in_db)
+    params.require(:confirm_details_form).permit(
+      :confirm_details,
+      :confirm_taxi_or_phv,
+      :undetermined,
+      :taxi_or_phv_in_db
+    )
   end
 end

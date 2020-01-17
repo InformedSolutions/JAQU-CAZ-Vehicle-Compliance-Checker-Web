@@ -74,7 +74,7 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I press the Confirm
-    Then I should see "Select yes if the details are correct"
+    Then I should see "You must choose an answer"
 
   Scenario: Server is unavailable
     Given I am on the enter details page
