@@ -1,3 +1,7 @@
+- if alert
+  - content_for(:title, 'Clean Air Zones Contact Form Was Not Sent')
+- else
+  - content_for(:title, 'Clean Air Zones Contact Form Sent')
 = link_to 'Return to the homepage', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
