@@ -17,9 +17,8 @@
           = details.zone_name
 
         - unless details.charged?
-          .govuk-panel.govuk-panel--confirmation
-            %h1.govuk-panel__title{id: "uncharged-title-#{details.html_id}"}
-              You will not be charged
+          %p
+            The vehicle will not be charged.
           %br
           %p
             There is no charge for driving in
@@ -32,17 +31,16 @@
                                'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
                                id: 'guidance-url'
         - else
-          .govuk-panel.govuk-panel--noncompliant
-            %h1.govuk-panel__title{id: "charged-title-#{details.html_id}"}
-              Subject to daily charge:
-              %br
-              = details.charge
+          %p
+            The vehicle is subject to daily charge of 
+            %strong
+              #{details.charge}
           %br
           %p
             If your vehicle is subject to a charge you may still be eligible for an exemption or
             discount,
             = succeed '.' do
-              = external_link_to 'find out if you qualify',
+              = external_link_to "find out if you qualify in #{details.zone_name}",
                                  details.exemption_or_discount_url,
                                  id: 'qualify-url'
           %p
@@ -52,11 +50,11 @@
             What you can do
           %ul.govuk-list.govuk-list--bullet
             %li
-              = external_link_to 'Get support to upgrade or replace your vehicle',
+              = external_link_to "Get support to upgrade or replace your vehicle in #{details.zone_name}",
                                  details.become_compliant_url,
                                  id: 'become-compliant-url'
             %li
-              = external_link_to 'Explore cycling and public transport options',
+              = external_link_to "Explore cycling and public transport options in #{details.zone_name}",
                                  details.public_transport_options_url,
                                  id: 'public-transport-options-url'
       = render 'go_ultra_low_icon'
