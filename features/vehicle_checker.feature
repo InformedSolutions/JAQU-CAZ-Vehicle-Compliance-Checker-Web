@@ -20,7 +20,8 @@ Feature: Vehicle Checker
     Then I should see the Confirm Details page
       And I should see "Vehicle type approval"
       And I should see "Model"
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ Selection page
       And I should see "Which Clean Air Zone do you want to drive in?"
@@ -35,7 +36,8 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are incorrect
+      And I choose "No" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
       And I should see "Incorrect vehicle details" title
@@ -72,7 +74,7 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I press the Confirm
-    Then I should see "Select yes if the details are correct"
+    Then I should see "You must choose an answer"
 
   Scenario: Server is unavailable
     Given I am on the enter details page
@@ -92,12 +94,14 @@ Feature: Vehicle Checker
       And I enter an undetermined vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are incorrect
+      And I choose "No" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
       And I should see "Incorrect vehicle details"
     Then I press the Back link
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Cannot determine compliance page
 
@@ -106,7 +110,8 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ Selection page
       And I choose Birmingham and Leeds
@@ -116,9 +121,10 @@ Feature: Vehicle Checker
 
   Scenario: User enters a correct vehicle's registration and confirms to be a taxi
     Given I am on the enter details page
-    Then I enter a vehicle's registration and confirms to be a taxi
+    Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "Yes" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ Selection page
       And I choose Birmingham and Leeds

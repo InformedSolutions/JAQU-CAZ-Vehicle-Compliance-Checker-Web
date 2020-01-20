@@ -83,7 +83,7 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    @compliance_outcomes = Compliance.new(vrn, caz, taxi_or_phv?).compliance_outcomes
+    @compliance_outcomes = Compliance.new(vrn, caz, session[:taxi_or_phv]).compliance_outcomes
     @vrn = vrn
   end
 
@@ -104,12 +104,5 @@ class AirZonesController < ApplicationController
   # Redirects to 'Unable to determine compliance' page
   def unable_to_determine_compliance
     redirect_to cannot_determine_vehicle_checkers_path
-  end
-
-  # Returns boolean
-  #
-  # Returns true if user confirms to be a taxi, but DVLA database tells us he is not a taxi.
-  def taxi_or_phv?
-    session[:user_choose_taxi] && !session[:taxi_in_db]
   end
 end

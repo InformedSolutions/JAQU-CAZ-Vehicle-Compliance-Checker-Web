@@ -8,7 +8,8 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ selection page
       And I choose Birmingham and Leeds
@@ -20,7 +21,8 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ selection page
       And I press the Continue
@@ -31,7 +33,8 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ selection page
       And I choose Leeds
@@ -43,7 +46,8 @@ Feature: Air Zone
       And I press Check another vehicle
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ selection page
       And I press the Continue
@@ -53,7 +57,8 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose that the details are correct
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ selection page
       And I choose Birmingham and Leeds

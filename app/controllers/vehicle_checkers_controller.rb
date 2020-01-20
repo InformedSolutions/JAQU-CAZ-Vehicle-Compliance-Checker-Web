@@ -45,14 +45,14 @@ class VehicleCheckersController < ApplicationController
   #
   def submit_details
     form = VrnForm.new(parsed_vrn, country)
-    unless form.valid?
+    if form.valid?
+      add_details_to_session
+      redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+    else
       @errors = form.error_object
-      log_invalid_form 'Rendering :enter_details.'
-      return render enter_details_vehicle_checkers_path
+      log_invalid_form 'Rendering :enter_details'
+      render :enter_details
     end
-
-    add_details_to_session
-    redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
   end
 
   ##
@@ -78,7 +78,7 @@ class VehicleCheckersController < ApplicationController
   #
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
-    session[:taxi_in_db] = @vehicle_details.taxi_or_phv?
+    @errors = {}
     return unless @vehicle_details.exempt?
 
     Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
@@ -91,23 +91,28 @@ class VehicleCheckersController < ApplicationController
   # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   #
   # ==== Path
-  #    GET /vehicle_checkers/user_confirm_details
+  #    POST /vehicle_checkers/confirm_details
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
-  # * +confirm-vehicle+ - user confirmation of vehicle details, 'yes' or 'no', required in the query
+  # * +confirm_details+ - user confirmation of vehicle details, 'yes' or 'no', required in the params
+  # * +confirm_taxi_or_phv+ - user confirms to be a taxi, 'yes' or 'no', required in the params
+  # * +taxi_or_phv_in_db+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
-  # * +confirm-vehicle+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
+  # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
   #
-  def user_confirm_details
-    form = ConfirmationForm.new(confirmation, undetermined)
-    unless form.valid?
+  def submit_confirm_details
+    form = ConfirmDetailsForm.new(confirm_details_params)
+    if form.valid?
+      determinate_next_page(form)
+    else
       log_invalid_form 'Redirecting back.'
-      return redirect_to confirm_details_vehicle_checkers_path, alert: form.message
+      @vehicle_details = VehicleDetails.new(vrn)
+      @errors = form.errors.messages
+      render :confirm_details
     end
-    determinate_next_page(form)
   end
 
   ##
@@ -197,19 +202,9 @@ class VehicleCheckersController < ApplicationController
     @parsed_vrn ||= params[:vrn].upcase&.delete(' ')
   end
 
-  # Returns user's form confirmation from the query params, values: 'yes', 'no', nil
-  def confirmation
-    params['confirm-vehicle']
-  end
-
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
   def country
     params['registration-country']
-  end
-
-  # Returns status for the vehicle type, values: 'true', 'false'
-  def undetermined
-    params['undetermined']
   end
 
   # Checks if selected registration country equals Non-UK.
@@ -241,14 +236,24 @@ class VehicleCheckersController < ApplicationController
     if form.undetermined?
       redirect_to cannot_determine_vehicle_checkers_path
     else
+      session[:taxi_or_phv] = form.user_confirms_to_be_taxi?
       redirect_to caz_selection_air_zones_path
     end
   end
 
-  # add vrn and is_taxi to session and clear checked_zones from session
+  # add vrn to session and clear checked_zones and taxi_or_phv from session
   def add_details_to_session
-    session[:user_choose_taxi] = params['confirm-taxi-or-phv'] == 'yes'
     session[:vrn] = parsed_vrn
     clear_session_details
+  end
+
+  # Returns the list of permitted params
+  def confirm_details_params
+    params.require(:confirm_details_form).permit(
+      :confirm_details,
+      :confirm_taxi_or_phv,
+      :undetermined,
+      :taxi_or_phv_in_db
+    )
   end
 end
