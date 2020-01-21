@@ -27,7 +27,7 @@
             = succeed '.' do
               = external_link_to "find out if you qualify in #{details.zone_name}",
                                  details.exemption_or_discount_url,
-                                 id: 'qualify-url'
+                                 id: "qualify-url-#{details.html_id}"
           %p
             The zone will operate 24 hours a day, 7 days a week, every day of the year.
 
@@ -37,11 +37,11 @@
             %li
               = external_link_to "Get support to upgrade or replace your vehicle in #{details.zone_name}",
                                  details.become_compliant_url,
-                                 id: 'become-compliant-url'
+                                 id: "become-compliant-url-#{details.html_id}"
             %li
               = external_link_to "Explore cycling and public transport options in #{details.zone_name}",
                                  details.public_transport_options_url,
-                                 id: 'public-transport-options-url'
+                                 id: "public-transport-options-url-#{details.html_id}"
         - else
           %p{id: "uncharged-title-#{details.html_id}"}
             The vehicle will not be charged.
@@ -54,7 +54,7 @@
             Each Clean Air Zone (CAZ) has different guidance for charging vehicles. Find out more about
             = external_link_to 'different types of Clean Air Zones',
                                'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                               id: 'guidance-url'
+                               id: "guidance-url-#{details.html_id}"
 
       = render 'go_ultra_low_icon'
       = render 'common/print_page'
