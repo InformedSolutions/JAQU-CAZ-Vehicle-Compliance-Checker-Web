@@ -57,9 +57,7 @@ var config = {
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
                 "check field #caz-1",
-            "click element #submit_caz_selection_button",
-                "wait for element #birmingham to be visible",
-                "wait for element #leeds to be visible"
+            "click element #submit_caz_selection_button"
             ]
         },
 		{
