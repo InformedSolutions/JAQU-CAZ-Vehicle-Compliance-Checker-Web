@@ -72,6 +72,7 @@ class AirZonesController < ApplicationController
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
   # * +caz+ - list of the selected CAZ ids, required in the query params
+  # * +taxi_or_phv+ - boolean, user confirms to be a taxi.
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
@@ -82,7 +83,7 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    @compliance_outcomes = Compliance.new(vrn, caz).compliance_outcomes
+    @compliance_outcomes = Compliance.new(vrn, caz, session[:taxi_or_phv]).compliance_outcomes
     @vrn = vrn
   end
 
@@ -96,7 +97,7 @@ class AirZonesController < ApplicationController
   # redirects to caz selection page and clear checked_zones from session
   def redirect_to_caz_selection(form)
     log_invalid_form 'Redirecting back to :caz_selection.'
-    clear_checked_la
+    clear_session_details
     redirect_to caz_selection_air_zones_path, alert: form.message
   end
 

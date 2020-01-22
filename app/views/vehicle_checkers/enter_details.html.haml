@@ -1,4 +1,4 @@
-- content_for(:title, 'Check vehicle compliance')
+- content_for(:title, 'Enter the registration details of the vehicle you want to check')
 = link_to 'Back', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
@@ -32,4 +32,7 @@
           - else
             = render 'vehicle_checkers/country_input/normal'
 
-          = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'
+          = submit_tag 'Continue',
+                        class: 'govuk-button',
+                        'data-module': 'govuk-button',
+                        id: 'submit_enter_details_button'

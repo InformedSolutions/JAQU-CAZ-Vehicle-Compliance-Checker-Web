@@ -3,15 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
-  subject(:call) { ComplianceCheckerApi.vehicle_compliance(vrn, zones) }
+  subject(:call) { ComplianceCheckerApi.vehicle_compliance(vrn, zones, taxi_or_phv) }
 
   let(:vrn) { 'CAS310' }
-  let(:zones) { %w[birmingham leeds] }
+  let(:birmingham_uuid) { '5cd7441d-766f-48ff-b8ad-1809586fea37' }
+  let(:leeds_uuid) { '39e54ed8-3ed2-441d-be3f-38fc9b70c8d3' }
+  let(:zones_uuid) { "#{birmingham_uuid},#{leeds_uuid}" }
+  let(:zones) { [birmingham_uuid, leeds_uuid] }
+  let(:taxi_or_phv) { false }
 
   context 'when call returns 200' do
     before do
       vehicle_details = file_fixture('vehicle_compliance_response.json').read
-      stub_request(:get, /compliance\?zones=/).to_return(
+      stub_request(:get, /compliance/).to_return(
         status: 200,
         body: vehicle_details
       )
@@ -25,6 +29,30 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
       expect(call['complianceOutcomes'][0].keys).to contain_exactly(
         'cleanAirZoneId', 'charge', 'name', 'informationUrls'
       )
+    end
+
+    context 'calls API with right params' do
+      RSpec.shared_examples_for 'uri have the proper query params' do
+        it 'equals query params' do
+          expect(WebMock).to(have_requested(:get, /compliance/)
+            .with { |req| req.uri.query == query })
+        end
+      end
+
+      before { call }
+
+      context 'when taxi_or_phv is false' do
+        let(:query) { "zones=#{zones_uuid}" }
+
+        it_behaves_like 'uri have the proper query params'
+      end
+
+      context 'when taxi_or_phv is true' do
+        let(:taxi_or_phv) { true }
+        let(:query) { "isTaxiOrPhv=#{taxi_or_phv}&zones=#{zones_uuid}" }
+
+        it_behaves_like 'uri have the proper query params'
+      end
     end
   end
 

@@ -10,7 +10,7 @@ Feature: Vehicle Checker
     Then I should see "Start now"
       And I press the Start now button
     Then I should see the Vehicle Checker page
-      And I should see "Check vehicle compliance" title
+      And I should see "Enter the registration details of the vehicle you want to check" title
       And I should see "Enter the registration details of the vehicle you want to check"
 
   Scenario: User enters a correct vehicle's registration and details are correct
@@ -20,7 +20,8 @@ Feature: Vehicle Checker
     Then I should see the Confirm Details page
       And I should see "Vehicle type approval"
       And I should see "Model"
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ Selection page
       And I should see "Which Clean Air Zone do you want to drive in?"
@@ -35,10 +36,11 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are incorrect
+      And I choose "No" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
-      And I should see "Check vehicle compliance" title
+      And I should see "Incorrect vehicle details" title
       And I should see "Incorrect vehicle details"
       And I press the Search Again link
     Then I am on the enter details page
@@ -58,7 +60,7 @@ Feature: Vehicle Checker
     Given I am on the enter details page
       And I enter a vehicle's registration without selecting country
       And I press the Continue
-    Then I should see "You must choose an answer"
+    Then I should see "Choose UK or Non-UK"
 
   Scenario: User fills invalid VRN
     Given I am on the enter details page
@@ -92,12 +94,14 @@ Feature: Vehicle Checker
       And I enter an undetermined vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are incorrect
+      And I choose "No" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
       And I should see "Incorrect vehicle details"
     Then I press the Back link
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Cannot determine compliance page
 
@@ -106,10 +110,23 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose that the details are correct
+      And I choose "Yes" when confirms vehicle details
+      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the CAZ Selection page
       And I choose Birmingham and Leeds
       And I press the Continue
     Then I should see the Compliance page
       And I should see "Contact Clean Air Zones"
+
+  Scenario: User enters a correct vehicle's registration and confirms to be a taxi
+    Given I am on the enter details page
+    Then I enter a vehicle's registration
+      And I press the Continue
+    Then I choose "Yes" when confirms vehicle details
+      And I choose "Yes" when confirms what vehicle a taxi or private hire vehicle
+      And I press the Confirm
+    Then I should see the CAZ Selection page
+      And I choose Birmingham and Leeds
+      And I press the Continue
+    Then I should see the Compliance page

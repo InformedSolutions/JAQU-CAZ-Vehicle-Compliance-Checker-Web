@@ -1,19 +1,22 @@
+= content_for(:title, "Check if you’ll be charged to drive in a Clean Air Zone")
+
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Check if you’ll be charged to drive in a Clean Air Zone
       %p
         From summer 2020 Birmingham and Leeds will be introducing Clean Air Zones where polluting
-        vehicles will have to pay a daily charge to enter the city centre.
+        vehicles will have to pay a daily charge to drive in the zone.
       %p
         Use this service to check if a specific vehicle will be charged when it drives through a
         charging Clean Air Zone.
-      %p You'll need to know the registration details (number plate) of the vehicle you wish to check.
+      %p
+        You'll need to know the number plate (registration details) of the vehicle you want to check.
       %a.govuk-button.govuk-button--start{role: 'button',
                                           'data-draggable': false,
                                           'data-module': 'govuk-button',
                                           href: enter_details_vehicle_checkers_path,
-                                          id: 'start-now'}
+                                          id: 'start-now-button'}
         Start now
         %svg.govuk-button__start-icon{focusable: 'false',
                                       height: '19',
