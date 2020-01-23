@@ -11,12 +11,12 @@ class ConfirmDetailsForm
 
   # validates attributes to presence
   validates :confirm_details, presence: {
-    message: 'Select yes if the details are correct'
+    message: I18n.t('confirm_details_form.confirm_details_missing')
   }
 
   # validates attributes to presence
   validates :confirm_taxi_or_phv, presence: {
-    message: 'You must choose an answer'
+    message: I18n.t('confirm_details_form.confirm_taxi_or_phv_missing')
   }
 
   # Returns status for the vehicle type
