@@ -60,19 +60,32 @@ RSpec.describe ConfirmDetailsForm, type: :model do
     end
   end
 
-  context 'when confirmation or confirm_taxi_or_phv is empty' do
-    %i[confirm_details confirm_taxi_or_phv].each do |field|
-      let(field) { '' }
+  context 'when confirmation is empty' do
+    let(:confirm_details) { '' }
 
-      it { is_expected.not_to be_valid }
+    it { is_expected.not_to be_valid }
 
-      before do
-        form.valid?
-      end
+    before do
+      form.valid?
+    end
 
-      it 'has a proper error message' do
-        expect(form.errors.messages[field]).to include('You must choose an answer')
-      end
+    it 'has a proper error message' do
+      expect(form.errors.messages[:confirm_details])
+        .to include('Select yes if the details are correct')
+    end
+  end
+
+  context 'when confirm_taxi_or_phv is empty' do
+    let(:confirm_taxi_or_phv) { '' }
+
+    it { is_expected.not_to be_valid }
+
+    before do
+      form.valid?
+    end
+
+    it 'has a proper error message' do
+      expect(form.errors.messages[:confirm_taxi_or_phv]).to include('You must choose an answer')
     end
   end
 
