@@ -9,7 +9,8 @@ RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type:
         {
           'confirm_details' => confirmation,
           'confirm_taxi_or_phv' => confirmation,
-          'undetermined' => 'false'
+          'undetermined' => 'false',
+          'taxi_or_phv_in_db' => 'false'
         }
     }
   end

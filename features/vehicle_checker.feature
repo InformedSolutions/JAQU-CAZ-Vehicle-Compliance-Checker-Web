@@ -68,11 +68,14 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see "Enter the registration details of the vehicle you want to check"
 
-  Scenario: User doesn't select confirmation
+  Scenario: User doesn't select confirmations
     Given I am on the enter details page
     And I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
+      And I press the Confirm
+    Then I should see "Select yes if the details are correct"
+      And I choose "Yes" when confirms vehicle details
       And I press the Confirm
     Then I should see "You must choose an answer"
 

@@ -10,7 +10,12 @@ class ConfirmDetailsForm
   attr_accessor :confirm_details, :confirm_taxi_or_phv, :undetermined, :taxi_or_phv_in_db
 
   # validates attributes to presence
-  validates :confirm_details, :confirm_taxi_or_phv, presence: {
+  validates :confirm_details, presence: {
+    message: 'Select yes if the details are correct'
+  }
+
+  # validates attributes to presence
+  validates :confirm_taxi_or_phv, presence: {
     message: 'You must choose an answer'
   }
 
