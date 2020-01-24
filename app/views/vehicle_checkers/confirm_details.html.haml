@@ -57,4 +57,7 @@
           = form.hidden_field(:taxi_or_phv_in_db, value: @vehicle_details.taxi_or_phv?)
           = render 'vehicle_checkers/taxi_or_phv_input/radio_buttons', form: form
 
-        = submit_tag 'Confirm', class: 'govuk-button', 'data-module': 'govuk-button'
+        = submit_tag 'Confirm',
+                      class: 'govuk-button',
+                      'data-module': 'govuk-button',
+                      id: 'submit_confirm_details_button'

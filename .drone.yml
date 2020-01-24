@@ -173,8 +173,8 @@ steps:
     commands:
       - cucumber
 
-  # Invoke static code analysis through Ruby libraries
-  - name: static code analysis (Ruby)
+  # Invoke static code analysis through Ruby libraries and js files
+  - name: static code analysis (Ruby + assets)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     volumes:
@@ -184,8 +184,8 @@ steps:
       - rubocop
       - scss-lint app/javascript
 
-  # Invoke security analysis through Ruby libraries
-  - name: security tests (Ruby)
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
@@ -475,8 +475,8 @@ steps:
     commands:
       - rubocop
 
-  # Invoke security analysis through Ruby libraries
-  - name: security tests (Ruby)
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
