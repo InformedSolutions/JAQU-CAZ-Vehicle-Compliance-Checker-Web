@@ -104,7 +104,7 @@ class VehicleCheckersController < ApplicationController
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
   #
   def submit_confirm_details
-    form = ConfirmDetailsForm.new(confirm_details_params)
+    form = determinate_form
     if form.valid?
       determinate_next_page(form)
     else
@@ -255,5 +255,14 @@ class VehicleCheckersController < ApplicationController
       :undetermined,
       :taxi_or_phv_in_db
     )
+  end
+
+  # Returns form instance.
+  #
+  # If vehicle is taxi in database, returns `ConfirmDetailsTaxiForm.new`
+  # If vehicle is not taxi in database, returns `ConfirmDetailsForm.new`
+  def determinate_form
+    taxi = confirm_details_params['taxi_or_phv_in_db']
+    (taxi == 'true' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm).new(confirm_details_params)
   end
 end
