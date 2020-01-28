@@ -34,7 +34,8 @@ Rails.application.configure do
     'X-XSS-Protection' => '1; mode=block',
     'Strict-Transport-Security' => 'max-age=31536000',
     'Pragma' => 'no-cache',
-    'X-UA-Compatible' => 'IE=Edge'
+    'X-UA-Compatible' => 'IE=Edge',
+    'Access-Control-Allow-Origin' => '*'
   }
 
   # Compress CSS using a preprocessor.
