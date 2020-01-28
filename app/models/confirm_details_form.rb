@@ -15,9 +15,4 @@ class ConfirmDetailsForm < ConfirmDetailsBaseForm
   validates :confirm_taxi_or_phv, presence: {
     message: I18n.t('confirm_details_form.confirm_taxi_or_phv_missing')
   }
-
-  # Overrides default initializer for compliance with form_for method in confirm_details view
-  def initialize(attributes = {})
-    super
-  end
 end

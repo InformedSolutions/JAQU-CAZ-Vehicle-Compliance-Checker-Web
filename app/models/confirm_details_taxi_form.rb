@@ -10,9 +10,4 @@ class ConfirmDetailsTaxiForm < ConfirmDetailsBaseForm
   validates :confirm_details, presence: {
     message: I18n.t('confirm_details_form.confirm_details_missing')
   }
-
-  # Overrides default initializer for compliance with form_for method in confirm_details view
-  def initialize(attributes = {})
-    super
-  end
 end
