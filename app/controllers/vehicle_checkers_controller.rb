@@ -262,10 +262,7 @@ class VehicleCheckersController < ApplicationController
   # If vehicle is taxi in database, returns `ConfirmDetailsTaxiForm.new`
   # If vehicle is not taxi in database, returns `ConfirmDetailsForm.new`
   def determinate_form
-    if confirm_details_params['taxi_or_phv_in_db'] == 'true'
-      ConfirmDetailsTaxiForm.new(confirm_details_params)
-    else
-      ConfirmDetailsForm.new(confirm_details_params)
-    end
+    taxi = confirm_details_params['taxi_or_phv_in_db']
+    (taxi == 'true' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm).new(confirm_details_params)
   end
 end
