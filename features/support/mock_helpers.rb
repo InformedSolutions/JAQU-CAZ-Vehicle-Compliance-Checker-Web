@@ -7,12 +7,12 @@ module MockHelpers
   end
 
   def mock_exempt_vehicle_details
-    details = { 'exempt' => true }
+    details = { 'exempt' => true, 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
   def mock_undetermined_type
-    details = { 'type' => 'null' }
+    details = { 'type' => 'null', 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
@@ -38,6 +38,12 @@ module MockHelpers
     [Sqs::JaquMessage, Sqs::UserMessage].each do |service|
       allow(service).to receive(:call).and_return(SecureRandom.uuid)
     end
+  end
+
+  def mock_taxi_details
+    details = JSON.parse(File.read('spec/fixtures/files/vehicle_details_response.json'))
+    details['taxiOrPhv'] = 'true'
+    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 end
 

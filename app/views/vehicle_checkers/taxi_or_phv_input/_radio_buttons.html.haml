@@ -27,34 +27,35 @@
                    class: 'govuk-label govuk-radios__label',
                    for: 'confirm_details-2'
 
-.govuk-form-group{class: ('govuk-form-group--error' if @errors[:confirm_taxi_or_phv].present?)}
-  - if @errors[:confirm_taxi_or_phv].present?
-    %span#confirm_taxi_or_phv-error.govuk-error-message
-      %span.govuk-visually-hidden Error:
-      = @errors[:confirm_taxi_or_phv].join(',')
+- if @vehicle_details.taxi_or_phv? == 'false'
+  .govuk-form-group{class: ('govuk-form-group--error' if @errors[:confirm_taxi_or_phv].present?)}
+    - if @errors[:confirm_taxi_or_phv].present?
+      %span#confirm_taxi_or_phv-error.govuk-error-message
+        %span.govuk-visually-hidden Error:
+        = @errors[:confirm_taxi_or_phv].join(',')
 
-  %p
-    Is your vehicle a taxi or private hire vehicle (PHV)?
-  .govuk-radios.govuk-radios--inline#taxi_or_phv_radios
-    .govuk-radios__item
-      = form.radio_button :confirm_taxi_or_phv,
-                          'true',
-                          class: 'govuk-radios__input',
-                          id: 'confirm_taxi_or_phv-1',
-                          checked: params.dig(:confirm_details_form, :confirm_taxi_or_phv) == 'true'
-      = form.label :confirm_taxi_or_phv,
-                   'Yes',
-                   class: 'govuk-label govuk-radios__label',
-                   for: 'confirm_taxi_or_phv-1',
-                   value: 'true'
+    %p
+      Is your vehicle a taxi or private hire vehicle (PHV)?
+    .govuk-radios.govuk-radios--inline#taxi_or_phv_radios
+      .govuk-radios__item
+        = form.radio_button :confirm_taxi_or_phv,
+                            'true',
+                            class: 'govuk-radios__input',
+                            id: 'confirm_taxi_or_phv-1',
+                            checked: params.dig(:confirm_details_form, :confirm_taxi_or_phv) == 'true'
+        = form.label :confirm_taxi_or_phv,
+                     'Yes',
+                     class: 'govuk-label govuk-radios__label',
+                     for: 'confirm_taxi_or_phv-1',
+                     value: 'true'
 
-    .govuk-radios__item
-      = form.radio_button :confirm_taxi_or_phv,
-                          'false',
-                          class: 'govuk-radios__input',
-                          id: 'confirm_taxi_or_phv-2',
-                          checked: params.dig(:confirm_details_form, :confirm_taxi_or_phv) == 'false'
-      = form.label :confirm_taxi_or_phv,
-                   'No',
-                   class: 'govuk-label govuk-radios__label',
-                   for: 'confirm_taxi_or_phv-2'
+      .govuk-radios__item
+        = form.radio_button :confirm_taxi_or_phv,
+                            'false',
+                            class: 'govuk-radios__input',
+                            id: 'confirm_taxi_or_phv-2',
+                            checked: params.dig(:confirm_details_form, :confirm_taxi_or_phv) == 'false'
+        = form.label :confirm_taxi_or_phv,
+                     'No',
+                     class: 'govuk-label govuk-radios__label',
+                     for: 'confirm_taxi_or_phv-2'

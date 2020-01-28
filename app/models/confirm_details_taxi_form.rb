@@ -2,18 +2,13 @@
 
 ##
 # This class is used to validate user data entered in confirm_details form.
-class ConfirmDetailsForm < ConfirmDetailsBaseForm
+class ConfirmDetailsTaxiForm < ConfirmDetailsBaseForm
   # Attribute used in confirm_details view
-  attr_accessor :confirm_details, :confirm_taxi_or_phv
+  attr_accessor :confirm_details
 
   # validates attributes to presence
   validates :confirm_details, presence: {
     message: I18n.t('confirm_details_form.confirm_details_missing')
-  }
-
-  # validates attributes to presence
-  validates :confirm_taxi_or_phv, presence: {
-    message: I18n.t('confirm_details_form.confirm_taxi_or_phv_missing')
   }
 
   # Overrides default initializer for compliance with form_for method in confirm_details view
