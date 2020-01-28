@@ -461,7 +461,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://sit-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://st-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
