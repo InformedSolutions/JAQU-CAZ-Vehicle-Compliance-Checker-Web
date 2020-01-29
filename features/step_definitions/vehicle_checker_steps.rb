@@ -12,10 +12,20 @@ Then('I should see the Vehicle Checker page') do
   expect(page).to have_current_path(enter_details_vehicle_checkers_path)
 end
 
-Then("I enter a vehicle's registration") do
-  fill_in('vrn', with: vrn)
-  choose('UK')
+Then("I enter a vehicle's registration and confirms to be a taxi") do
+  fill_fields
+  check('I confirm this vehicle is a taxi or private hire vehicle.')
   mock_vehicle_details
+end
+
+Then("I enter a vehicle's registration") do
+  fill_fields
+  mock_vehicle_details
+end
+
+Then("I enter a vehicle's registration which is a taxi") do
+  mock_taxi_details
+  fill_fields
 end
 
 Then("I enter a vehicle's registration without selecting country") do
@@ -30,8 +40,7 @@ Then("I enter a vehicle's registration and choose Non-UK") do
 end
 
 Then("I enter a vehicle's registration with {string}") do |string|
-  fill_in('vrn', with: string)
-  choose('UK')
+  fill_fields(string)
   mock_vehicle_details
 end
 
@@ -44,13 +53,17 @@ Then('I should see the Confirm Details page') do
   expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
 end
 
-Then('I choose that the details are correct') do
+Then('I choose {string} when confirms vehicle details') do |string|
   mock_caz
-  choose('Yes')
+  within('#confirm_details_radios') do
+    choose(string)
+  end
 end
 
-Then('I choose that the details are incorrect') do
-  choose('No')
+Then('I choose {string} when confirms what vehicle a taxi or private hire vehicle') do |string|
+  within('#taxi_or_phv_radios') do
+    choose(string)
+  end
 end
 
 Then('I should see the Incorrect Details page') do
@@ -66,12 +79,11 @@ Then('I should see the CAZ Selection page') do
 end
 
 Then('I should see the Service Unavailable page') do
-  expect(page).to have_title 'Sorry, the service is unavailable – Clean Air Zones – GOV.UK'
+  expect(page).to have_title 'Sorry, the service is unavailable'
 end
 
 And("I enter an exempt vehicle's registration") do
-  fill_in('vrn', with: vrn)
-  choose('UK')
+  fill_fields
   mock_exempt_vehicle_details
 end
 
@@ -84,8 +96,7 @@ Then('I should see the Non-UK vehicle page') do
 end
 
 And("I enter an undetermined vehicle's registration") do
-  fill_in('vrn', with: vrn)
-  choose('UK')
+  fill_fields
   mock_undetermined_type
 end
 
@@ -99,10 +110,16 @@ end
 
 And("I enter a vehicle's registration when server is unavailable") do
   mock_unavailable_vehicle_details
-  fill_in('vrn', with: vrn)
-  choose('UK')
+  fill_fields
 end
 
 And('I press the Contact Us link') do
   click_link 'contact us'
+end
+
+private
+
+def fill_fields(vrn = 'CU57ABC')
+  fill_in('vrn', with: vrn)
+  choose('UK')
 end

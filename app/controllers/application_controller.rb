@@ -49,9 +49,10 @@ class ApplicationController < ActionController::Base
     render json: ENV.fetch('BUILD_ID', 'undefined'), status: :ok
   end
 
-  # clear checked_zones from session
-  def clear_checked_la
+  # clear checked_zones and taxi_or_phv from session
+  def clear_session_details
     session[:checked_zones] = []
+    session[:taxi_or_phv] = nil
   end
 
   private

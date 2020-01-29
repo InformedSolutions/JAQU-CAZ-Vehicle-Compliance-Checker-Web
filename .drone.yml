@@ -173,8 +173,8 @@ steps:
     commands:
       - cucumber
 
-  # Invoke static code analysis through Ruby libraries
-  - name: static code analysis (Ruby)
+  # Invoke static code analysis through Ruby libraries and js files
+  - name: static code analysis (Ruby + assets)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     volumes:
@@ -184,14 +184,14 @@ steps:
       - rubocop
       - scss-lint app/javascript
 
-  # Invoke security analysis through Ruby libraries
-  - name: security tests (Ruby)
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
        - bundle audit check --update
-       # Exclude node-sass till https://github.com/sass/node-sass/issues/2816 is fixed
-       - yarn run improved-yarn-audit --exclude 961
+       # to exclude id from audit(e.g. 961) just add `--exclude 961`
+       - yarn run improved-yarn-audit
        - brakeman
     volumes:
       - name: docker_sock
@@ -475,14 +475,14 @@ steps:
     commands:
       - rubocop
 
-  # Invoke security analysis through Ruby libraries
-  - name: security tests (Ruby)
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
     image: test-vehicle-compliance-checker-frontend
     pull: never
     commands:
        - bundle audit check --update
-       # Exclude node-sass till https://github.com/sass/node-sass/issues/2816 is fixed
-       - yarn run improved-yarn-audit --exclude 961
+       # to exclude id from audit(e.g. 961) just add `--exclude 961`
+       - yarn run improved-yarn-audit
        - brakeman
     volumes:
       - name: docker_sock
@@ -1073,7 +1073,7 @@ steps:
   - name: await ecs rollout
     image: golang:alpine
     environment:
-      build_id_url: https://vehiclecheck.cleanairzone.defra.gov.uk/build_id
+      build_id_url: https://vehiclecheck.drive-clean-air-zone.service.gov.uk/build_id
       AWS_ACCESS_KEY_ID:
         from_secret: aws_access_key_id
       AWS_SECRET_ACCESS_KEY:

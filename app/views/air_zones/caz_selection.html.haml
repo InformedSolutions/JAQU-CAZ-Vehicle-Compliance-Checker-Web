@@ -1,4 +1,6 @@
+= content_for(:title, "Which Clean Air Zone do you want to drive in?")
 = link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link'
+
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
@@ -33,4 +35,7 @@
                                        zone.boundary_url,
                                        id: "caz-#{index}-link")
 
-        = submit_tag 'Continue', class: 'govuk-button', 'data-module': 'govuk-button'
+        = submit_tag 'Continue',
+                     class: 'govuk-button',
+                     'data-module': 'govuk-button',
+                     id: 'submit_caz_selection_button'

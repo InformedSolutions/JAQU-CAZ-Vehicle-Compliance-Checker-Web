@@ -47,6 +47,14 @@ class VehicleDetails
     compliance_api['taxiOrPhv'] ? 'Yes' : 'No'
   end
 
+  # Check 'taxiOrPhv' value.
+  #
+  # Returns a string 'true' if value is true.
+  # Returns a string 'false' if value is false.
+  def taxi_or_phv?
+    compliance_api['taxiOrPhv'].to_s
+  end
+
   # Check 'exempt' key.
   #
   # Returns a boolean 'true' if key is present.
