@@ -38,6 +38,22 @@ RSpec.describe ApplicationController, type: :request do
       it 'returns BUILD_ID' do
         expect(response.body).to eq(build_id)
       end
+
+      context 'when format is HTML' do
+        subject { get '/build_id.html' }
+
+        it 'renders 404 error page' do
+          expect(response).to render_template(:not_found)
+        end
+      end
+
+      context 'when format is nil' do
+        subject { get '/build_id' }
+
+        it 'returns default format as JSON' do
+          response.header['Content-Type'].should include('application/json')
+        end
+      end
     end
   end
 end
