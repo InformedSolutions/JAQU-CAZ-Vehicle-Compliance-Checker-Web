@@ -51,8 +51,19 @@ RSpec.describe ApplicationController, type: :request do
         subject { get '/build_id' }
 
         it 'returns default format as JSON' do
-          response.header['Content-Type'].should include('application/json')
+          expect(response.header['Content-Type']).to include('application/json')
         end
+      end
+    end
+  end
+
+  describe 'check_vrn' do
+    subject { get confirm_details_vehicle_checkers_path }
+
+    context 'when no VRN in session' do
+      it 'redirects to enter details page' do
+        subject
+        expect(response).to redirect_to(enter_details_vehicle_checkers_path)
       end
     end
   end
