@@ -20,7 +20,7 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS310",
+                "set field #vrn to CAS300",
 				        "click element #registration-country-1",
             "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1  to be visible",
@@ -32,7 +32,7 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS310",
+                "set field #vrn to CAS300",
 				        "click element #registration-country-1",
             "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
@@ -47,7 +47,7 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS310",
+                "set field #vrn to CAS300",
 				        "click element #registration-country-1",
             "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
@@ -76,7 +76,7 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS310",
+                "set field #vrn to CAS300",
 				        "click element #registration-country-1",
             "click element #submit_enter_details_button",
                 "wait for element #confirm_details-2 to be visible",
