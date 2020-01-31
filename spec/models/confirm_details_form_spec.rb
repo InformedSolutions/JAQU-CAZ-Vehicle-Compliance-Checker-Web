@@ -8,20 +8,20 @@ RSpec.describe ConfirmDetailsForm, type: :model do
   let(:confirm_details) { 'yes' }
   let(:confirm_taxi_or_phv) { 'false' }
   let(:undetermined) { 'false' }
-  let(:taxi_or_phv_in_db) { 'false' }
+  let(:taxi_and_correct_type) { 'true' }
   let(:params) do
     {
       'confirm_details': confirm_details,
       'confirm_taxi_or_phv': confirm_taxi_or_phv,
       'undetermined': undetermined,
-      'taxi_or_phv_in_db': taxi_or_phv_in_db
+      'taxi_and_correct_type': taxi_and_correct_type
     }
   end
 
   it { is_expected.to be_valid }
 
   context 'fields sets as a parameter' do
-    %i[confirm_details confirm_taxi_or_phv undetermined taxi_or_phv_in_db].each do |field|
+    %i[confirm_details confirm_taxi_or_phv undetermined taxi_and_correct_type].each do |field|
       it "and sets #{field} value" do
         expect(form.public_send(field)).to eq(public_send(field))
       end
@@ -91,14 +91,14 @@ RSpec.describe ConfirmDetailsForm, type: :model do
 
   describe '.user_confirms_to_be_taxi?' do
     context 'when user confirms to not be a taxi' do
-      context 'and taxi_or_phv_in_db equals false' do
+      context 'and taxi_and_correct_type equals false' do
         it 'returns false' do
           expect(form.user_confirms_to_be_taxi?).to eq(false)
         end
       end
 
-      context 'and taxi_or_phv_in_db equals true' do
-        let(:taxi_or_phv_in_db) { 'true' }
+      context 'and taxi_and_correct_type equals true' do
+        let(:taxi_and_correct_type) { 'true' }
 
         it 'returns false' do
           expect(form.user_confirms_to_be_taxi?).to eq(false)
@@ -109,17 +109,17 @@ RSpec.describe ConfirmDetailsForm, type: :model do
     context 'when user confirms to be a taxi' do
       let(:confirm_taxi_or_phv) { 'true' }
 
-      context 'and taxi_or_phv_in_db equals false' do
+      context 'and taxi_and_correct_type equals false' do
         it 'returns true' do
           expect(form.user_confirms_to_be_taxi?).to eq(true)
         end
       end
 
-      context 'and taxi_or_phv_in_db equals true' do
-        let(:taxi_or_phv_in_db) { 'true' }
+      context 'and taxi_and_correct_type equals true' do
+        let(:taxi_and_correct_type) { 'true' }
 
-        it 'returns false' do
-          expect(form.user_confirms_to_be_taxi?).to eq(false)
+        it 'returns true' do
+          expect(form.user_confirms_to_be_taxi?).to eq(true)
         end
       end
     end
