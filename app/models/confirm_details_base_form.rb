@@ -7,7 +7,7 @@ class ConfirmDetailsBaseForm
   include ActiveModel::Validations
 
   # Attribute used in confirm_details view
-  attr_accessor :undetermined, :taxi_or_phv_in_db
+  attr_accessor :undetermined, :taxi_and_correct_type
 
   # Returns status for the vehicle type
   #
@@ -23,11 +23,14 @@ class ConfirmDetailsBaseForm
     confirm_details == 'yes'
   end
 
+  # Returns nil if vehicle type not allowed to be a taxi
   # Checks if user claims to be a taxi, but DVLA database returns he is not a taxi or phv.
   #
   # Returns a boolean.
   def user_confirms_to_be_taxi?
-    taxi_or_phv_in_db == 'false' && confirm_taxi_or_phv == 'true'
+    return if taxi_and_correct_type == 'false'
+
+    confirm_taxi_or_phv == 'true'
   end
 
   # Overrides default initializer for compliance with form_for method in confirm_details view
