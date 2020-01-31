@@ -132,3 +132,9 @@ Feature: Vehicle Checker
       And I choose Birmingham and Leeds
       And I press the Continue
     Then I should see the Compliance page
+
+  Scenario: User enters a correct vehicle's registration which is not taxi and N1 type
+    Given I am on the enter details page
+    Then I enter a vehicle's registration for N1 type
+      And I press the Continue
+    Then I should not see "Is your vehicle a taxi or private hire vehicle (PHV)?"
