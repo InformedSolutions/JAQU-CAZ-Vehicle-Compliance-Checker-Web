@@ -7,19 +7,19 @@ RSpec.describe ConfirmDetailsTaxiForm, type: :model do
 
   let(:confirm_details) { 'yes' }
   let(:undetermined) { 'false' }
-  let(:taxi_or_phv_in_db) { 'true' }
+  let(:taxi_and_correct_type) { 'true' }
   let(:params) do
     {
       'confirm_details': confirm_details,
       'undetermined': undetermined,
-      'taxi_or_phv_in_db': taxi_or_phv_in_db
+      'taxi_and_correct_type': taxi_and_correct_type
     }
   end
 
   it { is_expected.to be_valid }
 
   context 'fields sets as a parameter' do
-    %i[confirm_details undetermined taxi_or_phv_in_db].each do |field|
+    %i[confirm_details undetermined taxi_and_correct_type].each do |field|
       it "and sets #{field} value" do
         expect(form.public_send(field)).to eq(public_send(field))
       end
