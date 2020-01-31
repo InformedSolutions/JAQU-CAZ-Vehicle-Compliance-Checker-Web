@@ -140,6 +140,3 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration for N1 type
       And I press the Continue
     Then I should not see "Is your vehicle a taxi or private hire vehicle (PHV)?"
-      Then I choose "Yes" when confirms vehicle details
-      And I press the Confirm
-    Then I should see the CAZ Selection page
