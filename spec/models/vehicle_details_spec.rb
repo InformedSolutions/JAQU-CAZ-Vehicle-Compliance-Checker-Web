@@ -127,4 +127,20 @@ RSpec.describe VehicleDetails, type: :model do
       expect(subject.model).to eq('208')
     end
   end
+
+  describe '.not_taxi_and_correct_type?' do
+    context 'when vehicle not taxi and M1 type' do
+      it 'returns true' do
+        expect(subject.not_taxi_and_correct_type?).to eq(true)
+      end
+    end
+
+    context 'when vehicle not taxi and M3 type' do
+      let(:type_approval) { 'M3' }
+
+      it 'returns false' do
+        expect(subject.not_taxi_and_correct_type?).to eq(false)
+      end
+    end
+  end
 end
