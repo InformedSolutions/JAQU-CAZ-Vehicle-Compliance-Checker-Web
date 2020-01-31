@@ -58,7 +58,7 @@ class VehicleDetails
   # Checks if vehicle not taxi or phv and not in list of allowed vehicle types
   # Returns boolean
   def not_taxi_and_correct_type?
-    taxi_or_phv? == 'false' && %w[M3 N1 N2 N3].none?(type_approval)
+    taxi_or_phv? == 'false' && %w[M3 N1 N2 N3].none?(type_approval&.upcase)
   end
 
   # Check 'exempt' key.
