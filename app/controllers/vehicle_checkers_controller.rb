@@ -19,6 +19,7 @@ class VehicleCheckersController < ApplicationController
   #
   def enter_details
     @errors = {}
+    clear_session_details
   end
 
   ##
@@ -97,7 +98,7 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   # * +confirm_details+ - user confirmation of vehicle details, 'yes' or 'no', required in the params
   # * +confirm_taxi_or_phv+ - user confirms to be a taxi, 'yes' or 'no', required in the params
-  # * +taxi_or_phv_in_db+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
+  # * +taxi_and_correct_type+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
@@ -253,7 +254,7 @@ class VehicleCheckersController < ApplicationController
       :confirm_details,
       :confirm_taxi_or_phv,
       :undetermined,
-      :taxi_or_phv_in_db
+      :taxi_and_correct_type
     )
   end
 
@@ -262,7 +263,8 @@ class VehicleCheckersController < ApplicationController
   # If vehicle is taxi in database, returns `ConfirmDetailsTaxiForm.new`
   # If vehicle is not taxi in database, returns `ConfirmDetailsForm.new`
   def determinate_form
-    taxi = confirm_details_params['taxi_or_phv_in_db']
-    (taxi == 'true' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm).new(confirm_details_params)
+    taxi_and_correct_type = confirm_details_params['taxi_and_correct_type']
+    (taxi_and_correct_type == 'false' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm)
+      .new(confirm_details_params)
   end
 end
