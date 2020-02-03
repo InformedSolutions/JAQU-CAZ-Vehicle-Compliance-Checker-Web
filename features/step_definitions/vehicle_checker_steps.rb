@@ -13,18 +13,24 @@ Then('I should see the Vehicle Checker page') do
 end
 
 Then("I enter a vehicle's registration and confirms to be a taxi") do
+  mock_vehicle_details
   fill_fields
   check('I confirm this vehicle is a taxi or private hire vehicle.')
-  mock_vehicle_details
 end
 
 Then("I enter a vehicle's registration") do
-  fill_fields
   mock_vehicle_details
+  fill_fields
 end
 
 Then("I enter a vehicle's registration which is a taxi") do
   mock_taxi_details
+  fill_fields
+end
+
+Then("I enter a vehicle's registration for N1 type") do
+  details = { 'typeApproval' => 'N1', 'taxiOrPhv' => false }
+  allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   fill_fields
 end
 

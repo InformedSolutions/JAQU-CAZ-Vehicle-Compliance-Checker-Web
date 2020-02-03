@@ -26,8 +26,7 @@
                    'No',
                    class: 'govuk-label govuk-radios__label',
                    for: 'confirm_details-2'
-
-- if @vehicle_details.taxi_or_phv? == 'false'
+- if @vehicle_details.not_taxi_and_correct_type?
   .govuk-form-group{class: ('govuk-form-group--error' if @errors[:confirm_taxi_or_phv].present?)}
     - if @errors[:confirm_taxi_or_phv].present?
       %span#confirm_taxi_or_phv-error.govuk-error-message

@@ -55,6 +55,14 @@ class VehicleDetails
     compliance_api['taxiOrPhv'].to_s
   end
 
+  # Checks if vehicle not taxi or phv and not in list of allowed vehicle types
+  # Returns boolean
+  def not_taxi_and_correct_type?
+    return false if %w[M3 N1 N2 N3].include?(type_approval&.upcase)
+
+    !compliance_api['taxiOrPhv']
+  end
+
   # Check 'exempt' key.
   #
   # Returns a boolean 'true' if key is present.
