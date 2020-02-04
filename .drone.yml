@@ -21,7 +21,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://dev.cleanairzonevehiclecheck.co.uk -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -55,8 +55,8 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
-      BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
-      BROWSER_SET: 'mid'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
+      BROWSER_SET: 'basic_auth'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
       SCREENSHOT_TYPE: 'base'
@@ -74,7 +74,7 @@ steps:
     image: selenium-jaqu
     pull: never
     environment:
-      BASEURL_VCCS: 'https://dev.cleanairzonevehiclecheck.co.uk'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
       BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
       BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
       BASEURL_MOD: 'http://mod-alb-dev-1067373829.eu-west-2.elb.amazonaws.com/'
@@ -387,7 +387,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://dev.cleanairzonevehiclecheck.co.uk -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -913,7 +913,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://sit.cleanairzonevehiclecheck.co.uk -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@sit.cleanairzonevehiclecheck.co.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -953,7 +953,7 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
-      BASEURL_VCCS: 'https://sit.cleanairzonevehiclecheck.co.uk'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@sit.cleanairzonevehiclecheck.co.uk/'
       BROWSER_SET: 'min'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
