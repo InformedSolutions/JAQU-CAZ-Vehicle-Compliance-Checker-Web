@@ -215,11 +215,6 @@ class VehicleCheckersController < ApplicationController
     country == 'Non-UK'
   end
 
-  # Redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
-  def vehicle_not_found
-    redirect_to number_not_found_vehicle_checkers_path
-  end
-
   ##
   # ==== Params
   # * +undetermined+ - status for the vehicle type if it is not possible to determine, eg. 'true'

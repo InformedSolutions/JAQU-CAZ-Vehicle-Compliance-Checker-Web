@@ -67,6 +67,11 @@ class ApplicationController < ActionController::Base
     render template: 'errors/service_unavailable', status: :service_unavailable
   end
 
+  # Redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
+  def vehicle_not_found
+    redirect_to number_not_found_vehicle_checkers_path
+  end
+
   # Checks if VRN is present in session.
   # If not, redirects to VehicleCheckersController#enter_details
   def check_vrn

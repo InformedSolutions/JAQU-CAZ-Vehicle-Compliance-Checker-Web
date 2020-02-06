@@ -5,7 +5,7 @@
 #
 class AirZonesController < ApplicationController
   # rescues also from 404 -> the rest is in ApplicationController
-  rescue_from BaseApi::Error404Exception, with: :redirect_to_server_unavailable
+  rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
   # 422 HTTP status from API means vehicle data incomplete so the compliance calculation is not possible.
   rescue_from BaseApi::Error422Exception, with: :unable_to_determine_compliance
 
@@ -83,8 +83,12 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    @compliance_outcomes = Compliance.new(vrn, caz, session[:taxi_or_phv]).compliance_outcomes
-    @vrn = vrn
+    if caz.empty?
+      redirect_to confirm_details_vehicle_checkers_path
+    else
+      @compliance_outcomes = Compliance.new(vrn, caz, session[:taxi_or_phv]).compliance_outcomes
+      @vrn = vrn
+    end
   end
 
   private

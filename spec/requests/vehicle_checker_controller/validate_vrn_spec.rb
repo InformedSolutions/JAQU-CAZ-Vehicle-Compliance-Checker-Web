@@ -43,6 +43,14 @@ RSpec.describe 'VehicleCheckersController - GET #submit_details', type: :request
     end
   end
 
+  context 'when VRN is not provided' do
+    let(:vrn) { nil }
+
+    it 'redirects to enter details page' do
+      expect(response).to render_template(:enter_details)
+    end
+  end
+
   context 'when registration country is not valid' do
     let(:country) { '' }
 

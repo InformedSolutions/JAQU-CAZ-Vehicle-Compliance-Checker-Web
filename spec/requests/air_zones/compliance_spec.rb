@@ -39,4 +39,30 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
       expect(response).to redirect_to(cannot_determine_vehicle_checkers_path)
     end
   end
+
+  context 'when api returns 404 status' do
+    before do
+      allow(ComplianceCheckerApi).to receive(:vehicle_compliance)
+        .and_raise(BaseApi::Error404Exception.new(404, '',
+                                                  'message' => 'Not Found'))
+      http_request
+    end
+
+    it 'redirects to vehicle details not found path' do
+      expect(response).to redirect_to(number_not_found_vehicle_checkers_path)
+    end
+  end
+
+  context 'when CAZ is not provided' do
+    let(:caz) { [] }
+
+    before do
+      allow(ComplianceCheckerApi).to receive(:vehicle_compliance)
+      http_request
+    end
+
+    it 'redirects to confirm vehicle details path' do
+      expect(response).to redirect_to(confirm_details_vehicle_checkers_path)
+    end
+  end
 end
