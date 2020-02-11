@@ -143,7 +143,7 @@ steps:
   - name: build
     image: docker
     commands:
-    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
+    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest .
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -438,7 +438,7 @@ steps:
   - name: build
     image: docker
     commands:
-    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
+    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest .
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -691,7 +691,7 @@ steps:
   - name: build
     image: docker
     commands:
-    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest --build-arg secret_key_base=${DRONE_COMMIT} .
+    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest .
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
