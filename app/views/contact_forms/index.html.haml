@@ -21,9 +21,21 @@
 
       %h1.govuk-heading-xl
         Contact Clean Air Zones
+
+      .govuk-error-summary
+        %p
+          If you have a petrol vehicle registered before January 2006 or a diesel vehicle registered
+          before September 2015 and you believe your vehicle meets the relevant Euro Standard for
+          emissions, you can contact
+          = external_link_to 'DVLA directly',
+                             'https://www.gov.uk/change-vehicle-details-registration-certificate',
+                             id: 'update_record_link'
+          to update your vehicle record. It is recommended
+          you recheck your vehicle shortly before driving in any Clean Air Zones.
       %p
         You can use this form to send us your questions and comments. Please provide as much
-        information as possible and select a type of enquiry most suited to your question. Alternatively, you can contact us on 0345 873 6070.
+        information as possible and select a type of enquiry most suited to your question.
+        Alternatively, you can contact us on 0345 873 6070.
       = form_for(ContactForm.new, url: contact_forms_path, method: :post, html: { autocomplete: 'off' }) do |f|
         %fieldset.govuk-fieldset
           %legend.govuk-visually-hidden

@@ -200,7 +200,8 @@ class VehicleCheckersController < ApplicationController
 
   # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
   def parsed_vrn
-    @parsed_vrn ||= params[:vrn].upcase&.delete(' ')
+    vrn = params[:vrn].presence || ''
+    @parsed_vrn ||= vrn.upcase&.delete(' ')
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
