@@ -447,6 +447,8 @@ steps:
   - name: unit tests
     image: test-vehicle-compliance-checker-frontend
     pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: http://localhost
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -458,6 +460,8 @@ steps:
   - name: integration tests
     image: test-vehicle-compliance-checker-frontend
     pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: https://st-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
