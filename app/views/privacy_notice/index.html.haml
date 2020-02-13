@@ -1,10 +1,13 @@
+- title_and_header = "Check if you’ll be charged to drive in a Clean Air Zone"
+- content_for(:title, title_and_header)
+
 = link_to 'Return to the homepage', root_path, class: 'govuk-back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-xl
-        Privacy Notice
+        = title_and_header
       %p
         The Clean Air Zone (CAZ) Vehicle Checker is operated by the Joint Air Quality Unit (JAQU),
         a team  established jointly between the Department for Environment, Food and Rural Affairs
