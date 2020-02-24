@@ -16,7 +16,6 @@ gem 'httparty'
 gem 'logstash-logger'
 gem 'puma'
 gem 'rubocop-rails'
-gem 'sass-rails'
 gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
@@ -41,11 +40,10 @@ end
 group :test do
   gem 'capybara'
   gem 'cucumber-rails', require: false
-  # Used to set session values in cucumber tests
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
-  gem 'simplecov', require: false
+  gem 'simplecov', '~> 0.17.1', require: false
   gem 'webdrivers'
   gem 'webmock'
 end
