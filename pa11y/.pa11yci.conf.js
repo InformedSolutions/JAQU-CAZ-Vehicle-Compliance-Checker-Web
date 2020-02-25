@@ -12,17 +12,23 @@ var config = {
         }
     },
     urls: [
-        '${BASE_URL}',
+        '${BASE_URL}?home_page',
+        {
+            "url": "${BASE_URL}?cookie_control",
+            "actions": [
+                "wait for element #ccc-close to be visible",
+                "click element #ccc-close"
+            ]
+        },
         "${BASE_URL}/vehicle_checkers/enter_details",
         {
             "url": "${BASE_URL}?confirm_details",
             "actions": [
-                "click element #ccc-close",
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS301",
-				        "click element #registration-country-1",
-            "click element #submit_enter_details_button",
+                "click element #registration-country-1",
+                "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1  to be visible",
                 "wait for element #confirm_taxi_or_phv-1  to be visible"
             ]
@@ -30,16 +36,15 @@ var config = {
         {
             "url": "${BASE_URL}?caz_selection",
             "actions": [
-                "click element #ccc-close",
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS301",
-				        "click element #registration-country-1",
-            "click element #submit_enter_details_button",
+                "click element #registration-country-1",
+                "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
                 "click element #confirm_details-1",
                 "click element #confirm_taxi_or_phv-2",
-            "click element #submit_confirm_details_button",
+                "click element #submit_confirm_details_button",
                 "wait for element #caz-0 to be visible"
             ]
         },
@@ -49,16 +54,16 @@ var config = {
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS301",
-				        "click element #registration-country-1",
-            "click element #submit_enter_details_button",
+                "click element #registration-country-1",
+                "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
                 "click element #confirm_details-1",
                 "click element #confirm_taxi_or_phv-2",
-            "click element #submit_confirm_details_button",
+                "click element #submit_confirm_details_button",
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
                 "check field #caz-1",
-            "click element #submit_caz_selection_button"
+                "click element #submit_caz_selection_button"
             ]
         },
 		    {
@@ -67,8 +72,8 @@ var config = {
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CU57ABE",
-				        "click element #registration-country-1",
-            "click element #submit_enter_details_button",
+                "click element #registration-country-1",
+                "click element #submit_enter_details_button",
                 "wait for element #dvla-link to be visible"
             ]
         },
@@ -78,12 +83,12 @@ var config = {
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
                 "set field #vrn to CAS301",
-				        "click element #registration-country-1",
-            "click element #submit_enter_details_button",
+                "click element #registration-country-1",
+                "click element #submit_enter_details_button",
                 "wait for element #confirm_details-2 to be visible",
                 "click element #confirm_details-2",
                 "click element #confirm_taxi_or_phv-2",
-            "click element #submit_confirm_details_button",
+                "click element #submit_confirm_details_button",
                 "wait for element #search_again_link to be visible"
             ]
         }
