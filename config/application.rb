@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'boot'
-
+require_relative 'initializers/log_format'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -28,5 +28,11 @@ module JaquCaz
     config.exceptions_app = routes
 
     config.time_zone = 'London'
+
+    # Use custom logging formatter so that IP addresses are removed.
+    config.logger = LogStashLogger.new(type: :stdout,
+    formatter: FilteredFormatter)
+
+    config.log_level = :debug
   end
 end
