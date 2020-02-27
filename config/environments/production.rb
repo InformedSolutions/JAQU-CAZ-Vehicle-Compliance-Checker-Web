@@ -112,9 +112,9 @@ Rails.application.configure do
 
   # Use custom logging formatter with tagged logging so that IP addresses are removed
   # and request IDs are retained.
-  logger = LogStashLogger.new(type: :stdout,
-    formatter: FilteredFormatter)
+  logger = LogStashLogger.new(type: :stdout)
 
+  # Use tagged logging to include request id on production.
   config.logger    = ActiveSupport::TaggedLogging.new(logger)
 
   # Do not dump schema after migrations.
