@@ -85,8 +85,8 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
- 
   # Use a different cache store in production.
+
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
@@ -115,7 +115,7 @@ Rails.application.configure do
   logger = LogStashLogger.new(type: :stdout)
 
   # Use tagged logging to include request id on production.
-  config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false

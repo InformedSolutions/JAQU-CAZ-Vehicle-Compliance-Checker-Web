@@ -30,8 +30,7 @@ module JaquCaz
     config.time_zone = 'London'
 
     # Use custom logging formatter so that IP addresses are removed.
-    config.logger = LogStashLogger.new(type: :stdout,
-    formatter: Formatter)
+    config.logger = LogStashLogger.new(type: :stdout, formatter: Formatter)
 
     config.log_level = :debug
   end
