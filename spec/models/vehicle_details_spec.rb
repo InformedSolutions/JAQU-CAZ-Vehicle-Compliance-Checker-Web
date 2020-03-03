@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe VehicleDetails, type: :model do
-  subject(:compliance) { described_class.new(vrn) }
+  subject { described_class.new(vrn) }
 
   let(:vrn) { 'CU57ABC' }
   let(:type_approval) { 'M1' }
@@ -101,7 +101,7 @@ RSpec.describe VehicleDetails, type: :model do
       end
 
       it 'returns a nil' do
-        expect(compliance.type_approval).to eq(nil)
+        expect(subject.type_approval).to eq(nil)
       end
     end
 
@@ -109,7 +109,7 @@ RSpec.describe VehicleDetails, type: :model do
       let(:type_approval) { ' ' }
 
       it 'returns a nil' do
-        expect(compliance.type_approval).to eq(nil)
+        expect(subject.type_approval).to eq(nil)
       end
     end
 
@@ -117,7 +117,7 @@ RSpec.describe VehicleDetails, type: :model do
       let(:type_approval) { 'null' }
 
       it 'returns a nil' do
-        expect(compliance.type_approval).to eq(nil)
+        expect(subject.type_approval).to eq(nil)
       end
     end
   end

@@ -38,4 +38,9 @@ module ApplicationHelper
     )
     link_to text, url, html_options
   end
+
+  # Returns name of service, eg. 'Drive in a Clean Air Zone'
+  def service_name
+    Rails.configuration.x.service_name
+  end
 end
