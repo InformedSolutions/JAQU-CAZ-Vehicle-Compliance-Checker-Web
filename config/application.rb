@@ -18,6 +18,9 @@ module JaquCaz
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # name of service
+    config.x.service_name = 'Drive in a Clean Air Zone'
+
     feedback_url_default = 'https://www.surveymonkey.co.uk/r/2RNBKTV'
     config.x.feedback_url = (ENV['FEEDBACK_URL'].presence || feedback_url_default)
 
