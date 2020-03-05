@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'logstash-logger'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -85,8 +87,12 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  # Use a different cache store in production.
+  config.log_level = :debug
 
+  # Prepend all log lines with the following tags.
+  config.log_tags = %i[request_id remote_ip]
+
+  # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
