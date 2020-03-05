@@ -26,11 +26,10 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS301",
+                "set field #vrn to CAS338",
                 "click element #registration-country-1",
                 "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1  to be visible",
-                "wait for element #confirm_taxi_or_phv-1  to be visible"
             ]
         },
         {
@@ -38,12 +37,11 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS301",
+                "set field #vrn to CAS338",
                 "click element #registration-country-1",
                 "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
                 "click element #confirm_details-1",
-                "click element #confirm_taxi_or_phv-2",
                 "click element #submit_confirm_details_button",
                 "wait for element #caz-0 to be visible"
             ]
@@ -53,12 +51,11 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS301",
+                "set field #vrn to CAS338",
                 "click element #registration-country-1",
                 "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
                 "click element #confirm_details-1",
-                "click element #confirm_taxi_or_phv-2",
                 "click element #submit_confirm_details_button",
                 "wait for element #caz-0 to be visible",
                 "check field #caz-0",
@@ -82,12 +79,11 @@ var config = {
             "actions": [
                 "click element #start-now-button",
                 "wait for element #vrn to be visible",
-                "set field #vrn to CAS301",
+                "set field #vrn to CAS338",
                 "click element #registration-country-1",
                 "click element #submit_enter_details_button",
                 "wait for element #confirm_details-2 to be visible",
                 "click element #confirm_details-2",
-                "click element #confirm_taxi_or_phv-2",
                 "click element #submit_confirm_details_button",
                 "wait for element #search_again_link to be visible"
             ]
