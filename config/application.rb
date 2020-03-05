@@ -32,8 +32,11 @@ module JaquCaz
 
     config.time_zone = 'London'
 
-    # Use custom logging formatter so that IP addresses are removed.
-    config.logger = LogStashLogger.new(type: :stdout, formatter: Formatter)
+    # Add log tag to track request ID
+    config.log_tags = %i[request_id]
+
+    # Use custom logging formatter so that IP any other PII can be removed.
+    config.log_formatter = FilteredFormatter.new
 
     config.log_level = :debug
   end

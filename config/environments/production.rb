@@ -106,17 +106,6 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
-  # Use custom logging formatter with tagged logging so that IP addresses are removed
-  # and request IDs are retained.
-  logger = LogStashLogger.new(type: :stdout)
-
-  # Use tagged logging to include request id on production.
-  config.logger = ActiveSupport::TaggedLogging.new(logger)
-
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
 
