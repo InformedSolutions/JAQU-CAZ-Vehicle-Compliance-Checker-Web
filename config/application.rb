@@ -32,12 +32,8 @@ module JaquCaz
 
     config.time_zone = 'London'
 
-    # Add log tag to track request ID
-    config.log_tags = %i[request_id]
-
-    # Use custom logging formatter so that IP any other PII can be removed.
-    config.log_formatter = FilteredFormatter.new
-
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
     config.log_level = :debug
   end
 end
