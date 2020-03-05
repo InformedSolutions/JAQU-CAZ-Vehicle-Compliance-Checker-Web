@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'boot'
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -31,5 +30,9 @@ module JaquCaz
     config.exceptions_app = routes
 
     config.time_zone = 'London'
+
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
+    config.log_level = :debug
   end
 end
