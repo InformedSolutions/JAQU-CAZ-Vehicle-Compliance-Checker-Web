@@ -85,15 +85,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Add log tag to track request ID
-  config.log_tags = %i[request_id]
-
-  # Use custom logging formatter so that IP any other PII can be removed.
-  config.log_formatter = FilteredFormatter.new
-
-  # Prepend all log lines with the following tags.
-  config.log_tags = %i[request_id remote_ip]
-
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
@@ -113,6 +104,12 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
+
+  # Add log tag to track request ID
+  config.log_tags = %i[request_id]
+
+  # Use custom logging formatter so that IP any other PII can be removed.
+  config.log_formatter = FilteredFormatter.new
 
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
