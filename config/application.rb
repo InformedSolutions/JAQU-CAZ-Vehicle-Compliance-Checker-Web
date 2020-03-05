@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'boot'
-require_relative 'log_format'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
