@@ -31,5 +31,9 @@ module JaquCaz
     config.exceptions_app = routes
 
     config.time_zone = 'London'
+
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
+    config.log_level = :debug
   end
 end
