@@ -13,15 +13,8 @@
 
   // Hide 'Accept Recommended Settings' button
   function hideAcceptButton() {
-    var onPageStyle = "";
-    if (config.text.acceptRecommended == "") {
-      onPageStyle += "#ccc-recommended-settings{display:none;}"
-    }
-    if (onPageStyle != "") {
-      var style = document.createElement('style');
-      style.innerHTML = onPageStyle;
-      document.head.appendChild(style);
-    }
+	  var recommendedSettingsButton = document.getElementById("ccc-button-holder");
+	  recommendedSettingsButton.parentNode.removeChild(recommendedSettingsButton);
   }
 
   var config = {
