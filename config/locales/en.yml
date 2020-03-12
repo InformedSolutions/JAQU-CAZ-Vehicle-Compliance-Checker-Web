@@ -7,9 +7,9 @@ en:
   vrn_form:
     vrn_missing: Enter the number plate of the vehicle
     country_missing: Choose UK or Non-UK
-    vrn_invalid: Enter the registration number of the vehicle in valid format
-    vrn_too_long: The registration number of the vehicle is too long
-    vrn_too_short: The registration number of the vehicle is too short
+    vrn_invalid: Enter the number plate of the vehicle in valid format
+    vrn_too_long: The the number plate of the vehicle is too long
+    vrn_too_short: The the number plate of the vehicle is too short
   caz_selection_form:
     la_missing: You must select at least one Clean Air Zone
   confirm_details_form:
