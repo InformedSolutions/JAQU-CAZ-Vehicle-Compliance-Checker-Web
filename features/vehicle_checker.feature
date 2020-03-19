@@ -16,9 +16,9 @@ Feature: Vehicle Checker
     Then I enter an invalid VRN
       And I should see "Enter the number plate of the vehicle in valid format"
     Then I enter too long VRN
-      And I should see "The the number plate of the vehicle is too long"
+      And I should see "The number plate of the vehicle is too long"
     Then I enter too short VRN
-      And I should see "The the number plate of the vehicle is too short"
+      And I should see "The number plate of the vehicle is too short"
 
   Scenario: User enters a correct vehicle's registration and details are correct
     Given I am on the enter details page
