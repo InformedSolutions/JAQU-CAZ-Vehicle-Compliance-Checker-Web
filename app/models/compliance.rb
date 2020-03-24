@@ -34,7 +34,7 @@ class Compliance
   #   * +boundary+
   def compliance_outcomes
     @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
-      ComplianceDetails.new(v)
+      ComplianceDetails.new(v, compliance_api['isRetrofitted'])
     end
   end
 
