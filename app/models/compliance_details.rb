@@ -23,8 +23,14 @@ class ComplianceDetails
   #   * +exemption_or_discount+
   #   * +become_compliant+
   #   * +boundary+
-  def initialize(details)
+  def initialize(details, retrofit)
+    @retrofit = retrofit
     @compliance_data = details.deep_transform_keys { |key| key.underscore.to_sym }
+  end
+
+  # Returns a boolean
+  def retrofit
+    @retrofit
   end
 
   # Returns a string, eg. 'Birmingham'.
