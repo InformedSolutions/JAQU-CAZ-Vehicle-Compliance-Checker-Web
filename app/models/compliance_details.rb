@@ -3,6 +3,8 @@
 ##
 # This class is used to display data in +app/views/air_zones/compliance.html.haml+.
 class ComplianceDetails
+
+  attr_reader :retrofit
   ##
   # Creates an instance of a class, make keys underscore and transform to symbols.
   #
@@ -26,11 +28,6 @@ class ComplianceDetails
   def initialize(details, retrofit)
     @retrofit = retrofit
     @compliance_data = details.deep_transform_keys { |key| key.underscore.to_sym }
-  end
-
-  # Returns a boolean
-  def retrofit
-    @retrofit
   end
 
   # Returns a string, eg. 'Birmingham'.
