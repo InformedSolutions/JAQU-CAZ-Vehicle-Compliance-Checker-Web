@@ -10,23 +10,26 @@ class ComplianceDetails
   # ==== Attributes
   #
   # * +details+ - hash
+  # * +retrofit+ - boolean
   #
   # ==== Result
   #
-  # Returns a hash with following fields:
-  # * +clean_air_zone_id+ - UUID, this represents CAZ ID in the DB
-  # * +name+ - string, eg. 'Birmingham'
-  # * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
-  # * +information_urls+ - object containing CAZ dedicated info links
-  #   * +main_info+
-  #   * +public_transport_options+
-  #   * +pricing+
-  #   * +exemption_or_discount+
-  #   * +become_compliant+
-  #   * +boundary+
+  # Returns 
+  # * A boolean retrofit indicating whether the vehicle is retrofitted
+  # * A hash with following fields:
+  #   * +clean_air_zone_id+ - UUID, this represents CAZ ID in the DB
+  #   * +name+ - string, eg. 'Birmingham'
+  #   * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
+  #   * +information_urls+ - object containing CAZ dedicated info links
+  #     * +main_info+
+  #     * +public_transport_options+
+  #     * +pricing+
+  #     * +exemption_or_discount+
+  #     * +become_compliant+
+  #     * +boundary+
   def initialize(details, retrofit)
-    @retrofit = retrofit
     @compliance_data = details.deep_transform_keys { |key| key.underscore.to_sym }
+    @retrofit = retrofit
   end
 
   # Returns a string, eg. 'Birmingham'.
