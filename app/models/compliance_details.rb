@@ -14,7 +14,7 @@ class ComplianceDetails
   #
   # ==== Result
   #
-  # Returns 
+  # Returns
   # * A boolean retrofit indicating whether the vehicle is retrofitted
   # * A hash with following fields:
   #   * +clean_air_zone_id+ - UUID, this represents CAZ ID in the DB
