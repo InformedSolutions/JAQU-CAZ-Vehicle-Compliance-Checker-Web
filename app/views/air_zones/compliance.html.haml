@@ -44,8 +44,12 @@
                                  details.public_transport_options_url,
                                  id: "public-transport-options-url-#{details.html_id}"
         - else
-          %p{id: "uncharged-title-#{details.html_id}"}
-            The vehicle will not be charged.
+          - if details.retrofit
+            %p{id: "uncharged-title-#{details.html_id}"}
+              The vehicle has been retrofitted to a compliant standard and will not be charged.        
+          - else
+            %p{id: "uncharged-title-#{details.html_id}"}
+              The vehicle will not be charged.
           %p
             There is no charge for driving in
             = external_link_to "#{details.zone_name} Clean Air Zone",
