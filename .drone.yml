@@ -162,7 +162,7 @@ steps:
     commands:
       - apk update && apk add bash
       - mkdir ~/.ssh
-      - echo $${GIT_PRIVATE_SSH}
+      - printenv
       - echo -e "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
       - chmod 600 ~/.ssh/id_rsa
       - cat ~/.ssh/id_rsa
