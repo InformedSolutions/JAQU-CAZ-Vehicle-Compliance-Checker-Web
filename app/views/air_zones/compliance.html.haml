@@ -46,7 +46,7 @@
         - else
           - if details.retrofit
             %p{id: "uncharged-title-#{details.html_id}"}
-              The vehicle has been retrofitted to a compliant standard and will not be charged.        
+              The vehicle has been retrofitted to a compliant standard and will not be charged.
           - else
             %p{id: "uncharged-title-#{details.html_id}"}
               The vehicle will not be charged.
@@ -58,7 +58,7 @@
           %p
             Each Clean Air Zone (CAZ) has different guidance for charging vehicles. Find out more about
             = external_link_to 'different types of Clean Air Zones',
-                               'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                               'https://www.gov.uk/guidance/driving-in-a-clean-air-zone (opens in a new window)',
                                id: "guidance-url-#{details.html_id}"
 
       = render 'go_ultra_low_icon'
