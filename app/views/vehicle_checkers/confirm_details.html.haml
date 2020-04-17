@@ -19,10 +19,12 @@
 
       %h1.govuk-heading-l Are these vehicle details correct?
       %table.govuk-table
-        %tbody.govuk-table__body
+        %thead.govuk-table__head
           %tr.govuk-table__row
-            %td.govuk-table__cell{scope: 'row'}
-            %td.govuk-table__cell
+            %th.govuk-table__header.table-without-border{scope: 'col', colspan: 2}
+              %h2.govuk-heading-m Vehicle Details
+            %th.govuk-table__header.table-without-border{scope: 'col'}
+        %tbody.govuk-table__body
           %tr.govuk-table__row
             %td.govuk-table__cell{scope: 'row'} Vehicle registration
             %th.govuk-table__cell{id: 'registration-number'}= @vehicle_details.registration_number
