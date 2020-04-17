@@ -49,7 +49,7 @@ Feature: Vehicle Checker
     Then I should see the Incorrect Details page
       And I should see "Incorrect vehicle details" title
       And I should see "Incorrect vehicle details"
-      And I press the Search Again link
+      And I press the Check another vehicle link
     Then I am on the enter details page
 
   Scenario: User selects Non-UK place of registration

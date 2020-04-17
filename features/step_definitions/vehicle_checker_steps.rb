@@ -76,8 +76,8 @@ Then('I should see the Incorrect Details page') do
   expect(page).to have_current_path(incorrect_details_vehicle_checkers_path)
 end
 
-And('I press the Search Again link') do
-  click_link 'search again'
+And('I press the Check another vehicle link') do
+  click_link 'Check another vehicle'
 end
 
 Then('I should see the CAZ Selection page') do
