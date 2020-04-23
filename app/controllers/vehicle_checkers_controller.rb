@@ -88,7 +88,7 @@ class VehicleCheckersController < ApplicationController
 
   ##
   # Verifies if user confirms data returned from the API.
-  # If yes, redirects to {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
+  # If yes, redirects to {the next step}[rdoc-ref:AirZonesController.compliance] of the checking compliance process.
   # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
   #
   # ==== Path
@@ -230,7 +230,7 @@ class VehicleCheckersController < ApplicationController
   # If vehicles's registration not determined redirects to
   #   {the next step}[rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
   # If vehicles's registration determined redirects to
-  #   {the next step}[rdoc-ref:AirZonesController.caz_selection] of the checking compliance process.
+  #   {the next step}[rdoc-ref:AirZonesController.compliance] of the checking compliance process.
   #
   def determinate_next_page(form)
     return redirect_to incorrect_details_vehicle_checkers_path unless form.confirmed?
@@ -239,11 +239,11 @@ class VehicleCheckersController < ApplicationController
       redirect_to cannot_determine_vehicle_checkers_path
     else
       session[:taxi_or_phv] = form.user_confirms_to_be_taxi?
-      redirect_to caz_selection_air_zones_path
+      redirect_to compliance_air_zones_path
     end
   end
 
-  # add vrn to session and clear checked_zones and taxi_or_phv from session
+  # add vrn to session and clear taxi_or_phv from session
   def add_details_to_session
     session[:vrn] = parsed_vrn
     clear_session_details
