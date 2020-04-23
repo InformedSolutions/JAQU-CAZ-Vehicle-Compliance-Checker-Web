@@ -8,14 +8,9 @@
             "name": "Test",
             "charge": 10.0,
             "informationUrls": {
-                "emissionsStandards": "http://test.com",
                 "mainInfo": "http://test.com",
-                "hoursOfOperation": "http://test.com",
-                "pricing": "http://test.com",
                 "exemptionOrDiscount": "http://test.com",
-                "payCaz": "http://test.com",
                 "becomeCompliant": "http://test.com",
-                "financialAssistance": "http://test.com",
                 "boundary": "http://test.com"
             }
         },
@@ -24,14 +19,9 @@
             "name": "Test",
             "charge": 10.0,
             "informationUrls": {
-                "emissionsStandards": "http://test.com",
                 "mainInfo": "http://test.com",
-                "hoursOfOperation": "http://test.com",
-                "pricing": "http://test.com",
                 "exemptionOrDiscount": "http://test.com",
-                "payCaz": "http://test.com",
                 "becomeCompliant": "http://test.com",
-                "financialAssistance": "http://test.com",
                 "boundary": "http://test.com"
             }
         }
