@@ -36,7 +36,7 @@ module ApplicationHelper
       rel: 'noopener noreferrer',
       'area-label': "#{html_options[:'area-label'] || text} - #{I18n.t('content.external_link')}"
     )
-    link_to text, url, html_options
+    link_to "#{text} (opens in a new window)", url, html_options
   end
 
   # Returns name of service, eg. 'Drive in a Clean Air Zone'

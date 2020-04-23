@@ -27,7 +27,7 @@
               versions of JAWS, NVDA and VoiceOver).
       %p We've also made the website text as simple as possible to understand.
       %p
-        = external_link_to('AbilityNet (opens in a new window)',
+        = external_link_to('AbilityNet',
                            'https://mcmw.abilitynet.org.uk/',
                            id: 'ability-net-link')
         has advice on making your device easier to use if you have a disability.
@@ -37,9 +37,10 @@
         We're always looking to improve the accessibility of this website. If you find any problems
         that are not listed on this page or think we're not meeting accessibility requirements,
         let us know using our
-        = external_link_to('feedback form (opens in a new window).',
-                           'https://vehiclecheck.cleanairzone.defra.gov.uk/contact_forms',
-                           id: 'feedback-form-link')
+        = succeed '.' do
+          = external_link_to('feedback form',
+                             'https://vehiclecheck.cleanairzone.defra.gov.uk/contact_forms',
+                             id: 'feedback-form-link')
 
       %h2.govuk-heading-m Enforcement procedure
       %p
@@ -47,9 +48,10 @@
         Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
         (the 'accessibility regulations'). If you're not happy with how we respond to your
         complaint,
-        = external_link_to('contact the Equality Advisory and Support Service (EASS) (opens in a new window).',
-                           'https://www.equalityadvisoryservice.com/',
-                           id: 'eass-link')
+        = succeed '.' do
+          = external_link_to('contact the Equality Advisory and Support Service (EASS)',
+                             'https://www.equalityadvisoryservice.com/',
+                             id: 'eass-link')
 
       %h2.govuk-heading-m Technical information about this website's accessibility
       %p
@@ -57,7 +59,7 @@
         Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
       %p
         This website is fully compliant with the
-        = external_link_to('Web Content Accessibility Guidelines version 2.1 (opens in a new window)',
+        = external_link_to('Web Content Accessibility Guidelines version 2.1',
                            'https://www.w3.org/TR/WCAG21/',
                            id: 'guidelines-link')
         AA standard.
