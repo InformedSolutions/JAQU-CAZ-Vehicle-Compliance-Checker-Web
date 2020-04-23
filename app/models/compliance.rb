@@ -28,7 +28,6 @@ class Compliance
   # * +information_urls+ - object containing CAZ dedicated info links
   #   * +main_info+
   #   * +public_transport_options+
-  #   * +pricing+
   #   * +exemption_or_discount+
   #   * +become_compliant+
   #   * +boundary+
@@ -58,14 +57,10 @@ class Compliance
   #   * +name+ - string, eg. 'Birmingham'
   #   * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
   #   * +informationUrls+ - object containing CAZ dedicated info links
-  #     * +emissionsStandards+
   #     * +mainInfo+
-  #     * +hoursOfOperation+
-  #     * +pricing+
+  #     * +publicTransportOptions+
   #     * +exemptionOrDiscount+
-  #     * +payCaz+
   #     * +becomeCompliant+
-  #     * +financialAssistance+
   #     * +boundary+
   def compliance_api
     @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn, @zones, @taxi_or_phv)

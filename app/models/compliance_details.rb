@@ -23,7 +23,6 @@ class ComplianceDetails
   #   * +information_urls+ - object containing CAZ dedicated info links
   #     * +main_info+
   #     * +public_transport_options+
-  #     * +pricing+
   #     * +exemption_or_discount+
   #     * +become_compliant+
   #     * +boundary+
@@ -59,11 +58,6 @@ class ComplianceDetails
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def pricing_url
-    url(:pricing)
-  end
-
-  # Returns a string, eg. 'www.example.com'.
   def public_transport_options_url
     url(:public_transport_options)
   end
@@ -94,7 +88,7 @@ class ComplianceDetails
   #
   # ==== Attributes
   #
-  # * +name+ - symbol, eg. ':emissions_standards'
+  # * +name+ - symbol, eg. ':main_info'
   #
   # ==== Result
   #
