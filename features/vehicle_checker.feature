@@ -30,10 +30,6 @@ Feature: Vehicle Checker
       And I choose "Yes" when confirms vehicle details
       And I choose "No" when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
-    Then I should see the CAZ Selection page
-      And I should see "Which Clean Air Zone do you want to drive in?"
-      And I choose Birmingham and Leeds
-      And I press the Continue
     Then I should see the Compliance page
       And I should see "Clean Air Zone charge"
       And I should see "Important information about vehicle data"
@@ -115,20 +111,6 @@ Feature: Vehicle Checker
       And I press the Confirm
     Then I should see the Cannot determine compliance page
 
-  Scenario: User enters a correct data and use check another caz link
-    Given I am on the enter details page
-    Then I enter a vehicle's registration
-      And I press the Continue
-    Then I should see the Confirm Details page
-      And I choose "Yes" when confirms vehicle details
-      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
-      And I press the Confirm
-    Then I should see the CAZ Selection page
-      And I choose Birmingham and Leeds
-      And I press the Continue
-    Then I should see the Compliance page
-      And I should see "Contact Clean Air Zones"
-
   Scenario: User enters a correct vehicle's registration which is a taxi
     Given I am on the enter details page
     Then I enter a vehicle's registration which is a taxi
@@ -137,9 +119,6 @@ Feature: Vehicle Checker
       And I choose "Yes" when confirms vehicle details
       And I press the Confirm
     Then I should not see "Are these vehicle details correct?"
-    Then I should see the CAZ Selection page
-      And I choose Birmingham and Leeds
-      And I press the Continue
     Then I should see the Compliance page
 
   Scenario: User enters a correct vehicle's registration which is not taxi and N1 type
@@ -149,4 +128,4 @@ Feature: Vehicle Checker
     Then I should not see "Is your vehicle a taxi or private hire vehicle (PHV)?"
       Then I choose "Yes" when confirms vehicle details
       And I press the Confirm
-    Then I should see the CAZ Selection page
+    Then I should see the Compliance page

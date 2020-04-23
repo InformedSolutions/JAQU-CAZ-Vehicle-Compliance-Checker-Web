@@ -1,5 +1,5 @@
 = content_for(:title, "Clean Air Zone charge")
-= link_to 'Back', caz_selection_air_zones_path, class: 'govuk-back-link', id: 'back-link'
+= link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link', id: 'back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
@@ -74,10 +74,6 @@
               = link_to 'Check another vehicle',
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn-url'
-            %li
-              = link_to 'Check another Clean Air Zone',
-                        caz_selection_air_zones_path,
-                        id: 'check-another-caz-url'
             %li
               = link_to 'Contact Clean Air Zones',
                         contact_forms_path,

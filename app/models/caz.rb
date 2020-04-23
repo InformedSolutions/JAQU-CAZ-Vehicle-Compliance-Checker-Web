@@ -2,7 +2,7 @@
 
 ##
 # This class represents data returned by {CAZ API endpoint}[rdoc-ref:ComplianceCheckerApi.clean_air_zones]
-# and is used to display data in +app/views/air_zones/caz_selection.html.haml+.
+# and is used to display data in +app/views/air_zones/compliance.html.haml+.
 class Caz
   ##
   # Creates an instance of a form class, make keys underscore and transform to symbols.
@@ -32,12 +32,6 @@ class Caz
   # Returns a string, eg. 'www.example.com'.
   def boundary_url
     caz_data[:boundary_url]
-  end
-
-  # Checks if zones was already checked by user before.
-  # Returns a boolean.
-  def checked?(checked_zones)
-    checked_zones.include?(id)
   end
 
   private
