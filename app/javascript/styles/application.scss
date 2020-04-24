@@ -1,5 +1,6 @@
 $govuk-global-styles: true;
 $govuk-assets-path: '/packs/media/';
+$moj-assets-path: '/application/assets';
 
 @import '~govuk-frontend/govuk/all';
 @import '~@ministryofjustice/frontend/moj/all';

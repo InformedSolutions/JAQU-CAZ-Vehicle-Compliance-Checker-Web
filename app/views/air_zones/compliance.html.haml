@@ -1,3 +1,5 @@
+= javascript_pack_tag 'moj'
+
 - title_and_header = 'Clean Air Zone charge'
 = content_for(:title, title_and_header)
 = link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link', id: 'back-link'
@@ -116,9 +118,3 @@
               = link_to 'Contact Clean Air Zones',
                         contact_forms_path,
                         id: 'contact-form-url'
-:javascript
-  new MOJFrontend.SortableTable({
-      table: [
-          $('table')[0]
-      ]
-  });
