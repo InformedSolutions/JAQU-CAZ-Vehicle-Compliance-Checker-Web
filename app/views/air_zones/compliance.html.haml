@@ -1,17 +1,55 @@
-= content_for(:title, "Clean Air Zone charge")
+- title_and_header = 'Clean Air Zone charge'
+= content_for(:title, title_and_header)
 = link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link', id: 'back-link'
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l Clean Air Zone charge
-      %p Vehicle registration #{@vrn}.
-
-      .govuk-error-summary
-        %h2.govuk-heading-m Important information about vehicle data
+      %h1.govuk-heading-l
+        = title_and_header
+      .govuk-error-summary{style: 'border-color:#0b0c0c'}
+        %h2.govuk-error-summary__title.govuk-heading-m#error-summary-title Important information about vehicle data
         %p
           The data accuracy of this service is always improving. It is recommended you
           recheck your vehicle shortly before you intend to drive in any Clean Air Zones.
+
+      %p
+        Vehicle registration
+        = succeed '.' do
+          %strong= @vrn
+
+      %table.govuk-table
+        %thead.govuk-table__head
+          %tr.govuk-table__row
+            %th.govuk-table__header{scope: 'col', 'aria-sort': 'ascending'}
+              = button_tag 'Clean Air Zone', data: {index: 0}, type: 'button'
+            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+              = button_tag 'Daily charge', data: {index: 1}, type: 'button'
+            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+              = button_tag 'Charging starts', data: {index: 2}, type: 'button'
+            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+              = button_tag 'Map', data: {index: 3}, type: 'button'
+            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+              = button_tag 'Further information', data: {index: 4}, type: 'button'
+        %tbody.govuk-table__body
+          %tr.govuk-table__row
+            %td.govuk-table__cell Bath
+            %td.govuk-table__cell Cath
+            %td.govuk-table__cell Dath
+            %td.govuk-table__cell Eath
+            %td.govuk-table__cell Fath
+          %tr.govuk-table__row
+            %td.govuk-table__cell Gath 1
+            %td.govuk-table__cell Aath 1
+            %td.govuk-table__cell Cath 1
+            %td.govuk-table__cell Dath 1
+            %td.govuk-table__cell Bath 1
+          %tr.govuk-table__row
+            %td.govuk-table__cell Xath 2
+            %td.govuk-table__cell Dath 2
+            %td.govuk-table__cell Aath 2
+            %td.govuk-table__cell Gath 2
+            %td.govuk-table__cell Hath 2
 
       - @compliance_outcomes.each do |details|
         %h2.govuk-heading-l{id: details.html_id}
@@ -78,3 +116,9 @@
               = link_to 'Contact Clean Air Zones',
                         contact_forms_path,
                         id: 'contact-form-url'
+:javascript
+  new MOJFrontend.SortableTable({
+      table: [
+          $('table')[0]
+      ]
+  });
