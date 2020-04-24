@@ -2,6 +2,7 @@ $govuk-global-styles: true;
 $govuk-assets-path: '/packs/media/';
 
 @import '~govuk-frontend/govuk/all';
+@import '~@ministryofjustice/frontend/moj/all';
 @import 'related_components';
 @import 'go_ultra_low_icon';
 @import 'cookie_control';
