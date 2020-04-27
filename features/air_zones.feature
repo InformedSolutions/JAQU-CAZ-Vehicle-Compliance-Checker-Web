@@ -14,22 +14,6 @@ Feature: Air Zone
     Then I should see the Compliance page
       And I should see "Clean Air Zone charge"
 
-  Scenario: User with two correct vehicle’s registration
-    Given I am on the enter details page
-    Then I enter a vehicle's registration
-      And I press the Continue
-    Then I choose "Yes" when confirms vehicle details
-      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
-      And I press the Confirm
-    Then I should see the Compliance page
-      And I press Check another vehicle
-    Then I enter a vehicle's registration
-      And I press the Continue
-    Then I choose "Yes" when confirms vehicle details
-      And I choose "No" when confirms what vehicle a taxi or private hire vehicle
-      And I press the Confirm
-    Then I should see the Compliance page
-
   Scenario: When server returns 422 status
     Given I am on the enter details page
     Then I enter a vehicle's registration

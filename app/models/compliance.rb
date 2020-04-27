@@ -9,11 +9,9 @@ class Compliance
   # ==== Attributes
   #
   # * +vrn+ - string, eg. 'CU57ABC'
-  # * +zones+ - array, eg. '["39e54ed8-3ed2-441d-be3f-38fc9b70c8d3"]'
   # * +taxi_or_phv+ - boolean, user confirms to be a taxi, but DVLA database tells us he is not a taxi.
-  def initialize(vrn, zones, taxi_or_phv)
+  def initialize(vrn, taxi_or_phv)
     @vrn = vrn
-    @zones = zones
     @taxi_or_phv = taxi_or_phv
   end
 
@@ -63,6 +61,6 @@ class Compliance
   #     * +becomeCompliant+
   #     * +boundary+
   def compliance_api
-    @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn, @zones, @taxi_or_phv)
+    @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn, @taxi_or_phv)
   end
 end

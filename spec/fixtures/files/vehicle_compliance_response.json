@@ -17,7 +17,7 @@
         {
             "cleanAirZoneId": "7d0c4240-1618-446b-bde2-2f3458c8a521",
             "name": "Test",
-            "charge": 10.0,
+            "charge": 0.0,
             "informationUrls": {
                 "mainInfo": "http://test.com",
                 "exemptionOrDiscount": "http://test.com",
