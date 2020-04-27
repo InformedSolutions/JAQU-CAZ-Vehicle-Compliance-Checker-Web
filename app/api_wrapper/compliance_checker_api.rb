@@ -58,17 +58,16 @@ class ComplianceCheckerApi < BaseApi
 
     ##
     # Calls +/v1/compliance-checker/vehicles/:vrn/compliance+ endpoint with +GET+ method
-    # and returns compliance details of the requested vehicle for requested zones.
+    # and returns compliance details of the requested vehicle for all zones.
     #
     # ==== Attributes
     #
     # * +vrn+ - Vehicle registration number parsed using {Parser}[rdoc-ref:VrnParser]
-    # * +zones+ - Array of zones IDs which vehicle compliance is check against
     # * +taxi_or_phv+ - Boolean value, user claims to be a taxi, but DVLA details page tells us he is not a taxi.
     #
     # ==== Example
     #
-    #    ComplianceCheckerApi.vehicle_compliance('0009-AA', ['3c3e1631-c478-42db-8422-63f608f71efd'])
+    #    ComplianceCheckerApi.vehicle_compliance('0009-AA')
     #
     # ==== Result
     #
@@ -99,42 +98,12 @@ class ComplianceCheckerApi < BaseApi
     # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
 
-    def vehicle_compliance(vrn, zones, taxi_or_phv)
-      zones = zones.join(',')
-      log_action "Making request for veicle compliance in zones: #{zones}, with taxi_or_phv status: #{taxi_or_phv}"
+    def vehicle_compliance(vrn, taxi_or_phv)
+      log_action "Making request for veicle compliance in all zones with taxi_or_phv status: #{taxi_or_phv}"
 
-      query = { zones: zones }
-      query.merge!(isTaxiOrPhv: true) if taxi_or_phv
+      query = taxi_or_phv ? { isTaxiOrPhv: true } : nil
 
       request(:get, "/vehicles/#{vrn}/compliance", query: query)
-    end
-
-    ##
-    # Calls +/v1/compliance-checker/clean-air-zones+ endpoint with +GET+ method
-    # and returns the list of available Clean Air Zones.
-    #
-    # ==== Example
-    #
-    #    ComplianceCheckerApi.clean_air_zones
-    #
-    # ==== Result
-    #
-    # Each returned CAZ will have following fields:
-    # * +name+ - string, eg. "Birmingham"
-    # * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
-    # * +boundaryUrl+ - URL, this represents a link to eg. a map with CAZ boundaries
-    #
-    # ==== Serialization
-    #
-    # {Caz model}[rdoc-ref:Caz] can be used to create an instance of Clean Air Zone
-    #
-    # ==== Exceptions
-    #
-    # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
-
-    def clean_air_zones
-      log_action 'Getting clean air zones'
-      request(:get, '/clean-air-zones')['cleanAirZones']
     end
   end
 end

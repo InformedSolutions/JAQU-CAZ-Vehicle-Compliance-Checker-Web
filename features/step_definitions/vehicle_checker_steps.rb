@@ -60,7 +60,6 @@ Then('I should see the Confirm Details page') do
 end
 
 Then('I choose {string} when confirms vehicle details') do |string|
-  mock_caz
   within('#confirm_details_radios') do
     choose(string)
   end

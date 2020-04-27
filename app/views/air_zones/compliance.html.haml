@@ -34,87 +34,35 @@
             %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
               = button_tag 'Further information', data: {index: 4}, type: 'button'
         %tbody.govuk-table__body
-          %tr.govuk-table__row
-            %td.govuk-table__cell Bath
-            %td.govuk-table__cell Cath
-            %td.govuk-table__cell Dath
-            %td.govuk-table__cell Eath
-            %td.govuk-table__cell Fath
-          %tr.govuk-table__row
-            %td.govuk-table__cell Gath 1
-            %td.govuk-table__cell Aath 1
-            %td.govuk-table__cell Cath 1
-            %td.govuk-table__cell Dath 1
-            %td.govuk-table__cell Bath 1
-          %tr.govuk-table__row
-            %td.govuk-table__cell Xath 2
-            %td.govuk-table__cell Dath 2
-            %td.govuk-table__cell Aath 2
-            %td.govuk-table__cell Gath 2
-            %td.govuk-table__cell Hath 2
+          - @compliance_outcomes.each do |details|
+            %tr.govuk-table__row
+              %td.govuk-table__cell= details.zone_name
+              %td.govuk-table__cell= details.charged? ? details.charge : 'No Charge'
+              %td.govuk-table__cell Early 2021
+              %td.govuk-table__cell
+                = link_to 'Zone boundary', details.boundary_url
+              %td.govuk-table__cell
+                = link_to "#{details.zone_name} City Council", details.main_info_url
 
-      - @compliance_outcomes.each do |details|
-        %h2.govuk-heading-l{id: details.html_id}
-          = details.zone_name
-        - if details.charged?
-          %p.h2.govuk-heading-m You do not have to pay the charge until early 2021
-          %p{id: "charged-title-#{details.html_id}"}
-            The vehicle is subject to a daily charge of
-            %strong #{details.charge}
-          %p This vehicle does not meet the emission standards in #{details.zone_name}
-          %p
-            If your vehicle is subject to a charge you may still be eligible for an exemption or
-            discount,
-            = succeed '.' do
-              = external_link_to "find out if you qualify in #{details.zone_name}",
-                                 details.exemption_or_discount_url,
-                                 id: "qualify-url-#{details.html_id}"
-          %p
-            The zone will operate 24 hours a day, 7 days a week, every day of the year.
+      %p You do not need to pay until charging starts when the zones are live.
+      %p The zones will operate 24 hours a day, 7 days a week, every day of the year.
 
-          %h2.govuk-heading-m
-            What you can do
-          %ul.govuk-list.govuk-list--bullet
-            %li
-              = external_link_to "Get support to upgrade or replace your vehicle in #{details.zone_name}",
-                                 details.become_compliant_url,
-                                 id: "become-compliant-url-#{details.html_id}"
-            %li
-              = external_link_to "Explore cycling and public transport options in #{details.zone_name}",
-                                 details.public_transport_options_url,
-                                 id: "public-transport-options-url-#{details.html_id}"
-        - else
-          - if details.retrofit
-            %p{id: "uncharged-title-#{details.html_id}"}
-              The vehicle has been retrofitted to a compliant standard and will not be charged.
-          - else
-            %p{id: "uncharged-title-#{details.html_id}"}
-              The vehicle will not be charged.
-          %p
-            There is no charge for driving in
-            = external_link_to "#{details.zone_name} Clean Air Zone",
-                               details.main_info_url,
-                               id: "no-charge-in-#{details.html_id}-url"
-          %p
-            Each Clean Air Zone (CAZ) has different guidance for charging vehicles. Find out more about
-            = external_link_to 'different types of Clean Air Zones',
-                               'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                               id: "guidance-url-#{details.html_id}"
+      %h2.govuk-heading-m Why is there a difference in the results?
+      %p
+        There are
+        = succeed ',' do
+          = link_to '4 categories of Clean Air Zone', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones'
+        each one charges different types of vehicle. For example, Birmingham charges private cars (CAZ D) but Leeds does not (CAZ B).
+      %p We calculate the charge on whether your vehicle meets the minimum emission standards and whether its type will be charged in that zone.
+
+      %h2.govuk-heading-m Exemptions, refunds and alternatives to driving
+      %p Contact the local authority of the Clean Air Zone you want to drive in for further information on:
+      %ul.govuk-list.govuk-list--bullet
+        %li exemptions
+        %li refunds
+        %li support to upgrade or replace your vehicle
+        %li cycling and public transport options
+      %br
 
       = render 'go_ultra_low_icon'
       = render 'common/print_page'
-
-    .govuk-grid-column-one-third
-      %aside#related-items-label.app-related-items{role: 'complementary'}
-        %h2.govuk-heading-m
-          Related tasks
-        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
-          %ul.govuk-list{class: 'govuk-!-font-size-16'}
-            %li
-              = link_to 'Check another vehicle',
-                        enter_details_vehicle_checkers_path,
-                        id: 'check-another-vrn-url'
-            %li
-              = link_to 'Contact Clean Air Zones',
-                        contact_forms_path,
-                        id: 'contact-form-url'

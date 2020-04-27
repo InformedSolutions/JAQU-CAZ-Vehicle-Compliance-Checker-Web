@@ -21,7 +21,6 @@ class AirZonesController < ApplicationController
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
-  # * +caz+ - list of the selected CAZ ids, required in the query params
   # * +taxi_or_phv+ - boolean, user confirms to be a taxi.
   #
   # ==== Validations
@@ -32,17 +31,11 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    @compliance_outcomes = Compliance.new(vrn, caz, session[:taxi_or_phv]).compliance_outcomes
+    @compliance_outcomes = Compliance.new(vrn, session[:taxi_or_phv]).compliance_outcomes
     @vrn = vrn
   end
 
   private
-
-  # Returns a list of Clean Air Zones from session
-  def caz
-    # Hardcoded Birmingham zone id which will be updated in the next card https://eaflood.atlassian.net/browse/CAZB-1096
-    ['5cd7441d-766f-48ff-b8ad-1809586fea37']
-  end
 
   # Redirects to 'Unable to determine compliance' page
   def unable_to_determine_compliance

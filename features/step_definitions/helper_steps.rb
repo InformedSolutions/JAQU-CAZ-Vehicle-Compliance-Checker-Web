@@ -7,12 +7,6 @@ def vrn
 end
 
 Given(/^I am on the home page$/) do
-  mock_caz
-  visit '/'
-end
-
-Given('I am on the home page and server is unavailable') do
-  mock_unavailable_caz
   visit '/'
 end
 

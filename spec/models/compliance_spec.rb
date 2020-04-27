@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Compliance, type: :model do
-  subject(:compliance) { described_class.new(vrn, zones, taxi_or_phv) }
+  subject(:compliance) { described_class.new(vrn, taxi_or_phv) }
   let(:vrn) { 'CU1234' }
-  let(:zones) { %w[zone1 zone2] }
   let(:taxi_or_phv) { false }
 
   before do
@@ -19,7 +18,7 @@ RSpec.describe Compliance, type: :model do
     it 'calls ComplianceCheckerApi' do
       expect(ComplianceCheckerApi)
         .to receive(:vehicle_compliance)
-        .with(vrn, zones, taxi_or_phv)
+        .with(vrn, taxi_or_phv)
       outcomes
     end
 
