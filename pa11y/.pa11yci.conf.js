@@ -29,21 +29,7 @@ var config = {
                 "set field #vrn to CAS338",
                 "click element #registration-country-1",
                 "click element #submit_enter_details_button",
-                "wait for element #confirm_details-1  to be visible",
-            ]
-        },
-        {
-            "url": "${BASE_URL}?caz_selection",
-            "actions": [
-                "click element #start-now-button",
-                "wait for element #vrn to be visible",
-                "set field #vrn to CAS338",
-                "click element #registration-country-1",
-                "click element #submit_enter_details_button",
                 "wait for element #confirm_details-1 to be visible",
-                "click element #confirm_details-1",
-                "click element #submit_confirm_details_button",
-                "wait for element #caz-0 to be visible"
             ]
         },
         {
@@ -57,10 +43,7 @@ var config = {
                 "wait for element #confirm_details-1 to be visible",
                 "click element #confirm_details-1",
                 "click element #submit_confirm_details_button",
-                "wait for element #caz-0 to be visible",
-                "check field #caz-0",
-                "check field #caz-1",
-                "click element #submit_caz_selection_button"
+                "wait for element #compliance-table to be visible"
             ]
         },
 		    {
@@ -117,7 +100,7 @@ function replacePa11yBaseUrls(urls, defaults) {
     console.log('\n')
     console.log('Generated pa11y configuration:\n')
     console.log(result)
-	
+
     return result
 }
 
