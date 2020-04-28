@@ -66,3 +66,18 @@
 
       = render 'go_ultra_low_icon'
       = render 'common/print_page'
+
+    .govuk-grid-column-one-third
+      %aside#related-items-label.app-related-items{role: 'complementary'}
+        %h2.govuk-heading-m
+          Related tasks
+        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
+          %ul.govuk-list{class: 'govuk-!-font-size-16'}
+            %li
+              = link_to 'Check another vehicle',
+                        enter_details_vehicle_checkers_path,
+                        id: 'check-another-vrn-url'
+            %li
+            = external_link_to('Contact Clean Air Zones',
+             Rails.configuration.x.contact_form_link,
+             id: 'contact-form')

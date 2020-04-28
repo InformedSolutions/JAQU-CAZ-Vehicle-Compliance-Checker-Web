@@ -21,7 +21,9 @@
         You may be charged for driving in a Clean Air Zone when the zones start charging in early 2021.
       %p
         If you want to discuss this matter further
-        = link_to 'Contact Clean Air Zones', contact_forms_path, id: 'contact-form'
+        = external_link_to('Contact Clean Air Zones',
+                             Rails.configuration.x.contact_form_link,
+                             id: 'contact-formm')
 
     .govuk-grid-column-one-third
       %aside#related-items-label.app-related-items{role: 'complementary'}

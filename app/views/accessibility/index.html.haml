@@ -39,7 +39,7 @@
         let us know using our
         = succeed '.' do
           = external_link_to('feedback form',
-                             'https://vehiclecheck.cleanairzone.defra.gov.uk/contact_forms',
+                             Rails.configuration.x.contact_form_link,
                              id: 'feedback-form-link')
 
       %h2.govuk-heading-m Enforcement procedure
