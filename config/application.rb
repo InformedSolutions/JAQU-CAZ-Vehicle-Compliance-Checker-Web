@@ -33,7 +33,6 @@ module JaquCaz
     contact_form_default = 'https://congestion:co2co2co2@contact-preprod.dvla.gov.uk/caz'
     config.x.contact_form_link = (ENV['CONTACT_FORM_LINK'].presence || contact_form_default)
 
-
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
 
