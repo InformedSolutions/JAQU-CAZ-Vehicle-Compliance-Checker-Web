@@ -30,6 +30,8 @@ module JaquCaz
     contact_email_default = 'Useraccount.Query@defra.gov.uk'
     config.x.contact_email = (ENV['CONTACT_EMAIL'].presence || contact_email_default)
 
+    config.x.contact_form_link = 'https://congestion:co2co2co2@contact-preprod.dvla.gov.uk/caz'
+
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
 
