@@ -30,7 +30,7 @@ module JaquCaz
     contact_email_default = 'Useraccount.Query@defra.gov.uk'
     config.x.contact_email = (ENV['CONTACT_EMAIL'].presence || contact_email_default)
 
-    contact_form__default = 'https://congestion:co2co2co2@contact-preprod.dvla.gov.uk/caz'
+    contact_form_default = 'https://congestion:co2co2co2@contact-preprod.dvla.gov.uk/caz'
     config.x.contact_form_link = (ENV['CONTACT_FORM_LINK'].presence || contact_form_default)
 
 
