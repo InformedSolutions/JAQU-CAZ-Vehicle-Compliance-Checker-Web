@@ -79,6 +79,6 @@
                         caz_selection_air_zones_path,
                         id: 'check-another-caz-url'
             %li
-              = link_to 'Contact Clean Air Zones',
-                        contact_forms_path,
-                        id: 'contact-form-url'
+              = external_link_to('Contact Clean Air Zones',
+                             Rails.configuration.x.contact_form_link,
+                             id: 'contact-form')
