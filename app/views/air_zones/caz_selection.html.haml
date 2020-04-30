@@ -31,7 +31,7 @@
                                                  checked: zone.checked?(@checked_zones)}
                   %label.govuk-label.govuk-checkboxes__label{for: "caz-#{index}"}
                     = zone.name
-                    = external_link_to('(see Clean Air Zone map)',
+                    = external_link_to("(View a map of the #{zone.name} Clean Air Zone)",
                                        zone.boundary_url,
                                        id: "caz-#{index}-link")
 

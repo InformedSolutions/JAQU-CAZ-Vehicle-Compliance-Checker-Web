@@ -123,6 +123,21 @@ And('I press the Contact Us link') do
   click_link 'contact us'
 end
 
+Then('I enter an invalid VRN') do
+  fill_fields('%%%%%%')
+  click_button 'Continue'
+end
+
+Then('I enter too long VRN') do
+  fill_fields('123456789')
+  click_button 'Continue'
+end
+
+Then('I enter too short VRN') do
+  fill_fields('1')
+  click_button 'Continue'
+end
+
 private
 
 def fill_fields(vrn = 'CU57ABC')
