@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'boot'
-require_relative 'log_format'
+
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -12,6 +12,9 @@ module JaquCaz
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+
+    # Load lib folder files
+    config.eager_load_paths << Rails.root.join('lib')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -27,14 +30,16 @@ module JaquCaz
     contact_email_default = 'Useraccount.Query@defra.gov.uk'
     config.x.contact_email = (ENV['CONTACT_EMAIL'].presence || contact_email_default)
 
+    contact_form_default = 'https://congestion:co2co2co2@contact-preprod.dvla.gov.uk/caz'
+    config.x.contact_form_link = (ENV['CONTACT_FORM_LINK'].presence || contact_form_default)
+
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
 
     config.time_zone = 'London'
 
-    # Use custom logging formatter so that IP addresses are removed.
-    config.logger = LogStashLogger.new(type: :stdout, formatter: Formatter)
-
+    # Use the lowest log level to ensure availability of diagnostic information
+    # when problems arise.
     config.log_level = :debug
   end
 end
