@@ -33,9 +33,9 @@ module ApplicationHelper
     html_options.symbolize_keys!.reverse_merge!(
       target: '_blank',
       class: 'govuk-link',
-      rel: 'noopener noreferrer',
-      'aria-label': "#{html_options[:'aria-label'] || text} - #{I18n.t('content.external_link')}"
+      rel: 'noopener noreferrer'
     )
+    html_options.merge!('aria-label': html_options[:'aria-label']) if html_options[:'aria-label']
     link_to "#{text} (opens in a new window)", url, html_options
   end
 
