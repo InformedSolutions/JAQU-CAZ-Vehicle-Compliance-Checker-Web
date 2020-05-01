@@ -20,11 +20,9 @@ gem 'sqlite3'
 gem 'webpacker'
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug'
   gem 'dotenv-rails'
   gem 'haml-rails'
-  gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'scss_lint-govuk', require: false
 end
