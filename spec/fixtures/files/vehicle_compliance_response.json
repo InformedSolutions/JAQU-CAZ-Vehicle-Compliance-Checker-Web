@@ -1,6 +1,6 @@
 {
     "registrationNumber": "CAS310",
-    "retrofitted": false,
+    "isRetrofitted": false,
     "exempt": false,
     "complianceOutcomes": [
         {

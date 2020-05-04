@@ -119,7 +119,7 @@ class VehicleDetails
   #
   # Returned compliance details will have following fields:
   # * +registrationNumber+ - string, eg. 'CAS310'
-  # * +retrofitted+ - boolean
+  # * +isRetrofitted+ - boolean
   # * +exempt+ - boolean, determines if the vehicle is exempt from charges
   # * +complianceOutcomes+ - array of objects
   #   * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
