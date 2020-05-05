@@ -58,7 +58,7 @@ class VehicleDetails
   # Checks if vehicle not taxi or phv and not in list of allowed vehicle types
   # Returns boolean
   def not_taxi_and_correct_type?
-    return false if %w[M3 N1 N2 N3].include?(type_approval&.upcase)
+    %w[M1 M2].include?(type_approval&.upcase) ? (return false) : nil
 
     !compliance_api['taxiOrPhv']
   end
