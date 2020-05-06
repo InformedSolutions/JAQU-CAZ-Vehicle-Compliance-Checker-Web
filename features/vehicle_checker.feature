@@ -28,7 +28,6 @@ Feature: Vehicle Checker
       And I should see 'Vehicle type approval'
       And I should see 'Model'
       And I choose 'Yes' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Compliance page
       And I should see 'Clean Air Zone charge'
@@ -44,7 +43,6 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I choose 'No' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
       And I should see 'Incorrect vehicle details' title
@@ -84,7 +82,6 @@ Feature: Vehicle Checker
     Then I should see 'Select yes if the details are correct'
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
-    Then I should see 'You must choose an answer'
 
   Scenario: Server is unavailable
     Given I am on the enter details page
@@ -105,13 +102,11 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I choose 'No' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Incorrect Details page
       And I should see 'Incorrect vehicle details'
     Then I press the Back link
       And I choose 'Yes' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Cannot determine compliance page
 
@@ -129,9 +124,7 @@ Feature: Vehicle Checker
     Given I am on the enter details page
     Then I enter a vehicle's registration for 'N1' type
       And I press the Continue
-    Then I should see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
       Then I choose 'Yes' when confirms vehicle details
-      Then I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Compliance page
 
@@ -139,4 +132,4 @@ Feature: Vehicle Checker
     Given I am on the enter details page
     Then I enter a vehicle's registration for 'M1' type
       And I press the Continue
-    Then I should not see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
+    Then I should see 'Is your vehicle a taxi or private hire vehicle (PHV)?'

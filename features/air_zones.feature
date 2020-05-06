@@ -9,7 +9,6 @@ Feature: Air Zone
     Then I enter a vehicle's registration
       And I press the Continue
     Then I choose 'Yes' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
     Then I should see the Compliance page
       And I should see 'Clean Air Zone charge'
@@ -19,7 +18,6 @@ Feature: Air Zone
     Then I enter a vehicle's registration
       And I press the Continue
     Then I choose 'Yes' when confirms vehicle details
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm when server returns 422 status
     Then I should see the Cannot determine compliance page
       And I should see 'Vehicle details are incomplete'
