@@ -16,7 +16,7 @@
           recheck your vehicle shortly before you intend to drive in any Clean Air Zones.
 
       %p
-        Vehicle registration
+        Results for number plate
         = succeed '.' do
           %strong= @vrn
 
@@ -47,13 +47,33 @@
       %p You do not need to pay until charging starts when the zones are live.
       %p The zones will operate 24 hours a day, 7 days a week, every day of the year.
 
-      %h2.govuk-heading-m Why is there a difference in the results?
-      %p
-        There are
-        = succeed ',' do
-          = link_to '4 categories of Clean Air Zone', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones'
-        each one charges different types of vehicle. For example, Birmingham charges private cars (CAZ D) but Leeds does not (CAZ B).
-      %p We calculate the charge on whether your vehicle meets the minimum emission standards and whether its type will be charged in that zone.
+      %details.govuk-details{'data-module': 'govuk-details'}
+        %summary.govuk-details__summary
+          %span.govuk-details__summary-text
+            How we calculate your charge
+        .govuk-details__text
+          %p We use this information when calculating your charge:
+          %ul
+            %li vehicle type
+            %li emission standards
+            %li Clean Air Zone (CAZ)
+          %p
+            For example:
+            %br
+            A private car (Euro 4) in Birmingham
+            = surround('(', ')') do
+              = link_to('CAZ D', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
+            \= £8.00
+            %br
+            A private car (Euro 4) in Leeds
+            = surround('(', ')') do
+              = link_to('CAZ C', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
+            \= £0.00 (No charge)
+          %p
+            There are
+            = link_to('4 categories', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
+            of Clean Air Zone; each one charges different types of vehicle.
+            For example, Birmingham charges private cars (CAZ D) but Leeds does not (CAZ B).
 
       %h2.govuk-heading-m Exemptions, refunds and alternatives to driving
       %p Contact the local authority of the Clean Air Zone you want to drive in for further information on:
