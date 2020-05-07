@@ -82,7 +82,7 @@ class VehicleCheckersController < ApplicationController
     @errors = {}
     return unless @vehicle_details.exempt?
 
-    Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
+    Rails.logger.info "Vehicle is exempt. Redirecting to :exemption"
     redirect_to exemption_vehicle_checkers_path
   end
 
