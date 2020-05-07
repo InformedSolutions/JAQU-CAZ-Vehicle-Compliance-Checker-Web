@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #submit_details', type: :request do
+RSpec.describe 'VehicleCheckersController - POST #submit_details', type: :request do
   subject(:http_request) do
     post enter_details_vehicle_checkers_path, params: { vrn: vrn, 'registration-country': country }
   end
@@ -36,10 +36,20 @@ RSpec.describe 'VehicleCheckersController - GET #submit_details', type: :request
   end
 
   context 'when VRN is not valid' do
-    let(:vrn) { '' }
+    context 'and it is empty' do
+      let(:vrn) { '' }
 
-    it 'redirects to enter details page' do
-      expect(response).to render_template(:enter_details)
+      it 'redirects to enter details page' do
+        expect(response).to render_template(:enter_details)
+      end
+    end
+
+    context 'and it is has spaces' do
+      let(:vrn) { '  ' }
+
+      it 'redirects to enter details page' do
+        expect(response).to render_template(:enter_details)
+      end
     end
   end
 

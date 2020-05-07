@@ -51,7 +51,7 @@ class VehicleCheckersController < ApplicationController
       redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
     else
       @errors = form.error_object
-      log_invalid_form 'Rendering :enter_details'
+      log_invalid_form('Rendering :enter_details')
       render :enter_details
     end
   end
@@ -80,9 +80,10 @@ class VehicleCheckersController < ApplicationController
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
     @errors = {}
+    session[:vrn] = @vehicle_details.registration_number
     return unless @vehicle_details.exempt?
 
-    Rails.logger.info "Vehicle with VRN #{vrn} is exempt. Redirecting to :exemption"
+    Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
     redirect_to exemption_vehicle_checkers_path
   end
 
@@ -109,7 +110,7 @@ class VehicleCheckersController < ApplicationController
     if form.valid?
       determinate_next_page(form)
     else
-      log_invalid_form 'Redirecting back.'
+      log_invalid_form('Redirecting back.')
       @vehicle_details = VehicleDetails.new(vrn)
       @errors = form.errors.messages
       render :confirm_details
@@ -200,8 +201,7 @@ class VehicleCheckersController < ApplicationController
 
   # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
   def parsed_vrn
-    vrn = params[:vrn].presence || ''
-    @parsed_vrn ||= vrn.upcase&.delete(' ')
+    @parsed_vrn ||= params[:vrn]&.delete(' ')&.upcase
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
