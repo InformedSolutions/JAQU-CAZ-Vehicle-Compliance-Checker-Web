@@ -20,29 +20,30 @@
         = succeed '.' do
           %strong= @vrn
 
-      %table.govuk-table#compliance-table
-        %thead.govuk-table__head
-          %tr.govuk-table__row
-            %th.govuk-table__header{scope: 'col', 'aria-sort': 'ascending'}
-              = button_tag 'Clean Air Zone', data: {index: 0}, type: 'button'
-            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-              = button_tag 'Daily charge', data: {index: 1}, type: 'button'
-            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-              = button_tag 'Charging starts', data: {index: 2}, type: 'button'
-            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-              = button_tag 'Map', data: {index: 3}, type: 'button'
-            %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-              = button_tag 'Further information', data: {index: 4}, type: 'button'
-        %tbody.govuk-table__body
-          - @compliance_outcomes.each do |details|
+      %div.scrollable-table
+        %table.govuk-table#compliance-table
+          %thead.govuk-table__head
             %tr.govuk-table__row
-              %td.govuk-table__cell= details.zone_name
-              %td.govuk-table__cell= details.charged? ? details.charge : 'No Charge'
-              %td.govuk-table__cell Early 2021
-              %td.govuk-table__cell
-                = link_to 'Zone boundary', details.boundary_url
-              %td.govuk-table__cell
-                = link_to "#{details.zone_name} City Council", details.main_info_url
+              %th.govuk-table__header{scope: 'col', 'aria-sort': 'ascending'}
+                = button_tag 'Clean Air Zone', data: {index: 0}, type: 'button'
+              %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+                = button_tag 'Daily charge', data: {index: 1}, type: 'button'
+              %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+                = button_tag 'Charging starts', data: {index: 2}, type: 'button'
+              %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+                = button_tag 'Map', data: {index: 3}, type: 'button'
+              %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
+                = button_tag 'Further information', data: {index: 4}, type: 'button'
+          %tbody.govuk-table__body
+            - @compliance_outcomes.each do |details|
+              %tr.govuk-table__row
+                %td.govuk-table__cell= details.zone_name
+                %td.govuk-table__cell= details.charged? ? details.charge : 'No Charge'
+                %td.govuk-table__cell Early 2021
+                %td.govuk-table__cell
+                  = link_to 'Zone boundary', details.boundary_url
+                %td.govuk-table__cell
+                  = link_to "#{details.zone_name} City Council", details.main_info_url
 
       %p You do not need to pay until charging starts when the zones are live.
       %p The zones will operate 24 hours a day, 7 days a week, every day of the year.
