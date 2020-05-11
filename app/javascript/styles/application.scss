@@ -38,3 +38,10 @@ html {
 .table-without-border {
   border-bottom: none;
 }
+
+@media (max-width: 40.0525em) {
+  .scrollable-table {
+    overflow: scroll;
+    margin-bottom: 20px;
+  }
+}
