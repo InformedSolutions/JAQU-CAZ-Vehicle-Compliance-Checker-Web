@@ -9,10 +9,11 @@
 if Rails.env.production?
   defaults = %i[self https]
   defaults.push(ENV['CLOUDFRONT_ENDPOINT']) if ENV['CLOUDFRONT_ENDPOINT']
+  cloudfront_url = "https://#{ENV['CLOUDFRONT_ENDPOINT']}" if ENV['CLOUDFRONT_ENDPOINT']
 
   Rails.application.config.content_security_policy do |policy|
     policy.default_src(:none)
-    policy.font_src(*defaults, :data)
+    policy.font_src(*defaults, :data, cloudfront_url)
     policy.img_src(*defaults)
     policy.object_src(:none)
     policy.script_src(*defaults, :unsafe_inline)
