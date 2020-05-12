@@ -11,7 +11,7 @@ RSpec.describe VehicleDetails, type: :model do
 
   let(:response) do
     {
-      'registration_number' => vrn,
+      'registrationNumber' => vrn,
       'typeApproval' => type_approval,
       'type' => 'car',
       'make' => 'peugeot',

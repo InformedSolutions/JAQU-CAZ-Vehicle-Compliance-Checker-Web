@@ -99,10 +99,9 @@ class ComplianceCheckerApi < BaseApi
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
 
     def vehicle_compliance(vrn, taxi_or_phv)
-      log_action "Making request for veicle compliance in all zones with taxi_or_phv status: #{taxi_or_phv}"
+      log_action 'Making request for vehicle compliance in all zones'
 
       query = taxi_or_phv ? { isTaxiOrPhv: true } : nil
-
       request(:get, "/vehicles/#{vrn}/compliance", query: query)
     end
   end

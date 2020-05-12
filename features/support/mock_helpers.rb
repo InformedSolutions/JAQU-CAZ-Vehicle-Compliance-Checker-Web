@@ -7,12 +7,12 @@ module MockHelpers
   end
 
   def mock_exempt_vehicle_details
-    details = { 'exempt' => true, 'taxiOrPhv' => false }
+    details = { 'registrationNumber' => 'CU57ABC', 'exempt' => true, 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
   def mock_undetermined_type
-    details = { 'type' => 'null', 'taxiOrPhv' => false }
+    details = { 'registrationNumber' => 'CU57ABC', 'type' => 'null', 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 

@@ -37,7 +37,7 @@ module Sqs
     def call
       log_action('Sending SQS message')
       id = send_message.message_id
-      log_action("SQS message with id: #{id} was sent")
+      log_action('SQS message was sent')
       id
     rescue Aws::SQS::Errors::ServiceError => e
       log_error(e)

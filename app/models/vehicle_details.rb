@@ -14,9 +14,9 @@ class VehicleDetails
     @vrn = vrn
   end
 
-  # Returns a string, eg. 'CU57ABC'.
+  # Returns an uppercased string, eg. 'CU57ABC'.
   def registration_number
-    @vrn
+    string_field('registrationNumber')&.upcase
   end
 
   # Returns a string, eg. 'Car'.
