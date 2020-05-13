@@ -8,7 +8,7 @@
 
 if Rails.env.production?
   defaults = %i[self https]
-  defaults.push(ENV['CLOUDFRONT_ENDPOINT']) if ENV['CLOUDFRONT_ENDPOINT']
+  defaults.push("https://#{ENV['CLOUDFRONT_ENDPOINT']}") if ENV['CLOUDFRONT_ENDPOINT']
 
   Rails.application.config.content_security_policy do |policy|
     policy.default_src(:none)
