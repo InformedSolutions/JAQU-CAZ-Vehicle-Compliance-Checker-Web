@@ -4,6 +4,7 @@
 # if the request should be rejected. Used in routes.rb
 class CheckRequestFormat
   def self.matches?(request)
-    %i[html json xml].include?(request.format.symbol)
+    Rails.logger.warn("Invalid request format: #{request.format.symbol}")
+    %i[html json xml woff].include?(request.format.symbol)
   end
 end
