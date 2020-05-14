@@ -21,15 +21,8 @@ class ApplicationController < ActionController::Base
                                password: ENV['HTTP_BASIC_PASSWORD'],
                                except: %i[build_id health],
                                if: lambda {
-                                 basic_auth_allowed?
-                               }
-
-  # Checks if basic HTTP authentication is enabled
-  def basic_auth_allowed?
-    Rails.env.production? && ENV['HTTP_BASIC_PASSWORD'].present? &&
-      request.path.exclude?('/packs/media')
-  end
-
+                                     Rails.env.production? && ENV['HTTP_BASIC_PASSWORD'].present?
+                                   }
   ##
   # Health endpoint
   #
