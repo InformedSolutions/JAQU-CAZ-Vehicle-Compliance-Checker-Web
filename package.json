@@ -9,7 +9,7 @@
     "@rails/webpacker": "^5.1.1",
     "expose-loader": "^0.7.5",
     "govuk-frontend": "^3.6.0",
-    "improved-yarn-audit": "^2.0.0",
+    "improved-yarn-audit": "^2.1.0",
     "jquery": "^3.5.0",
     "rails-erb-loader": "^5.5.2"
   },
