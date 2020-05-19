@@ -8,7 +8,6 @@ class AirZonesController < ApplicationController
   rescue_from BaseApi::Error404Exception, with: :redirect_to_server_unavailable
   # 422 HTTP status from API means vehicle data incomplete so the compliance calculation is not possible.
   rescue_from BaseApi::Error422Exception, with: :unable_to_determine_compliance
-
   # checks if vrn is present in the session
   before_action :check_vrn
 

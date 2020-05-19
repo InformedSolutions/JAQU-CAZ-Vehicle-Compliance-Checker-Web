@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
                                if: lambda {
                                      Rails.env.production? && ENV['HTTP_BASIC_PASSWORD'].present?
                                    }
-
   ##
   # Health endpoint
   #

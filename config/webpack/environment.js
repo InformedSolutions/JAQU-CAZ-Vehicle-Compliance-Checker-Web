@@ -31,5 +31,8 @@ const myFileOptions = {
     context: join(sourcePath)
 };
 
+const fileLoader = environment.loaders.get('file').use.find(el => el.loader === 'file-loader');
+fileLoader.options = myFileOptions;
+
 environment.loaders.prepend('erb', erbLoader);
 module.exports = environment;
