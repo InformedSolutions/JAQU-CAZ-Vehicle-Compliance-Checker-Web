@@ -74,18 +74,18 @@ steps:
       - rubocop
       - scss-lint app/javascript
 
-  # Invoke security analysis through Ruby and yarn libraries
-  - name: security tests (Ruby + Yarn)
-    image: test-vehicle-compliance-checker-frontend
-    pull: never
-    commands:
-       - bundle audit check --update
-       # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
-       - yarn run improved-yarn-audit --exclude '1488, 1179, 1500' --retry-on-network-failure
-       - brakeman
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
+  # # Invoke security analysis through Ruby and yarn libraries
+  # - name: security tests (Ruby + Yarn)
+  #   image: test-vehicle-compliance-checker-frontend
+  #   pull: never
+  #   commands:
+  #      - bundle audit check --update
+  #      # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
+  #      - yarn run improved-yarn-audit --exclude '1488, 1179, 1500' --retry-on-network-failure
+  #      - brakeman
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
 
   - name: publish image to ecr
     image: plugins/ecr
@@ -119,7 +119,6 @@ steps:
       sonar.ruby.coverage.reportPaths: coverage/.resultset.json
     commands:
       - sonar-scanner
-        -Dsonar.projectKey=${DRONE_REPO}
         -Dsonar.projectName=${DRONE_REPO}
         -Dsonar.host.url=$SONAR_HOST
         -Dsonar.login=$SONAR_TOKEN
