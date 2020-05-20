@@ -17,5 +17,3 @@ en:
     500: Internal server error
     503: Service is unavailable
     404: Not found
-  content:
-    external_link: Opens in new window - External website
