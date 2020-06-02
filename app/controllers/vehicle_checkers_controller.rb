@@ -80,7 +80,6 @@ class VehicleCheckersController < ApplicationController
   def confirm_details
     @vehicle_details = VehicleDetails.new(vrn)
     @errors = {}
-    session[:vrn] = @vehicle_details.registration_number
     return unless @vehicle_details.exempt?
 
     Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
