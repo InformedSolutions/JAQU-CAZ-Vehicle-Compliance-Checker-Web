@@ -40,8 +40,8 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
       expect(response).to have_http_status(:success)
     end
 
-    it 'adds VRN to the session returned from api call' do
-      expect(session[:vrn]).to eq('86GP')
+    it 'operates on VRN received from a user rather than the one returned from api call' do
+      expect(session[:vrn]).to eq('086GP')
     end
   end
 
