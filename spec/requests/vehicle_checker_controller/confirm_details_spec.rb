@@ -28,6 +28,23 @@ RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :reques
     end
   end
 
+  context 'when vrn has leading zeros' do
+    before do
+      add_vrn_to_session(vrn: '086GP')
+      allow(ComplianceCheckerApi).to receive(:vehicle_details)
+        .and_return({ 'registrationNumber' => '86GP' })
+      http_request
+    end
+
+    it 'returns a success response' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'operates on VRN received from a user rather than the one returned from api call' do
+      expect(session[:vrn]).to eq('086GP')
+    end
+  end
+
   context 'when vehicle is not found' do
     before do
       add_vrn_to_session(vrn: 'CU57ABD')

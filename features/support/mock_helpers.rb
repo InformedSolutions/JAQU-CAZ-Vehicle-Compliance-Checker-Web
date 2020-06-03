@@ -7,26 +7,17 @@ module MockHelpers
   end
 
   def mock_exempt_vehicle_details
-    details = { 'exempt' => true, 'taxiOrPhv' => false }
+    details = { 'registrationNumber' => 'CU57ABC', 'exempt' => true, 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
   def mock_undetermined_type
-    details = { 'type' => 'null', 'taxiOrPhv' => false }
+    details = { 'registrationNumber' => 'CU57ABC', 'type' => 'null', 'taxiOrPhv' => false }
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
 
   def mock_unavailable_vehicle_details
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_raise(Errno::ECONNREFUSED)
-  end
-
-  def mock_caz
-    caz_list = JSON.parse(File.read('spec/fixtures/files/caz_list_response.json'))
-    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list['cleanAirZones'])
-  end
-
-  def mock_unavailable_caz
-    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_raise(Errno::ECONNREFUSED)
   end
 
   def mock_vehicle_compliance
