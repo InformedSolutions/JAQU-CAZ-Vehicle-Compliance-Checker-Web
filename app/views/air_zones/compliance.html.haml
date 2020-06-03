@@ -68,7 +68,7 @@
             %br
             A private car (Euro 4) in Leeds
             = surround('(', ')') do
-              = link_to('CAZ C', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
+              = link_to('CAZ B', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
             \= £0.00 (No charge)
           %p
             There are
@@ -76,11 +76,10 @@
             of Clean Air Zone; each one charges different types of vehicle.
             For example, Birmingham charges private cars (CAZ D) but Leeds does not (CAZ B).
 
-      %h2.govuk-heading-m Exemptions, refunds and alternatives to driving
+      %h2.govuk-heading-m Exemptions and alternatives to driving
       %p Contact the local authority of the Clean Air Zone you want to drive in for further information on:
       %ul.govuk-list.govuk-list--bullet
         %li exemptions
-        %li refunds
         %li support to upgrade or replace your vehicle
         %li cycling and public transport options
       %br
@@ -99,6 +98,7 @@
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn-url'
             %li
-            = external_link_to('Contact Clean Air Zones',
-             Rails.configuration.x.contact_form_link,
-             id: 'contact-form')
+            = succeed '.' do
+              = link_to('Contact Clean Air Zones',
+                         Rails.configuration.x.contact_form_link,
+                         id: 'contact-form')
