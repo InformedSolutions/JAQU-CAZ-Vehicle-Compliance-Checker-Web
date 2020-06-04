@@ -24,18 +24,18 @@ class VehicleCheckersController < ApplicationController
 
   ##
   # Validates submitted VRN. If successful, adds submitted VRN to the session and
-  # redirects to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details].
+  # redirects to {confirm details}[rdoc-ref:confirm_details].
   #
-  # Any invalid params values triggers rendering {enter details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # Any invalid params values triggers rendering {enter details}[rdoc-ref:enter_details]
   # with @errors displayed.
   #
-  # Selecting NON-UK vehicle redirects to a {non-uk page}[rdoc-ref:VehicleCheckersController.non_uk]
+  # Selecting NON-UK vehicle redirects to a {non-uk page}[rdoc-ref:non_uk]
   #
   # ==== Path
   #
   #    POST /vehicle_checkers/submit_details
   #
-  # GET method redirects to {enter details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # GET method redirects to {enter details}[rdoc-ref:enter_details]
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, string, required in the query
@@ -68,10 +68,10 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   #
   # ==== Exceptions
-  # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found in the DVLA db - redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
+  # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found in the DVLA db - redirects to {number not found}[rdoc-ref:number_not_found]
   # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN - redirects to {service unavailable}[rdoc-ref:ErrorsController.service_unavailable]
   # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error - redirects to {service unavailable}[rdoc-ref:ErrorsController.service_unavailable]
   #
@@ -89,7 +89,7 @@ class VehicleCheckersController < ApplicationController
   ##
   # Verifies if user confirms data returned from the API.
   # If yes, redirects to {the next step}[rdoc-ref:AirZonesController.compliance] of the checking compliance process.
-  # If no, redirects to {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
+  # If no, redirects to {incorrect details}[rdoc-ref:incorrect_details]
   #
   # ==== Path
   #    POST /vehicle_checkers/confirm_details
@@ -101,8 +101,8 @@ class VehicleCheckersController < ApplicationController
   # * +taxi_and_correct_type+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
-  # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:VehicleCheckersController.confirm_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
+  # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
     form = determinate_form
@@ -127,7 +127,7 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   #
   def incorrect_details
     # to be defined later
@@ -144,7 +144,7 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   #
   def number_not_found
     @vehicle_registration = vrn
@@ -162,7 +162,7 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   #
   def exemption
     @vehicle_registration = vrn
@@ -190,7 +190,7 @@ class VehicleCheckersController < ApplicationController
   # * +vrn+ - vehicle registration number, required in the session
   #
   # ==== Validations
-  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   #
   def non_uk
     @vehicle_registration = vrn
@@ -214,7 +214,7 @@ class VehicleCheckersController < ApplicationController
     country == 'Non-UK'
   end
 
-  # Redirects to {number not found}[rdoc-ref:VehicleCheckersController.number_not_found]
+  # Redirects to {number not found}[rdoc-ref:number_not_found]
   def vehicle_not_found
     redirect_to number_not_found_vehicle_checkers_path
   end
@@ -225,9 +225,9 @@ class VehicleCheckersController < ApplicationController
 
   # Verifies if vehicles's registration not determined and if user confirms data returned from the API.
   # If vehicles's registration form was not confirmed, redirects to
-  #   {incorrect details}[rdoc-ref:VehicleCheckersController.incorrect_details]
+  #   {incorrect details}[rdoc-ref:incorrect_details]
   # If vehicles's registration not determined redirects to
-  #   {the next step}[rdoc-ref:VehicleCheckersController.cannot_determinate] of the checking compliance process.
+  #   {the next step}[rdoc-ref:cannot_determinate] of the checking compliance process.
   # If vehicles's registration determined redirects to
   #   {the next step}[rdoc-ref:AirZonesController.compliance] of the checking compliance process.
   #
