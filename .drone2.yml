@@ -277,6 +277,298 @@ steps:
 
   ################################################# End DEV Steps #######################################################
 
+---
+
+
+  ################################################### ST Environment Steps ########################################################
+
+kind: pipeline
+type: docker
+name: vccs-web-st
+trigger:
+  branch:
+    - iac-restructure-controlled-st
+  event:
+    - pull_request
+    - push
+concurrency:
+  limit: 1
+
+volumes:
+- name: docker_sock
+  host:
+    path: /var/run/docker.sock
+
+steps:
+
+  # Clean agent images and containers to prevent disk space overuse
+  - name: clean agent
+    image: docker
+    commands:
+    - docker system prune -f
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Build docker image
+  - name: build
+    image: docker
+    commands:
+    - docker build -f Dockerfile.test -t test-vehicle-compliance-checker-frontend:latest .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
+  # Trigger unit tests
+  - name: unit tests
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: http://localhost
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    commands:
+      - yarn install
+      - bundle exec rspec -f d
+
+  # Execute integration/scenario tests
+  - name: integration tests
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    environment:
+      COMPLIANCE_CHECKER_API_URL: https://dev-api.cleanairzonevehiclecheck.co.uk
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    commands:
+      - cucumber
+
+  # Invoke static code analysis through Ruby libraries and js files
+  - name: static code analysis (Ruby + assets)
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    commands:
+      - rubocop
+      - scss-lint app/javascript
+
+  # # Invoke security analysis through Ruby and yarn libraries
+  # - name: security tests (Ruby + Yarn)
+  #   image: test-vehicle-compliance-checker-frontend
+  #   pull: never
+  #   commands:
+  #      - bundle audit check --update
+  #      # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
+  #      - yarn run improved-yarn-audit --exclude '1488, 1179, 1500' --retry-on-network-failure
+  #      - brakeman
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+
+  - name: publish image to ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: jaqu_controlled_service_aws_access_key_id
+      secret_key:
+        from_secret: jaqu_controlled_service_aws_secret_access_key
+      repo: 311075478274.dkr.ecr.eu-west-2.amazonaws.com/vccs-web
+      registry: 311075478274.dkr.ecr.eu-west-2.amazonaws.com
+      dockerfile: Dockerfile.build
+      region: eu-west-2
+      tags:
+        - latest
+        - ${DRONE_BUILD_NUMBER}
+      build_args:
+        - secret_key_base=${DRONE_COMMIT}
+        - aws_region=eu-west-2
+    when:
+      event:
+        - push
+
+    # Invoke sonar scan
+  - name: sonar scan
+    image: aosapps/drone-sonar-plugin
+    environment:
+      SONAR_HOST:
+        from_secret: jaqu_lower_sonar_host
+      SONAR_TOKEN:
+        from_secret: jaqu_lower_sonar_token
+      sonar.ruby.coverage.reportPaths: coverage/.resultset.json
+    commands:
+      - sonar-scanner
+        -Dsonar.projectName=${DRONE_REPO}
+        -Dsonar.host.url=$SONAR_HOST
+        -Dsonar.login=$SONAR_TOKEN
+        -Dproject.settings=./sonar-project.properties
+
+  - name: plan u pdates in st
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - apk update && apk add bash
+      - mkdir ~/.ssh
+      - echo -e "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
+      - cd JAQU-CAZ-IAC
+      - git checkout iac_restructure_controlled
+      - cd terraform-iac/projects/vccs/layers/01.networking
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf plan
+      - cd ../02.backends
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf plan
+      - cd ../04.web
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf plan
+    environment:
+      TF_VAR_access_key:
+        from_secret: jaqu_controlled_aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: jaqu_controlled_aws_secret_access_key
+      TF_VAR_s3_aws_access_key_id:
+        from_secret: jaqu_controlled_service_aws_access_key_id
+      TF_VAR_s3_aws_secret_access_key:
+        from_secret: jaqu_controlled_service_aws_secret_access_key
+      TF_VAR_master_access_key:
+        from_secret: jaqu_master_aws_access_key_id
+      TF_VAR_master_secret_key:
+        from_secret: jaqu_master_aws_secret_access_key
+      AWS_ACCESS_KEY_ID:
+        from_secret: jaqu_controlled_aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: jaqu_controlled_aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCOUNT_NAME: jaqu-controlled
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      GIT_PRIVATE_SSH:
+        from_secret: jaqu_lower_github_private_key
+      TF_VAR_secret_key_base:
+        from_secret: vccs_ruby_secret
+      TF_VAR_google_analytics_id: UA-144774549-2
+    when:
+      event:
+        - push
+
+  - name: provisioning warning
+    image: docker:git
+    commands:
+      - echo "Pipeline failed. If a deployment is being made for the first time into an environment terraform backends will not yet exist which means this is to be expected. If not terraform related, please see logs for further details"
+    when:
+      status:
+        - failure
+
+
+  # Invoke terraform scripts with tagged image number
+  - name: deploy to st
+    image: hashicorp/terraform:0.12.3
+    commands:
+      - apk update && apk add bash
+      - mkdir ~/.ssh
+      - echo -e "$GIT_PRIVATE_SSH" > ~/.ssh/id_rsa
+      - chmod 600 ~/.ssh/id_rsa
+      - touch ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/known_hosts
+      - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - cd JAQU-CAZ-IAC
+      - git checkout iac_restructure_controlled
+      - cd terraform-iac/projects/vccs/layers/01.networking
+      - PATH=$PATH:../../../../bin/
+      - chmod +x ../../../../bin/tf
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf apply -auto-approve
+      - cd ../02.backends
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf apply -auto-approve
+      - cd ../04.web
+      - tf init
+      - tf workspace select st || tf workspace new st
+      - tf apply -auto-approve
+    environment:
+      TF_VAR_access_key:
+        from_secret: jaqu_controlled_aws_access_key_id
+      TF_VAR_secret_key:
+        from_secret: jaqu_controlled_aws_secret_access_key
+      TF_VAR_s3_aws_access_key_id:
+        from_secret: jaqu_controlled_service_aws_access_key_id
+      TF_VAR_s3_aws_secret_access_key:
+        from_secret: jaqu_controlled_service_aws_secret_access_key
+      TF_VAR_master_access_key:
+        from_secret: jaqu_master_aws_access_key_id
+      TF_VAR_master_secret_key:
+        from_secret: jaqu_master_aws_secret_access_key
+      AWS_ACCESS_KEY_ID:
+        from_secret: jaqu_controlled_aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: jaqu_controlled_aws_secret_access_key
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCOUNT_NAME: jaqu-controlled
+      TF_VAR_build_number: ${DRONE_BUILD_NUMBER}
+      GIT_PRIVATE_SSH:
+        from_secret: jaqu_lower_github_private_key
+      TF_VAR_secret_key_base:
+        from_secret: vccs_ruby_secret
+      TF_VAR_google_analytics_id: UA-144774549-2
+    when:
+      event:
+        - push
+
+  - name: codedeploy ui dev
+    image: golang:alpine
+    commands:
+      - apk add --update bash python python-dev py-pip build-base jq
+      - pip install awscli
+      - mkdir ~/.aws
+      - echo -e "[profile target_acc]\nrole_arn = $AWS_ACCOUNT_ROLE\ncredential_source = Environment\nrole_session_name = AWSACCOUNT" > ~/.aws/config
+      - aws s3 cp s3://$LAMBDA_BUCKET/$PROJECT/$DEPLOY_ENVIRONMENT/wait_deploy.sh . --profile target_acc
+      - bash wait_deploy.sh $APPLICATION_NAME $DEPLOYMENT_GROUP
+      - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-config-name CodeDeployDefault.ECSAllAtOnce --deployment-group-name $DEPLOYMENT_GROUP --description "Deployment ECS" --s3-location bucket=$LAMBDA_BUCKET,bundleType=yaml,key=$PROJECT/$DEPLOY_ENVIRONMENT/appspec.yaml --profile target_acc
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: jaqu_controlled_aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: jaqu_controlled_aws_secret_access_key
+      AWS_ACCOUNT_ROLE: arn:aws:iam::072187228077:role/jaqu-controlledServiceRole
+      AWS_DEFAULT_REGION: eu-west-2
+      APPLICATION_NAME: vccs-codedeploy-service-st
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-st
+      PROJECT: vccs
+      DEPLOY_ENVIRONMENT: st
+      LAMBDA_BUCKET: jaqu-shared-project-lambda-bucket
+    when:
+      event:
+        - push
+
+  - name: await ecs rollout
+    image: docker
+    environment:
+      build_id_url: https://st2.cleanairzonevehiclecheck.co.uk/build_id
+      build_id: ${DRONE_BUILD_NUMBER}
+    commands:
+      - apk add curl
+      - sh build_utils/check_build_number.sh
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
+
+  ################################################# End of ST Environment #######################################################
+
   ################################################ Secrets #########################################################
 
 # Note the below values are pulled from AWS Secrets Manager via the aws-secrets Drone plugin
@@ -308,6 +600,35 @@ name: jaqu_lower_service_aws_secret_access_key
 get:
   path: /build-tools/drone
   name: awsLowerServiceSecretAccessKey
+
+---
+kind: secret
+name: jaqu_controlled_aws_access_key_id
+get:
+  path: /build-tools/drone
+  name: awsControlledAccessKeyId
+
+---
+kind: secret
+name: jaqu_controlled_aws_secret_access_key
+get:
+  path: /build-tools/drone
+  name: awsControlledSecretAccessKey
+
+
+---
+kind: secret
+name: jaqu_controlled_service_aws_access_key_id
+get:
+  path: /build-tools/drone
+  name: awsControlledServiceAccessKeyId
+
+---
+kind: secret
+name: jaqu_controlled_service_aws_secret_access_key
+get:
+  path: /build-tools/drone
+  name: awsControlledServiceSecretAccessKey
 
 ---
 kind: secret
