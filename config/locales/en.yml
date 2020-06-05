@@ -10,8 +10,6 @@ en:
     vrn_invalid: Enter the number plate of the vehicle in valid format
     vrn_too_long: The number plate of the vehicle is too long
     vrn_too_short: The number plate of the vehicle is too short
-  caz_selection_form:
-    la_missing: You must select at least one Clean Air Zone
   confirm_details_form:
     confirm_details_missing: Select yes if the details are correct
     confirm_taxi_or_phv_missing: You must choose an answer

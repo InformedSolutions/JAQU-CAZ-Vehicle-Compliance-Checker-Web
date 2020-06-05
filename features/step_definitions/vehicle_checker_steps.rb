@@ -28,8 +28,8 @@ Then("I enter a vehicle's registration which is a taxi") do
   fill_fields
 end
 
-Then("I enter a vehicle's registration for N1 type") do
-  details = { 'typeApproval' => 'N1', 'taxiOrPhv' => false }
+Then("I enter a vehicle's registration for {string} type") do |string|
+  details = { 'registrationNumber' => 'CU57ABC', 'typeApproval' => string, 'taxiOrPhv' => false }
   allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   fill_fields
 end
@@ -60,7 +60,6 @@ Then('I should see the Confirm Details page') do
 end
 
 Then('I choose {string} when confirms vehicle details') do |string|
-  mock_caz
   within('#confirm_details_radios') do
     choose(string)
   end
@@ -76,8 +75,8 @@ Then('I should see the Incorrect Details page') do
   expect(page).to have_current_path(incorrect_details_vehicle_checkers_path)
 end
 
-And('I press the Search Again link') do
-  click_link 'search again'
+And('I press the Check another vehicle link') do
+  click_link 'Check another vehicle'
 end
 
 Then('I should see the CAZ Selection page') do

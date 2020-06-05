@@ -26,8 +26,8 @@ RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type:
   end
 
   context 'when user confirms details and what his vehicle not a taxi or PHV' do
-    it 'redirects to enter details page' do
-      expect(response).to redirect_to(caz_selection_air_zones_path)
+    it 'redirects to compliance page' do
+      expect(response).to redirect_to(compliance_air_zones_path)
     end
   end
 

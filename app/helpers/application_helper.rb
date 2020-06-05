@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   # Used for external inline links in the app.
-  # Returns a link with blank target and area-label.
+  # Returns a link with blank target and aria-label.
   #
   # Reference: https://www.w3.org/WAI/GL/wiki/Using_aria-label_for_link_purpose
   def external_link_to(text, url, html_options = {})
@@ -34,9 +34,9 @@ module ApplicationHelper
       target: '_blank',
       class: 'govuk-link',
       rel: 'noopener noreferrer',
-      'area-label': "#{html_options[:'area-label'] || text} - #{I18n.t('content.external_link')}"
+      'aria-label': "#{html_options[:'aria-label'] || text} - #{I18n.t('content.external_link')}"
     )
-    link_to text, url, html_options
+    link_to "#{text} (opens in a new window)", url, html_options
   end
 
   # Returns name of service, eg. 'Drive in a Clean Air Zone'

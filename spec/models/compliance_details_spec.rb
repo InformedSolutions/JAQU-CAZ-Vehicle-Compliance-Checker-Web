@@ -11,14 +11,10 @@ RSpec.describe ComplianceDetails, type: :model do
       'charge' => charge,
       'informationUrls' => {
         'boundary' => url,
-        'emissionsStandards' => url,
         'mainInfo' => url,
-        'pricing' => url,
         'publicTransportOptions' => url,
         'exemptionOrDiscount' => url,
-        'payCaz' => url,
-        'becomeCompliant' => url,
-        'financialAssistance' => url
+        'becomeCompliant' => url
       }
     }
   end
@@ -58,12 +54,6 @@ RSpec.describe ComplianceDetails, type: :model do
   describe '.main_info_url' do
     it 'returns a proper url' do
       expect(compliance.main_info_url).to eq(url)
-    end
-  end
-
-  describe '.pricing_url' do
-    it 'returns a proper url' do
-      expect(compliance.pricing_url).to eq(url)
     end
   end
 

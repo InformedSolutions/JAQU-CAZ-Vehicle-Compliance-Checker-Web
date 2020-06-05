@@ -103,9 +103,6 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  # Add log tag to track request ID
-  config.log_tags = %i[request_id]
-
   # Use custom logging formatter so that IP any other PII can be removed.
   config.log_formatter = CustomLogger.new
   logger               = ActiveSupport::Logger.new(STDOUT)

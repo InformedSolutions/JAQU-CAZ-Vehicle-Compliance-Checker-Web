@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
                                if: lambda {
                                      Rails.env.production? && ENV['HTTP_BASIC_PASSWORD'].present?
                                    }
-
   ##
   # Health endpoint
   #
@@ -51,9 +50,8 @@ class ApplicationController < ActionController::Base
     render json: ENV.fetch('BUILD_ID', 'undefined'), status: :ok
   end
 
-  # clear checked_zones and taxi_or_phv from session
+  # clear taxi_or_phv from session
   def clear_session_details
-    session[:checked_zones] = []
     session[:taxi_or_phv] = nil
   end
 
