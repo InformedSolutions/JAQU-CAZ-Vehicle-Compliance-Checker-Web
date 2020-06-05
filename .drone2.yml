@@ -603,6 +603,35 @@ get:
 
 ---
 kind: secret
+name: jaqu_controlled_aws_access_key_id
+get:
+  path: /build-tools/drone
+  name: awsControlledAccessKeyId
+
+---
+kind: secret
+name: jaqu_controlled_aws_secret_access_key
+get:
+  path: /build-tools/drone
+  name: awsControlledSecretAccessKey
+
+
+---
+kind: secret
+name: jaqu_controlled_service_aws_access_key_id
+get:
+  path: /build-tools/drone
+  name: awsControlledServiceAccessKeyId
+
+---
+kind: secret
+name: jaqu_controlled_service_aws_secret_access_key
+get:
+  path: /build-tools/drone
+  name: awsControlledServiceSecretAccessKey
+
+---
+kind: secret
 name: jaqu_master_aws_access_key_id
 get:
   path: /build-tools/drone
