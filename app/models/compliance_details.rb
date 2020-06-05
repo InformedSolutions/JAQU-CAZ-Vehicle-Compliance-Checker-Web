@@ -4,6 +4,7 @@
 # This class is used to display data in +app/views/air_zones/compliance.html.haml+.
 class ComplianceDetails
   attr_reader :retrofit
+
   ##
   # Creates an instance of a class, make keys underscore and transform to symbols.
   #
