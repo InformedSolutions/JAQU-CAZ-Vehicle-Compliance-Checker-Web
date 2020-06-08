@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-creds = if ENV['AWS_ACCESS_KEY_ID'] || !Rails.env.production?
+creds = if ENV['AWS_ACCESS_KEY_ID']
           Aws::Credentials.new(
             ENV['AWS_ACCESS_KEY_ID'],
             ENV['AWS_SECRET_ACCESS_KEY']
