@@ -29,7 +29,7 @@ Then("I enter a vehicle's registration which is a taxi") do
 end
 
 Then("I enter a vehicle's registration for {string} type") do |string|
-  details = { 'registrationNumber' => 'CU57ABC', 'typeApproval' => string, 'taxiOrPhv' => false }
+  details = { 'registrationNumber' => 'CU57ABC', 'taxiOrPhv' => false, 'type' => string }
   allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   fill_fields
 end

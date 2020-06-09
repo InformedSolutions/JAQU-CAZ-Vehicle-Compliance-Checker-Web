@@ -16,7 +16,7 @@ class VehicleDetails
 
   # Returns an uppercased string, eg. 'CU57ABC'.
   def registration_number
-    string_field('registrationNumber')&.upcase
+    @vrn
   end
 
   # Returns a string, eg. 'Car'.
@@ -55,10 +55,10 @@ class VehicleDetails
     compliance_api['taxiOrPhv'].to_s
   end
 
-  # Checks if vehicle not taxi or phv and should be `M1` or `M2` vehicle type
+  # Checks if vehicle not taxi or phv and should be `car` or `minibus` type
   # Returns boolean
   def not_taxi_and_correct_type?
-    return false if %w[M1 M2].exclude?(type_approval&.upcase)
+    return false if %w[car minibus].exclude?(type&.downcase)
 
     !compliance_api['taxiOrPhv']
   end

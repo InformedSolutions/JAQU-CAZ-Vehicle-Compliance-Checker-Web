@@ -27,13 +27,14 @@ Feature: Vehicle Checker
     Then I should see the Confirm Details page
       And I should see 'Vehicle type approval'
       And I should see 'Model'
+      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
     Then I should see the Compliance page
       And I should see 'Clean Air Zone charge'
       And I should see 'Important information about vehicle data'
       And I should see 'How we calculate your charge'
-      And I should see 'Exemptions, refunds and alternatives to driving'
+      And I should see 'Exemptions and alternatives to driving'
       And I should see 'No Charge'
       And I should see '£10.00'
 
@@ -42,6 +43,7 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
+      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'No' when confirms vehicle details
       And I press the Confirm
     Then I should see the Incorrect Details page
@@ -120,16 +122,18 @@ Feature: Vehicle Checker
     Then I should not see 'Are these vehicle details correct?'
     Then I should see the Compliance page
 
-  Scenario: User enters a correct vehicle's registration which is not taxi and not M1 or M2 type
+  Scenario: User enters a correct vehicle's registration which is not taxi and Car type
     Given I am on the enter details page
-    Then I enter a vehicle's registration for 'N1' type
+    Then I enter a vehicle's registration for 'Car' type
       And I press the Continue
-      Then I choose 'Yes' when confirms vehicle details
+    Then I should see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
+      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
+      And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
     Then I should see the Compliance page
 
-  Scenario: User enters a correct vehicle's registration which is not taxi and M1 type
+  Scenario: User enters a correct vehicle's registration which is not taxi and not Car or Minibus type
     Given I am on the enter details page
-    Then I enter a vehicle's registration for 'M1' type
+    Then I enter a vehicle's registration for 'Bus' type
       And I press the Continue
-    Then I should see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
+    Then I should not see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
