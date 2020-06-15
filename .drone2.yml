@@ -74,7 +74,7 @@ steps:
       - rubocop
       - scss-lint app/javascript
 
-  # # Invoke security analysis through Ruby and yarn libraries
+  # Invoke security analysis through Ruby and yarn libraries
   # - name: security tests (Ruby + Yarn)
   #   image: test-vehicle-compliance-checker-frontend
   #   pull: never
@@ -556,6 +556,16 @@ steps:
   ################################################# End of ST Environment #######################################################
 ---
 
+
+
+
+
+
+
+
+
+
+
 ################################################### SIT Environment Steps ########################################################
 
 kind: pipeline
@@ -613,7 +623,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://dev-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://sit2-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -643,7 +653,7 @@ steps:
       dockerfile: Dockerfile.build
       region: eu-west-2
       tags:
-        - latest
+        - release
         - ${DRONE_BUILD_NUMBER}
       build_args:
         - secret_key_base=${DRONE_COMMIT}
@@ -652,23 +662,7 @@ steps:
       event:
         - push
 
-    # Invoke sonar scan
-  - name: sonar scan
-    image: aosapps/drone-sonar-plugin
-    environment:
-      SONAR_HOST:
-        from_secret: jaqu_lower_sonar_host
-      SONAR_TOKEN:
-        from_secret: jaqu_lower_sonar_token
-      sonar.ruby.coverage.reportPaths: coverage/.resultset.json
-    commands:
-      - sonar-scanner
-        -Dsonar.projectName=${DRONE_REPO}
-        -Dsonar.host.url=$SONAR_HOST
-        -Dsonar.login=$SONAR_TOKEN
-        -Dproject.settings=./sonar-project.properties
-
-  - name: plan u pdates in sit
+  - name: plan updates in sit
     image: hashicorp/terraform:0.12.3
     commands:
       - apk update && apk add bash
@@ -722,7 +716,7 @@ steps:
       TF_VAR_google_analytics_id: UA-144774549-2
     when:
       event:
-        - push
+        - pull_request
 
   - name: provisioning warning
     image: docker:19.03.11-git
@@ -734,7 +728,7 @@ steps:
 
 
   # Invoke terraform scripts with tagged image number
-  - name: deploy to st
+  - name: deploy to sit
     image: hashicorp/terraform:0.12.3
     commands:
       - apk update && apk add bash
@@ -744,6 +738,7 @@ steps:
       - touch ~/.ssh/known_hosts
       - chmod 600 ~/.ssh/known_hosts
       - ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts 2> /dev/null
+      - git clone git@github.com:InformedSolutions/JAQU-CAZ-IAC.git
       - cd JAQU-CAZ-IAC
       - git checkout iac_restructure_controlled
       - cd terraform-iac/projects/vccs/layers/01.networking
@@ -831,6 +826,16 @@ steps:
         - push
 
   ################################################# End of SIT Environment #######################################################
+
+
+
+
+
+
+
+
+
+
 
   ################################################ Secrets #########################################################
 
