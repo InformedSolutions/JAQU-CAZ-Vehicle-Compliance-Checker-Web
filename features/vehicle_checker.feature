@@ -58,6 +58,18 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Non-UK vehicle page
 
+  Scenario: User selects Non-UK exempted registration
+    Given I am on the enter details page
+    Then I enter an exempted vehicle's registration and choose Non-UK
+      And I press the Continue
+    Then I should see the Exemption page
+
+  Scenario: User selects Non-UK compliant registration
+    Given I am on the enter details page
+    Then I enter an compliant vehicle's registration and choose Non-UK
+      And I press the Continue
+    Then I should see the Compliance page
+
   Scenario: User doesn't fill VRN input
     Given I am on the enter details page
       And I press the Continue

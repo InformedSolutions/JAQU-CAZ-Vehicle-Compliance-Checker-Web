@@ -36,6 +36,23 @@ module MockHelpers
     details['taxiOrPhv'] = 'true'
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
   end
+
+  def mock_unregistered_non_uk_vehicle_details
+    details = JSON.parse(File.read('spec/fixtures/files/register_details_response.json'))
+    allow(ComplianceCheckerApi).to receive(:register_details).and_return(details)
+  end
+
+  def mock_exempted_register_details
+    details = JSON.parse(File.read('spec/fixtures/files/register_details_response.json'))
+    details['registerExempt'] = true
+    allow(ComplianceCheckerApi).to receive(:register_details).and_return(details)
+  end
+
+  def mock_compliant_register_details
+    details = JSON.parse(File.read('spec/fixtures/files/register_details_response.json'))
+    details['registerCompliant'] = true
+    allow(ComplianceCheckerApi).to receive(:register_details).and_return(details)
+  end
 end
 
 World(MockHelpers)
