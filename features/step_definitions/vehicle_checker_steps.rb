@@ -40,9 +40,19 @@ Then("I enter a vehicle's registration without selecting country") do
 end
 
 Then("I enter a vehicle's registration and choose Non-UK") do
-  fill_in('vrn', with: vrn)
-  choose('Non-UK')
-  mock_vehicle_details
+  fill_non_uk_fields
+  mock_unregistered_non_uk_vehicle_details
+end
+
+Then("I enter an exempted vehicle's registration and choose Non-UK") do
+  fill_non_uk_fields
+  mock_exempted_register_details
+end
+
+Then("I enter an compliant vehicle's registration and choose Non-UK") do
+  fill_non_uk_fields
+  mock_compliant_register_details
+  mock_vehicle_compliance
 end
 
 Then("I enter a vehicle's registration with {string}") do |string|
@@ -142,4 +152,9 @@ private
 def fill_fields(vrn = 'CU57ABC')
   fill_in('vrn', with: vrn)
   choose('UK')
+end
+
+def fill_non_uk_fields(vrn = 'CU57ABC')
+  fill_in('vrn', with: vrn)
+  choose('Non-UK')
 end
