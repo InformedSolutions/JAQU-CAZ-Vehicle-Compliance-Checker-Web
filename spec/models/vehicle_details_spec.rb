@@ -8,12 +8,13 @@ RSpec.describe VehicleDetails, type: :model do
   let(:vrn) { 'CU57ABC' }
   let(:type_approval) { 'M1' }
   let(:taxi_or_phv) { false }
+  let(:type) { 'Car' }
 
   let(:response) do
     {
       'registrationNumber' => vrn,
       'typeApproval' => type_approval,
-      'type' => 'car',
+      'type' => type,
       'make' => 'peugeot',
       'model' => '208',
       'colour' => 'grey',
@@ -113,7 +114,7 @@ RSpec.describe VehicleDetails, type: :model do
       end
     end
 
-    context "when value is equal to 'null'" do
+    context 'when value is equal to `null`' do
       let(:type_approval) { 'null' }
 
       it 'returns a nil' do
@@ -130,14 +131,14 @@ RSpec.describe VehicleDetails, type: :model do
 
   describe '.not_taxi_and_correct_type?' do
     context 'when vehicle not a taxi' do
-      context 'and M1 type' do
+      context 'and is car or minibus type' do
         it 'returns true' do
           expect(subject.not_taxi_and_correct_type?).to eq(true)
         end
       end
 
-      context 'and not M1/M2 type' do
-        let(:type_approval) { 'L7' }
+      context 'and not is car or minibus type' do
+        let(:type) { 'Heavy Goods Vehicle' }
 
         it 'returns false' do
           expect(subject.not_taxi_and_correct_type?).to eq(false)
@@ -148,18 +149,8 @@ RSpec.describe VehicleDetails, type: :model do
     context 'when vehicle is a taxi' do
       let(:taxi_or_phv) { true }
 
-      context 'and M1 type' do
-        it 'returns false' do
-          expect(subject.not_taxi_and_correct_type?).to eq(false)
-        end
-      end
-
-      context 'and not M1/M2 type' do
-        let(:type_approval) { 'L7' }
-
-        it 'returns false' do
-          expect(subject.not_taxi_and_correct_type?).to eq(false)
-        end
+      it 'returns false' do
+        expect(subject.not_taxi_and_correct_type?).to eq(false)
       end
     end
   end
