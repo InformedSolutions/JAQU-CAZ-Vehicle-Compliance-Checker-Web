@@ -6,14 +6,9 @@ RSpec.describe RegisterDetails, type: :model do
   subject { described_class.new(vrn) }
 
   let(:vrn) { 'CAS310' }
-  let(:response) do
-    {
-      'registerCompliant' => true,
-      'registerExempt' => true
-    }
-  end
 
   before do
+    response = { 'registerCompliant' => true, 'registerExempt' => true }
     allow(ComplianceCheckerApi).to receive(:register_details).and_return(response)
   end
 

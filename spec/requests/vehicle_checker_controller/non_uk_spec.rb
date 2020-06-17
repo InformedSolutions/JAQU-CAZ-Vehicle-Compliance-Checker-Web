@@ -8,13 +8,12 @@ RSpec.describe 'VehicleCheckersController - GET #non_uk', type: :request do
   let(:register_exempt) { false }
   let(:register_compliant) { false }
 
-  let(:register_details_stub) do
-    instance_double 'RegisterDetails',
-                    register_exempt?: register_exempt,
-                    register_compliant?: register_compliant
-  end
+  before do
+    stub = instance_double('RegisterDetails', register_exempt?: register_exempt,
+                                              register_compliant?: register_compliant)
 
-  before { allow(RegisterDetails).to receive(:new).and_return(register_details_stub) }
+    allow(RegisterDetails).to receive(:new).and_return(stub)
+  end
 
   context 'with VRN in session' do
     before do
