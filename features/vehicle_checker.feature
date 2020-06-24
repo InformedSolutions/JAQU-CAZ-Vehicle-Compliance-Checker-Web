@@ -68,7 +68,7 @@ Feature: Vehicle Checker
     Given I am on the enter details page
     Then I enter an compliant vehicle's registration and choose Non-UK
       And I press the Continue
-    Then I should see the Compliance page
+    Then I should see the non-uk Compliance page
 
   Scenario: User doesn't fill VRN input
     Given I am on the enter details page

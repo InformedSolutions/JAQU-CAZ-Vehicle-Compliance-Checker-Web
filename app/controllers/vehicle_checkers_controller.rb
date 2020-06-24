@@ -194,10 +194,10 @@ class VehicleCheckersController < ApplicationController
   #
   def non_uk
     @vehicle_registration = vrn
-    register_details = RegisterDetails.new(vrn)
+    details = RegisterDetails.new(vrn)
 
-    redirect_to(exemption_vehicle_checkers_path) and return if register_details.register_exempt?
-    redirect_to(compliance_air_zones_path) and return if register_details.register_compliant?
+    return redirect_to(exemption_vehicle_checkers_path) if details.register_exempt?
+    return redirect_to(non_uk_compliance_air_zones_path) if details.register_compliant?
   end
 
   private
