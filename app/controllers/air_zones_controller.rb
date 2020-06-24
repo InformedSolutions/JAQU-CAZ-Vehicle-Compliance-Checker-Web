@@ -39,7 +39,7 @@ class AirZonesController < ApplicationController
   # It {calls API}[rdoc-ref:ComplianceCheckerApi.vehicle_compliance] for the results.
   #
   # ==== Path
-  #    GET /air_zones/compliance
+  #    GET /air_zones/non_uk_compliance
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
