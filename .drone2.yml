@@ -207,7 +207,7 @@ steps:
         - push
 
   - name: await ecs rollout
-    image: docker:19.03.11-git
+    image: alpine:3.11.6
     environment:
       build_id_url: https://dev2.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
@@ -247,32 +247,32 @@ steps:
   #     event:
   #       - push
 
-  # Execute jMeter scripts via taurus
-  - name: micro-performance tests
-    image: blazemeter/taurus
-    commands:
-      - bzt -o modules.jmeter.properties.hostname=dev2.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-    when:
-      event:
-        - push
-
-  # Execute OWASP Zap tests
-  - name: owasp zap tests
-    image: owasp/zap2docker-stable
-    commands:
-      - mkdir -p /zap/wrk
-      - cp zap.conf /zap/wrk/zap.conf
-      - cd /zap
-      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/ -c zap.conf
-    volumes:
-      - name: docker_sock
-        path: /var/run/docker.sock
-    when:
-      event:
-        - push
+  # # Execute jMeter scripts via taurus
+  # - name: micro-performance tests
+  #   image: blazemeter/taurus
+  #   commands:
+  #     - bzt -o modules.jmeter.properties.hostname=dev2.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #   when:
+  #     event:
+  #       - push
+  #
+  # # Execute OWASP Zap tests
+  # - name: owasp zap tests
+  #   image: owasp/zap2docker-stable
+  #   commands:
+  #     - mkdir -p /zap/wrk
+  #     - cp zap.conf /zap/wrk/zap.conf
+  #     - cd /zap
+  #     - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/ -c zap.conf
+  #   volumes:
+  #     - name: docker_sock
+  #       path: /var/run/docker.sock
+  #   when:
+  #     event:
+  #       - push
 
   ################################################# End DEV Steps #######################################################
 
@@ -538,7 +538,7 @@ steps:
         - push
 
   - name: await ecs rollout
-    image: docker:19.03.11-git
+    image: alpine:3.11.6
     environment:
       build_id_url: https://st2.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
@@ -809,7 +809,7 @@ steps:
         - push
 
   - name: await ecs rollout
-    image: docker:19.03.11-git
+    image: alpine:3.11.6
     environment:
       build_id_url: https://sit2.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
