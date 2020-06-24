@@ -1006,7 +1006,7 @@ steps:
         - push
 
   - name: await ecs rollout
-    image: docker:19.03.11-git
+    image: alpine:3.11.6
     environment:
       build_id_url: https://preprod2.cleanairzonevehiclecheck.co.uk/build_id
       SRC_AWS_ACCOUNT_ROLE: arn:aws:iam::072187228077:role/jaqu-controlledServiceRole
@@ -1217,7 +1217,7 @@ steps:
         - push
 
   - name: await ecs rollout
-    image: docker:19.03.11-git
+    image: alpine:3.11.6
     environment:
       build_id_url: https://prod2.cleanairzonevehiclecheck.co.uk/build_id
       SRC_AWS_ACCOUNT_ROLE: arn:aws:iam::360470905865:role/jaqu-stagingServiceRole
