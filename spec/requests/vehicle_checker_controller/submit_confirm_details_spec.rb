@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type: :request do
-  subject(:http_request) do
+  subject do
     post confirm_details_vehicle_checkers_path, params: {
       confirm_details_form:
         {
@@ -22,7 +22,7 @@ RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type:
     vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
     add_vrn_to_session
-    http_request
+    subject
   end
 
   context 'when user confirms details and what his vehicle not a taxi or PHV' do
