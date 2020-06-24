@@ -1,3 +1,4 @@
+
   ################################################### Dev Environment Steps ########################################################
 kind: pipeline
 type: docker
@@ -278,10 +279,6 @@ steps:
 ---
 
 ################################################### ST Environment Steps ########################################################
-<<<<<<< HEAD
-
-=======
->>>>>>> iac-restructure-baseline
 kind: pipeline
 type: docker
 name: vccs-web-st
