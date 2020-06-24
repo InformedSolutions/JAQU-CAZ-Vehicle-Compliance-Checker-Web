@@ -43,7 +43,7 @@ RSpec.describe 'VehicleCheckersController - GET #non_uk', type: :request do
       let(:register_compliant) { true }
 
       it 'redirects to compliant page' do
-        expect(response.redirect_url).to eq compliance_air_zones_url
+        expect(response.redirect_url).to eq non_uk_compliance_air_zones_url
       end
     end
   end

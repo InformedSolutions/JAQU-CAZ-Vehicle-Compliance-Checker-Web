@@ -53,6 +53,11 @@ module MockHelpers
     details['registerCompliant'] = true
     allow(ComplianceCheckerApi).to receive(:register_details).and_return(details)
   end
+
+  def mock_clean_air_zones_request
+    details = JSON.parse(File.read('spec/fixtures/files/caz_list_response.json'))['cleanAirZones']
+    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(details)
+  end
 end
 
 World(MockHelpers)

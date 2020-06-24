@@ -52,6 +52,7 @@ end
 Then("I enter an compliant vehicle's registration and choose Non-UK") do
   fill_non_uk_fields
   mock_compliant_register_details
+  mock_clean_air_zones_request
   mock_vehicle_compliance
 end
 
