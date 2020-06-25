@@ -5,7 +5,7 @@
 # Define an application-wide content security policy
 # For further information see the following documentation
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
-
+# :nocov:
 if Rails.env.production?
   defaults = %i[self https]
   defaults.push(ENV['CLOUDFRONT_ENDPOINT']) if ENV['CLOUDFRONT_ENDPOINT']
@@ -18,9 +18,11 @@ if Rails.env.production?
     policy.script_src(*defaults, :unsafe_inline)
     policy.style_src(*defaults, :unsafe_inline)
     policy.connect_src(*defaults)
+    policy.frame_src('https://www.googletagmanager.com')
     policy.frame_ancestors(:none)
   end
 end
+# :nocov:
 
 # If you are using UJS then enable automatic nonce generation
 # Rails.application.config.content_security_policy_nonce_generator =

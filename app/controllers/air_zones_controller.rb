@@ -34,6 +34,33 @@ class AirZonesController < ApplicationController
     @vrn = vrn
   end
 
+  ##
+  # Renders a static page which looks like a result of checking compliance of the vehicle against selected CAZ.
+  # It {calls API}[rdoc-ref:ComplianceCheckerApi.vehicle_compliance] for the results.
+  #
+  # ==== Path
+  #    GET /air_zones/non_uk_compliance
+  #
+  # ==== Params
+  # * +vrn+ - vehicle registration number, required in the session
+  # * +taxi_or_phv+ - boolean, user confirms to be a taxi.
+  #
+  # ==== Validations
+  # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
+  #
+  # ==== Exceptions
+  # Any exception raised during {API call}[rdoc-ref:ComplianceCheckerApi.vehicle_compliance]
+  # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
+  #
+  def non_uk_compliance
+    @compliance_outcomes = ComplianceCheckerApi
+                           .clean_air_zones
+                           .map { |caz| NonUkCompliantVehicleDetails.new(caz) }
+    @vrn = vrn
+
+    render 'air_zones/compliance'
+  end
+
   private
 
   # Redirects to 'Unable to determine compliance' page
