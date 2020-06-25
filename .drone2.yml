@@ -847,7 +847,7 @@ volumes:
 
 steps:
 
-  - name: plan updates in preprods
+  - name: plan updates in preprod
     image: hashicorp/terraform:0.12.3
     commands:
       - apk add --update bash python python-dev py-pip build-base jq
