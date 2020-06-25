@@ -32,7 +32,7 @@ class VrnForm
     if country == 'Non-UK'
       filled_vrn?
     else
-      filled_vrn? && not_to_long? && not_to_short? && valid_format?
+      filled_vrn? && not_to_long? && not_to_short? && valid_format? && not_include_leading_zero?
     end
     filled_country?
     error_object.empty?
@@ -101,6 +101,18 @@ class VrnForm
     false
   end
 
+  # Checks if +vrn+ does not include 0's in the beginning.
+  #
+  # If it does, add error to +error_object+.
+  #
+  # Returns a boolean.
+  def not_include_leading_zero?
+    return true unless vrn.starts_with?('0')
+
+    vrn_error(I18n.t('vrn_form.vrn_invalid'))
+    false
+  end
+
   # Add error message to +error_object+.
   #
   # ==== Attributes
@@ -147,6 +159,10 @@ class VrnForm
     /^[A-Z]{3}[0-9]{2}[A-Z]$/, # AAA99A
     /^[0-9]{3}[A-Z]{3}$/, # 999AAA
     /^[A-Z]{2}[0-9]{4}$/, # AA9999
-    /^[0-9]{4}[A-Z]{2}$/ # 9999AA
+    /^[0-9]{4}[A-Z]{2}$/, # 9999AA
+
+    # The following regex is technically not valid, but is considered as valid
+    # due to the requirement which forces users not to include leading zeros.
+    /^[A-Z]{2,3}$/ # AA, AAA
   ].freeze
 end
