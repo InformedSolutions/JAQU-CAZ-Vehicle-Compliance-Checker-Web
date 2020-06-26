@@ -33,6 +33,7 @@ class Compliance
     @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
       ComplianceDetails.new(v, compliance_api['isRetrofitted'])
     end
+    @compliance_outcomes.sort_by(&:zone_name)
   end
 
   private
