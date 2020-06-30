@@ -32,15 +32,17 @@
         Each Clean Air Zone in England will have different guidelines about who will be charged.
       %p
         Find out more about the
-        = external_link_to('different types of Clean Air Zone',
-                           'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                           id: 'different-caz-types-link')
+        = succeed '.' do
+          = link_to('different types of Clean Air Zone',
+                    'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                    id: 'different-caz-types-link')
 
       %h2.govuk-heading-m Explore the topic
       %p
-        = external_link_to('Clean Air Zones',
-                           'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                           id: 'caz-link')
+        = succeed '.' do
+          = link_to('Clean Air Zones',
+                    'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                    id: 'caz-link')
 
     .govuk-grid-column-one-third
       %aside#related-items-label.app-related-items{role: 'complementary'}
@@ -49,6 +51,7 @@
         %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
           %ul.govuk-list{class: 'govuk-!-font-size-16'}
             %li
-              = external_link_to('Contact Clean Air Zones',
-                             Rails.configuration.x.contact_form_link,
-                             id: 'contact-form')
+              = succeed '.' do
+                = link_to('Contact Clean Air Zones',
+                          Rails.configuration.x.contact_form_link,
+                          id: 'contact-form')
