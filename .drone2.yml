@@ -1031,7 +1031,7 @@ steps:
 ################################################### UAT Environment Steps ########################################################
 kind: pipeline
 type: docker
-name: vccs-web-st
+name: vccs-web-uat
 trigger:
   branch:
     - iac-restructure-staging-uat
