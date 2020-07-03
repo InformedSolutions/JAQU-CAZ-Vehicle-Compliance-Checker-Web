@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-gem 'rails', '~> 6.0.3.1'
+gem 'rails', '~> 6.0.3.2'
 
 gem 'aws-sdk-sqs'
 gem 'bootsnap', require: false
@@ -14,7 +14,6 @@ gem 'bundler-audit'
 gem 'haml'
 gem 'httparty'
 gem 'puma'
-gem 'rubocop-rails'
 gem 'sdoc', require: false
 gem 'sqlite3'
 gem 'webpacker'
@@ -39,6 +38,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'rack_session_access'
   gem 'rails-controller-testing'
+  gem 'rubocop-rails'
   gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.17.1', require: false
   gem 'webdrivers'

@@ -98,6 +98,7 @@
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn-url'
             %li
-            = external_link_to('Contact Clean Air Zones',
-             Rails.configuration.x.contact_form_link,
-             id: 'contact-form')
+            = succeed '.' do
+              = link_to('Contact Clean Air Zones',
+                         Rails.configuration.x.contact_form_link,
+                         id: 'contact-form')
