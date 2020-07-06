@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :air_zones, only: [] do
       collection do
         get :compliance
+        get :non_uk_compliance
       end
     end
 
