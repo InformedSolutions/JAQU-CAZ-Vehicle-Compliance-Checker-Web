@@ -8,12 +8,14 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   let(:caz_data) do
     {
       'name' => name,
-      'boundaryUrl' => boundary_url
+      'boundaryUrl' => boundary_url,
+      'mainInfoUrl' => main_info_url
     }
   end
 
   let(:name) { 'Birmingham' }
   let(:boundary_url) { 'www.example.com' }
+  let(:main_info_url) { 'www.main.info' }
 
   describe '.zone_name' do
     it 'returns proper .zone_name value' do
@@ -36,7 +38,7 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   describe '.main_info_url' do
     it 'returns proper .main_info_url value' do
       expect(subject.main_info_url)
-        .to eq('https://www.brumbreathes.co.uk/')
+        .to eq(main_info_url)
     end
   end
 
