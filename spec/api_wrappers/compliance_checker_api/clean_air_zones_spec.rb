@@ -23,6 +23,7 @@ RSpec.describe 'ComplianceCheckerApi.clean_air_zones' do
         'cleanAirZoneId',
         'name',
         'boundaryUrl',
+        'mainInfoUrl',
         'activeChargeStartDate'
       )
     end

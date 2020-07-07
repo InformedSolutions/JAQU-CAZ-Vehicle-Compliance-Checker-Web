@@ -156,6 +156,7 @@ class ComplianceCheckerApi < BaseApi
     # * +name+ - string, eg. "Birmingham"
     # * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
     # * +boundaryUrl+ - URL, this represents a link to eg. a map with CAZ boundaries
+    # * +mainInfoUrl+ - URL, this represents a link to general info about CAZ
     #
     # ==== Serialization
     #
