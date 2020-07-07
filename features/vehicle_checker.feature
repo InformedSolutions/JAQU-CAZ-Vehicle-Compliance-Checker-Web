@@ -14,7 +14,7 @@ Feature: Vehicle Checker
       And I should see 'Enter the number plate of the vehicle' title
       And I should see 'Enter the number plate of the vehicle'
     Then I enter an invalid VRN
-      And I should see 'Enter the number plate of the vehicle in valid format'
+      And I should see 'Enter the number plate of the vehicle in a valid format'
     Then I enter too long VRN
       And I should see 'The number plate of the vehicle is too long'
     Then I enter too short VRN
