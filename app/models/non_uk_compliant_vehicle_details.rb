@@ -33,10 +33,9 @@ class NonUkCompliantVehicleDetails
     0
   end
 
-  # Stub for .main_info_url which returns an URL
   # Returns a string, e.g. 'www.example.com'
   def main_info_url
-    cazes_main_info_urls[zone_name]
+    caz_data['mainInfoUrl']
   end
 
   # Returns a string, eg. 'www.example.com'.
@@ -47,14 +46,4 @@ class NonUkCompliantVehicleDetails
   private
 
   attr_reader :caz_data
-
-  # The following data are only returned from API response when compliance is actually calculated.
-  # As we do not calculate the compliance here, the URLs are hardcoded.
-  def cazes_main_info_urls
-    {
-      'Birmingham' => 'https://www.brumbreathes.co.uk/',
-      'Bath' => 'https://www.bathnes.gov.uk/bath-breathes-2021-overview',
-      'Leeds' => 'https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality'
-    }
-  end
 end
