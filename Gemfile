@@ -40,7 +40,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rubocop-rails'
   gem 'selenium-webdriver'
-  gem 'simplecov', '~> 0.17.1', require: false
+  gem 'simplecov', '~> 0.18.5', require: false
   gem 'webdrivers'
   gem 'webmock'
 end
