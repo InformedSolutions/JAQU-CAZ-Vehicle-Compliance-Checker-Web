@@ -55,7 +55,7 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
       BROWSER_SET: 'basic_auth'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
@@ -74,10 +74,10 @@ steps:
     image: selenium-jaqu
     pull: never
     environment:
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/'
-      BASEURL_NTR: 'http://dev2-upload.taxiphvdata.co.uk/'
-      BASEURL_RETRO: 'https://dev2-retrofit.datauploadportal.co.uk/'
-      BASEURL_MOD: 'https://dev2.partner.datauploadportal.co.uk/'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
+      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
+      BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
       BASEURL_NTR_API: 'https://z0kbujgir3.execute-api.eu-west-2.amazonaws.com/dev'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
@@ -100,10 +100,10 @@ steps:
     image: selenium-jaqu
     pull: never
     environment:
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/'
-      BASEURL_NTR: 'http://dev2-upload.taxiphvdata.co.uk/'
-      BASEURL_RETRO: 'https://dev2-retrofit.datauploadportal.co.uk/'
-      BASEURL_MOD: 'https://dev2.partner.datauploadportal.co.uk/'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
+      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
+      BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
       BASEURL_NTR_API: 'https://z0kbujgir3.execute-api.eu-west-2.amazonaws.com/dev'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
@@ -202,17 +202,17 @@ steps:
       - scss-lint app/javascript
 
   # Invoke security analysis through Ruby and yarn libraries
-  # - name: security tests (Ruby + Yarn)
-  #   image: test-vehicle-compliance-checker-frontend
-  #   pull: never
-  #   commands:
-  #      - bundle audit check --update
-  #      # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
-  #      - yarn run improved-yarn-audit --exclude '1488, 1179, 1500' --retry-on-network-failure
-  #      - brakeman
-  #   volumes:
-  #     - name: docker_sock
-  #       path: /var/run/docker.sock
+  - name: security tests (Ruby + Yarn)
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    commands:
+       - bundle audit check --update
+       # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
+       - yarn run improved-yarn-audit --exclude '1486' --retry-on-network-failure
+       - brakeman
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
 
   - name: publish image to ecr
     image: plugins/ecr
@@ -337,7 +337,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://dev2.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://dev.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -349,58 +349,58 @@ steps:
       event:
         - push
 
-  # # Build pa11y-ci image
-  # - name: build pa11y-ci image
-  #   image: docker:19.03.11-git
-  #   commands:
-  #     - cd pa11y
-  #     - docker build -t pa11y-ci .
-  #   volumes:
-  #     - name: docker_sock
-  #       path: /var/run/docker.sock
-  #   when:
-  #     event:
-  #       - push
-  #
-  # # Trigger accessibility test
-  # - name: accessibility tests
-  #   image: pa11y-ci
-  #   pull: never
-  #   environment:
-  #     BASE_URL: https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/
-  #   commands:
-  #     - mkdir screenshots
-  #     - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
-  #   when:
-  #     event:
-  #       - push
+  # Build pa11y-ci image
+  - name: build pa11y-ci image
+    image: docker:19.03.11-git
+    commands:
+      - cd pa11y
+      - docker build -t pa11y-ci .
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
+  
+  # Trigger accessibility test
+  - name: accessibility tests
+    image: pa11y-ci
+    pull: never
+    environment:
+      BASE_URL: https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/
+    commands:
+      - mkdir screenshots
+      - /usr/local/bin/pa11y-ci -c pa11y/.pa11yci.conf.js
+    when:
+      event:
+        - push
 
-  # # Execute jMeter scripts via taurus
-  # - name: micro-performance tests
-  #   image: blazemeter/taurus
-  #   commands:
-  #     - bzt -o modules.jmeter.properties.hostname=dev2.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
-  #   volumes:
-  #     - name: docker_sock
-  #       path: /var/run/docker.sock
-  #   when:
-  #     event:
-  #       - push
-  #
-  # # Execute OWASP Zap tests
-  # - name: owasp zap tests
-  #   image: owasp/zap2docker-stable
-  #   commands:
-  #     - mkdir -p /zap/wrk
-  #     - cp zap.conf /zap/wrk/zap.conf
-  #     - cd /zap
-  #     - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev2.cleanairzonevehiclecheck.co.uk/ -c zap.conf
-  #   volumes:
-  #     - name: docker_sock
-  #       path: /var/run/docker.sock
-  #   when:
-  #     event:
-  #       - push
+  # Execute jMeter scripts via taurus
+  - name: micro-performance tests
+    image: blazemeter/taurus
+    commands:
+      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
+  
+  # Execute OWASP Zap tests
+  - name: owasp zap tests
+    image: owasp/zap2docker-stable
+    commands:
+      - mkdir -p /zap/wrk
+      - cp zap.conf /zap/wrk/zap.conf
+      - cd /zap
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    when:
+      event:
+        - push
 
   ################################################# End DEV Steps #######################################################
 
