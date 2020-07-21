@@ -749,7 +749,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://sit2-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://sit-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -939,7 +939,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://sit2.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://sit.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -1128,7 +1128,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://preprod2.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://preprod.cleanairzonevehiclecheck.co.uk/build_id
       SRC_AWS_ACCOUNT_ROLE: arn:aws:iam::072187228077:role/jaqu-controlledServiceRole
       AWS_ACCESS_KEY_ID:
         from_secret: jaqu_controlled_aws_access_key_id
@@ -1212,7 +1212,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://uat2-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://uat-api.cleanairzonevehiclecheck.co.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -1419,7 +1419,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://uat2.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://uat.cleanairzonevehiclecheck.co.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
