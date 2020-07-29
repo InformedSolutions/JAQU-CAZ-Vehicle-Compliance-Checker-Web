@@ -9,7 +9,7 @@ RSpec.describe 'VehicleCheckersController - POST #submit_details', type: :reques
 
   let(:vrn) { 'CU57ABC' }
   let(:country) { 'UK' }
-  let(:vehicle_details) { JSON.parse(file_fixture('vehicle_details_response.json').read) }
+  let(:vehicle_details) { read_response('vehicle_details_response.json') }
 
   before { subject }
 

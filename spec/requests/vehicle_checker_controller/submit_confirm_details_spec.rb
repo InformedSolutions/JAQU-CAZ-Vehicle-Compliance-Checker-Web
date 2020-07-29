@@ -19,7 +19,7 @@ RSpec.describe 'VehicleCheckersController - POST #submit_confirm_details', type:
   let(:confirmation_taxi_or_phv) { 'false' }
 
   before do
-    vehicle_details = JSON.parse(file_fixture('vehicle_details_response.json').read)
+    vehicle_details = read_response('vehicle_details_response.json')
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
     add_vrn_to_session
     subject
