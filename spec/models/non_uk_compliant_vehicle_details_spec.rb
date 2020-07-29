@@ -9,13 +9,15 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
     {
       'name' => name,
       'boundaryUrl' => boundary_url,
-      'mainInfoUrl' => main_info_url
+      'mainInfoUrl' => main_info_url,
+      'exemptionUrl' => exemption_url
     }
   end
 
   let(:name) { 'Birmingham' }
   let(:boundary_url) { 'www.example.com' }
   let(:main_info_url) { 'www.main.info' }
+  let(:exemption_url) { 'www.exemption.co.uk' }
 
   describe '.zone_name' do
     it 'returns proper .zone_name value' do
@@ -45,6 +47,12 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   describe '.boundary_url' do
     it 'returns proper .boundary_url value' do
       expect(subject.boundary_url).to eq(boundary_url)
+    end
+  end
+
+  describe '.exemption_or_discount_url' do
+    it 'return proper .exemption_or_discount_url value' do
+      expect(subject.exemption_or_discount_url).to eq(exemption_url)
     end
   end
 end

@@ -43,6 +43,11 @@ class NonUkCompliantVehicleDetails
     caz_data['boundaryUrl']
   end
 
+  # Returns a string, eg. 'www.example.com'
+  def exemption_or_discount_url
+    caz_data['exemptionUrl']
+  end
+
   private
 
   attr_reader :caz_data
