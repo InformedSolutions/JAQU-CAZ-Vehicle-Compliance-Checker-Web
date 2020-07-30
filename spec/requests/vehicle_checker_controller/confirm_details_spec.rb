@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :request do
   subject { get confirm_details_vehicle_checkers_path }
 
-  let(:vehicle_details) { JSON.parse(file_fixture('vehicle_details_response.json').read) }
+  let(:vehicle_details) { read_response('vehicle_details_response.json') }
 
   before { add_vrn_to_session }
 
