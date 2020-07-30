@@ -13,7 +13,7 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
 
   context 'when api returns 200 status' do
     before do
-      compliance = JSON.parse(file_fixture('vehicle_compliance_response.json').read)
+      compliance = read_response('vehicle_compliance_response.json')
       allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
       subject
     end
