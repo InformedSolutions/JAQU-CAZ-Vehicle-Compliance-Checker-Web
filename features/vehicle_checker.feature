@@ -34,7 +34,6 @@ Feature: Vehicle Checker
       And I should see 'Clean Air Zone charge'
       And I should see 'Important information about vehicle data'
       And I should see 'How we calculate your charge'
-      And I should see 'Exemptions and alternatives to driving'
       And I should see 'No Charge'
       And I should see '£10.00'
 

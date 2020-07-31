@@ -6,10 +6,10 @@ RSpec.describe Compliance, type: :model do
   subject(:compliance) { described_class.new(vrn, taxi_or_phv) }
   let(:vrn) { 'CU1234' }
   let(:taxi_or_phv) { false }
+  let(:compliance_response) { read_response('vehicle_compliance_response.json') }
 
   before do
-    compliance = JSON.parse(file_fixture('vehicle_compliance_response.json').read)
-    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
+    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance_response)
   end
 
   describe '.compliance_outcomes' do
@@ -24,6 +24,33 @@ RSpec.describe Compliance, type: :model do
 
     it 'returns an array of ComplianceDetails' do
       expect(outcomes).to all(be_an(ComplianceDetails))
+    end
+  end
+
+  describe '.any_caz_chargable?' do
+    let(:any_caz_chargeable) { compliance.any_caz_chargable? }
+
+    it 'calls ComplianceCheckerApi' do
+      expect(ComplianceCheckerApi)
+        .to receive(:vehicle_compliance)
+        .with(vrn, taxi_or_phv)
+      any_caz_chargeable
+    end
+
+    context 'when compliance details has chargeable CAZ' do
+      it 'returns true' do
+        expect(any_caz_chargeable).to eq(true)
+      end
+    end
+
+    context 'when compliance details has no chargeable CAZ' do
+      let(:compliance_response) do
+        read_response('non_chargeable_vehicle_compliance_response.json')
+      end
+
+      it 'returns false' do
+        expect(any_caz_chargeable).to eq(false)
+      end
     end
   end
 end
