@@ -7,13 +7,13 @@ ruby '2.7.1'
 
 gem 'rails', '~> 6.0.3.3'
 
-gem 'aws-sdk-sqs'
 gem 'bootsnap', require: false
 gem 'haml'
 gem 'httparty'
 gem 'puma'
 gem 'sdoc', require: false
 gem 'sqlite3'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 
 group :development, :test do
@@ -45,5 +45,3 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
