@@ -25,12 +25,6 @@ module MockHelpers
     allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
   end
 
-  def mock_sqs
-    [Sqs::JaquMessage, Sqs::UserMessage].each do |service|
-      allow(service).to receive(:call).and_return(SecureRandom.uuid)
-    end
-  end
-
   def mock_taxi_details
     details = read_response('vehicle_details_response.json')
     details['taxiOrPhv'] = 'true'
