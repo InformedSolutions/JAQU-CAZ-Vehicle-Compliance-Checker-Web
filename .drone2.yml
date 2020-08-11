@@ -1507,6 +1507,7 @@ steps:
       TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-150934733-2
+      TF_VAR_feedback_url: https://defragroup.eu.qualtrics.com/jfe/form/SV_1yLUhQmt8QqkenH
     when:
       event:
         - pull_request
@@ -1574,6 +1575,7 @@ steps:
       TF_VAR_secret_key_base:
         from_secret: vccs_ruby_secret
       TF_VAR_google_analytics_id: UA-150934733-2
+      TF_VAR_feedback_url: https://defragroup.eu.qualtrics.com/jfe/form/SV_1yLUhQmt8QqkenH
     when:
       event:
         - push
