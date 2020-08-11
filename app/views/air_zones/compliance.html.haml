@@ -33,7 +33,7 @@
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
                 = button_tag 'Map', data: {index: 3}, type: 'button'
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-                = button_tag 'Further information', data: {index: 4}, type: 'button'
+                = button_tag 'Exemptions', data: {index: 4}, type: 'button'
           %tbody.govuk-table__body
             - @compliance_outcomes.each do |details|
               %tr.govuk-table__row
@@ -43,9 +43,12 @@
                 %td.govuk-table__cell
                   = link_to 'Zone boundary', details.boundary_url
                 %td.govuk-table__cell
-                  = link_to "#{details.zone_name} City Council", details.main_info_url
+                  = link_to "#{details.zone_name} City Council", details.exemption_or_discount_url
 
-      %p You do not need to pay until charging starts when the zones are live.
+      - if @any_caz_chargeable
+        %p
+          %b If your vehicle is subject to a daily charge, you do not need to pay until charging starts.
+
       %p The zones will operate 24 hours a day, 7 days a week, every day of the year.
 
       %details.govuk-details{'data-module': 'govuk-details'}
@@ -76,13 +79,17 @@
             of Clean Air Zone; each one charges different types of vehicle.
             For example, Birmingham charges private cars (CAZ D) but Leeds does not (CAZ B).
 
-      %h2.govuk-heading-m Exemptions and alternatives to driving
-      %p Contact the local authority of the Clean Air Zone you want to drive in for further information on:
+      %h2.govuk-heading-m Guidance on Clean Air Zones
+      %p
+        You can find out more about national exemptions, different types of Clean Air Zones and emission standards on our
+        = succeed '.' do
+          = link_to 'guidance page', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone'
+
+      %h2.govuk-heading-m Sustainable travel
+      %p Local authorities in the Clean Air Zones have specific information on:
       %ul.govuk-list.govuk-list--bullet
-        %li exemptions
         %li support to upgrade or replace your vehicle
         %li cycling and public transport options
-      %br
 
       = render 'go_ultra_low_icon'
       = render 'common/print_page'
