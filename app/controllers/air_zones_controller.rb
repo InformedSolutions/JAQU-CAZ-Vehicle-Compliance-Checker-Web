@@ -30,7 +30,9 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    @compliance_outcomes = Compliance.new(vrn, session[:taxi_or_phv]).compliance_outcomes
+    compliance = Compliance.new(vrn, session[:taxi_or_phv])
+    @compliance_outcomes = compliance.compliance_outcomes
+    @any_caz_chargeable = compliance.any_caz_chargable?
     @vrn = vrn
   end
 
