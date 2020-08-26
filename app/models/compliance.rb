@@ -43,6 +43,10 @@ class Compliance
     compliance_outcomes.any?(&:charged?)
   end
 
+  def phgv_discount_available?
+    compliance_api['phgvDiscountAvailable']
+  end
+
   private
 
   # Reader function for the vehicle registration number
