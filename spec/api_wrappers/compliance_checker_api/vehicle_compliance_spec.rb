@@ -21,6 +21,10 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_compliance' do
       expect(call['registrationNumber']).to eq(vrn)
     end
 
+    it 'returns if PHGV discount is available' do
+      expect(call['phgvDiscountAvailable']).to be_truthy
+    end
+
     it 'returns compliance data for all zones' do
       expect(call['complianceOutcomes'][0].keys).to contain_exactly(
         'cleanAirZoneId', 'charge', 'name', 'informationUrls'
