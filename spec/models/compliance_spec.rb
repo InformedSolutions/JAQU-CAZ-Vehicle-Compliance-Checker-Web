@@ -64,20 +64,20 @@ RSpec.describe Compliance, type: :model do
       phgv_discount_available
     end
 
-    context 'when PHGV discount is not available' do
+    context 'when PHGV discount is available' do
       it 'returns true' do
         expect(phgv_discount_available).to eq(true)
       end
     end
 
-    # context 'when compliance details has no chargeable CAZ' do
-    #   let(:compliance_response) do
-    #     read_response('non_chargeable_vehicle_compliance_response.json')
-    #   end
+    context 'when PHGV discount is not available' do
+      let(:compliance_response) do
+        read_response('phgv_discount_not_available_vehicle_compliance_response.json')
+      end
 
-    #   it 'returns false' do
-    #     expect(any_caz_chargeable).to eq(false)
-    #   end
-    # end
+      it 'returns false' do
+        expect(phgv_discount_available).to eq(false)
+      end
+    end
   end
 end
