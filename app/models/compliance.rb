@@ -43,6 +43,7 @@ class Compliance
     compliance_outcomes.any?(&:charged?)
   end
 
+  # Checks if PHGV discount is available
   def phgv_discount_available?
     compliance_api['phgvDiscountAvailable']
   end
