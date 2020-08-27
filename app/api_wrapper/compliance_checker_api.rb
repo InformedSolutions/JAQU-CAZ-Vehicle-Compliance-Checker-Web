@@ -9,7 +9,7 @@
 # All methods are on the class level, so there is no initializer method.
 
 class ComplianceCheckerApi < BaseApi
-  base_uri ENV.fetch('COMPLIANCE_CHECKER_API_URL', 'localhost:3001') + '/v1/compliance-checker'
+  base_uri "#{ENV.fetch('COMPLIANCE_CHECKER_API_URL', 'localhost:3001')}/v1/compliance-checker"
 
   headers(
     'Content-Type' => 'application/json',
@@ -79,6 +79,7 @@ class ComplianceCheckerApi < BaseApi
     #   * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
     #   * +name+ - string, eg. "Birmingham"
     #   * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
+    #   * +phgvDiscountAvailable+ - True if the vehicle's tax class is equal to PRIVATE HGV and body type is equal to either MOTOR HOME/CARAVAN or LIVESTOCK CARRIER
     #   * +informationUrls+ - object containing CAZ dedicated info links
     #     * +mainInfo+
     #     * +exemptionOrDiscount+
