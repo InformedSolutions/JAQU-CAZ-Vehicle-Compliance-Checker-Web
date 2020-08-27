@@ -15,12 +15,12 @@ Metrics/BlockLength:
     - 'config/routes.rb'
     - 'config/environments/*.rb'
 
-Style/AndOr:
-  EnforcedStyle: conditionals
-
 Style/MixinUsage:
   Exclude:
     - 'features/step_definitions/*.rb'
 
 Style/Documentation:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
