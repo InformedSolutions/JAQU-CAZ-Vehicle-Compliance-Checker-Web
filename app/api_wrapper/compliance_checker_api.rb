@@ -106,6 +106,43 @@ class ComplianceCheckerApi < BaseApi
     end
 
     ##
+    # Calls +/v1/compliance-checker/vehicles/:vrn/register-details endpoint with +GET+ method
+    # and returns information about vehicle existence on specific registers.
+    #
+    # ==== Attributes
+    #
+    # * +vrn+ - Vehicle registration number parsed using {Parser}[rdoc-ref:VrnParser]
+    #
+    # ==== Example
+    #
+    #    ComplianceCheckerApi.register_details('0009-AA')
+    #
+    # ==== Result
+    #
+    # Returned response will have the following attributes:
+    # * +registerCompliant+ - boolean, states if vehicle features in Retrofit or is compliant in GPW
+    # * +registerExempt+ - boolean, states if vehicle features in MOD or is exempt in GPW
+    # * +registeredMOD+ - boolean, states if vehicle features in MOD
+    # * +registeredGPW+ - boolean, states if vehicle features in GPW
+    # * +registeredNTR+ - boolean, states if vehicle features in NTR
+    # * +registeredRetrofit+ - boolean, states if vehicle features in Retrofit
+    #
+    # ==== Serialization
+    #
+    # {Register details model}[rdoc-ref:RegisterDetails]
+    # can be used to create an instance referring to the returned data
+    #
+    # ==== Exceptions
+    # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found
+    # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
+    # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
+
+    def register_details(vrn)
+      log_action 'Making request for vehicle presence on specific registers'
+      request(:get, "/vehicles/#{vrn}/register-details")
+    end
+
+    ##
     # Calls +/v1/payments/clean-air-zones+ endpoint with +GET+ method
     # and returns the list of available Clean Air Zones.
     #
