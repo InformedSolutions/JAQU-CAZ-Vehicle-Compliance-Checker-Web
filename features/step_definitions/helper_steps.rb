@@ -35,6 +35,10 @@ Then('I should see the Compliance page') do
   expect(page).to have_current_path(compliance_air_zones_path)
 end
 
+Then('I should see the non-uk Compliance page') do
+  expect(page).to have_current_path(non_uk_compliance_air_zones_path)
+end
+
 Then('I press the Back link') do
   click_link('Back')
 end

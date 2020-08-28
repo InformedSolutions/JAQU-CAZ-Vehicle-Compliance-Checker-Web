@@ -24,7 +24,7 @@ module JaquCaz
     # name of service
     config.x.service_name = 'Drive in a Clean Air Zone'
 
-    feedback_url_default = 'https://www.surveymonkey.co.uk/r/2RNBKTV'
+    feedback_url_default = 'https://defragroup.eu.qualtrics.com/jfe/form/SV_4IoHzxu6b9Z5GRL'
     config.x.feedback_url = (ENV['FEEDBACK_URL'].presence || feedback_url_default)
 
     contact_email_default = 'Useraccount.Query@defra.gov.uk'
