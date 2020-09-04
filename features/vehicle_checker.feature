@@ -14,7 +14,7 @@ Feature: Vehicle Checker
       And I should see 'Enter the number plate of the vehicle' title
       And I should see 'Enter the number plate of the vehicle'
     Then I enter an invalid VRN
-      And I should see 'Enter the number plate of the vehicle in valid format'
+      And I should see 'Enter the number plate of the vehicle in a valid format'
     Then I enter too long VRN
       And I should see 'The number plate of the vehicle is too long'
     Then I enter too short VRN
@@ -56,6 +56,18 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration and choose Non-UK
       And I press the Continue
     Then I should see the Non-UK vehicle page
+
+  Scenario: User selects Non-UK exempted registration
+    Given I am on the enter details page
+    Then I enter an exempted vehicle's registration and choose Non-UK
+      And I press the Continue
+    Then I should see the Exemption page
+
+  Scenario: User selects Non-UK compliant registration
+    Given I am on the enter details page
+    Then I enter an compliant vehicle's registration and choose Non-UK
+      And I press the Continue
+    Then I should see the non-uk Compliance page
 
   Scenario: User doesn't fill VRN input
     Given I am on the enter details page

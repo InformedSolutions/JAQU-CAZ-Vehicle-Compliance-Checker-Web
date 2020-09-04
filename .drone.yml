@@ -1509,6 +1509,7 @@ steps:
       AWS_DEFAULT_REGION: eu-west-2
       TF_VAR_google_analytics_id: UA-150934733-2
       TF_VAR_enable_https_redirect: false
+      TF_VAR_feedback_url: https://defragroup.eu.qualtrics.com/jfe/form/SV_1yLUhQmt8QqkenH
     when:
       event:
         - pull_request
@@ -1569,6 +1570,7 @@ steps:
       AWS_DEFAULT_REGION: eu-west-2
       TF_VAR_google_analytics_id: UA-150934733-2
       TF_VAR_enable_https_redirect: false
+      TF_VAR_feedback_url: https://defragroup.eu.qualtrics.com/jfe/form/SV_1yLUhQmt8QqkenH
     when:
       event:
         - push
