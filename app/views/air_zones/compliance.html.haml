@@ -38,7 +38,7 @@
             - @compliance_outcomes.each do |details|
               %tr.govuk-table__row
                 %td.govuk-table__cell= details.zone_name
-                %td.govuk-table__cell
+                %td.govuk-table__cell{ data: { "sort-value": details.charge_amount } }
                   - if details.charged? && details.zone_name == 'Bath' && @phgv_discount_available
                     = details.charge
                     = link_to "Discount available", details.exemption_or_discount_url
