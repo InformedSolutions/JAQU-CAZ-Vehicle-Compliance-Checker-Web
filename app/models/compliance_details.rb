@@ -53,6 +53,11 @@ class ComplianceDetails
     "£#{format('%<pay>.2f', pay: compliance_data[:charge].to_f)}"
   end
 
+  # Returns charge amount
+  def charge_amount
+    compliance_data[:charge].to_f
+  end
+
   # Returns a string, eg. 'www.example.com'.
   def main_info_url
     url(:main_info)
