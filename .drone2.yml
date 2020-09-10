@@ -78,12 +78,12 @@ steps:
       BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
       BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
       BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
-      BASEURL_NTR_API: 'https://z0kbujgir3.execute-api.eu-west-2.amazonaws.com/dev'
+      BASEURL_NTR_API: 'https://dev-api.taxiphvdata.co.uk'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
       VALID_USERNAME: 'tester@informed.com'
-      VALID_PASSWORD: 'Tester123..'
+      VALID_PASSWORD: 'Tester123...'
       LOCATION: local
       CLIENT_ID:
         from_secret: aws_id_e_to_e
@@ -104,12 +104,12 @@ steps:
       BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
       BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
       BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
-      BASEURL_NTR_API: 'https://z0kbujgir3.execute-api.eu-west-2.amazonaws.com/dev'
+      BASEURL_NTR_API: 'https://dev-api.taxiphvdata.co.uk'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
       VALID_USERNAME: 'tester@informed.com'
-      VALID_PASSWORD: 'Tester123..'
+      VALID_PASSWORD: 'Tester123...'
       LOCATION: local
       CLIENT_ID:
         from_secret: aws_id_e_to_e
