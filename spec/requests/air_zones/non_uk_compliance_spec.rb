@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AirZonesController - GET #compliance', type: :request do
-  subject { get compliance_air_zones_path }
+RSpec.describe 'AirZonesController - GET #non_uk_compliance', type: :request do
+  subject { get non_uk_compliance_air_zones_path }
 
   let(:caz) { ['a49afb83-d1b3-48b6-b08b-5db8142045dc'] }
 
@@ -11,8 +11,10 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
 
   context 'when api returns 200 status' do
     before do
-      compliance = read_response('vehicle_compliance_response.json')
-      allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
+      stub_request(:get, /clean-air-zones/).to_return(
+        status: 200,
+        body: file_fixture('caz_list_response.json').read
+      )
       subject
     end
 
@@ -21,13 +23,13 @@ RSpec.describe 'AirZonesController - GET #compliance', type: :request do
     end
 
     it 'renders the compliance view' do
-      expect(response).to render_template(:compliance)
+      expect(response).to render_template('air_zones/compliance')
     end
   end
 
   context 'when api returns 422 status' do
     before do
-      allow(ComplianceCheckerApi).to receive(:vehicle_compliance)
+      allow(ComplianceCheckerApi).to receive(:clean_air_zones)
         .and_raise(BaseApi::Error422Exception.new(422, '',
                                                   'message' => 'Something went wrong'))
       subject
