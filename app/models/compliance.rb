@@ -43,11 +43,10 @@ class Compliance
     compliance_outcomes.any?(&:charged?)
   end
 
-  # Method iterates over compliance outcomes and verifies if there's at least one
-  # Clean Air Zone in which the vehicle should be charged.
-  # Returns a boolean.
-  def any_caz_chargable?
-    compliance_outcomes.any?(&:charged?)
+  # Checks if PHGV discount is available
+  def phgv_discount_available?
+    compliance_api['phgvDiscountAvailable']
+
   end
 
   private
