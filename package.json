@@ -1,5 +1,5 @@
 {
-  "name": "jaqu-caz-vccs",
+  "name": "jaqu_caz",
   "private": true,
   "dependencies": {
     "@ministryofjustice/frontend": "0.0.19-alpha",
