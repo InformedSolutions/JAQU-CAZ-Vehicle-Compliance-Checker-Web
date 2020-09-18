@@ -3,14 +3,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.6.6'
 
 gem 'rails', '~> 6.0.3.3'
 
 gem 'aws-sdk-sqs'
 gem 'bootsnap', require: false
-gem 'brakeman'
-gem 'bundler-audit'
 gem 'haml'
 gem 'httparty'
 gem 'puma'
@@ -23,7 +21,6 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'haml-rails'
   gem 'rspec-rails'
-  gem 'ruby_jard'
 end
 
 group :development do
@@ -34,11 +31,14 @@ group :development do
 end
 
 group :test do
+  gem 'brakeman'
+  gem 'bundler-audit'
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'rubocop-rails'
+  gem 'scss_lint-govuk', require: false
   gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.17.1', require: false
   gem 'webdrivers'
