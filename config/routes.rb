@@ -33,20 +33,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :contact_forms, only: :index do
-      collection do
-        post :index, to: 'contact_forms#validate'
-        get :result
-      end
-    end
-
     get :service_unavailable, to: 'application#server_unavailable'
     get :cookies, to: 'cookies#index'
     get :privacy_notice, to: 'privacy_notice#index'
     get :accessibility_statement, to: 'accessibility#index'
 
     match '/404', to: 'errors#not_found', via: :all
-    # There is no 422 error page in design systems
     match '/422', to: 'errors#internal_server_error', via: :all
     match '/500', to: 'errors#internal_server_error', via: :all
     match '/503', to: 'errors#service_unavailable', via: :all

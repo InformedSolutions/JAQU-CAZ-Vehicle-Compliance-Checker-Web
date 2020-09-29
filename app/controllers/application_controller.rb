@@ -78,9 +78,4 @@ class ApplicationController < ActionController::Base
   def vrn
     session[:vrn]
   end
-
-  # Logs invalid form on +warn+ level
-  def log_invalid_form(msg)
-    Rails.logger.warn "The form is invalid. #{msg}"
-  end
 end
