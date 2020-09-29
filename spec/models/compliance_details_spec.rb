@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ComplianceDetails, type: :model do
+describe ComplianceDetails, type: :model do
   subject(:compliance) { described_class.new(details, false) }
 
   let(:details) do

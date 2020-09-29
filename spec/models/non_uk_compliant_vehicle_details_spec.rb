@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe NonUkCompliantVehicleDetails, type: :model do
+describe NonUkCompliantVehicleDetails, type: :model do
   subject { described_class.new(caz_data) }
 
   let(:caz_data) do
