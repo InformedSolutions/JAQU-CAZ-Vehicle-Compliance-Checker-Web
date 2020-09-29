@@ -2,22 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
-  subject(:call) { ComplianceCheckerApi.vehicle_details(vrn) }
+describe ComplianceCheckerApi do
+  subject { described_class.vehicle_details(vrn) }
 
   let(:vrn) { 'CU57ABC' }
 
   context 'when call returns 200' do
     before do
       vehicle_details = file_fixture('vehicle_details_response.json').read
-      stub_request(:get, /details/).to_return(
-        status: 200,
-        body: vehicle_details
-      )
+      stub_request(:get, /details/).to_return(status: 200, body: vehicle_details)
     end
 
     it 'returns proper fields' do
-      expect(call.keys).to contain_exactly(
+      expect(subject.keys).to contain_exactly(
         'registrationNumber',
         'typeApproval',
         'type',
@@ -39,7 +36,7 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
     end
 
     it 'raises Error500Exception' do
-      expect { call }.to raise_exception(BaseApi::Error500Exception)
+      expect { subject }.to raise_exception(BaseApi::Error500Exception)
     end
   end
 
@@ -52,7 +49,7 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
     end
 
     it 'raises Error400Exception' do
-      expect { call }.to raise_exception(BaseApi::Error400Exception)
+      expect { subject }.to raise_exception(BaseApi::Error400Exception)
     end
   end
 
@@ -65,7 +62,7 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
     end
 
     it 'raises Error404Exception' do
-      expect { call }.to raise_exception(BaseApi::Error404Exception)
+      expect { subject }.to raise_exception(BaseApi::Error404Exception)
     end
   end
 
@@ -78,7 +75,7 @@ RSpec.describe 'ComplianceCheckerApi.vehicle_details' do
     end
 
     it 'raises Error422Exception' do
-      expect { call }.to raise_exception(BaseApi::Error422Exception)
+      expect { subject }.to raise_exception(BaseApi::Error422Exception)
     end
   end
 end
