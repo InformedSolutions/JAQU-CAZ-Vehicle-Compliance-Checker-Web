@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get :build_id, to: 'application#build_id',
-                 constraints: { format: :json },
-                 defaults: { format: :json }
-  get :health, to: 'application#health',
-               constraints: { format: :json },
-               defaults: { format: :json }
+  scope controller: 'application' do
+    get :build_id, constraints: { format: :json }, defaults: { format: :json }
+    get :health, constraints: { format: :json }, defaults: { format: :json }
+  end
 
   constraints(CheckRequestFormat) do
     get 'welcome/index'
