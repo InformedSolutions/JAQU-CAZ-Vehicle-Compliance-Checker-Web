@@ -50,11 +50,6 @@ class ApplicationController < ActionController::Base
     render json: ENV.fetch('BUILD_ID', 'undefined'), status: :ok
   end
 
-  # clear taxi_or_phv from session
-  def clear_session_details
-    session[:taxi_or_phv] = nil
-  end
-
   private
 
   # Function used as a rescue from API errors.
@@ -77,5 +72,10 @@ class ApplicationController < ActionController::Base
   # Gets VRN from session. Returns string, eg 'CU1234'
   def vrn
     session[:vrn]
+  end
+
+  # clear taxi_or_phv from session
+  def clear_session_details
+    session[:taxi_or_phv] = nil
   end
 end
