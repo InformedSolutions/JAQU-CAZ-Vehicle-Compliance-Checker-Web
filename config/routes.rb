@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get :build_id, to: 'application#build_id',
-                 constraints: { format: :json },
-                 defaults: { format: :json }
-  get :health, to: 'application#health',
-               constraints: { format: :json },
-               defaults: { format: :json }
+  scope controller: 'application' do
+    get :build_id, constraints: { format: :json }, defaults: { format: :json }
+    get :health, constraints: { format: :json }, defaults: { format: :json }
+  end
 
   constraints(CheckRequestFormat) do
     get 'welcome/index'
@@ -33,20 +31,15 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :contact_forms, only: :index do
-      collection do
-        post :index, to: 'contact_forms#validate'
-        get :result
-      end
+    scope controller: 'static_pages' do
+      get :accessibility_statement
+      get :cookies
+      get :privacy_notice
     end
 
     get :service_unavailable, to: 'application#server_unavailable'
-    get :cookies, to: 'cookies#index'
-    get :privacy_notice, to: 'privacy_notice#index'
-    get :accessibility_statement, to: 'accessibility#index'
 
     match '/404', to: 'errors#not_found', via: :all
-    # There is no 422 error page in design systems
     match '/422', to: 'errors#internal_server_error', via: :all
     match '/500', to: 'errors#internal_server_error', via: :all
     match '/503', to: 'errors#service_unavailable', via: :all

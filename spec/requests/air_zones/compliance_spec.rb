@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AirZonesController - GET #compliance', type: :request do
+describe 'AirZonesController - GET #compliance', type: :request do
   subject { get compliance_air_zones_path }
 
   let(:caz) { ['a49afb83-d1b3-48b6-b08b-5db8142045dc'] }

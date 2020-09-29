@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #confirm_details', type: :request do
+describe 'VehicleCheckersController - GET #confirm_details', type: :request do
   subject { get confirm_details_vehicle_checkers_path }
 
   let(:vehicle_details) { read_response('vehicle_details_response.json') }
