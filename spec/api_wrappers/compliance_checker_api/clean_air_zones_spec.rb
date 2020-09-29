@@ -23,8 +23,10 @@ RSpec.describe 'ComplianceCheckerApi.clean_air_zones' do
         'cleanAirZoneId',
         'name',
         'boundaryUrl',
+        'exemptionUrl',
         'mainInfoUrl',
-        'activeChargeStartDate'
+        'activeChargeStartDate',
+        'operatorName'
       )
     end
   end

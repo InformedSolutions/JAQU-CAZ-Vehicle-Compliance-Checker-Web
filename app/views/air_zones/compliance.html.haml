@@ -41,7 +41,7 @@
                 %td.govuk-table__cell{ data: { 'sort-value': details.charge_amount } }
                   - if details.charged? && details.zone_name == 'Bath' && @phgv_discount_available
                     = details.charge
-                    = link_to "Discount available", details.exemption_or_discount_url
+                    = link_to 'Discount available', details.exemption_or_discount_url
                   - elsif details.charged?
                     = details.charge
                   - else
@@ -50,7 +50,7 @@
                 %td.govuk-table__cell
                   = link_to 'Zone boundary', details.boundary_url
                 %td.govuk-table__cell
-                  = link_to "#{details.zone_name} City Council", details.exemption_or_discount_url
+                  = link_to details.operator_name, details.exemption_or_discount_url
 
       - if @any_caz_chargeable
         %p

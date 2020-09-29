@@ -8,6 +8,7 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   let(:caz_data) do
     {
       'name' => name,
+      'operatorName' => operator_name,
       'boundaryUrl' => boundary_url,
       'mainInfoUrl' => main_info_url,
       'exemptionUrl' => exemption_url
@@ -15,6 +16,7 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   end
 
   let(:name) { 'Birmingham' }
+  let(:operator_name) { 'Birmingham City Council' }
   let(:boundary_url) { 'www.example.com' }
   let(:main_info_url) { 'www.main.info' }
   let(:exemption_url) { 'www.exemption.co.uk' }
@@ -53,6 +55,12 @@ RSpec.describe NonUkCompliantVehicleDetails, type: :model do
   describe '.exemption_or_discount_url' do
     it 'return proper .exemption_or_discount_url value' do
       expect(subject.exemption_or_discount_url).to eq(exemption_url)
+    end
+  end
+
+  describe '.operator_name' do
+    it 'returns a proper value' do
+      expect(subject.operator_name).to eq(operator_name)
     end
   end
 end
