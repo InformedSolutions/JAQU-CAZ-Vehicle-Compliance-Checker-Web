@@ -33,10 +33,13 @@ Rails.application.routes.draw do
       end
     end
 
+    scope controller: 'static_pages' do
+      get :accessibility_statement
+      get :cookies
+      get :privacy_notice
+    end
+
     get :service_unavailable, to: 'application#server_unavailable'
-    get :cookies, to: 'cookies#index'
-    get :privacy_notice, to: 'privacy_notice#index'
-    get :accessibility_statement, to: 'accessibility#index'
 
     match '/404', to: 'errors#not_found', via: :all
     match '/422', to: 'errors#internal_server_error', via: :all
