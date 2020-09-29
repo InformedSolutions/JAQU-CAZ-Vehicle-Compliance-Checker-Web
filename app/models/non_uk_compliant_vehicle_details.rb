@@ -54,6 +54,11 @@ class NonUkCompliantVehicleDetails
     caz_data['exemptionUrl']
   end
 
+  # Returns a string, eg. 'Bath and North East Somerset Council'
+  def operator_name
+    caz_data['operatorName']
+  end
+
   private
 
   attr_reader :caz_data

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ConfirmDetailsTaxiForm, type: :model do
+describe ConfirmDetailsTaxiForm, type: :model do
   subject(:form) { described_class.new(params) }
 
   let(:confirm_details) { 'yes' }

@@ -50,11 +50,6 @@ class ApplicationController < ActionController::Base
     render json: ENV.fetch('BUILD_ID', 'undefined'), status: :ok
   end
 
-  # clear taxi_or_phv from session
-  def clear_session_details
-    session[:taxi_or_phv] = nil
-  end
-
   private
 
   # Function used as a rescue from API errors.
@@ -79,8 +74,8 @@ class ApplicationController < ActionController::Base
     session[:vrn]
   end
 
-  # Logs invalid form on +warn+ level
-  def log_invalid_form(msg)
-    Rails.logger.warn "The form is invalid. #{msg}"
+  # clear taxi_or_phv from session
+  def clear_session_details
+    session[:taxi_or_phv] = nil
   end
 end
