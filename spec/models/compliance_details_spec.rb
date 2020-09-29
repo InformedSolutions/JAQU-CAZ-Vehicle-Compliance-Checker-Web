@@ -2,12 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe ComplianceDetails, type: :model do
+describe ComplianceDetails, type: :model do
   subject(:compliance) { described_class.new(details, false) }
 
   let(:details) do
     {
       'name' => name,
+      'operatorName' => operator_name,
       'charge' => charge,
       'informationUrls' => {
         'boundary' => url,
@@ -20,6 +21,7 @@ RSpec.describe ComplianceDetails, type: :model do
   end
 
   let(:name) { 'Birmingham' }
+  let(:operator_name) { 'Birmingham City Council' }
   let(:charge) { 5.1 }
   let(:url) { 'www.example.com' }
 
@@ -78,6 +80,12 @@ RSpec.describe ComplianceDetails, type: :model do
   describe '.boundary_url' do
     it 'returns a proper url' do
       expect(compliance.boundary_url).to eq(url)
+    end
+  end
+
+  describe '.operator_name' do
+    it 'returns a proper value' do
+      expect(compliance.operator_name).to eq(operator_name)
     end
   end
 end

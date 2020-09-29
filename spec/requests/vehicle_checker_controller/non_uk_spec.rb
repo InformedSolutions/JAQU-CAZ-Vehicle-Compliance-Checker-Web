@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #non_uk', type: :request do
+describe 'VehicleCheckersController - GET #non_uk', type: :request do
   subject { get non_uk_vehicle_checkers_path }
 
   let(:register_exempt) { false }

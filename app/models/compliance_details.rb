@@ -3,8 +3,6 @@
 ##
 # This class is used to display data in +app/views/air_zones/compliance.html.haml+.
 class ComplianceDetails
-  attr_reader :retrofit
-
   ##
   # Creates an instance of a class, make keys underscore and transform to symbols.
   #
@@ -59,8 +57,8 @@ class ComplianceDetails
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def public_transport_options_url
-    url(:public_transport_options)
+  def boundary_url
+    url(:boundary)
   end
 
   # Returns a string, eg. 'www.example.com'.
@@ -68,14 +66,19 @@ class ComplianceDetails
     url(:exemption_or_discount)
   end
 
-  # Returns a string, eg. 'www.example.com'.
-  def become_compliant_url
-    url(:become_compliant)
+  # Returns a string, eg. 'Bath and North East Somerset'.
+  def operator_name
+    compliance_data[:operator_name]
   end
 
   # Returns a string, eg. 'www.example.com'.
-  def boundary_url
-    url(:boundary)
+  def public_transport_options_url
+    url(:public_transport_options)
+  end
+
+  # Returns a string, eg. 'www.example.com'.
+  def become_compliant_url
+    url(:become_compliant)
   end
 
   # Returns a string, eg. 'Birmingham'.
