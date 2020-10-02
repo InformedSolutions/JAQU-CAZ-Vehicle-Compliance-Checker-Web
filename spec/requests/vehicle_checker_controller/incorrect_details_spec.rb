@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'VehicleCheckersController - GET #incorrect_details', type: :request do
+describe 'VehicleCheckersController - GET #incorrect_details', type: :request do
   subject { get incorrect_details_vehicle_checkers_path }
 
   before { add_vrn_to_session }

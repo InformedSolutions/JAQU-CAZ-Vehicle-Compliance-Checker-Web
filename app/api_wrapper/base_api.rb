@@ -36,15 +36,13 @@ class BaseApi
     # Exception are raised based on HTTP status of the response.
     # Other HTTP statuses than 400, 404, 422 and errors during response parsing are treated as 500.
     #
-    # * {400 Exception}[rdoc-ref:BaseApi::Error400Exception]
-    # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception]
-    # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception]
-    # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception]
+    # * {400 Exception}[rdoc-ref:Error400Exception]
+    # * {404 Exception}[rdoc-ref:Error404Exception]
+    # * {422 Exception}[rdoc-ref:Error422Exception]
+    # * {500 Exception}[rdoc-ref:Error500Exception]
     def request(method, path, options = {})
       response_object = public_send(method, path, options).response
-      parsed_body = validate_response(response_object.response)
-      log_action 'The call was successful'
-      parsed_body
+      validate_response(response_object.response)
     end
 
     private
