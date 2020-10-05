@@ -6,7 +6,6 @@
 class VehicleCheckersController < ApplicationController
   # 404 HTTP status from API mean vehicle in not found in DLVA database. Redirects to the proper page.
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
-
   # checks if VRN is present in the session
   before_action :check_vrn, except: %i[enter_details submit_details]
 
@@ -51,7 +50,6 @@ class VehicleCheckersController < ApplicationController
       redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
     else
       @errors = form.error_object
-      log_invalid_form('Rendering :enter_details')
       render :enter_details
     end
   end
@@ -109,7 +107,6 @@ class VehicleCheckersController < ApplicationController
     if form.valid?
       determinate_next_page(form)
     else
-      log_invalid_form('Redirecting back.')
       @vehicle_details = VehicleDetails.new(vrn)
       @errors = form.errors.messages
       render :confirm_details
@@ -195,9 +192,9 @@ class VehicleCheckersController < ApplicationController
   def non_uk
     @vehicle_registration = vrn
     details = RegisterDetails.new(vrn)
-
     return redirect_to(exemption_vehicle_checkers_path) if details.register_exempt?
-    return redirect_to(non_uk_compliance_air_zones_path) if details.register_compliant?
+
+    redirect_to(non_uk_compliance_air_zones_path) if details.register_compliant?
   end
 
   private

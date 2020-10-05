@@ -2,7 +2,7 @@ require: rubocop-rails
 inherit_from: ./lib/rubocop/blacklist.yml
 
 AllCops:
-  TargetRubyVersion: 2.6.5
+  TargetRubyVersion: 2.7.1
   NewCops: enable
 
 Layout/LineLength:
@@ -15,12 +15,12 @@ Metrics/BlockLength:
     - 'config/routes.rb'
     - 'config/environments/*.rb'
 
-Style/AndOr:
-  EnforcedStyle: conditionals
-
 Style/MixinUsage:
   Exclude:
     - 'features/step_definitions/*.rb'
 
 Style/Documentation:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false

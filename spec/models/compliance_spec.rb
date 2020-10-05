@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Compliance, type: :model do
+describe Compliance, type: :model do
   subject(:compliance) { described_class.new(vrn, taxi_or_phv) }
   let(:vrn) { 'CU1234' }
   let(:taxi_or_phv) { false }

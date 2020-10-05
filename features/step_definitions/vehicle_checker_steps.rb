@@ -129,10 +129,6 @@ And("I enter a vehicle's registration when server is unavailable") do
   fill_fields
 end
 
-And('I press the Contact Us link') do
-  click_link 'contact us'
-end
-
 Then('I enter an invalid VRN') do
   fill_fields('%%%%%%')
   click_button 'Continue'
