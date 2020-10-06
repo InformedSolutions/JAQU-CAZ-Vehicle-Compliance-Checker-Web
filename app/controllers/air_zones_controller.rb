@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# Controller class for 2 final steps of checking the vehicle compliance
+# Controller class for final steps of checking the vehicle compliance
 #
 class AirZonesController < ApplicationController
   # rescues also from 404 -> the rest is in ApplicationController
@@ -60,7 +60,6 @@ class AirZonesController < ApplicationController
                            .clean_air_zones
                            .map { |caz| NonUkCompliantVehicleDetails.new(caz) }
     @vrn = vrn
-
     render 'air_zones/compliance'
   end
 

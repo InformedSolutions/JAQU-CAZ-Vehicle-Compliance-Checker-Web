@@ -3,27 +3,51 @@
     "isRetrofitted": false,
     "exempt": false,
     "phgvDiscountAvailable": true,
+    "note": "",
     "complianceOutcomes": [
         {
-            "cleanAirZoneId": "7d0c4240-1618-446b-bde2-2f3458c8a520",
-            "name": "Test",
+            "cleanAirZoneId": "5cd7441d-766f-48ff-b8ad-1809586fea37",
+            "name": "Birmingham",
+            "operatorName": "Birmingham City Council",
             "charge": 10.0,
+            "tariffCode": "LCC01-TAXI",
             "informationUrls": {
-                "mainInfo": "http://test.com",
-                "exemptionOrDiscount": "http://test.com",
-                "becomeCompliant": "http://test.com",
-                "boundary": "http://test.com"
+                "mainInfo": "https://www.brumbreathes.co.uk/",
+                "exemptionOrDiscount": "https://www.brumbreathes.co.uk/exemptions-and-additional-support",
+                "becomeCompliant": "https://www.brumbreathes.co.uk/info/6/upgrading-car/5/upgrading-car-1",
+                "boundary": "https://www.birmingham.gov.uk/info/20076/pollution/1763/a_clean_air_zone_for_birmingham/2",
+                "additionalInfo": "https://www.brumbreathes.co.uk/what-does-it-mean-for-me",
+                "publicTransportOptions": "https://www.brumbreathes.co.uk/info/15/drive-work-clean-air-zone-1/9/drive-work-clean-air-zone/4"
             }
         },
         {
-            "cleanAirZoneId": "7d0c4240-1618-446b-bde2-2f3458c8a521",
-            "name": "Test",
+            "cleanAirZoneId": "39e54ed8-3ed2-441d-be3f-38fc9b70c8d3",
+            "name": "Leeds",
+            "operatorName": "Leeds City Council",
             "charge": 0.0,
+            "tariffCode": "LCC01-TAXI",
             "informationUrls": {
-                "mainInfo": "http://test.com",
-                "exemptionOrDiscount": "http://test.com",
-                "becomeCompliant": "http://test.com",
-                "boundary": "http://test.com"
+                "mainInfo": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality",
+                "exemptionOrDiscount": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality/exempt-vehicles-clean-air-charging-zone",
+                "becomeCompliant": "http://www.leeds.gov.uk/cleanairzone",
+                "boundary": "https://leedscc.maps.arcgis.com/apps/webappviewer/index.html?id=fd8765f4fa614c64808e32a15ed5ee71",
+                "additionalInfo": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality?utm_source=Clean_Air_Leeds_Website&utm_medium=referral&utm_term=What_Are_We_Doing",
+                "publicTransportOptions": "https://cleanairleeds.co.uk/what-can-i-do/residents"
+            }
+        },
+        {
+            "cleanAirZoneId": "131af03c-f7f4-4aef-81ee-aae4f56dbeb5",
+            "name": "Bath",
+            "operatorName": "Bath and North East Somerset Council",
+            "charge": 9.0,
+            "tariffCode": "BAT01-TAXI",
+            "informationUrls": {
+                "mainInfo": "http://www.bathnes.gov.uk/BathCAZ",
+                "exemptionOrDiscount": "http://www.bathnes.gov.uk/CAZexemptions",
+                "becomeCompliant": "http://www.bathnes.gov.uk/CAZsupport",
+                "boundary": "http://www.bathnes.gov.uk/zonemaps",
+                "additionalInfo": "https://www.bathnes.gov.uk/bath-breathes-2021-overview",
+                "publicTransportOptions": "http://www.bathnes.gov.uk/cleanair4bathnes"
             }
         }
     ]
