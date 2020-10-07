@@ -9,12 +9,8 @@
 # All methods are on the class level, so there is no initializer method.
 
 class ComplianceCheckerApi < BaseApi
-  base_uri ENV.fetch('COMPLIANCE_CHECKER_API_URL', 'localhost:3001') + '/v1/compliance-checker'
-
-  headers(
-    'Content-Type' => 'application/json',
-    'X-Correlation-ID' => -> { SecureRandom.uuid }
-  )
+  base_uri "#{ENV.fetch('COMPLIANCE_CHECKER_API_URL', 'localhost:3001')}/v1/compliance-checker"
+  headers('Content-Type' => 'application/json', 'X-Correlation-ID' => -> { SecureRandom.uuid })
 
   class << self
     ##
@@ -50,7 +46,7 @@ class ComplianceCheckerApi < BaseApi
     # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found in the DVLA db
     # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
-
+    #
     def vehicle_details(vrn)
       log_action 'Making request for vehicle details with VRN'
       request(:get, "/vehicles/#{vrn}/details")
@@ -79,6 +75,7 @@ class ComplianceCheckerApi < BaseApi
     #   * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
     #   * +name+ - string, eg. "Birmingham"
     #   * +charge+ - number, determines how much owner of the vehicle will have to pay in this CAZ
+    #   * +phgvDiscountAvailable+ - True if the vehicle's tax class is equal to PRIVATE HGV and body type is equal to either MOTOR HOME/CARAVAN or LIVESTOCK CARRIER
     #   * +informationUrls+ - object containing CAZ dedicated info links
     #     * +mainInfo+
     #     * +exemptionOrDiscount+
@@ -97,7 +94,7 @@ class ComplianceCheckerApi < BaseApi
     # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found in the DVLA db
     # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
-
+    #
     def vehicle_compliance(vrn, taxi_or_phv)
       log_action 'Making request for vehicle compliance in all zones'
 
@@ -136,7 +133,7 @@ class ComplianceCheckerApi < BaseApi
     # * {404 Exception}[rdoc-ref:BaseApi::Error404Exception] - vehicle not found
     # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
-
+    #
     def register_details(vrn)
       log_action 'Making request for vehicle presence on specific registers'
       request(:get, "/vehicles/#{vrn}/register-details")

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Compliance, type: :model do
+describe Compliance, type: :model do
   subject(:compliance) { described_class.new(vrn, taxi_or_phv) }
   let(:vrn) { 'CU1234' }
   let(:taxi_or_phv) { false }
@@ -50,6 +50,33 @@ RSpec.describe Compliance, type: :model do
 
       it 'returns false' do
         expect(any_caz_chargeable).to eq(false)
+      end
+    end
+  end
+
+  describe '.phgv_discount_available?' do
+    let(:phgv_discount_available) { compliance.phgv_discount_available? }
+
+    it 'calls ComplianceCheckerApi' do
+      expect(ComplianceCheckerApi)
+        .to receive(:vehicle_compliance)
+        .with(vrn, taxi_or_phv)
+      phgv_discount_available
+    end
+
+    context 'when PHGV discount is available' do
+      it 'returns true' do
+        expect(phgv_discount_available).to eq(true)
+      end
+    end
+
+    context 'when PHGV discount is not available' do
+      let(:compliance_response) do
+        read_response('phgv_discount_not_available_vehicle_compliance_response.json')
+      end
+
+      it 'returns false' do
+        expect(phgv_discount_available).to eq(false)
       end
     end
   end

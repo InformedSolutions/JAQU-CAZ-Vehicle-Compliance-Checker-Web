@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# Controller class for 2 final steps of checking the vehicle compliance
+# Controller class for final steps of checking the vehicle compliance
 #
 class AirZonesController < ApplicationController
   # rescues also from 404 -> the rest is in ApplicationController
@@ -31,6 +31,7 @@ class AirZonesController < ApplicationController
   #
   def compliance
     compliance = Compliance.new(vrn, session[:taxi_or_phv])
+    @phgv_discount_available = compliance.phgv_discount_available?
     @compliance_outcomes = compliance.compliance_outcomes
     @any_caz_chargeable = compliance.any_caz_chargable?
     @vrn = vrn
@@ -59,7 +60,6 @@ class AirZonesController < ApplicationController
                            .clean_air_zones
                            .map { |caz| NonUkCompliantVehicleDetails.new(caz) }
     @vrn = vrn
-
     render 'air_zones/compliance'
   end
 
