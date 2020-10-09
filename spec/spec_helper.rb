@@ -10,7 +10,6 @@ SimpleCov.start 'rails' do
   minimum_coverage 90
   # ignore next folders and files
   add_filter %w[
-    app/services/base_service.rb
     app/models/application_record.rb
     lib/
     config/
