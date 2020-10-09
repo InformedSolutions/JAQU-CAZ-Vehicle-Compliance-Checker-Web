@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe VrnForm, type: :model do
-  subject(:form) { described_class.new(vrn, country) }
+  subject { described_class.new(vrn, country) }
 
   let(:vrn) { 'CU57ABC' }
   let(:country) { 'UK' }
@@ -12,12 +12,12 @@ describe VrnForm, type: :model do
     it { is_expected.to be_valid }
 
     it 'has an empty hash as error_object' do
-      expect(form.error_object).to eq({})
+      expect(subject.error_object).to eq({})
     end
   end
 
   describe 'both fields validation' do
-    before { form.valid? }
+    before { subject.valid? }
 
     context 'when country and vrn are nil' do
       let(:country) { nil }
@@ -31,7 +31,7 @@ describe VrnForm, type: :model do
   end
 
   context 'country validation' do
-    before { form.valid? }
+    before { subject.valid? }
 
     context 'when country is nil' do
       let(:country) { nil }
@@ -51,7 +51,7 @@ describe VrnForm, type: :model do
   end
 
   context 'VRN validation' do
-    before { form.valid? }
+    before { subject.valid? }
 
     context 'when VRN is empty' do
       let(:vrn) { '' }

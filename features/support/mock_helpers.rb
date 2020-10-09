@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# helper methods for cucumber tests
 module MockHelpers
   def mock_vehicle_details
     details = read_response('vehicle_details_response.json')
