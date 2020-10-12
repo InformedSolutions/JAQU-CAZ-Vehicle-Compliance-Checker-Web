@@ -29,4 +29,9 @@ module ApplicationHelper
   def service_name
     Rails.configuration.x.service_name
   end
+
+  # Renders back link
+  def back_link(url, text = 'Back')
+    link_to(text, url, class: 'govuk-back-link back-link')
+  end
 end
