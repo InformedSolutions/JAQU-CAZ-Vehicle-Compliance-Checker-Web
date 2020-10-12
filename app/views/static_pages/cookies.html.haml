@@ -1,7 +1,7 @@
 - title_and_header = 'Cookies'
 - content_for(:title, title_and_header)
 
-= link_to 'Return to the homepage', root_path, class: 'govuk-back-link'
+= back_link(root_path, 'Return to the homepage')
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
