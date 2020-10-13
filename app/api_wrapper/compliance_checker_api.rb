@@ -7,7 +7,6 @@
 # All calls will automatically have the correlation ID and JSON content type added to the header.
 #
 # All methods are on the class level, so there is no initializer method.
-
 class ComplianceCheckerApi < BaseApi
   base_uri "#{ENV.fetch('COMPLIANCE_CHECKER_API_URL', 'localhost:3001')}/v1/compliance-checker"
   headers('Content-Type' => 'application/json', 'X-Correlation-ID' => -> { SecureRandom.uuid })
