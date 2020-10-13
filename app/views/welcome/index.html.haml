@@ -51,7 +51,6 @@
         %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
           %ul.govuk-list{class: 'govuk-!-font-size-16'}
             %li
-              = succeed '.' do
-                = link_to('Contact Clean Air Zones',
-                          Rails.configuration.x.contact_form_link,
-                          id: 'contact-form')
+              = link_to('Contact Clean Air Zones',
+                        Rails.configuration.x.contact_form_link,
+                        id: 'contact-form')
