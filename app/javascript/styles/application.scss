@@ -46,6 +46,8 @@ html {
   }
 }
 
-.back-link {
-  display: block;
+@media print {
+  .back-link {
+    display: block;
+  }
 }
