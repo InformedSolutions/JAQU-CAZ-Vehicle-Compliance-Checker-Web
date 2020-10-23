@@ -25,7 +25,6 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I should see 'Vehicle type approval'
       And I should see 'Model'
       And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details

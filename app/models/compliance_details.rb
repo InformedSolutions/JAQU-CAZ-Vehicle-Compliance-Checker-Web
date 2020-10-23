@@ -87,11 +87,6 @@ class ComplianceDetails
     url(:become_compliant)
   end
 
-  # Returns a string, eg. 'Birmingham'.
-  def html_id
-    zone_name.delete(' ').underscore
-  end
-
   private
 
   # Retrieves the value object corresponding to the 'name' attribute
