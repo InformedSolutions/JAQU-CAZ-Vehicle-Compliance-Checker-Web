@@ -16,7 +16,6 @@ describe ComplianceCheckerApi do
     it 'returns proper fields' do
       expect(subject.keys).to contain_exactly(
         'registrationNumber',
-        'typeApproval',
         'type',
         'make',
         'model',
@@ -76,6 +75,23 @@ describe ComplianceCheckerApi do
 
     it 'raises Error422Exception' do
       expect { subject }.to raise_exception(BaseApi::Error422Exception)
+    end
+  end
+
+  context 'when body is an invalid JSON format' do
+    before { stub_request(:get, /details/).to_return(status: 200, body: body) }
+
+    let(:body) { 'invalid JSON format' }
+
+    it 'raises Error500Exception' do
+      expect { subject }.to raise_exception(
+        an_instance_of(BaseApi::Error500Exception)
+          .and(having_attributes(
+                 status: 500,
+                 status_message: 'Response body parsing failed',
+                 body: body
+               ))
+      )
     end
   end
 end
