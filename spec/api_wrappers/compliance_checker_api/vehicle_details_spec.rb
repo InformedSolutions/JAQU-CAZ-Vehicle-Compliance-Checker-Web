@@ -16,7 +16,6 @@ describe ComplianceCheckerApi do
     it 'returns proper fields' do
       expect(subject.keys).to contain_exactly(
         'registrationNumber',
-        'typeApproval',
         'type',
         'make',
         'model',
