@@ -29,7 +29,7 @@ describe ComplianceCheckerApi do
     end
 
     context 'subjects API with right params' do
-      RSpec.shared_examples_for 'uri have the proper query params' do
+      shared_examples_for 'uri have the proper query params' do
         it 'equals query params' do
           expect(WebMock).to(have_requested(:get, /compliance/)
             .with { |req| req.uri.query == query })
