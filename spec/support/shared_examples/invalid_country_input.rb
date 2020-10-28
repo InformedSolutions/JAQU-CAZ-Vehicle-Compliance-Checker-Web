@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples 'an invalid country input' do
+shared_examples 'an invalid country input' do
   it 'has a proper error message' do
     expect(subject.error_object[:country][:message]).to eq('Choose UK or Non-UK')
   end
