@@ -33,6 +33,12 @@ class NonUkCompliantVehicleDetails
     0
   end
 
+  # Stub for .charge attribute which states how much vehicle is supposed to be charged.
+  # Compliant non-uk vehicles are not chargeable.
+  def charge_amount
+    0
+  end
+
   # Returns a string, e.g. 'www.example.com'
   def main_info_url
     caz_data['mainInfoUrl']

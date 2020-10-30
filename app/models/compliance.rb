@@ -46,7 +46,6 @@ class Compliance
   # Checks if PHGV discount is available
   def phgv_discount_available?
     compliance_api['phgvDiscountAvailable']
-
   end
 
   private
