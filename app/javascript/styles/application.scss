@@ -45,3 +45,9 @@ html {
     margin-bottom: 20px;
   }
 }
+
+@media print {
+  .back-link {
+    display: block;
+  }
+}

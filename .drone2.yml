@@ -208,7 +208,7 @@ steps:
     commands:
        - bundle audit check --update
        # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
-       - yarn run improved-yarn-audit --exclude '1548' --retry-on-network-failure
+       - yarn run improved-yarn-audit --retry-on-network-failure
        - brakeman
     volumes:
       - name: docker_sock
@@ -237,7 +237,7 @@ steps:
 
     # Invoke sonar scan
   - name: sonar scan
-    image: aosapps/drone-sonar-plugin
+    image: aosapps/drone-sonar-plugin:1.0
     environment:
       SONAR_HOST:
         from_secret: jaqu_lower_sonar_host
@@ -504,7 +504,7 @@ steps:
 
     # Invoke sonar scan
   - name: sonar scan
-    image: aosapps/drone-sonar-plugin
+    image: aosapps/drone-sonar-plugin:1.0
     environment:
       SONAR_HOST:
         from_secret: jaqu_lower_sonar_host
@@ -1259,7 +1259,7 @@ steps:
 
     # Invoke sonar scan
   - name: sonar scan
-    image: aosapps/drone-sonar-plugin
+    image: aosapps/drone-sonar-plugin:1.0
     environment:
       SONAR_HOST:
         from_secret: jaqu_lower_sonar_host
