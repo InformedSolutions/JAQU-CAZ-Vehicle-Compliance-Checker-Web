@@ -3,17 +3,16 @@
 require 'rails_helper'
 
 describe Compliance, type: :model do
-  subject(:compliance) { described_class.new(vrn, taxi_or_phv) }
+  subject { described_class.new(vrn, taxi_or_phv) }
+
   let(:vrn) { 'CU1234' }
   let(:taxi_or_phv) { false }
   let(:compliance_response) { read_response('vehicle_compliance_response.json') }
 
-  before do
-    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance_response)
-  end
+  before { allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance_response) }
 
   describe '.compliance_outcomes' do
-    let(:outcomes) { compliance.compliance_outcomes }
+    let(:outcomes) { subject.compliance_outcomes }
 
     it 'calls ComplianceCheckerApi' do
       expect(ComplianceCheckerApi)
@@ -28,25 +27,21 @@ describe Compliance, type: :model do
   end
 
   describe '.any_caz_chargable?' do
-    let(:any_caz_chargeable) { compliance.any_caz_chargable? }
+    let(:any_caz_chargeable) { subject.any_caz_chargable? }
 
     it 'calls ComplianceCheckerApi' do
-      expect(ComplianceCheckerApi)
-        .to receive(:vehicle_compliance)
-        .with(vrn, taxi_or_phv)
+      expect(ComplianceCheckerApi).to receive(:vehicle_compliance).with(vrn, taxi_or_phv)
       any_caz_chargeable
     end
 
-    context 'when compliance details has chargeable CAZ' do
+    context 'when subject details has chargeable CAZ' do
       it 'returns true' do
         expect(any_caz_chargeable).to eq(true)
       end
     end
 
-    context 'when compliance details has no chargeable CAZ' do
-      let(:compliance_response) do
-        read_response('non_chargeable_vehicle_compliance_response.json')
-      end
+    context 'when subject details has no chargeable CAZ' do
+      let(:compliance_response) { read_response('non_chargeable_vehicle_compliance_response.json') }
 
       it 'returns false' do
         expect(any_caz_chargeable).to eq(false)
@@ -55,12 +50,10 @@ describe Compliance, type: :model do
   end
 
   describe '.phgv_discount_available?' do
-    let(:phgv_discount_available) { compliance.phgv_discount_available? }
+    let(:phgv_discount_available) { subject.phgv_discount_available? }
 
     it 'calls ComplianceCheckerApi' do
-      expect(ComplianceCheckerApi)
-        .to receive(:vehicle_compliance)
-        .with(vrn, taxi_or_phv)
+      expect(ComplianceCheckerApi).to receive(:vehicle_compliance).with(vrn, taxi_or_phv)
       phgv_discount_available
     end
 

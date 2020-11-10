@@ -2,7 +2,7 @@
 
 - title_and_header = 'Clean Air Zone charge'
 = content_for(:title, title_and_header)
-= link_to 'Back', confirm_details_vehicle_checkers_path, class: 'govuk-back-link', id: 'back-link'
+= back_link(confirm_details_vehicle_checkers_path)
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
@@ -46,7 +46,7 @@
                     = details.charge
                   - else
                     = 'No Charge'                    
-                %td.govuk-table__cell Early 2021
+                %td.govuk-table__cell= details.charging_starts
                 %td.govuk-table__cell
                   = link_to 'Zone boundary', details.boundary_url
                 %td.govuk-table__cell
@@ -112,7 +112,6 @@
                         enter_details_vehicle_checkers_path,
                         id: 'check-another-vrn-url'
             %li
-            = succeed '.' do
               = link_to('Contact Clean Air Zones',
                          Rails.configuration.x.contact_form_link,
                          id: 'contact-form')

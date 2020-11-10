@@ -11,10 +11,19 @@ require 'rspec/rails'
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  config.include ActiveSupport::Testing::TimeHelpers
-  config.include AddVrnToSession, type: :request
-  config.include ParsedResponse, type: :request
-  config.include FixturesHelpers
+  # add helpers to request rspec classes
+  [AddVrnToSession].each do |helper|
+    config.include helper, type: :request
+  end
+
+  # add helpers to rspec classes
+  [
+    ActiveSupport::Testing::TimeHelpers,
+    FixturesHelpers
+  ].each do |helper|
+    config.include helper
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

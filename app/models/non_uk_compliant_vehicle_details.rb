@@ -4,6 +4,7 @@
 # This class is used to display data in +app/views/air_zones/compliance.html.haml+.
 # It's purpose is to be similar to +ComplianceDetails+ class
 class NonUkCompliantVehicleDetails
+  include ComplianceDetailsBase
   ##
   # Creates an instance of a class
   #

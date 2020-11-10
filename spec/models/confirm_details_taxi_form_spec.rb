@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe ConfirmDetailsTaxiForm, type: :model do
-  subject(:form) { described_class.new(params) }
+  subject { described_class.new(params) }
 
   let(:confirm_details) { 'yes' }
   let(:undetermined) { 'false' }
@@ -21,7 +21,7 @@ describe ConfirmDetailsTaxiForm, type: :model do
   context 'fields sets as a parameter' do
     %i[confirm_details undetermined taxi_and_correct_type].each do |field|
       it "and sets #{field} value" do
-        expect(form.public_send(field)).to eq(public_send(field))
+        expect(subject.public_send(field)).to eq(public_send(field))
       end
     end
   end
@@ -29,7 +29,7 @@ describe ConfirmDetailsTaxiForm, type: :model do
   describe '.confirmed?' do
     context 'when confirmation equals yes' do
       it 'returns true' do
-        expect(form.confirmed?).to eq(true)
+        expect(subject.confirmed?).to eq(true)
       end
     end
 
@@ -37,7 +37,7 @@ describe ConfirmDetailsTaxiForm, type: :model do
       let(:confirm_details) { 'no' }
 
       it 'returns false' do
-        expect(form.confirmed?).to eq(false)
+        expect(subject.confirmed?).to eq(false)
       end
     end
   end
@@ -45,7 +45,7 @@ describe ConfirmDetailsTaxiForm, type: :model do
   describe '.undetermined?' do
     context 'when undetermined equals false' do
       it 'returns false' do
-        expect(form.undetermined?).to eq(false)
+        expect(subject.undetermined?).to eq(false)
       end
     end
 
@@ -53,7 +53,7 @@ describe ConfirmDetailsTaxiForm, type: :model do
       let(:undetermined) { 'true' }
 
       it 'returns true' do
-        expect(form.undetermined?).to eq(true)
+        expect(subject.undetermined?).to eq(true)
       end
     end
   end
@@ -64,11 +64,11 @@ describe ConfirmDetailsTaxiForm, type: :model do
     it { is_expected.not_to be_valid }
 
     before do
-      form.valid?
+      subject.valid?
     end
 
     it 'has a proper error message' do
-      expect(form.errors.messages[:confirm_details])
+      expect(subject.errors.messages[:confirm_details])
         .to include('Select yes if the details are correct')
     end
   end

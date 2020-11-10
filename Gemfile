@@ -3,9 +3,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.2'
 
-gem 'rails', '~> 6.0.3.3'
+gem 'rails', '~> 6.0.3.4'
 
 gem 'bootsnap', require: false
 gem 'haml'
@@ -17,7 +17,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'webpacker'
 
 group :development, :test do
-  gem 'byebug'
   gem 'dotenv-rails'
   gem 'haml-rails'
   gem 'rspec-rails'
