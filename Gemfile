@@ -21,6 +21,7 @@ group :development, :test do
   gem 'haml-rails'
   gem 'rspec-rails'
   gem 'ruby_jard'
+  gem 'yard'
 end
 
 group :development do
@@ -35,6 +36,7 @@ group :test do
   gem 'bundler-audit'
   gem 'capybara'
   gem 'cucumber-rails', require: false
+  gem 'i18n-tasks'
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'rubocop-rails'
