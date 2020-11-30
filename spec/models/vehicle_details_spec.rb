@@ -6,14 +6,12 @@ describe VehicleDetails, type: :model do
   subject { described_class.new(vrn) }
 
   let(:vrn) { 'CU57ABC' }
-  let(:type_approval) { 'M1' }
   let(:taxi_or_phv) { false }
   let(:type) { 'Car' }
 
   let(:response) do
     {
       'registrationNumber' => vrn,
-      'typeApproval' => type_approval,
       'type' => type,
       'make' => 'peugeot',
       'model' => '208',
@@ -87,38 +85,6 @@ describe VehicleDetails, type: :model do
 
       it 'returns a true' do
         expect(subject.exempt?).to eq(true)
-      end
-    end
-  end
-
-  describe '.type_approval' do
-    it 'returns a proper type approval' do
-      expect(subject.type_approval).to eq('M1')
-    end
-
-    context 'when key is not present' do
-      before do
-        allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return({})
-      end
-
-      it 'returns a nil' do
-        expect(subject.type_approval).to eq(nil)
-      end
-    end
-
-    context 'when value is empty' do
-      let(:type_approval) { ' ' }
-
-      it 'returns a nil' do
-        expect(subject.type_approval).to eq(nil)
-      end
-    end
-
-    context 'when value is equal to `null`' do
-      let(:type_approval) { 'null' }
-
-      it 'returns a nil' do
-        expect(subject.type_approval).to eq(nil)
       end
     end
   end

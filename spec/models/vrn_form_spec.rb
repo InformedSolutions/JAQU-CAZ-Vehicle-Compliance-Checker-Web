@@ -94,7 +94,7 @@ describe VrnForm, type: :model do
     end
 
     context 'when VRN starts with 0' do
-      let(:vrn) { '00SGL6' }
+      let(:vrn) { '00SGL' }
 
       it { is_expected.not_to be_valid }
 

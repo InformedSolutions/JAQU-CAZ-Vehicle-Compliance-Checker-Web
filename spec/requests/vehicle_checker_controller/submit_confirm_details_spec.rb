@@ -9,7 +9,7 @@ describe 'VehicleCheckersController - POST #submit_confirm_details', type: :requ
         {
           'confirm_details' => confirmation,
           'confirm_taxi_or_phv' => confirmation,
-          'undetermined' => 'false',
+          'undetermined' => undetermined,
           'taxi_and_correct_type' => 'true'
         }
     }
@@ -17,6 +17,7 @@ describe 'VehicleCheckersController - POST #submit_confirm_details', type: :requ
 
   let(:confirmation) { 'yes' }
   let(:confirmation_taxi_or_phv) { 'false' }
+  let(:undetermined) { 'false' }
 
   before do
     vehicle_details = read_response('vehicle_details_response.json')
@@ -44,6 +45,14 @@ describe 'VehicleCheckersController - POST #submit_confirm_details', type: :requ
 
     it 'renders to confirm details page' do
       expect(response).to render_template(:confirm_details)
+    end
+  end
+
+  context 'when vehicle type is undetermined' do
+    let(:undetermined) { 'true' }
+
+    it 'redirects to the cannot determine vehicle page' do
+      expect(response).to redirect_to(cannot_determine_vehicle_checkers_path)
     end
   end
 end

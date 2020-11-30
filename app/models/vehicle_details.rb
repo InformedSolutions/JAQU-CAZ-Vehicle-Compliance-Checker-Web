@@ -47,14 +47,6 @@ class VehicleDetails
     compliance_api['taxiOrPhv'] ? 'Yes' : 'No'
   end
 
-  # Check 'taxiOrPhv' value.
-  #
-  # Returns a string 'true' if value is true.
-  # Returns a string 'false' if value is false.
-  def taxi_or_phv?
-    compliance_api['taxiOrPhv'].to_s
-  end
-
   # Checks if vehicle not taxi or phv and should be `car` or `minibus` type
   # Returns boolean
   def not_taxi_and_correct_type?
@@ -77,11 +69,6 @@ class VehicleDetails
   # Returns a string 'false' if type is not 'null'.
   def undetermined?
     (compliance_api['type']&.downcase == 'null').to_s
-  end
-
-  # Returns a string, eg. 'M1'.
-  def type_approval
-    string_field('typeApproval')
   end
 
   # Returns a string, eg. 'i20'.
