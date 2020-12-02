@@ -1,4 +1,4 @@
-- title_and_header = "Check if you’ll be charged to drive in a Clean Air Zone"
+- title_and_header = 'Privacy notice'
 - content_for(:title, title_and_header)
 
 = back_link(root_path, 'Return to the homepage')
@@ -6,8 +6,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-xl
-        = title_and_header
+      %h1.govuk-heading-xl= title_and_header
       %p
         The Clean Air Zone (CAZ) Vehicle Checker is operated by the Joint Air Quality Unit (JAQU),
         a team  established jointly between the Department for Environment, Food and Rural Affairs
@@ -77,6 +76,10 @@
 
       %p
         = link_to('Bath and North East Somerset privacy policy', 'https://beta.bathnes.gov.uk/council-privacy-policy', id: 'bath-policy-link')
+      %p
+        = link_to('Birmingham privacy policy',
+                  'https://www.birmingham.gov.uk/info/20015/environment/2005/privacy_statement_-_environmental_health/2',
+                  id: 'birmingham-policy-link')
       %p
         Defra’s and DfT’s Personal Information Charters are available at:
       %p
