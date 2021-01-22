@@ -3,27 +3,46 @@
 require 'rails_helper'
 
 describe 'VehicleCheckersController - POST #submit_details', type: :request do
-  subject do
-    post enter_details_vehicle_checkers_path, params: { vrn: vrn, 'registration-country': country }
-  end
+  subject { post enter_details_vehicle_checkers_path, params: { vrn: vrn, 'registration-country': country } }
 
   let(:vrn) { 'CU57ABC' }
   let(:country) { 'UK' }
-  let(:vehicle_details) { read_response('vehicle_details_response.json') }
 
-  before { subject }
+  before do
+    vehicle_details = read_response('vehicle_details_response.json')
+    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
+    subject
+  end
 
   context 'when VRN is valid' do
-    before do
-      allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
+    context 'and vehicle is registered in the UK' do
+      it 'redirects to confirm details page' do
+        expect(response).to redirect_to(confirm_details_vehicle_checkers_path)
+      end
+
+      it 'returns a found response' do
+        expect(response).to have_http_status(:found)
+      end
+
+      it 'adds VRN to the session' do
+        expect(session[:vrn]).to eq(vrn)
+      end
     end
 
-    it 'returns a found response' do
-      expect(response).to have_http_status(:found)
-    end
+    context 'and vehicle is registered in the UK when user made a Non-UK selection country' do
+      let(:country) { 'Non-UK' }
 
-    it 'adds VRN to the session' do
-      expect(session[:vrn]).to eq(vrn)
+      it 'redirects to confirm details page' do
+        expect(response).to redirect_to(confirm_uk_details_vehicle_checkers_path)
+      end
+
+      it 'returns a found response' do
+        expect(response).to have_http_status(:found)
+      end
+
+      it 'adds VRN to the session' do
+        expect(session[:vrn]).to eq(vrn)
+      end
     end
 
     context 'when VRN has spaces and small letters' do

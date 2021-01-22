@@ -23,6 +23,13 @@ Then("I enter a vehicle's registration") do
   fill_fields
 end
 
+Then("I enter an UK vehicle's registration and choose Non-UK country") do
+  mock_vehicle_details
+
+  fill_in('vrn', with: vrn)
+  choose('Non-UK')
+end
+
 Then("I enter a vehicle's registration which is a taxi") do
   mock_taxi_details
   fill_fields
@@ -151,7 +158,7 @@ def fill_fields(vrn = 'CU57ABC')
   choose('UK')
 end
 
-def fill_non_uk_fields(vrn = 'CU57ABC')
-  fill_in('vrn', with: vrn)
+def fill_non_uk_fields
+  fill_in('vrn', with: 'RBI A168')
   choose('Non-UK')
 end

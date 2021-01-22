@@ -63,11 +63,11 @@ describe ConfirmDetailsForm, type: :model do
   context 'when confirmation is empty' do
     let(:confirm_details) { '' }
 
-    it { is_expected.not_to be_valid }
-
     before do
       subject.valid?
     end
+
+    it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
       expect(subject.errors.messages[:confirm_details])
@@ -78,11 +78,9 @@ describe ConfirmDetailsForm, type: :model do
   context 'when confirm_taxi_or_phv is empty' do
     let(:confirm_taxi_or_phv) { '' }
 
-    it { is_expected.not_to be_valid }
+    before { subject.valid? }
 
-    before do
-      subject.valid?
-    end
+    it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
       expect(subject.errors.messages[:confirm_taxi_or_phv]).to include('You must choose an answer')
