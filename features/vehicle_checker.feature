@@ -147,3 +147,35 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration for 'Bus' type
       And I press the Continue
     Then I should not see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
+
+  Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are correct
+    Given I am on the enter details page
+    Then I enter an UK vehicle's registration and choose Non-UK country
+      And I press 'Continue' button
+    Then I should be on the UK registered details
+      And I should see 'Your vehicle is UK registered' title
+      And I should see 'Are these vehicle details correct?'
+      And I should see 'CU57ABC'
+    Then I press 'Confirm' button
+      And I should see 'Select yes if the details are correct'
+    Then I choose 'Yes' when confirms vehicle details
+      And I press the Confirm
+    Then I should see the Confirm Details page
+      And I should see 'Model'
+      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
+      And I choose 'Yes' when confirms vehicle details
+      And I press 'Confirm' button
+    Then I should see the Compliance page
+
+  Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are incorrect
+    Given I am on the enter details page
+    Then I enter an UK vehicle's registration and choose Non-UK country
+      And I press 'Continue' button
+    Then I should be on the UK registered details
+      And I should see 'Your vehicle is UK registered' title
+    Then I choose 'No' when confirms vehicle details
+      And I choose 'Yes' when confirms what vehicle a taxi or private hire vehicle
+      And I press the Confirm
+    Then I should see the Incorrect Details page
+      And I press the Check another vehicle link
+    Then I am on the enter details page

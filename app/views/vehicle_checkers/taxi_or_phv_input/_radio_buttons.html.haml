@@ -4,6 +4,9 @@
       %span.govuk-visually-hidden Error:
       = @errors[:confirm_details].join(',')
 
+  - if confirm_uk_details
+    %p Are these vehicle details correct?
+
   .govuk-radios.govuk-radios--inline#confirm_details_radios
     .govuk-radios__item
       = form.radio_button :confirm_details,

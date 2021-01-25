@@ -3,7 +3,7 @@
 ##
 # Controller class for first steps of checking the vehicle compliance
 #
-class VehicleCheckersController < ApplicationController
+class VehicleCheckersController < ApplicationController # rubocop:disable Metrics/ClassLength
   # 404 HTTP status from API mean vehicle in not found in DLVA database. Redirects to the proper page.
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
   # checks if VRN is present in the session
@@ -43,11 +43,15 @@ class VehicleCheckersController < ApplicationController
   # ==== Validations
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
-  def submit_details
+  def submit_details # rubocop:disable Metrics/MethodLength
     form = VrnForm.new(parsed_vrn, country)
     if form.valid?
       add_details_to_session
-      redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+      if form.possible_fraud?
+        redirect_to confirm_uk_details_vehicle_checkers_path
+      else
+        redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+      end
     else
       @errors = form.error_object
       render :enter_details
@@ -76,12 +80,7 @@ class VehicleCheckersController < ApplicationController
   # Other connection exceptions also redirects to {service unavailable}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def confirm_details
-    @vehicle_details = VehicleDetails.new(vrn)
-    @errors = {}
-    return unless @vehicle_details.exempt?
-
-    Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
-    redirect_to exemption_vehicle_checkers_path
+    process_details_action
   end
 
   ##
@@ -110,6 +109,35 @@ class VehicleCheckersController < ApplicationController
       @vehicle_details = VehicleDetails.new(vrn)
       @errors = form.errors.messages
       render :confirm_details
+    end
+  end
+
+  ##
+  # Renders vehicle UK registered page
+  #
+  # ==== Path
+  #    GET /vehicle_checkers/confirm_uk_details
+  #
+  def confirm_uk_details
+    process_details_action
+  end
+
+  ##
+  # Verifies if user confirms the vehicle's details.
+  # If yes, redirects to {compliance}[rdoc-ref:AirZonesController.compliance]
+  # If no, renders to {confirm_uk_details}[rdoc-ref:confirm_uk_details]
+  #
+  # ==== Path
+  #    POST /vehicle_checkers/confirm_uk_details
+  #
+  def submit_confirm_uk_details
+    form = determinate_form
+    if form.valid?
+      determinate_next_page(form)
+    else
+      @vehicle_details = VehicleDetails.new(vrn)
+      @errors = form.errors.messages
+      render :confirm_uk_details
     end
   end
 
@@ -267,5 +295,15 @@ class VehicleCheckersController < ApplicationController
     taxi_and_correct_type = confirm_details_params['taxi_and_correct_type']
     (taxi_and_correct_type == 'false' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm)
       .new(confirm_details_params)
+  end
+
+  # Process action which is done on confirm details and confirm uk details
+  def process_details_action
+    @vehicle_details = VehicleDetails.new(vrn)
+    @errors = {}
+    return unless @vehicle_details.exempt?
+
+    Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
+    redirect_to exemption_vehicle_checkers_path
   end
 end

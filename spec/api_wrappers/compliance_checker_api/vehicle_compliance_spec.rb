@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe ComplianceCheckerApi do
-  subject { described_class.vehicle_compliance(vrn, taxi_or_phv) }
+describe 'ComplianceCheckerApi.vehicle_compliance' do
+  subject { ComplianceCheckerApi.vehicle_compliance(vrn, taxi_or_phv) }
 
   let(:vrn) { 'CAS310' }
   let(:taxi_or_phv) { false }

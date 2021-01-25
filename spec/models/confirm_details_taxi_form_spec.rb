@@ -61,11 +61,9 @@ describe ConfirmDetailsTaxiForm, type: :model do
   context 'when confirmation is empty' do
     let(:confirm_details) { '' }
 
-    it { is_expected.not_to be_valid }
+    before { subject.valid? }
 
-    before do
-      subject.valid?
-    end
+    it { is_expected.not_to be_valid }
 
     it 'has a proper error message' do
       expect(subject.errors.messages[:confirm_details])
