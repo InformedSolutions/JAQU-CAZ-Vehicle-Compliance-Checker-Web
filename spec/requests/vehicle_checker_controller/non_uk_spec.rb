@@ -27,7 +27,7 @@ describe 'VehicleCheckersController - GET #non_uk', type: :request do
       end
 
       it 'does not perform redirect' do
-        expect(response.redirect?).to be_falsey
+        expect(response).not_to be_redirect
       end
     end
 

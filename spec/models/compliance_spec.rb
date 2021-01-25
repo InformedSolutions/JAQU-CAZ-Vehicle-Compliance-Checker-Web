@@ -15,10 +15,8 @@ describe Compliance, type: :model do
     let(:outcomes) { subject.compliance_outcomes }
 
     it 'calls ComplianceCheckerApi' do
-      expect(ComplianceCheckerApi)
-        .to receive(:vehicle_compliance)
-        .with(vrn, taxi_or_phv)
       outcomes
+      expect(ComplianceCheckerApi).to have_received(:vehicle_compliance).with(vrn, taxi_or_phv)
     end
 
     it 'returns an array of ComplianceDetails' do
@@ -30,8 +28,8 @@ describe Compliance, type: :model do
     let(:any_caz_chargeable) { subject.any_caz_chargable? }
 
     it 'calls ComplianceCheckerApi' do
-      expect(ComplianceCheckerApi).to receive(:vehicle_compliance).with(vrn, taxi_or_phv)
       any_caz_chargeable
+      expect(ComplianceCheckerApi).to have_received(:vehicle_compliance).with(vrn, taxi_or_phv)
     end
 
     context 'when subject details has chargeable CAZ' do
@@ -53,8 +51,8 @@ describe Compliance, type: :model do
     let(:phgv_discount_available) { subject.phgv_discount_available? }
 
     it 'calls ComplianceCheckerApi' do
-      expect(ComplianceCheckerApi).to receive(:vehicle_compliance).with(vrn, taxi_or_phv)
       phgv_discount_available
+      expect(ComplianceCheckerApi).to have_received(:vehicle_compliance).with(vrn, taxi_or_phv)
     end
 
     context 'when PHGV discount is available' do

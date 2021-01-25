@@ -22,6 +22,10 @@ Then('I should see {string} title') do |string|
   expect(page).to have_title(string)
 end
 
+Then('I press {string} button') do |string|
+  click_button string
+end
+
 Then('I press the Continue') do
   click_button 'Continue'
 end

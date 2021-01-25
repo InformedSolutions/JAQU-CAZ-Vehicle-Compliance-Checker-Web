@@ -7,7 +7,5 @@ class ConfirmDetailsTaxiForm < ConfirmDetailsBaseForm
   attr_accessor :confirm_details
 
   # validates attributes to presence
-  validates :confirm_details, presence: {
-    message: I18n.t('confirm_details_form.confirm_details_missing')
-  }
+  validates :confirm_details, presence: { message: I18n.t('confirm_details_form.confirm_details_missing') }
 end
