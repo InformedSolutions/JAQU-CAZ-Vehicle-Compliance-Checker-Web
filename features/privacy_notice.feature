@@ -6,4 +6,4 @@ Feature: Privacy Notice
   Scenario: User sees privacy notice page
     Given I am on the home page
     When I press 'Privacy' footer link
-    Then I should see 'Privacy notice'
+    Then I should see 'Privacy Notice'
