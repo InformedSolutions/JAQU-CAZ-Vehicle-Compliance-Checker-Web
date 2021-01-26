@@ -77,6 +77,10 @@ Then('I should see the Confirm Details page') do
   expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
 end
 
+Then('I should see the Confirm UK Details page') do
+  expect(page).to have_current_path(confirm_uk_details_vehicle_checkers_path)
+end
+
 Then('I choose {string} when confirms vehicle details') do |string|
   within('#confirm_details_radios') do
     choose(string)

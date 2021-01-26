@@ -56,7 +56,7 @@
               %td.govuk-table__cell{scope: 'row'} Taxi
               %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.taxi_private_hire_vehicle
 
-      = form_for(ConfirmDetailsForm.new, url: confirm_details_vehicle_checkers_path, method: :post) do |form|
+      = form_for(ConfirmDetailsForm.new, url: confirm_uk_details_vehicle_checkers_path, method: :post) do |form|
         %fieldset.govuk-fieldset
           %legend.govuk-visually-hidden
             Are these the vehicle's details?
