@@ -160,7 +160,7 @@ Feature: Vehicle Checker
       And I should see 'Select yes if the details are correct'
     Then I choose 'Yes' when confirms vehicle details
       And I press the Confirm
-    Then I should see the Confirm Details page
+    Then I should see the Confirm UK Details page
       And I should see 'Model'
       And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
