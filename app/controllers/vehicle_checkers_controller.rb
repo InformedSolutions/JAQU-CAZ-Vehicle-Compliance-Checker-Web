@@ -43,13 +43,15 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
   # ==== Validations
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
-  def submit_details # rubocop:disable Metrics/MethodLength
+  def submit_details # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     form = VrnForm.new(parsed_vrn, country)
     if form.valid?
       add_details_to_session
       if form.possible_fraud?
+        session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
       else
+        session[:possible_fraud] = nil
         redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
       end
     else
