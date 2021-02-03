@@ -10,9 +10,9 @@ describe ConfirmDetailsTaxiForm, type: :model do
   let(:taxi_and_correct_type) { 'true' }
   let(:params) do
     {
-      'confirm_details': confirm_details,
-      'undetermined': undetermined,
-      'taxi_and_correct_type': taxi_and_correct_type
+      confirm_details: confirm_details,
+      undetermined: undetermined,
+      taxi_and_correct_type: taxi_and_correct_type
     }
   end
 
