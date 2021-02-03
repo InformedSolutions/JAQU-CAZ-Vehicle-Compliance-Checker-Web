@@ -24,8 +24,12 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
         expect(response).to have_http_status(:found)
       end
 
-      it 'adds VRN to the session' do
+      it 'adds `vrn` to the session' do
         expect(session[:vrn]).to eq(vrn)
+      end
+
+      it 'clears `possible_fraud` from the session' do
+        expect(session[:possible_fraud]).to be_nil
       end
     end
 
@@ -40,8 +44,12 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
         expect(response).to have_http_status(:found)
       end
 
-      it 'adds VRN to the session' do
+      it 'adds `vrn` to the session' do
         expect(session[:vrn]).to eq(vrn)
+      end
+
+      it 'adds `possible_fraud` to the session' do
+        expect(session[:possible_fraud]).to be_truthy
       end
     end
 

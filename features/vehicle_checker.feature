@@ -140,7 +140,9 @@ Feature: Vehicle Checker
       And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
-    Then I should see the Compliance page
+      And I should see the Compliance page
+    Then I press the Back link
+      And I should see the Confirm Details page
 
   Scenario: User enters a correct vehicle's registration which is not taxi and not Car or Minibus type
     Given I am on the enter details page
@@ -165,7 +167,10 @@ Feature: Vehicle Checker
       And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press 'Confirm' button
-    Then I should see the Compliance page
+      And I should see the Compliance page
+    Then I press the Back link
+      And I should see the Confirm UK Details page
+      And I should see 'The DVLA holds a record for this vehicle.'
 
   Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are incorrect
     Given I am on the enter details page
@@ -176,6 +181,12 @@ Feature: Vehicle Checker
     Then I choose 'No' when confirms vehicle details
       And I choose 'Yes' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
-    Then I should see the Incorrect Details page
-      And I press the Check another vehicle link
-    Then I am on the enter details page
+      And I should see the Incorrect Details page
+    Then I press the Back link
+      And I should see the Confirm UK Details page
+    Then I choose 'No' when confirms vehicle details
+      And I choose 'Yes' when confirms what vehicle a taxi or private hire vehicle
+      And I press the Confirm
+      And I should see the Incorrect Details page
+    Then I press the Check another vehicle link
+      And I am on the enter details page
