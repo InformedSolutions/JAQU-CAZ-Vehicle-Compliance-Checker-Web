@@ -181,6 +181,12 @@ Feature: Vehicle Checker
     Then I choose 'No' when confirms vehicle details
       And I choose 'Yes' when confirms what vehicle a taxi or private hire vehicle
       And I press the Confirm
-    Then I should see the Incorrect Details page
-      And I press the Check another vehicle link
-    Then I am on the enter details page
+      And I should see the Incorrect Details page
+    Then I press the Back link
+      And I should see the Confirm UK Details page
+    Then I choose 'No' when confirms vehicle details
+      And I choose 'Yes' when confirms what vehicle a taxi or private hire vehicle
+      And I press the Confirm
+      And I should see the Incorrect Details page
+    Then I press the Check another vehicle link
+      And I am on the enter details page
