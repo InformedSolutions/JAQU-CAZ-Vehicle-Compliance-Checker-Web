@@ -58,7 +58,6 @@ class ComplianceCheckerApi < BaseApi
     # ==== Attributes
     #
     # * +vrn+ - Vehicle registration number parsed using {Parser}[rdoc-ref:VrnParser]
-    # * +taxi_or_phv+ - Boolean value, user claims to be a taxi, but DVLA details page tells us he is not a taxi.
     #
     # ==== Example
     #
@@ -94,11 +93,9 @@ class ComplianceCheckerApi < BaseApi
     # * {422 Exception}[rdoc-ref:BaseApi::Error422Exception] - invalid VRN
     # * {500 Exception}[rdoc-ref:BaseApi::Error500Exception] - backend API error
     #
-    def vehicle_compliance(vrn, taxi_or_phv)
+    def vehicle_compliance(vrn)
       log_action 'Making request for vehicle compliance in all zones'
-
-      query = taxi_or_phv ? { isTaxiOrPhv: true } : nil
-      request(:get, "/vehicles/#{vrn}/compliance", query: query)
+      request(:get, "/vehicles/#{vrn}/compliance")
     end
 
     ##

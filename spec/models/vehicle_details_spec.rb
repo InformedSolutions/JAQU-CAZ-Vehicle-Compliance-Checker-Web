@@ -6,9 +6,7 @@ describe VehicleDetails, type: :model do
   subject { described_class.new(vrn) }
 
   let(:vrn) { 'CU57ABC' }
-  let(:taxi_or_phv) { false }
   let(:type) { 'Car' }
-
   let(:response) do
     {
       'registrationNumber' => vrn,
@@ -17,13 +15,11 @@ describe VehicleDetails, type: :model do
       'model' => '208',
       'colour' => 'grey',
       'fuelType' => 'diesel',
-      'taxiOrPhv' => taxi_or_phv
+      'taxiOrPhv' => 'false'
     }
   end
 
-  before do
-    allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(response)
-  end
+  before { allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(response) }
 
   describe '.registration_number' do
     it 'returns a proper registration number' do
@@ -55,22 +51,6 @@ describe VehicleDetails, type: :model do
     end
   end
 
-  describe '.taxi_private_hire_vehicle' do
-    describe 'when taxi_or_phv value is false' do
-      it "returns a 'No'" do
-        expect(subject.taxi_private_hire_vehicle).to eq('No')
-      end
-    end
-
-    describe 'when taxi_or_phv value is true' do
-      let(:taxi_or_phv) { true }
-
-      it "returns a 'Yes'" do
-        expect(subject.taxi_private_hire_vehicle).to eq('Yes')
-      end
-    end
-  end
-
   describe '.exempt?' do
     describe 'when key is not present' do
       it 'returns a nil' do
@@ -79,9 +59,7 @@ describe VehicleDetails, type: :model do
     end
 
     describe 'when key is present' do
-      before do
-        allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return('exempt' => true)
-      end
+      before { allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return('exempt' => true) }
 
       it 'returns a true' do
         expect(subject.exempt?).to eq(true)
@@ -92,32 +70,6 @@ describe VehicleDetails, type: :model do
   describe '.model' do
     it 'returns a proper model' do
       expect(subject.model).to eq('208')
-    end
-  end
-
-  describe '.not_taxi_and_correct_type?' do
-    context 'when vehicle not a taxi' do
-      context 'and is car or minibus type' do
-        it 'returns true' do
-          expect(subject.not_taxi_and_correct_type?).to eq(true)
-        end
-      end
-
-      context 'and not is car or minibus type' do
-        let(:type) { 'Heavy Goods Vehicle' }
-
-        it 'returns false' do
-          expect(subject.not_taxi_and_correct_type?).to eq(false)
-        end
-      end
-    end
-
-    context 'when vehicle is a taxi' do
-      let(:taxi_or_phv) { true }
-
-      it 'returns false' do
-        expect(subject.not_taxi_and_correct_type?).to eq(false)
-      end
     end
   end
 end

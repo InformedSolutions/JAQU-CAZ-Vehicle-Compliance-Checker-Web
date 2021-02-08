@@ -8,15 +8,12 @@ describe 'VehicleCheckersController - POST #submit_confirm_uk_details', type: :r
       confirm_details_form:
         {
           'confirm_details' => confirmation,
-          'confirm_taxi_or_phv' => confirmation,
-          'undetermined' => undetermined,
-          'taxi_and_correct_type' => 'true'
+          'undetermined' => undetermined
         }
     }
   end
 
   let(:confirmation) { 'yes' }
-  let(:confirmation_taxi_or_phv) { 'false' }
   let(:undetermined) { 'false' }
 
   before do

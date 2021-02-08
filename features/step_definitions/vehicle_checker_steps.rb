@@ -25,6 +25,7 @@ end
 
 Then("I enter an UK vehicle's registration and choose Non-UK country") do
   mock_vehicle_details
+  mock_vehicle_compliance
 
   fill_in('vrn', with: vrn)
   choose('Non-UK')
@@ -83,12 +84,6 @@ end
 
 Then('I choose {string} when confirms vehicle details') do |string|
   within('#confirm_details_radios') do
-    choose(string)
-  end
-end
-
-Then('I choose {string} when confirms what vehicle a taxi or private hire vehicle') do |string|
-  within('#taxi_or_phv_radios') do
     choose(string)
   end
 end
