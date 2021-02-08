@@ -61,8 +61,7 @@
           %legend.govuk-visually-hidden
             Are these the vehicle's details?
           = form.hidden_field(:undetermined, value: @vehicle_details.undetermined?)
-          = form.hidden_field(:taxi_and_correct_type, value: @vehicle_details.not_taxi_and_correct_type?.to_s)
-          = render 'vehicle_checkers/taxi_or_phv_input/radio_buttons', form: form, confirm_uk_details: true
+          = render 'vehicle_checkers/confirm_details/radio_buttons', form: form, confirm_uk_details: true
 
         = submit_tag 'Confirm',
                       class: 'govuk-button',

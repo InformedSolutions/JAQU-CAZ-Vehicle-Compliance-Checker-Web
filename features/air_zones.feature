@@ -8,7 +8,6 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
     Then I should see the Compliance page
@@ -18,7 +17,6 @@ Feature: Air Zone
     Given I am on the enter details page
     Then I enter a vehicle's registration
       And I press the Continue
-    Then I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm when server returns 422 status
     Then I should see the Cannot determine compliance page

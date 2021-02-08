@@ -2,7 +2,6 @@
 en:
   confirm_details_form:
     confirm_details_missing: Select yes if the details are correct
-    confirm_taxi_or_phv_missing: You must choose an answer
   labels:
     country: Where is the vehicle registered?
     vrn_example: For example, CU57ABC
