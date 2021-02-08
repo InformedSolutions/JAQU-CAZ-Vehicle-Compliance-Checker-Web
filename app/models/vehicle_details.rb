@@ -47,14 +47,6 @@ class VehicleDetails
     compliance_api['taxiOrPhv'] ? 'Yes' : 'No'
   end
 
-  # Checks if vehicle not taxi or phv and should be `car` or `minibus` type
-  # Returns boolean
-  def not_taxi_and_correct_type?
-    return false if %w[car minibus].exclude?(type&.downcase)
-
-    !compliance_api['taxiOrPhv']
-  end
-
   # Check 'exempt' key.
   #
   # Returns a boolean 'true' if key is present.

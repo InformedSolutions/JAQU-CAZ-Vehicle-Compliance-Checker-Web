@@ -20,7 +20,6 @@ class AirZonesController < ApplicationController
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
-  # * +taxi_or_phv+ - boolean, user confirms to be a taxi.
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
@@ -30,7 +29,7 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def compliance
-    compliance = Compliance.new(vrn, session[:taxi_or_phv])
+    compliance = Compliance.new(vrn)
     @phgv_discount_available = compliance.phgv_discount_available?
     @compliance_outcomes = compliance.compliance_outcomes
     @any_caz_chargeable = compliance.any_caz_chargable?
@@ -46,7 +45,6 @@ class AirZonesController < ApplicationController
   #
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
-  # * +taxi_or_phv+ - boolean, user confirms to be a taxi.
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:VehicleCheckersController.enter_details]
