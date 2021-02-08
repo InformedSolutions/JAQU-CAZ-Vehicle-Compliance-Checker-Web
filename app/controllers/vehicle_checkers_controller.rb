@@ -3,7 +3,7 @@
 ##
 # Controller class for first steps of checking the vehicle compliance
 #
-class VehicleCheckersController < ApplicationController # rubocop:disable Metrics/ClassLength
+class VehicleCheckersController < ApplicationController
   # 404 HTTP status from API mean vehicle in not found in DLVA database. Redirects to the proper page.
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
   # checks if VRN is present in the session
@@ -18,7 +18,6 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
   #
   def enter_details
     @errors = {}
-    clear_session_details
   end
 
   ##
@@ -46,7 +45,7 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
   def submit_details # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     form = VrnForm.new(parsed_vrn, country)
     if form.valid?
-      add_details_to_session
+      session[:vrn] = parsed_vrn
       if form.possible_fraud?
         session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
@@ -96,15 +95,13 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
   # * +confirm_details+ - user confirmation of vehicle details, 'yes' or 'no', required in the params
-  # * +confirm_taxi_or_phv+ - user confirms to be a taxi, 'yes' or 'no', required in the params
-  # * +taxi_and_correct_type+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
-    form = determinate_form
+    form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
     else
@@ -133,7 +130,7 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
   #    POST /vehicle_checkers/confirm_uk_details
   #
   def submit_confirm_uk_details
-    form = determinate_form
+    form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
     else
@@ -268,35 +265,16 @@ class VehicleCheckersController < ApplicationController # rubocop:disable Metric
     if form.undetermined?
       redirect_to cannot_determine_vehicle_checkers_path
     else
-      session[:taxi_or_phv] = form.user_confirms_to_be_taxi?
       redirect_to compliance_air_zones_path
     end
-  end
-
-  # add vrn to session and clear taxi_or_phv from session
-  def add_details_to_session
-    session[:vrn] = parsed_vrn
-    clear_session_details
   end
 
   # Returns the list of permitted params
   def confirm_details_params
     params.require(:confirm_details_form).permit(
       :confirm_details,
-      :confirm_taxi_or_phv,
-      :undetermined,
-      :taxi_and_correct_type
+      :undetermined
     )
-  end
-
-  # Returns form instance.
-  #
-  # If vehicle is taxi in database, returns `ConfirmDetailsTaxiForm.new`
-  # If vehicle is not taxi in database, returns `ConfirmDetailsForm.new`
-  def determinate_form
-    taxi_and_correct_type = confirm_details_params['taxi_and_correct_type']
-    (taxi_and_correct_type == 'false' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm)
-      .new(confirm_details_params)
   end
 
   # Process action which is done on confirm details and confirm uk details
