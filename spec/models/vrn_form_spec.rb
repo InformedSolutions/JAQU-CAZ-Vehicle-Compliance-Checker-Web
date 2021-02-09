@@ -30,7 +30,7 @@ describe VrnForm, type: :model do
     end
   end
 
-  context 'country validation' do
+  context 'when country validation' do
     before { subject.valid? }
 
     context 'when country is nil' do
@@ -50,7 +50,7 @@ describe VrnForm, type: :model do
     end
   end
 
-  context 'VRN validation' do
+  context 'when VRN validation' do
     before { subject.valid? }
 
     context 'when VRN is empty' do
@@ -412,7 +412,7 @@ describe VrnForm, type: :model do
     context 'when country is Non-UK' do
       let(:country) { 'Non-UK' }
 
-      context 'and vehicle is within the DVLA database and number plate in Non-UK format' do
+      context 'with vehicle is within the DVLA database and number plate in Non-UK format' do
         let(:vrn) { 'XYZ J234' }
 
         before { allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(true) }
@@ -422,7 +422,7 @@ describe VrnForm, type: :model do
         end
       end
 
-      context 'and vehicle is within the DVLA database and number plate in UK format' do
+      context 'with vehicle is within the DVLA database and number plate in UK format' do
         before { allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(true) }
 
         it 'returns true' do
@@ -430,7 +430,7 @@ describe VrnForm, type: :model do
         end
       end
 
-      context 'and vehicle is not within the DVLA database and number plate in UK format' do
+      context 'with vehicle is not within the DVLA database and number plate in UK format' do
         before do
           allow(ComplianceCheckerApi).to receive(:vehicle_details)
             .and_raise(BaseApi::Error404Exception.new(404, '', {}))

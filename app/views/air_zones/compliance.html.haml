@@ -7,14 +7,7 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l
-        = title_and_header
-      .govuk-error-summary{style: 'border-color:#0b0c0c'}
-        %h2.govuk-error-summary__title.govuk-heading-m#error-summary-title Important information about vehicle data
-        %p
-          The data accuracy of this service is always improving. It is recommended you
-          recheck your vehicle shortly before you intend to drive in any Clean Air Zones.
-
+      %h1.govuk-heading-l= title_and_header
       %p
         Results for number plate
         = succeed '.' do
@@ -86,9 +79,15 @@
             of Clean Air Zone; each one charges different types of vehicle.
             For example, Birmingham charges private cars (CAZ D) but Bath does not (CAZ C).
 
+      %h2.govuk-heading-m Important information about vehicle data
+      %p
+        The data accuracy of this service is always improving. If you think the charge result you have
+        received is incorrect contact us.
+
       %h2.govuk-heading-m Guidance on Clean Air Zones
       %p
-        You can find out more about national exemptions, different types of Clean Air Zones and emission standards on our
+        You can find out more about national exemptions, different types of Clean Air Zones and emission
+        standards on our
         = succeed '.' do
           = link_to 'guidance page', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone'
 

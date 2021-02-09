@@ -15,7 +15,7 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
   end
 
   context 'when VRN is valid' do
-    context 'and vehicle is registered in the UK' do
+    context 'with vehicle is registered in the UK' do
       it 'redirects to confirm details page' do
         expect(response).to redirect_to(confirm_details_vehicle_checkers_path)
       end
@@ -33,7 +33,7 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
       end
     end
 
-    context 'and vehicle is registered in the UK when user made a Non-UK selection country' do
+    context 'with vehicle is registered in the UK when user made a Non-UK selection country' do
       let(:country) { 'Non-UK' }
 
       it 'redirects to confirm details page' do
@@ -63,7 +63,7 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
   end
 
   context 'when VRN is not valid' do
-    context 'and it is empty' do
+    context 'with it is empty' do
       let(:vrn) { '' }
 
       it 'redirects to enter details page' do
@@ -71,7 +71,7 @@ describe 'VehicleCheckersController - POST #submit_details', type: :request do
       end
     end
 
-    context 'and it is has spaces' do
+    context 'with it is has spaces' do
       let(:vrn) { '  ' }
 
       it 'redirects to enter details page' do
