@@ -16,7 +16,7 @@ describe ConfirmDetailsForm, type: :model do
 
   it { is_expected.to be_valid }
 
-  context 'fields sets as a parameter' do
+  context 'when fields sets as a parameter' do
     %i[confirm_details undetermined].each do |field|
       it "and sets #{field} value" do
         expect(subject.public_send(field)).to eq(public_send(field))
