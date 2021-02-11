@@ -22,7 +22,7 @@
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
                 = button_tag 'Daily charge', data: {index: 1}, type: 'button'
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
-                = button_tag 'Charging starts', data: {index: 2}, type: 'button'
+                = button_tag 'Zone live', data: {index: 2}, type: 'button'
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
                 = button_tag 'Map', data: {index: 3}, type: 'button'
               %th.govuk-table__header{scope: 'col', 'aria-sort': 'none'}
@@ -37,6 +37,7 @@
                     = link_to 'Discount available', details.exemption_or_discount_url
                   - elsif details.charged?
                     = details.charge
+                    = link_to 'Pay', Rails.configuration.x.payments_ui_url
                   - else
                     = 'No Charge'                    
                 %td.govuk-table__cell= details.charging_starts
@@ -47,9 +48,9 @@
 
       - if @any_caz_chargeable
         %p
-          %b If your vehicle is subject to a daily charge, you do not need to pay until charging starts.
+          %b If your vehicle is subject to a daily charge, you do not need to pay until the zone is live.
 
-      %p The zones will operate 24 hours a day, 7 days a week, every day of the year.
+      %p The zones operate 24 hours a day, 7 days a week, every day of the year.
 
       %details.govuk-details{'data-module': 'govuk-details'}
         %summary.govuk-details__summary
@@ -86,8 +87,7 @@
 
       %h2.govuk-heading-m Guidance on Clean Air Zones
       %p
-        You can find out more about national exemptions, different types of Clean Air Zones and emission
-        standards on our
+        You can find out more about exemptions, different types of Clean Air Zones, emission standards and refunds on our
         = succeed '.' do
           = link_to 'guidance page', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone'
 
@@ -114,3 +114,15 @@
               = link_to('Contact Clean Air Zones',
                          Rails.configuration.x.contact_form_link,
                          id: 'contact-form')
+        %h2.govuk-heading-m
+          Make a payment
+        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
+          %ul.govuk-list{class: 'govuk-!-font-size-16'}
+            %li
+              = link_to 'Pay for a single vehicle',
+                        Rails.configuration.x.payments_ui_url,
+                        id: 'pay-for-single'
+            %li
+              = link_to('Pay for multiple vehicles',
+                         Rails.configuration.x.fleets_ui_url,
+                         id: 'pay-for-multiple')

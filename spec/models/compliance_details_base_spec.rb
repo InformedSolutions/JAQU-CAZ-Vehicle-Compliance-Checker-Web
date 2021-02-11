@@ -24,16 +24,36 @@ describe ComplianceDetailsBase, type: :model do
 
   describe '.charging_starts' do
     context 'when caz name is Birmingham' do
-      it 'returns a proper value' do
-        expect(subject.charging_starts).to eq('1 June 2021')
+      context 'with caz charging is not live' do
+        it 'returns a proper value' do
+          expect(subject.charging_starts).to eq('1 June 2021')
+        end
+      end
+
+      context 'with caz charging is live' do
+        it 'returns a proper value' do
+          travel_to Time.zone.local(2021, 0o7, 0o1, 0o0, 0o0, 0o1) do
+            expect(subject.charging_starts).to eq('Now')
+          end
+        end
       end
     end
 
     context 'when caz name is Bath' do
       let(:name) { 'Bath' }
 
-      it 'returns a proper value' do
-        expect(subject.charging_starts).to eq('15 March 2021')
+      context 'with caz charging is not live' do
+        it 'returns a proper value' do
+          expect(subject.charging_starts).to eq('15 March 2021')
+        end
+      end
+
+      context 'with caz charging is live' do
+        it 'returns a proper value' do
+          travel_to Time.zone.local(2021, 0o3, 15, 0o0, 0o0, 0o1) do
+            expect(subject.charging_starts).to eq('Now')
+          end
+        end
       end
     end
 
