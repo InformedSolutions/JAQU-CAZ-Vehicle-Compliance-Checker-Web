@@ -24,7 +24,7 @@ module JaquCazVcc
 
     default_url = 'https://www.example.com'
     config.x.fleets_ui_url = ENV.fetch('FLEETS_UI_URL', default_url)
-    config.x.payments_ui_url = ENV.fetch('PAYMENTS_UI_URL', default_url)
+    config.x.payments_ui_url = "#{ENV.fetch('PAYMENTS_UI_URL', default_url)}/vehicles/enter_details"
 
     feedback_url_default = 'https://defragroup.eu.qualtrics.com/jfe/form/SV_4IoHzxu6b9Z5GRL'
     config.x.feedback_url = (ENV['FEEDBACK_URL'].presence || feedback_url_default)
