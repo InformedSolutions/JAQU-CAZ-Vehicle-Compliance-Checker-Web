@@ -57,28 +57,17 @@
           %span.govuk-details__summary-text
             How we calculate your charge
         .govuk-details__text
-          %p We use this information when calculating your charge:
+          %p Factors we take into account: 
           %ul
-            %li vehicle type
-            %li emission standards
-            %li Clean Air Zone (CAZ)
+            %li vehicle type and its emission standards (eg car and Euro 3)
+            %li fuel type (eg diesel or petrol)
+            %li class of Clean Air Zone (A, B, C, D)
+
           %p
-            For example:
-            %br
-            A private car (Euro 4) in Birmingham
-            = surround('(', ')') do
-              = link_to('CAZ D', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
-            \= £8.00
-            %br
-            A private car (Euro 4) in Bath
-            = surround('(', ')') do
-              = link_to('CAZ C', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
-            \= £0.00 (No charge)
-          %p
-            There are
-            = link_to('4 categories', 'https://www.gov.uk/guidance/driving-in-a-clean-air-zone#types-of-clean-air-zones')
-            of Clean Air Zone; each one charges different types of vehicle.
-            For example, Birmingham charges private cars (CAZ D) but Bath does not (CAZ C).
+            The ULEZ in London uses different factors to calculate its charge.
+            Which is why the charge you see here may be different from 
+            = succeed('.') do
+              = link_to 'Transport for London', 'https://tfl.gov.uk/modes/driving/check-your-vehicle-35896'
 
       %h2.govuk-heading-m Important information about vehicle data
       %p
