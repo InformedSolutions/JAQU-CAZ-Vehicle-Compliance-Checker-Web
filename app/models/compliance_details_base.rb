@@ -8,17 +8,25 @@ module ComplianceDetailsBase
   def charging_starts
     case zone_name
     when 'Bath'
-      date = '15 March 2021'
-      caz_live_in_future?(date) ? date : 'Now'
+      caz_live_in_future?(bath_live_date) ? bath_live_date : 'Now'
     when 'Birmingham'
-      date = '1 June 2021'
-      caz_live_in_future?(date) ? date : 'Now'
+      caz_live_in_future?(birmingham_live_date) ? birmingham_live_date : 'Now'
     else
       'Early 2021'
     end
   end
 
   private
+
+  # Bath charge live date
+  def bath_live_date
+    '15 March 2021'
+  end
+
+  # Birmingham charge live date
+  def birmingham_live_date
+    '1 June 2021'
+  end
 
   # Checks if a date charging is live
   def caz_live_in_future?(date)

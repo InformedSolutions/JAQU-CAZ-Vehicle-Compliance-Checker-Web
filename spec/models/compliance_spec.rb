@@ -23,8 +23,8 @@ describe Compliance, type: :model do
     end
   end
 
-  describe '.any_caz_chargable?' do
-    let(:any_caz_chargeable) { subject.any_caz_chargable? }
+  describe '.any_caz_chargeable?' do
+    let(:any_caz_chargeable) { subject.any_caz_chargeable? }
 
     it 'calls ComplianceCheckerApi' do
       any_caz_chargeable
