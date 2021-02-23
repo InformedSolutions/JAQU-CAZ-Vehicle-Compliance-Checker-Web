@@ -12,10 +12,10 @@ Feature: Air Zone
       And I press the Confirm
     Then I should see the Compliance page
       And I should see 'Clean Air Zone charge'
-      And I should not see 'Bath' pay link
+      And I should see 'Bath' pay link
       And I should not see 'Birmingham' pay link
-      And I should not see 'Make a payment'
-      And I should not see 'Now'
+      And I should see 'Make a payment'
+      And I should see 'Now'
 
   Scenario: The one where I have a non-compliant vehicle and payments are live
     Given I am on the enter details page
