@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="host" elementType="Argument">
             <stringProp name="Argument.name">host</stringProp>
-            <stringProp name="Argument.value">${__P(hostname,preprod.cleanairzonevehiclecheck.co.uk)}</stringProp>
+            <stringProp name="Argument.value">${__P(hostname,dev.cleanairzonevehiclecheck.co.uk)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="scheme" elementType="Argument">
@@ -48,6 +48,7 @@
       <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
       </CookieManager>
       <hashTree/>
       <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager" enabled="true">
@@ -60,84 +61,86 @@
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/enter_details</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/enter_details</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/confirm_details</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/confirm_details</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/user_confirm_details?vrn=F752KEC&amp;undetermined=false&amp;confirm-vehicle=yes&amp;commit=Confirm</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/vehicle_checkers/user_confirm_details?vrn=F752KEC&amp;undetermined=false&amp;confirm-vehicle=yes&amp;commit=Confirm</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/air_zones/caz_selection</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/air_zones/caz_selection</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/air_zones/submit_caz_selection</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/air_zones/submit_caz_selection</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/air_zones/compliance</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/air_zones/compliance</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/packs/media/fonts/light-94a07e06a1-v2.woff2</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/packs/media/fonts/light-94a07e06a1-v2.woff2</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
           <elementProp name="" elementType="Authorization">
-            <stringProp name="Authorization.url">http://preprod.cleanairzonevehiclecheck.co.uk:443/packs/media/fonts/bold-b542beb274-v2.woff2</stringProp>
+            <stringProp name="Authorization.url">http://dev.cleanairzonevehiclecheck.co.uk:443/packs/media/fonts/bold-b542beb274-v2.woff2</stringProp>
             <stringProp name="Authorization.username">VCCTestUser1</stringProp>
             <stringProp name="Authorization.password">CleanAir99</stringProp>
             <stringProp name="Authorization.domain"></stringProp>
             <stringProp name="Authorization.realm"></stringProp>
           </elementProp>
         </collectionProp>
+        <boolProp name="AuthManager.controlledByThreadGroup">false</boolProp>
       </AuthManager>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group - nc, c + taxi journey" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group - nc, c " enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">5</stringProp>
+          <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">600</stringProp>
         <longProp name="ThreadGroup.start_time">1370726934000</longProp>
         <longProp name="ThreadGroup.end_time">1370726934000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">1200</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Controller - compliant, non-compliant journey" enabled="true">
@@ -391,24 +394,10 @@ log.info(&quot;***************************&quot;+vars.get(&quot;undetermined&quo
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
-                <elementProp name="confirm_details_form[taxi_or_phv_in_db]" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.name">confirm_details_form[taxi_or_phv_in_db]</stringProp>
-                  <stringProp name="Argument.value">false</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                </elementProp>
                 <elementProp name="confirm_details_form[confirm_details]" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">true</boolProp>
                   <stringProp name="Argument.name">confirm_details_form[confirm_details]</stringProp>
                   <stringProp name="Argument.value">yes</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                </elementProp>
-                <elementProp name="confirm_details_form[confirm_taxi_or_phv]" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.name">confirm_details_form[confirm_taxi_or_phv]</stringProp>
-                  <stringProp name="Argument.value">false</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 </elementProp>
@@ -579,7 +568,7 @@ log.info(&quot;***************************&quot;+vars.get(&quot;undetermined&quo
                   <elementProp name="caz%5B%5D" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.name">caz%5B%5D</stringProp>
-                    <stringProp name="Argument.value">39e54ed8-3ed2-441d-be3f-38fc9b70c8d3</stringProp>
+                    <stringProp name="Argument.value">131af03c-f7f4-4aef-81ee-aae4f56dbeb5</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   </elementProp>
@@ -775,6 +764,7 @@ log.info(&quot;***************************&quot;+vars.get(&quot;undetermined&quo
         <stringProp name="ProxyControlGui.proxy_prefix_http_sampler_name">new</stringProp>
         <intProp name="ProxyControlGui.proxy_http_sampler_naming_mode">0</intProp>
         <stringProp name="ProxyControlGui.proxy_pause_http_sampler"></stringProp>
+        <stringProp name="ProxyControlGui.default_encoding">UTF-8</stringProp>
       </ProxyControl>
       <hashTree/>
       <ResultCollector guiclass="RespTimeGraphVisualizer" testclass="ResultCollector" testname="Response Time Graph" enabled="false">
