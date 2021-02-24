@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe ComplianceCheckerApi do
-  subject { described_class.vehicle_details(vrn) }
+describe 'ComplianceCheckerApi.vehicle_details' do
+  subject { ComplianceCheckerApi.vehicle_details(vrn) }
 
   let(:vrn) { 'CU57ABC' }
 
@@ -15,13 +15,7 @@ describe ComplianceCheckerApi do
 
     it 'returns proper fields' do
       expect(subject.keys).to contain_exactly(
-        'registrationNumber',
-        'type',
-        'make',
-        'model',
-        'colour',
-        'fuelType',
-        'taxiOrPhv'
+        'registrationNumber', 'type', 'make', 'model', 'colour', 'fuelType', 'taxiOrPhv'
       )
     end
   end
@@ -84,14 +78,8 @@ describe ComplianceCheckerApi do
     let(:body) { 'invalid JSON format' }
 
     it 'raises Error500Exception' do
-      expect { subject }.to raise_exception(
-        an_instance_of(BaseApi::Error500Exception)
-          .and(having_attributes(
-                 status: 500,
-                 status_message: 'Response body parsing failed',
-                 body: body
-               ))
-      )
+      expect { subject }.to raise_exception(an_instance_of(BaseApi::Error500Exception)
+        .and(having_attributes(status: 500, status_message: 'Response body parsing failed', body: body)))
     end
   end
 end

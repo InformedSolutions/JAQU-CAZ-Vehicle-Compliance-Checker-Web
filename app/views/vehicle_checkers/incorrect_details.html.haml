@@ -1,5 +1,5 @@
 - content_for(:title, 'Incorrect vehicle details')
-= back_link(confirm_details_vehicle_checkers_path)
+= back_link(session[:possible_fraud] ? confirm_uk_details_vehicle_checkers_path : confirm_details_vehicle_checkers_path)
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row

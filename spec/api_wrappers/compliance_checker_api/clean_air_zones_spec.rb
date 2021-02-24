@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe ComplianceCheckerApi do
-  subject { described_class.clean_air_zones }
+describe 'ComplianceCheckerApi.clean_air_zones' do
+  subject { ComplianceCheckerApi.clean_air_zones }
 
   context 'when the response status is 200' do
     before do
@@ -17,13 +17,8 @@ describe ComplianceCheckerApi do
 
     it 'returns an array of CAZ objects' do
       expect(subject.first.keys).to contain_exactly(
-        'cleanAirZoneId',
-        'name',
-        'boundaryUrl',
-        'exemptionUrl',
-        'mainInfoUrl',
-        'activeChargeStartDate',
-        'operatorName'
+        'cleanAirZoneId', 'name', 'boundaryUrl', 'exemptionUrl', 'mainInfoUrl',
+        'activeChargeStartDate', 'operatorName'
       )
     end
   end

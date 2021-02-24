@@ -18,7 +18,6 @@ class VehicleCheckersController < ApplicationController
   #
   def enter_details
     @errors = {}
-    clear_session_details
   end
 
   ##
@@ -43,11 +42,17 @@ class VehicleCheckersController < ApplicationController
   # ==== Validations
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
-  def submit_details
+  def submit_details # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     form = VrnForm.new(parsed_vrn, country)
     if form.valid?
-      add_details_to_session
-      redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+      session[:vrn] = parsed_vrn
+      if form.possible_fraud?
+        session[:possible_fraud] = true
+        redirect_to confirm_uk_details_vehicle_checkers_path
+      else
+        session[:possible_fraud] = nil
+        redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
+      end
     else
       @errors = form.error_object
       render :enter_details
@@ -76,12 +81,7 @@ class VehicleCheckersController < ApplicationController
   # Other connection exceptions also redirects to {service unavailable}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def confirm_details
-    @vehicle_details = VehicleDetails.new(vrn)
-    @errors = {}
-    return unless @vehicle_details.exempt?
-
-    Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
-    redirect_to exemption_vehicle_checkers_path
+    process_details_action
   end
 
   ##
@@ -95,21 +95,48 @@ class VehicleCheckersController < ApplicationController
   # ==== Params
   # * +vrn+ - vehicle registration number, required in the session
   # * +confirm_details+ - user confirmation of vehicle details, 'yes' or 'no', required in the params
-  # * +confirm_taxi_or_phv+ - user confirms to be a taxi, 'yes' or 'no', required in the params
-  # * +taxi_and_correct_type+ - taxi or phv status for the vehicle in DVLA database, eg. 'false', required in the params
   #
   # ==== Validations
   # * +vrn+ - lack of VRN redirects to {enter_details}[rdoc-ref:enter_details]
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
-    form = determinate_form
+    form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
     else
       @vehicle_details = VehicleDetails.new(vrn)
       @errors = form.errors.messages
       render :confirm_details
+    end
+  end
+
+  ##
+  # Renders vehicle UK registered page
+  #
+  # ==== Path
+  #    GET /vehicle_checkers/confirm_uk_details
+  #
+  def confirm_uk_details
+    process_details_action
+  end
+
+  ##
+  # Verifies if user confirms the vehicle's details.
+  # If yes, redirects to {compliance}[rdoc-ref:AirZonesController.compliance]
+  # If no, renders to {confirm_uk_details}[rdoc-ref:confirm_uk_details]
+  #
+  # ==== Path
+  #    POST /vehicle_checkers/confirm_uk_details
+  #
+  def submit_confirm_uk_details
+    form = ConfirmDetailsForm.new(confirm_details_params)
+    if form.valid?
+      determinate_next_page(form)
+    else
+      @vehicle_details = VehicleDetails.new(vrn)
+      @errors = form.errors.messages
+      render :confirm_uk_details
     end
   end
 
@@ -238,34 +265,25 @@ class VehicleCheckersController < ApplicationController
     if form.undetermined?
       redirect_to cannot_determine_vehicle_checkers_path
     else
-      session[:taxi_or_phv] = form.user_confirms_to_be_taxi?
       redirect_to compliance_air_zones_path
     end
-  end
-
-  # add vrn to session and clear taxi_or_phv from session
-  def add_details_to_session
-    session[:vrn] = parsed_vrn
-    clear_session_details
   end
 
   # Returns the list of permitted params
   def confirm_details_params
     params.require(:confirm_details_form).permit(
       :confirm_details,
-      :confirm_taxi_or_phv,
-      :undetermined,
-      :taxi_and_correct_type
+      :undetermined
     )
   end
 
-  # Returns form instance.
-  #
-  # If vehicle is taxi in database, returns `ConfirmDetailsTaxiForm.new`
-  # If vehicle is not taxi in database, returns `ConfirmDetailsForm.new`
-  def determinate_form
-    taxi_and_correct_type = confirm_details_params['taxi_and_correct_type']
-    (taxi_and_correct_type == 'false' ? ConfirmDetailsTaxiForm : ConfirmDetailsForm)
-      .new(confirm_details_params)
+  # Process action which is done on confirm details and confirm uk details
+  def process_details_action
+    @vehicle_details = VehicleDetails.new(vrn)
+    @errors = {}
+    return unless @vehicle_details.exempt?
+
+    Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
+    redirect_to exemption_vehicle_checkers_path
   end
 end

@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe 'VehicleCheckersController - POST #submit_confirm_details', type: :request do
+describe 'VehicleCheckersController - POST #submit_confirm_uk_details', type: :request do
   subject do
-    post confirm_details_vehicle_checkers_path, params: {
+    post confirm_uk_details_vehicle_checkers_path, params: {
       confirm_details_form:
         {
           'confirm_details' => confirmation,
@@ -40,8 +40,8 @@ describe 'VehicleCheckersController - POST #submit_confirm_details', type: :requ
   context 'when confirmation is empty' do
     let(:confirmation) { '' }
 
-    it 'renders to confirm details page' do
-      expect(response).to render_template(:confirm_details)
+    it 'renders to confirm uk details page' do
+      expect(response).to render_template(:confirm_uk_details)
     end
   end
 

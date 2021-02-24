@@ -2,7 +2,7 @@
 
 ##
 # This class is used to validate user data filled in +app/views/vehicle_checkers/enter_details.html.haml+.
-class VrnForm
+class VrnForm # rubocop:disable Metrics/ClassLength
   # Submitted vehicle registration number
   attr_reader :vrn
   # Selected country value, possible values: 'UK', 'Non-UK'
@@ -29,13 +29,20 @@ class VrnForm
   #
   # Returns a boolean.
   def valid?
-    if country == 'Non-UK'
-      filled_vrn?
+    if uk?
+      filled_vrn? && not_to_long? && not_to_short? && vrn_uk_format && not_include_leading_zero?
     else
-      filled_vrn? && not_to_long? && not_to_short? && valid_format? && not_include_leading_zero?
+      filled_vrn?
     end
     filled_country?
     error_object.empty?
+  end
+
+  # Checks if vehicle is within the DVLA database but country of registration has been set to 'non-uk'
+  def possible_fraud?
+    return false if uk?
+
+    vrn_uk_format && dvla_registered?
   end
 
   private
@@ -58,10 +65,7 @@ class VrnForm
   def filled_country?
     return true if country.present?
 
-    @error_object[:country] = {
-      message: I18n.t('vrn_form.country_missing'),
-      link: '#country-error'
-    }
+    @error_object[:country] = { message: I18n.t('vrn_form.country_missing'), link: '#country-error' }
     false
   end
 
@@ -69,7 +73,7 @@ class VrnForm
   # If not, add error message to +error_object+.
   #
   # Returns a boolean.
-  def valid_format?
+  def vrn_uk_format
     return true if FORMAT_REGEXPS.any? do |reg|
       reg.match(vrn.gsub(/\s+/, '').upcase).present?
     end
@@ -124,6 +128,19 @@ class VrnForm
   # Returns +error_object+ as hash.
   def vrn_error(msg)
     @error_object[:vrn] = { message: msg, link: '#vrn-error' }
+  end
+
+  # Check if VRN is DVLA registered
+  def dvla_registered?
+    ComplianceCheckerApi.vehicle_details(vrn)
+    true
+  rescue BaseApi::Error404Exception
+    false
+  end
+
+  # Checks if selected country in UK. Returns boolean.
+  def uk?
+    country == 'UK'
   end
 
   # Regexps formats to validate +vrn+.
