@@ -7,22 +7,10 @@
       %h1.govuk-heading-l Incorrect vehicle details
       %p
         If the details we hold for your vehicle are incorrect, you need to
-        = link_to('update them with the DVLA',
-                  'https://www.gov.uk/change-vehicle-details-registration-certificate',
-                  id: 'update-them-link')
-        before the Clean Air Zones are
         = succeed '.' do
-          = link_to('live',
-                    'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
-                    id: 'live-link')
-      %p
+          = link_to('update them with the DVLA',
+                    'https://www.gov.uk/change-vehicle-details-registration-certificate',
+                    id: 'update-them-link')
+        When updated, you can recheck your vehicle.
 
-      %p
-        Otherwise, you might pay a charge when you don't need to.
-      %p
-      %p
-        When your registration details are updated, you can recheck your vehicle.
-      %p
-      %p
-        = link_to 'Check another vehicle', enter_details_vehicle_checkers_path, id: 'search_again_link'
-      %p
+      %p= link_to 'Check another vehicle', enter_details_vehicle_checkers_path, id: 'check-another-vrn'
