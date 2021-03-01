@@ -1,4 +1,4 @@
-- content_for(:title, 'Are these vehicle details correct?')
+- content_for(:title, 'Your vehicle is UK registered')
 = back_link(enter_details_vehicle_checkers_path)
 
 %main.govuk-main-wrapper#main-content{role: 'main'}
@@ -17,7 +17,16 @@
                 %li
                   = link_to(error.first, "##{error.second}-error", id: "#{error.second}-#{index}")
 
-      %h1.govuk-heading-l Are these vehicle details correct?
+      %h1.govuk-heading-l Your vehicle is UK registered
+      %p
+        The DVLA holds a record for this vehicle.
+        %br
+        If your vehicle is registered outside the UK, contact
+        = succeed '.' do
+          = link_to 'DVLA', Rails.configuration.x.contact_form_link, id: 'dvla-link'
+        %br
+        If the details displayed are correct, confirm to continue.
+
       %table.govuk-table
         %thead.govuk-table__head
           %tr.govuk-table__row
@@ -47,12 +56,12 @@
               %td.govuk-table__cell{scope: 'row'} Taxi
               %th.govuk-table__cell{id: 'taxi'}= @vehicle_details.taxi_private_hire_vehicle
 
-      = form_for(ConfirmDetailsForm.new, url: confirm_details_vehicle_checkers_path, method: :post) do |form|
+      = form_for(ConfirmDetailsForm.new, url: confirm_uk_details_vehicle_checkers_path, method: :post) do |form|
         %fieldset.govuk-fieldset
           %legend.govuk-visually-hidden
             Are these the vehicle's details?
           = form.hidden_field(:undetermined, value: @vehicle_details.undetermined?)
-          = render 'vehicle_checkers/confirm_details/radio_buttons', form: form, confirm_uk_details: false
+          = render 'vehicle_checkers/confirm_details/radio_buttons', form: form, confirm_uk_details: true
 
         = submit_tag 'Confirm',
                       class: 'govuk-button',

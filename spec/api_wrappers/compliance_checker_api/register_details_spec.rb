@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe ComplianceCheckerApi do
-  subject { described_class.register_details(vrn) }
+describe 'ComplianceCheckerApi.register_details' do
+  subject { ComplianceCheckerApi.register_details(vrn) }
 
   let(:vrn) { 'CAS310' }
 
@@ -15,11 +15,7 @@ describe ComplianceCheckerApi do
 
     it 'returns proper fields' do
       expect(subject.keys).to contain_exactly(
-        'registerCompliant',
-        'registerExempt',
-        'registeredMOD',
-        'registeredGPW',
-        'registeredNTR',
+        'registerCompliant', 'registerExempt', 'registeredMOD', 'registeredGPW', 'registeredNTR',
         'registeredRetrofit'
       )
     end

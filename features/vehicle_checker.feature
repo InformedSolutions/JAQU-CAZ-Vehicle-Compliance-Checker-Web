@@ -26,7 +26,6 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I should see 'Model'
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
     Then I should see the Compliance page
@@ -41,7 +40,6 @@ Feature: Vehicle Checker
     Then I enter a vehicle's registration
       And I press the Continue
     Then I should see the Confirm Details page
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'No' when confirms vehicle details
       And I press the Confirm
     Then I should see the Incorrect Details page
@@ -136,14 +134,44 @@ Feature: Vehicle Checker
     Given I am on the enter details page
     Then I enter a vehicle's registration for 'Car' type
       And I press the Continue
-    Then I should see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
-      And I choose 'No' when confirms what vehicle a taxi or private hire vehicle
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
-    Then I should see the Compliance page
+      And I should see the Compliance page
+    Then I press the Back link
+      And I should see the Confirm Details page
 
-  Scenario: User enters a correct vehicle's registration which is not taxi and not Car or Minibus type
+  Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are correct
     Given I am on the enter details page
-    Then I enter a vehicle's registration for 'Bus' type
-      And I press the Continue
-    Then I should not see 'Is your vehicle a taxi or private hire vehicle (PHV)?'
+    Then I enter an UK vehicle's registration and choose Non-UK country
+      And I press 'Continue' button
+    Then I should be on the UK registered details
+      And I should see 'Your vehicle is UK registered' title
+      And I should see 'Are these vehicle details correct?'
+      And I should see 'CU57ABC'
+    Then I press 'Confirm' button
+      And I should see the Confirm UK Details page
+      And I should see 'Select yes if the details are correct'
+      And I should see 'Model'
+      And I choose 'Yes' when confirms vehicle details
+      And I press 'Confirm' button
+      And I should see the Compliance page
+    Then I press the Back link
+      And I should see the Confirm UK Details page
+      And I should see 'The DVLA holds a record for this vehicle.'
+
+  Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are incorrect
+    Given I am on the enter details page
+    Then I enter an UK vehicle's registration and choose Non-UK country
+      And I press 'Continue' button
+    Then I should be on the UK registered details
+      And I should see 'Your vehicle is UK registered' title
+    Then I choose 'No' when confirms vehicle details
+      And I press the Confirm
+      And I should see the Incorrect Details page
+    Then I press the Back link
+      And I should see the Confirm UK Details page
+    Then I choose 'No' when confirms vehicle details
+      And I press the Confirm
+      And I should see the Incorrect Details page
+    Then I press the Check another vehicle link
+      And I am on the enter details page

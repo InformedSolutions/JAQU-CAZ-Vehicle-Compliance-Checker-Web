@@ -23,6 +23,14 @@ Then("I enter a vehicle's registration") do
   fill_fields
 end
 
+Then("I enter an UK vehicle's registration and choose Non-UK country") do
+  mock_vehicle_details
+  mock_vehicle_compliance
+
+  fill_in('vrn', with: vrn)
+  choose('Non-UK')
+end
+
 Then("I enter a vehicle's registration which is a taxi") do
   mock_taxi_details
   fill_fields
@@ -70,14 +78,12 @@ Then('I should see the Confirm Details page') do
   expect(page).to have_current_path(confirm_details_vehicle_checkers_path)
 end
 
-Then('I choose {string} when confirms vehicle details') do |string|
-  within('#confirm_details_radios') do
-    choose(string)
-  end
+Then('I should see the Confirm UK Details page') do
+  expect(page).to have_current_path(confirm_uk_details_vehicle_checkers_path)
 end
 
-Then('I choose {string} when confirms what vehicle a taxi or private hire vehicle') do |string|
-  within('#taxi_or_phv_radios') do
+Then('I choose {string} when confirms vehicle details') do |string|
+  within('#confirm_details_radios') do
     choose(string)
   end
 end
@@ -151,7 +157,7 @@ def fill_fields(vrn = 'CU57ABC')
   choose('UK')
 end
 
-def fill_non_uk_fields(vrn = 'CU57ABC')
-  fill_in('vrn', with: vrn)
+def fill_non_uk_fields
+  fill_in('vrn', with: 'RBI A168')
   choose('Non-UK')
 end

@@ -73,9 +73,4 @@ class ApplicationController < ActionController::Base
   def vrn
     session[:vrn]
   end
-
-  # clear taxi_or_phv from session
-  def clear_session_details
-    session[:taxi_or_phv] = nil
-  end
 end

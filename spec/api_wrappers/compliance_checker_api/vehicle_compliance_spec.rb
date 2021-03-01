@@ -2,11 +2,10 @@
 
 require 'rails_helper'
 
-describe ComplianceCheckerApi do
-  subject { described_class.vehicle_compliance(vrn, taxi_or_phv) }
+describe 'ComplianceCheckerApi.vehicle_compliance' do
+  subject { ComplianceCheckerApi.vehicle_compliance(vrn) }
 
   let(:vrn) { 'CAS310' }
-  let(:taxi_or_phv) { false }
 
   context 'when call returns 200' do
     before do
@@ -26,30 +25,6 @@ describe ComplianceCheckerApi do
       expect(subject['complianceOutcomes'][0].keys).to contain_exactly(
         'cleanAirZoneId', 'charge', 'name', 'operatorName', 'informationUrls', 'tariffCode'
       )
-    end
-
-    context 'subjects API with right params' do
-      shared_examples_for 'uri have the proper query params' do
-        it 'equals query params' do
-          expect(WebMock).to(have_requested(:get, /compliance/)
-            .with { |req| req.uri.query == query })
-        end
-      end
-
-      before { subject }
-
-      context 'when taxi_or_phv is false' do
-        let(:query) { nil }
-
-        it_behaves_like 'uri have the proper query params'
-      end
-
-      context 'when taxi_or_phv is true' do
-        let(:taxi_or_phv) { true }
-        let(:query) { "isTaxiOrPhv=#{taxi_or_phv}" }
-
-        it_behaves_like 'uri have the proper query params'
-      end
     end
   end
 
