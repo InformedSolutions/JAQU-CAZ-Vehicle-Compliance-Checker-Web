@@ -68,7 +68,7 @@ var config = {
                 "wait for element #confirm_details-2 to be visible",
                 "click element #confirm_details-2",
                 "click element #submit_confirm_details_button",
-                "wait for element #search_again_link to be visible"
+                "wait for element #check-another-vrn to be visible"
             ]
         }
     ]
