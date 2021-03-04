@@ -22,17 +22,17 @@
         },
         {
             "cleanAirZoneId": "39e54ed8-3ed2-441d-be3f-38fc9b70c8d3",
-            "name": "Leeds",
-            "operatorName": "Leeds City Council",
+            "name": "Futurecleanairzone",
+            "operatorName": "Future CAZ Operator",
             "charge": 0.0,
             "tariffCode": "LCC01-TAXI",
             "informationUrls": {
-                "mainInfo": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality",
-                "exemptionOrDiscount": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality/exempt-vehicles-clean-air-charging-zone",
-                "becomeCompliant": "http://www.leeds.gov.uk/cleanairzone",
-                "boundary": "https://leedscc.maps.arcgis.com/apps/webappviewer/index.html?id=fd8765f4fa614c64808e32a15ed5ee71",
-                "additionalInfo": "https://www.leeds.gov.uk/business/environmental-health-for-business/air-quality?utm_source=Clean_Air_Leeds_Website&utm_medium=referral&utm_term=What_Are_We_Doing",
-                "publicTransportOptions": "https://cleanairleeds.co.uk/what-can-i-do/residents"
+                "mainInfo": "https://www.test.com",
+                "exemptionOrDiscount": "https://www.test.com",
+                "becomeCompliant": "https://www.test.com",
+                "boundary": "https://www.test.com",
+                "additionalInfo": "https://www.test.com",
+                "publicTransportOptions": "https://www.test.com"
             }
         },
         {
