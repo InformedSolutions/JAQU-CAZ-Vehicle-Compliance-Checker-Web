@@ -5,8 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
-gem 'rails', '~> 6.1.1'
+gem 'rails', '~> 6.1.3'
 
+gem 'activerecord-nulldb-adapter'
 gem 'bootsnap', require: false
 gem 'haml'
 gem 'httparty'
