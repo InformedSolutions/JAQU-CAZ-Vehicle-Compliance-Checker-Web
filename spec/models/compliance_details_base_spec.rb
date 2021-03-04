@@ -52,7 +52,7 @@ describe ComplianceDetailsBase, type: :model do
     end
 
     context 'when another caz name' do
-      let(:name) { 'Leeds' }
+      let(:name) { 'Futurecleanairzone' }
 
       it 'returns a proper value' do
         expect(subject.charging_starts).to eq('Early 2021')
