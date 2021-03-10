@@ -35,9 +35,15 @@
                 %td.govuk-table__cell{ data: { 'sort-value': details.charge_amount } }
                   - if details.charged?
                     = details.charge
-                    = link_to 'Discount available', details.exemption_or_discount_url if details.zone_name == 'Bath' && @phgv_discount_available
+                    - bath_discount_available  = details.zone_name == 'Bath' && @phgv_discount_available
+
+                    = link_to 'Discount available', details.exemption_or_discount_url if bath_discount_available
+
                     - if details.charging_starts == 'Now'
                       - @any_caz_live = true
+                      - if bath_discount_available
+                        %br
+                        %br
                       = link_to 'Pay', Rails.configuration.x.payments_ui_url, id: "#{details.zone_name.downcase}-pay-link"
                   - else
                     = 'No Charge'
