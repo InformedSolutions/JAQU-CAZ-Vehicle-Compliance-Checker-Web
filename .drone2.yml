@@ -134,6 +134,7 @@ name: vccs-web-dev
 trigger:
   branch:
     - develop
+    - hotfix/*
   event:
     - pull_request
     - push
@@ -414,6 +415,7 @@ name: vccs-web-st
 trigger:
   branch:
     - release-candidate/*
+    - hotfix-candidate/*
   event:
     - pull_request
     - push
@@ -1167,7 +1169,7 @@ type: docker
 name: vccs-web-uat
 trigger:
   branch:
-    - uat/*
+    - hotfix-release/*
   event:
     - pull_request
     - push
