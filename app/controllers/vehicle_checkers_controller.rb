@@ -7,7 +7,6 @@ class VehicleCheckersController < ApplicationController
   # 404 HTTP status from API mean vehicle in not found in DLVA database. Redirects to the proper page.
   rescue_from BaseApi::Error404Exception, with: :vehicle_not_found
   # checks if VRN is present in the session
-  before_action :set_cache_headers, only: %i[enter_details]
   before_action :check_vrn, except: %i[enter_details submit_details]
 
   ##
