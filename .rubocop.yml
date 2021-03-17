@@ -12,6 +12,9 @@ Layout/LineLength:
   Max: 110
   IgnoredPatterns: ['(\A|\s)#']
 
+Metrics/ClassLength:
+  Max: 110
+
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
   Exclude:
