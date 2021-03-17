@@ -73,4 +73,11 @@ class ApplicationController < ActionController::Base
   def vrn
     session[:vrn]
   end
+
+  # Set headers for pages that should be refreshed every time
+  def set_cache_headers
+    response.headers['Cache-Control'] = 'no-store'
+    response.headers['Pragma'] = 'no-store'
+    response.headers['Expires'] = 'Mon, 01 Jan 1990 00:00:00 GMT'
+  end
 end
