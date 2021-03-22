@@ -29,9 +29,12 @@ class Compliance
   #   * +boundary+
   def compliance_outcomes
     @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
-      ComplianceDetails.new(v, compliance_api['isRetrofitted'])
+      caz_details = clean_air_zone_details(v['cleanAirZoneId'])
+      ComplianceDetails.new(v, caz_details, compliance_api['isRetrofitted'])
     end
-    @compliance_outcomes.sort_by(&:zone_name)
+    @compliance_outcomes
+      .reject { |compliance_outcome| compliance_outcome.display_from.future? }
+      .sort_by(&:display_order)
   end
 
   # Method iterates over compliance outcomes and verifies if there's at least one
@@ -73,5 +76,29 @@ class Compliance
   #     * +boundary+
   def compliance_api
     @compliance_api ||= ComplianceCheckerApi.vehicle_compliance(vrn)
+  end
+
+  # Calls +/v1/compliance-checker/clean-air-zones+ endpoint with +GET+ method
+  # to get the list of clean air zones and selects only the one with the provided ID.
+  #
+  # ==== Result
+  #
+  # Returned cleanAirZone details will have following fields:
+  # * +name+ - string, eg. "Birmingham"
+  # * +cleanAirZoneId+ - UUID, this represents CAZ ID in the DB
+  # * +boundaryUrl+ - URL, this represents a link to eg. a map with CAZ boundaries
+  # * +mainInfoUrl+ - URL, this represents a link to general info about CAZ
+  # * +exemptionUrl+ - URL, this represents a link to information about exemptions
+  # * +privacyPolicyUrl+ - URL, this represents a link to privacy policy
+  # * +activeChargeStartDate+ - date, informs when charging starts in the specific CAZ
+  # * +activeChargeStartDateText+ - string, textual content which informs when the charging starts
+  # * +displayFrom+ - date, indicates the date from which the CAZ should be visisble
+  # * +displayOrder+ -integer, identifies the position for display
+  #
+  def clean_air_zone_details(caz_id)
+    ComplianceCheckerApi
+      .clean_air_zones
+      .select { |caz| caz['cleanAirZoneId'] == caz_id }
+      .first
   end
 end
