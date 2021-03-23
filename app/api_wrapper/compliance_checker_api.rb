@@ -136,7 +136,7 @@ class ComplianceCheckerApi < BaseApi
     end
 
     ##
-    # Calls +/v1/payments/clean-air-zones+ endpoint with +GET+ method
+    # Calls +/v1/compliance-checker/clean-air-zones+ endpoint with +GET+ method
     # and returns the list of available Clean Air Zones.
     #
     # ==== Example
@@ -151,6 +151,11 @@ class ComplianceCheckerApi < BaseApi
     # * +boundaryUrl+ - URL, this represents a link to eg. a map with CAZ boundaries
     # * +mainInfoUrl+ - URL, this represents a link to general info about CAZ
     # * +exemptionUrl+ - URL, this represents a link to information about exemptions
+    # * +privacyPolicyUrl+ - URL, this represents a link to privacy policy
+    # * +activeChargeStartDate+ - date, informs when charging starts in the specific CAZ
+    # * +activeChargeStartDateText+ - string, textual content which informs when the charging starts
+    # * +displayFrom+ - date, indicates the date from which the CAZ should be visisble
+    # * +displayOrder+ -integer, identifies the position for display
     #
     # ==== Serialization
     #

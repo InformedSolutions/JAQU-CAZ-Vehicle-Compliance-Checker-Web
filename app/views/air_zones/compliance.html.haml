@@ -39,7 +39,7 @@
 
                     = link_to 'Discount available', details.exemption_or_discount_url if bath_discount_available
 
-                    - if details.charging_starts == 'Now'
+                    - if !details.active_charge_start_date.future?
                       - @any_caz_live = true
                       - if bath_discount_available
                         %br
@@ -48,7 +48,11 @@
                   - else
                     = 'No Charge'
 
-                %td.govuk-table__cell= details.charging_starts
+                %td.govuk-table__cell
+                  - if details.active_charge_start_date.future?
+                    = details.active_charge_start_date_text
+                  - else
+                    = 'Now'
                 %td.govuk-table__cell
                   = link_to 'Zone boundary', details.boundary_url
                 %td.govuk-table__cell

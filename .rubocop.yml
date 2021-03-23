@@ -27,13 +27,13 @@ Style/MixinUsage:
 
 # rubocop-rspec gem excludes
 RSpec/NamedSubject:
-   Enabled: false
+  Enabled: false
 
 RSpec/NestedGroups:
   Max: 4
 
 RSpec/MultipleMemoizedHelpers:
-  Max: 6
+  Max: 9
 
 RSpec/DescribeClass:
   Exclude:

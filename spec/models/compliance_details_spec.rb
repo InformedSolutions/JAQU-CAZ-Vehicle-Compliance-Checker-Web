@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe ComplianceDetails, type: :model do
-  subject { described_class.new(details, false) }
+  subject { described_class.new(compliance_details, caz_details, false) }
 
-  let(:details) do
+  let(:compliance_details) do
     {
       'name' => name,
       'operatorName' => operator_name,
@@ -20,10 +20,23 @@ describe ComplianceDetails, type: :model do
     }
   end
 
+  let(:caz_details) do
+    {
+      'activeChargeStartDate' => active_charge_start_date,
+      'activeChargeStartDateText' => active_charge_start_date_text,
+      'displayFrom' => display_from,
+      'displayOrder' => 1
+    }
+  end
+
   let(:name) { 'Birmingham' }
   let(:operator_name) { 'Birmingham City Council' }
   let(:charge) { 5.1 }
   let(:url) { 'www.example.com' }
+
+  let(:active_charge_start_date) { '2019-05-14' }
+  let(:active_charge_start_date_text) { 'Q2 2019' }
+  let(:display_from) { '2019-01-01' }
 
   describe '.zone_name' do
     it 'returns a proper name' do
@@ -86,6 +99,18 @@ describe ComplianceDetails, type: :model do
   describe '.operator_name' do
     it 'returns a proper value' do
       expect(subject.operator_name).to eq(operator_name)
+    end
+  end
+
+  describe '.display_order' do
+    it 'returns a proper value' do
+      expect(subject.display_order).to eq(1)
+    end
+  end
+
+  describe '.active_charge_start_date_text' do
+    it 'returns a proper value' do
+      expect(subject.active_charge_start_date_text).to eq(active_charge_start_date_text)
     end
   end
 end
