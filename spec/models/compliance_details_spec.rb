@@ -102,6 +102,12 @@ describe ComplianceDetails, type: :model do
     end
   end
 
+  describe '.display_order' do
+    it 'returns a proper value' do
+      expect(subject.display_order).to eq(1)
+    end
+  end
+
   describe '.active_charge_start_date_text' do
     it 'returns a proper value' do
       expect(subject.active_charge_start_date_text).to eq(active_charge_start_date_text)

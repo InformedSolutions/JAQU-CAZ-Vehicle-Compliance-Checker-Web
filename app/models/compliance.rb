@@ -28,13 +28,13 @@ class Compliance
   #   * +become_compliant+
   #   * +boundary+
   def compliance_outcomes
-    @compliance_outcomes ||= compliance_api['complianceOutcomes'].map do |v|
-      caz_details = clean_air_zone_details(v['cleanAirZoneId'])
-      ComplianceDetails.new(v, caz_details, compliance_api['isRetrofitted'])
+    @compliance_outcomes ||= begin
+      cazes = compliance_api['complianceOutcomes'].map do |v|
+        caz_details = clean_air_zone_details(v['cleanAirZoneId'])
+        ComplianceDetails.new(v, caz_details, compliance_api['isRetrofitted'])
+      end
+      cazes.reject { |compliance_outcome| compliance_outcome.display_from.future? }
     end
-    @compliance_outcomes
-      .reject { |compliance_outcome| compliance_outcome.display_from.future? }
-      .sort_by(&:display_order)
   end
 
   # Method iterates over compliance outcomes and verifies if there's at least one
@@ -96,9 +96,6 @@ class Compliance
   # * +displayOrder+ -integer, identifies the position for display
   #
   def clean_air_zone_details(caz_id)
-    ComplianceCheckerApi
-      .clean_air_zones
-      .select { |caz| caz['cleanAirZoneId'] == caz_id }
-      .first
+    ComplianceCheckerApi.clean_air_zones.select { |caz| caz['cleanAirZoneId'] == caz_id }.first
   end
 end
