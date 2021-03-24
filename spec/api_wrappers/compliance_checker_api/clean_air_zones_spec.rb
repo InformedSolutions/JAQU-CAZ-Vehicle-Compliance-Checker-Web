@@ -19,7 +19,7 @@ describe 'ComplianceCheckerApi.clean_air_zones' do
       expect(subject.first.keys).to contain_exactly(
         'cleanAirZoneId', 'name', 'boundaryUrl', 'exemptionUrl', 'mainInfoUrl',
         'activeChargeStartDate', 'operatorName', 'activeChargeStartDateText',
-        'displayFrom', 'displayOrder'
+        'displayFrom', 'displayOrder', 'privacyPolicyUrl'
       )
     end
   end

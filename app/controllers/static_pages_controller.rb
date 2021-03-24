@@ -31,6 +31,7 @@ class StaticPagesController < ApplicationController
   #    GET /privacy_notice
   #
   def privacy_notice
-    # renders static page
+    links_data = CazLinkDisplayData.from_list(ComplianceCheckerApi.clean_air_zones)
+    @caz_link_display_data = links_data.reject { |caz_link_data| caz_link_data.display_from.future? }
   end
 end

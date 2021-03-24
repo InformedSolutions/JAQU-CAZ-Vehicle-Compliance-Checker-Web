@@ -79,6 +79,14 @@ Then('I press {string} footer link') do |string|
   end
 end
 
+Then('I press Privacy footer link') do
+  mock_clean_air_zones_request
+
+  within('footer.govuk-footer') do
+    click_link 'Privacy'
+  end
+end
+
 Then('I should see {string} pay link') do |string|
   page.find_link('Pay', id: "#{string.downcase}-pay-link")
 end
