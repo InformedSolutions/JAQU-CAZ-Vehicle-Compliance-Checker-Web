@@ -11,7 +11,7 @@ ARG aws_region
 ENV AWS_REGION=$aws_region
 
 RUN apk add --no-cache --update build-base linux-headers tzdata nodejs \
- tzdata openssh libxml2-dev libxslt-dev yarn curl-dev sqlite-dev \
+ tzdata openssh libxml2-dev libxslt-dev yarn curl-dev sqlite-dev shared-mime-info \
  && PACKAGES="ca-certificates procps curl pcre libstdc++ libexecinfo" \
  && BUILD_PACKAGES="pcre-dev libexecinfo-dev" \
  && apk add --update $PACKAGES $BUILD_PACKAGES \
