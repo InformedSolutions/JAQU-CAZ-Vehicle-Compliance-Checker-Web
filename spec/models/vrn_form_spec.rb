@@ -28,6 +28,13 @@ describe VrnForm, type: :model do
       it_behaves_like 'an invalid country input'
       it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_missing')
     end
+
+    context 'when VRN is in format 9999AAA' do
+      let(:vrn) { '7429HER' }
+
+      it { is_expected.not_to be_valid }
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
+    end
   end
 
   context 'when country validation' do
@@ -245,8 +252,8 @@ describe VrnForm, type: :model do
       it { is_expected.to be_valid }
     end
 
-    context 'when VRN is in format 9999AAA' do
-      let(:vrn) { '7429HER' }
+    context 'when VRN is in format 9999AA' do
+      let(:vrn) { '7429HE' }
 
       it { is_expected.to be_valid }
     end
