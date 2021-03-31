@@ -30,7 +30,7 @@ class VrnForm
   # Returns a boolean.
   def valid?
     if uk?
-      filled_vrn? && not_to_long? && not_to_short? && vrn_uk_format && not_include_leading_zero?
+      filled_vrn? && not_to_long? && not_to_short? && vrn_uk_format
     else
       filled_vrn?
     end
@@ -41,7 +41,6 @@ class VrnForm
   # Checks if vehicle is within the DVLA database but country of registration has been set to 'non-uk'
   def possible_fraud?
     return false if uk?
-
     vrn_uk_format && dvla_registered?
   end
 
@@ -74,8 +73,11 @@ class VrnForm
   #
   # Returns a boolean.
   def vrn_uk_format
+    stripped_vrn = vrn.dup.gsub!(/^0+/,'')
+    puts vrn
+    puts stripped_vrn
     return true if FORMAT_REGEXPS.any? do |reg|
-      reg.match(vrn.gsub(/\s+/, '').upcase).present?
+      reg.match(stripped_vrn.gsub(/\s+/, '').upcase).present?
     end
 
     vrn_error(I18n.t('vrn_form.vrn_invalid'))
@@ -102,18 +104,6 @@ class VrnForm
     return true if vrn.gsub(/\s+/, '').length > 1
 
     vrn_error(I18n.t('vrn_form.vrn_too_short'))
-    false
-  end
-
-  # Checks if +vrn+ does not include 0's in the beginning.
-  #
-  # If it does, add error to +error_object+.
-  #
-  # Returns a boolean.
-  def not_include_leading_zero?
-    return true unless vrn.starts_with?('0')
-
-    vrn_error(I18n.t('vrn_form.vrn_invalid'))
     false
   end
 
