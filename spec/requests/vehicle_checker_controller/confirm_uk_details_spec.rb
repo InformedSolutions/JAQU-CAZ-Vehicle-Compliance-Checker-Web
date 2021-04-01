@@ -40,7 +40,7 @@ describe 'VehicleCheckersController - GET #confirm_uk_details', type: :request d
     end
 
     it 'operates on VRN received from a user rather than the one returned from api call' do
-      expect(session[:vrn]).to eq('086GP')
+      expect(session[:vrn]).to eq('86GP')
     end
   end
 

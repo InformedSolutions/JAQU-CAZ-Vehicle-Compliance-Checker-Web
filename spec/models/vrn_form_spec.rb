@@ -100,8 +100,8 @@ describe VrnForm, type: :model do
       it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
     end
 
-    context 'when VRN starts with 0' do
-      let(:vrn) { '00SGL' }
+    context 'when VRN starts with 0 and is not valid with 0 stripped' do
+      let(:vrn) { '0099999A' }
 
       it { is_expected.not_to be_valid }
 
@@ -374,6 +374,12 @@ describe VrnForm, type: :model do
 
     context 'when VRN is in format A9999' do
       let(:vrn) { 'B8659' }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'when VRN starts with 0 and is  with 0 stripped' do
+      let(:vrn) { '009999A' }
 
       it { is_expected.to be_valid }
     end
