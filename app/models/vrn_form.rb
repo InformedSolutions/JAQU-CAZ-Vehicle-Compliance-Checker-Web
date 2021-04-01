@@ -73,11 +73,8 @@ class VrnForm
   #
   # Returns a boolean.
   def vrn_uk_format
-    stripped_vrn = vrn.dup.gsub!(/^0+/,'')
-    puts vrn
-    puts stripped_vrn
     return true if FORMAT_REGEXPS.any? do |reg|
-      reg.match(stripped_vrn.gsub(/\s+/, '').upcase).present?
+      reg.match(vrn.gsub(/\s+/, '').gsub(/^0+/,'').upcase).present?
     end
 
     vrn_error(I18n.t('vrn_form.vrn_invalid'))
@@ -89,7 +86,7 @@ class VrnForm
   #
   # Returns a boolean.
   def not_to_long?
-    return true if vrn.gsub(/\s+/, '').length <= 7
+    return true if vrn.gsub(/\s+/, '').gsub(/^0+/,'').length <= 7
 
     vrn_error(I18n.t('vrn_form.vrn_too_long'))
     false
@@ -101,7 +98,7 @@ class VrnForm
   #
   # Returns a boolean.
   def not_to_short?
-    return true if vrn.gsub(/\s+/, '').length > 1
+    return true if vrn.gsub(/\s+/, '').gsub(/^0+/,'').length > 1
 
     vrn_error(I18n.t('vrn_form.vrn_too_short'))
     false

@@ -47,9 +47,10 @@ class VehicleCheckersController < ApplicationController
     if form.valid?
       session[:vrn] = parsed_vrn
       if form.possible_fraud?
+        session[:vrn] = vrn.gsub(/^0+/,'')
         session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
-      else
+      else        
         session[:possible_fraud] = nil
         redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
       end
@@ -101,6 +102,7 @@ class VehicleCheckersController < ApplicationController
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
+    session[:vrn] = vrn.gsub(/^0+/,'')
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
@@ -244,6 +246,7 @@ class VehicleCheckersController < ApplicationController
 
   # Redirects to {number not found}[rdoc-ref:number_not_found]
   def vehicle_not_found
+    session[:vrn] = session[:non_stripped_vrn]
     redirect_to number_not_found_vehicle_checkers_path
   end
 
@@ -279,6 +282,8 @@ class VehicleCheckersController < ApplicationController
 
   # Process action which is done on confirm details and confirm uk details
   def process_details_action
+    session[:non_stripped_vrn] = vrn.dup
+    session[:vrn] = vrn.gsub(/^0+/,'')
     @vehicle_details = VehicleDetails.new(vrn)
     @errors = {}
     return unless @vehicle_details.exempt?
