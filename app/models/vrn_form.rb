@@ -19,7 +19,7 @@ class VrnForm
   # * +country+ - string, eg. 'UK'
   # * +error_object+ - empty hash, default error object
   def initialize(vrn, country)
-    @vrn = vrn.gsub! /\t/, ''
+    @vrn = vrn
     @country = country
     @error_object = {}
   end
