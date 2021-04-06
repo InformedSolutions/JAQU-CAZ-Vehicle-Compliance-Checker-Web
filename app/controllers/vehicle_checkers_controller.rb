@@ -47,7 +47,7 @@ class VehicleCheckersController < ApplicationController
     if form.valid?
       session[:vrn] = parsed_vrn
       if form.possible_fraud?
-        session[:vrn] = vrn.gsub(/^0+/,'')
+        session[:vrn] = vrn.gsub(/^0+/, '')
         session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
       else        
@@ -102,7 +102,6 @@ class VehicleCheckersController < ApplicationController
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
-    session[:vrn] = vrn.gsub(/^0+/,'')
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
@@ -230,7 +229,11 @@ class VehicleCheckersController < ApplicationController
 
   # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
   def parsed_vrn
-    @parsed_vrn ||= params[:vrn]&.delete(' ')&.upcase
+    if non_uk?
+      @parsed_vrn ||= params[:vrn]&.delete(' ')&.delete("\t")&.upcase
+    else
+      @parsed_vrn ||= params[:vrn]&.delete(' ')&.delete("\t")&.gsub(/^0+/, '')&.upcase
+    end
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil

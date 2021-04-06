@@ -73,6 +73,7 @@ class VrnForm
   #
   # Returns a boolean.
   def vrn_uk_format
+    puts vrn
     return true if FORMAT_REGEXPS.any? do |reg|
       reg.match(vrn.gsub(/\s+/, '').gsub(/^0+/,'').upcase).present?
     end

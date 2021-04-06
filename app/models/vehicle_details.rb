@@ -12,6 +12,7 @@ class VehicleDetails
   # * +vrn+ - string, eg. 'CU57ABC'
   def initialize(vrn)
     @vrn = vrn
+  end
 
   # Returns an uppercased string, eg. 'CU57ABC'.
   def registration_number
