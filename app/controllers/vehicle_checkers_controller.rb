@@ -45,12 +45,12 @@ class VehicleCheckersController < ApplicationController
   def submit_details # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     form = VrnForm.new(parsed_vrn, country)
     if form.valid?
-      session[:vrn] = parsed_vrn
+      session[:vrn] = non_uk? ? parsed_vrn : parsed_uk_vrn
       if form.possible_fraud?
         session[:vrn] = vrn.gsub(/^0+/, '')
         session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
-      else        
+      else
         session[:possible_fraud] = nil
         redirect_to non_uk? ? non_uk_vehicle_checkers_path : confirm_details_vehicle_checkers_path
       end
@@ -229,11 +229,12 @@ class VehicleCheckersController < ApplicationController
 
   # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
   def parsed_vrn
-    if non_uk?
-      @parsed_vrn ||= params[:vrn]&.delete(' ')&.delete("\t")&.upcase
-    else
-      @parsed_vrn ||= params[:vrn]&.delete(' ')&.delete("\t")&.gsub(/^0+/, '')&.upcase
-    end
+    @parsed_vrn = params[:vrn]&.delete(' ')&.delete("\t")&.upcase
+  end
+
+  # Returns VRN with leading zeros stripped
+  def parsed_uk_vrn
+    @parsed_uk_vrn = parsed_vrn.delete(' ')&.delete("\t")&.gsub(/^0+/, '')&.upcase
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil

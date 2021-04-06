@@ -33,6 +33,7 @@ describe VrnForm, type: :model do
       let(:vrn) { '7429HER' }
 
       it { is_expected.not_to be_valid }
+
       it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
     end
   end
@@ -404,12 +405,6 @@ describe VrnForm, type: :model do
 
     context 'when VRN is in format AA9999' do
       let(:vrn) { 'JU0043' }
-
-      it { is_expected.to be_valid }
-    end
-
-    context 'when VRN is in format 9999AA' do
-      let(:vrn) { '8839GF' }
 
       it { is_expected.to be_valid }
     end
