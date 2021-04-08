@@ -120,7 +120,7 @@ class VrnForm
 
   # Check if VRN is DVLA registered
   def dvla_registered?
-    ComplianceCheckerApi.vehicle_details(vrn)
+    ComplianceCheckerApi.vehicle_details(vrn.gsub(/^0+/, ''))
     true
   rescue BaseApi::Error404Exception
     false
