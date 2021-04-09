@@ -226,9 +226,9 @@ class VehicleCheckersController < ApplicationController
 
   private
 
-  # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
+  # Returns uppercased VRN from the query params without any space or tabs, eg. 'CU1234'
   def parsed_vrn
-    @parsed_vrn = params[:vrn]&.delete(' ')&.delete("\t")&.upcase
+    @parsed_vrn = params[:vrn]&.gsub(/\t+|\s+/, '')&.upcase
   end
 
   # Returns VRN with leading zeros stripped

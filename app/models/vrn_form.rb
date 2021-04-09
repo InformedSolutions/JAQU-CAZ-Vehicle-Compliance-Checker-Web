@@ -131,6 +131,7 @@ class VrnForm
     country == 'UK'
   end
 
+  # Returns vrn stripped of leading zeros and spaces for validation
   def validate_vrn
     @validate_vrn ||= vrn.gsub(/^0+|\s+/, '')
   end
