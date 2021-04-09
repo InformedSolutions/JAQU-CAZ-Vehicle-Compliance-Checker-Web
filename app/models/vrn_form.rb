@@ -19,7 +19,7 @@ class VrnForm
   # * +country+ - string, eg. 'UK'
   # * +error_object+ - empty hash, default error object
   def initialize(vrn, country)
-    @vrn = vrn
+    @vrn = vrn&.gsub(/\t+|\s+/, '')&.upcase
     @country = country
     @error_object = {}
   end
@@ -75,7 +75,7 @@ class VrnForm
   # Returns a boolean.
   def vrn_uk_format
     return true if FORMAT_REGEXPS.any? do |reg|
-      reg.match(validate_vrn.upcase).present?
+      reg.match(vrn_without_leading_zeros.upcase).present?
     end
 
     vrn_error(I18n.t('vrn_form.vrn_invalid'))
@@ -87,19 +87,18 @@ class VrnForm
   #
   # Returns a boolean.
   def not_to_long?
-    return true if validate_vrn.length <= 7
+    return true if vrn_without_leading_zeros.length <= 7
 
     vrn_error(I18n.t('vrn_form.vrn_too_long'))
     false
   end
 
   # Checks if +vrn+ not to short.
-  #
   # If not, add error message to +error_object+.
   #
   # Returns a boolean.
   def not_to_short?
-    return true if validate_vrn.length > 1
+    return true if vrn_without_leading_zeros.length > 1
 
     vrn_error(I18n.t('vrn_form.vrn_too_short'))
     false
@@ -120,7 +119,7 @@ class VrnForm
 
   # Check if VRN is DVLA registered
   def dvla_registered?
-    ComplianceCheckerApi.vehicle_details(validate_vrn.upcase)
+    ComplianceCheckerApi.vehicle_details(vrn_without_leading_zeros.upcase)
     true
   rescue BaseApi::Error404Exception
     false
@@ -131,9 +130,9 @@ class VrnForm
     country == 'UK'
   end
 
-  # Returns vrn stripped of leading zeros and spaces for validation
-  def validate_vrn
-    @validate_vrn ||= vrn.gsub(/^0+|\s+/, '')
+  # Returns VRN with leading zeros stripped
+  def vrn_without_leading_zeros
+    @vrn_without_leading_zeros ||= vrn.gsub(/^0+/, '')
   end
 
   # Regexps formats to validate +vrn+.
