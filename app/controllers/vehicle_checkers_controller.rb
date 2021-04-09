@@ -226,9 +226,14 @@ class VehicleCheckersController < ApplicationController
 
   private
 
-  # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
+  # Returns uppercased VRN from the query params without any space or tabs, eg. 'CU1234'
   def parsed_vrn
-    @parsed_vrn ||= params[:vrn]&.delete(' ')&.upcase
+    @parsed_vrn = params[:vrn]&.gsub(/\t+|\s+/, '')&.upcase
+  end
+
+  # Returns VRN with leading zeros stripped
+  def parsed_uk_vrn
+    @parsed_uk_vrn = vrn.gsub(/^0+/, '')&.upcase
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
@@ -279,7 +284,7 @@ class VehicleCheckersController < ApplicationController
 
   # Process action which is done on confirm details and confirm uk details
   def process_details_action
-    @vehicle_details = VehicleDetails.new(vrn)
+    @vehicle_details = VehicleDetails.new(parsed_uk_vrn)
     @errors = {}
     return unless @vehicle_details.exempt?
 
