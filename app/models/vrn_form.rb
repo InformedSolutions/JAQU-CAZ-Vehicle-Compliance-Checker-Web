@@ -75,7 +75,7 @@ class VrnForm
   # Returns a boolean.
   def vrn_uk_format
     return true if FORMAT_REGEXPS.any? do |reg|
-      reg.match(vrn.gsub(/\s+/, '').gsub(/^0+/, '').upcase).present?
+      reg.match(validate_vrn.upcase).present?
     end
 
     vrn_error(I18n.t('vrn_form.vrn_invalid'))
@@ -87,7 +87,7 @@ class VrnForm
   #
   # Returns a boolean.
   def not_to_long?
-    return true if vrn.gsub(/\s+/, '').gsub(/^0+/, '').length <= 7
+    return true if validate_vrn.length <= 7
 
     vrn_error(I18n.t('vrn_form.vrn_too_long'))
     false
@@ -99,7 +99,7 @@ class VrnForm
   #
   # Returns a boolean.
   def not_to_short?
-    return true if vrn.gsub(/\s+/, '').gsub(/^0+/, '').length > 1
+    return true if validate_vrn.length > 1
 
     vrn_error(I18n.t('vrn_form.vrn_too_short'))
     false
@@ -120,7 +120,7 @@ class VrnForm
 
   # Check if VRN is DVLA registered
   def dvla_registered?
-    ComplianceCheckerApi.vehicle_details(vrn.gsub(/^0+/, ''))
+    ComplianceCheckerApi.vehicle_details(validate_vrn.upcase)
     true
   rescue BaseApi::Error404Exception
     false
@@ -129,6 +129,10 @@ class VrnForm
   # Checks if selected country in UK. Returns boolean.
   def uk?
     country == 'UK'
+  end
+
+  def validate_vrn
+    @validate_vrn ||= vrn.gsub(/^0+|\s+/, '')
   end
 
   # Regexps formats to validate +vrn+.
