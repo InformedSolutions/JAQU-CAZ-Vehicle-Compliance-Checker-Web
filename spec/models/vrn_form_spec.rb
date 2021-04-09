@@ -28,6 +28,14 @@ describe VrnForm, type: :model do
       it_behaves_like 'an invalid country input'
       it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_missing')
     end
+
+    context 'when VRN is in format 9999AAA' do
+      let(:vrn) { '7429HER' }
+
+      it { is_expected.not_to be_valid }
+
+      it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
+    end
   end
 
   context 'when country validation' do
@@ -93,8 +101,8 @@ describe VrnForm, type: :model do
       it_behaves_like 'an invalid vrn input', I18n.t('vrn_form.vrn_invalid')
     end
 
-    context 'when VRN starts with 0' do
-      let(:vrn) { '00SGL' }
+    context 'when VRN starts with 0 and is not valid with 0 stripped' do
+      let(:vrn) { '0099999A' }
 
       it { is_expected.not_to be_valid }
 
@@ -245,8 +253,8 @@ describe VrnForm, type: :model do
       it { is_expected.to be_valid }
     end
 
-    context 'when VRN is in format 9999AAA' do
-      let(:vrn) { '7429HER' }
+    context 'when VRN is in format 9999AA' do
+      let(:vrn) { '7429HE' }
 
       it { is_expected.to be_valid }
     end
@@ -371,6 +379,12 @@ describe VrnForm, type: :model do
       it { is_expected.to be_valid }
     end
 
+    context 'when VRN starts with 0 and is  with 0 stripped' do
+      let(:vrn) { '009999A' }
+
+      it { is_expected.to be_valid }
+    end
+
     context 'when VRN is in format A99AAA' do
       let(:vrn) { 'K97LUK' }
 
@@ -391,12 +405,6 @@ describe VrnForm, type: :model do
 
     context 'when VRN is in format AA9999' do
       let(:vrn) { 'JU0043' }
-
-      it { is_expected.to be_valid }
-    end
-
-    context 'when VRN is in format 9999AA' do
-      let(:vrn) { '8839GF' }
 
       it { is_expected.to be_valid }
     end
