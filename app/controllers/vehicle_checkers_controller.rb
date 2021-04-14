@@ -101,6 +101,7 @@ class VehicleCheckersController < ApplicationController
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
+    session[:vrn] = vrn_without_leading_zeros
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
@@ -130,6 +131,7 @@ class VehicleCheckersController < ApplicationController
   #    POST /vehicle_checkers/confirm_uk_details
   #
   def submit_confirm_uk_details
+    session[:vrn] = vrn_without_leading_zeros
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
