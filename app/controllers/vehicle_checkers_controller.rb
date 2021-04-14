@@ -281,7 +281,7 @@ class VehicleCheckersController < ApplicationController
     @vehicle_details = VehicleDetails.new(vrn_without_leading_zeros)
     @errors = {}
     return unless @vehicle_details.exempt?
-
+    
     session[:vrn] = @vehicle_details.vrn
     Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
     redirect_to exemption_vehicle_checkers_path
