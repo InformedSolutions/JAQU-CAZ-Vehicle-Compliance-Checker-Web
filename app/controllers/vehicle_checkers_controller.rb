@@ -230,7 +230,7 @@ class VehicleCheckersController < ApplicationController
 
   # Returns VRN with leading zeros stripped
   def vrn_without_leading_zeros
-    vrn.gsub(/^0+/, '')&.upcase
+    @vrn_without_leading_zeros ||= vrn.gsub(/^0+/, '')&.upcase
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
@@ -273,10 +273,7 @@ class VehicleCheckersController < ApplicationController
 
   # Returns the list of permitted params
   def confirm_details_params
-    params.require(:confirm_details_form).permit(
-      :confirm_details,
-      :undetermined
-    )
+    params.require(:confirm_details_form).permit(:confirm_details, :undetermined)
   end
 
   # Process action which is done on confirm details and confirm uk details
@@ -285,7 +282,7 @@ class VehicleCheckersController < ApplicationController
     @errors = {}
     return unless @vehicle_details.exempt?
 
-    session[:vrn] = vrn_without_leading_zeros
+    session[:vrn] = @vehicle_details.vrn
     Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
     redirect_to exemption_vehicle_checkers_path
   end
