@@ -4,6 +4,9 @@
 # This class represents data returned by {CAZ API endpoint}[rdoc-ref:ComplianceCheckerApi.vehicle_details]
 # and is used to display data in +app/views/vehicle_checkers/confirm_details.html.haml+.
 class VehicleDetails
+  # Reader function for the vehicle registration number
+  attr_reader :vrn
+
   ##
   # Creates an instance of a class
   #
@@ -69,9 +72,6 @@ class VehicleDetails
   end
 
   private
-
-  # Reader function for the vehicle registration number
-  attr_reader :vrn
 
   ##
   # Converts the first character of +key+ value to uppercase.
