@@ -4,7 +4,7 @@
 # This class is used to display data in +app/views/static_pages/privacy_notice.html.haml+.
 class CazLinkDisplayData
   # Attribute readers
-  attr_reader :name, :privacy_policy_url, :display_from, :display_order
+  attr_reader :name, :privacy_policy_url, :display_from, :display_order, :operator_name
 
   ##
   # Creates an instance of a class
@@ -15,12 +15,14 @@ class CazLinkDisplayData
   # * +privacy_policy_url+ - string with URL, eg. 'http://example.com'
   # * +display_from+ - date, eg. '2021-03-15
   # * +display_order+ - integer, eg. 3
+  # * +operator_name+ - string, eg. 'Birmingham City Council'
   #
-  def initialize(name:, privacy_policy_url:, display_from:, display_order:)
+  def initialize(name:, privacy_policy_url:, display_from:, display_order:, operator_name:)
     @name = name
     @privacy_policy_url = privacy_policy_url
     @display_from = display_from
     @display_order = display_order
+    @operator_name = operator_name
   end
 
   ##
@@ -30,7 +32,8 @@ class CazLinkDisplayData
   def self.from_list(caz_list)
     caz_list.map do |caz|
       new(name: caz['name'], privacy_policy_url: caz['privacyPolicyUrl'],
-          display_from: Date.parse(caz['displayFrom']), display_order: caz['displayOrder'])
+          display_from: Date.parse(caz['displayFrom']), display_order: caz['displayOrder'],
+          operator_name: caz['operatorName'])
     end
   end
 end
