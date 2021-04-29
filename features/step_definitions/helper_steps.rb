@@ -36,6 +36,8 @@ end
 
 Then('I press the Confirm') do
   mock_vehicle_compliance
+  mock_clean_air_zones_request
+
   travel_to Time.zone.local(2021, 0o3, 14, 23, 59, 59) do
     click_button 'Confirm'
   end
@@ -74,6 +76,14 @@ end
 Then('I press {string} footer link') do |string|
   within('footer.govuk-footer') do
     click_link string
+  end
+end
+
+Then('I press Privacy footer link') do
+  mock_clean_air_zones_request
+
+  within('footer.govuk-footer') do
+    click_link 'Privacy'
   end
 end
 

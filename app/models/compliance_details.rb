@@ -3,7 +3,6 @@
 ##
 # This class is used to display data in +app/views/air_zones/compliance.html.haml+.
 class ComplianceDetails
-  include ComplianceDetailsBase
   ##
   # Creates an instance of a class, make keys underscore and transform to symbols.
   #
@@ -26,8 +25,9 @@ class ComplianceDetails
   #     * +exemption_or_discount+
   #     * +become_compliant+
   #     * +boundary+
-  def initialize(details, retrofit)
-    @compliance_data = details.deep_transform_keys { |key| key.underscore.to_sym }
+  def initialize(compliance_details, caz_details, retrofit)
+    @compliance_data = compliance_details.deep_transform_keys { |key| key.underscore.to_sym }
+    @caz_data = caz_details.deep_transform_keys { |key| key.underscore.to_sym }
     @retrofit = retrofit
   end
 
@@ -87,6 +87,30 @@ class ComplianceDetails
     url(:become_compliant)
   end
 
+  # The date which specifies since when the CAZ should be visible on the page.
+  # Returns a date, eg. '2021-03-21'
+  def display_from
+    Date.parse(caz_data[:display_from])
+  end
+
+  # Information about CAZ ordering.
+  # Returns an integer, eg. 2
+  def display_order
+    caz_data[:display_order]
+  end
+
+  # Date when charging in the specific CAZ starts.
+  # Returns a date, eg. '2021-03-21'
+  def active_charge_start_date
+    Date.parse(caz_data[:active_charge_start_date])
+  end
+
+  # Text which is going to be displayed when charging start date is not known yet.
+  # Returns a string, eg. 'Summer 2022'
+  def active_charge_start_date_text
+    caz_data[:active_charge_start_date_text]
+  end
+
   private
 
   # Retrieves the value object corresponding to the 'name' attribute
@@ -102,5 +126,5 @@ class ComplianceDetails
     compliance_data.dig(:information_urls, name)
   end
 
-  attr_reader :compliance_data
+  attr_reader :compliance_data, :caz_data
 end
