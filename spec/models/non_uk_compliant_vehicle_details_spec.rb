@@ -9,17 +9,23 @@ describe NonUkCompliantVehicleDetails, type: :model do
     {
       'name' => name,
       'operatorName' => operator_name,
-      'boundaryUrl' => boundary_url,
-      'mainInfoUrl' => main_info_url,
-      'exemptionUrl' => exemption_url
+      'boundaryUrl' => url,
+      'mainInfoUrl' => url,
+      'exemptionUrl' => url,
+      'displayFrom' => display_from,
+      'displayOrder' => display_order,
+      'activeChargeStartDate' => active_charge_start_date,
+      'activeChargeStartDateText' => active_charge_start_date_text
     }
   end
 
   let(:name) { 'Birmingham' }
   let(:operator_name) { 'Birmingham City Council' }
-  let(:boundary_url) { 'www.example.com' }
-  let(:main_info_url) { 'www.main.info' }
-  let(:exemption_url) { 'www.exemption.co.uk' }
+  let(:url) { 'www.example.com' }
+  let(:display_from) { '2022-01-01' }
+  let(:display_order) { 1 }
+  let(:active_charge_start_date) { '2023-01-01' }
+  let(:active_charge_start_date_text) { 'Q1 2023' }
 
   describe '.zone_name' do
     it 'returns proper .zone_name value' do
@@ -41,26 +47,49 @@ describe NonUkCompliantVehicleDetails, type: :model do
 
   describe '.main_info_url' do
     it 'returns proper .main_info_url value' do
-      expect(subject.main_info_url)
-        .to eq(main_info_url)
+      expect(subject.main_info_url).to eq(url)
     end
   end
 
   describe '.boundary_url' do
     it 'returns proper .boundary_url value' do
-      expect(subject.boundary_url).to eq(boundary_url)
+      expect(subject.boundary_url).to eq(url)
     end
   end
 
   describe '.exemption_or_discount_url' do
     it 'return proper .exemption_or_discount_url value' do
-      expect(subject.exemption_or_discount_url).to eq(exemption_url)
+      expect(subject.exemption_or_discount_url).to eq(url)
     end
   end
 
   describe '.operator_name' do
     it 'returns a proper value' do
       expect(subject.operator_name).to eq(operator_name)
+    end
+  end
+
+  describe '.display_from' do
+    it 'returns a proper value' do
+      expect(subject.display_from).to eq(Date.parse(display_from))
+    end
+  end
+
+  describe '.display_order' do
+    it 'returns a proper value' do
+      expect(subject.display_order).to eq(display_order)
+    end
+  end
+
+  describe '.active_charge_start_date' do
+    it 'returns a proper value' do
+      expect(subject.active_charge_start_date).to eq(Date.parse(active_charge_start_date))
+    end
+  end
+
+  describe '.active_charge_start_date_text' do
+    it 'returns a proper value' do
+      expect(subject.active_charge_start_date_text).to eq(active_charge_start_date_text)
     end
   end
 end

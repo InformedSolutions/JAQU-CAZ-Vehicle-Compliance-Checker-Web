@@ -20,12 +20,15 @@ end
 
 Then("I enter a vehicle's registration") do
   mock_vehicle_details
+  mock_clean_air_zones_request
+
   fill_fields
 end
 
 Then("I enter an UK vehicle's registration and choose Non-UK country") do
   mock_vehicle_details
   mock_vehicle_compliance
+  mock_clean_air_zones_request
 
   fill_in('vrn', with: vrn)
   choose('Non-UK')

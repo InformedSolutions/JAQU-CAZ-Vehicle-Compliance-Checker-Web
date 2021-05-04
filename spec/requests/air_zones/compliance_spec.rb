@@ -12,7 +12,9 @@ describe 'AirZonesController - GET #compliance', type: :request do
   context 'when api returns 200 status' do
     before do
       compliance = read_response('vehicle_compliance_response.json')
+      caz_list = read_response('caz_list_response.json')['cleanAirZones']
       allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
+      allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list)
       subject
     end
 

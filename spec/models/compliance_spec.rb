@@ -7,8 +7,12 @@ describe Compliance, type: :model do
 
   let(:vrn) { 'CU1234' }
   let(:compliance_response) { read_response('vehicle_compliance_response.json') }
+  let(:caz_list_response) { read_response('caz_list_response.json')['cleanAirZones'] }
 
-  before { allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance_response) }
+  before do
+    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance_response)
+    allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_return(caz_list_response)
+  end
 
   describe '.compliance_outcomes' do
     let(:outcomes) { subject.compliance_outcomes }
