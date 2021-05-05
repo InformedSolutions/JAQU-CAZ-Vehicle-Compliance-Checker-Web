@@ -257,9 +257,9 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.3.0)
+    rdoc (6.3.1)
     regexp_parser (2.1.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -413,7 +413,7 @@ DEPENDENCIES
   yard
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.9
+   2.2.15
