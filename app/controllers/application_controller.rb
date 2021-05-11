@@ -8,13 +8,19 @@
 class ApplicationController < ActionController::Base
   # protects applications against CSRF
   protect_from_forgery prepend: true
-  # rescues from API errors
+  # rescues from API and security errors
   rescue_from Errno::ECONNREFUSED,
               SocketError,
               BaseApi::Error500Exception,
               BaseApi::Error422Exception,
               BaseApi::Error400Exception,
+              InvalidHostException,
               with: :redirect_to_server_unavailable
+
+  # check if host headers are valid
+  before_action :validate_host_headers!,
+                except: %i[health build_id],
+                if: -> { Rails.env.production? && Rails.configuration.x.host.present? }
 
   # enable basic HTTP authentication on production environment if HTTP_BASIC_PASSWORD variable present
   http_basic_authenticate_with name: ENV['HTTP_BASIC_USER'],
@@ -73,4 +79,11 @@ class ApplicationController < ActionController::Base
   def vrn
     session[:vrn]
   end
+
+  # Checks if hosts were not manipulated
+  # :nocov:
+  def validate_host_headers!
+    Security::HostHeaderValidator.call(request: request, allowed_host: Rails.configuration.x.host)
+  end
+  # :nocov:
 end
