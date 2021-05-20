@@ -54,9 +54,7 @@ class AirZonesController < ApplicationController
   # redirects to the {service unavailable page}[rdoc-ref:ErrorsController.service_unavailable]
   #
   def non_uk_compliance
-    @compliance_outcomes = ComplianceCheckerApi
-                           .clean_air_zones
-                           .map { |caz| NonUkCompliantVehicleDetails.new(caz) }
+    @compliance_outcomes = CleanAirZone.new.visible_cazes
     @vrn = vrn
     render 'air_zones/compliance'
   end

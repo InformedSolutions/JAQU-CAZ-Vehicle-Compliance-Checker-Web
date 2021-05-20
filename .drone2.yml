@@ -190,7 +190,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-      - scss-lint app/javascript
+      - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 
   # Invoke security analysis through Ruby and yarn libraries
   - name: security tests (Ruby + Yarn)
@@ -198,8 +198,7 @@ steps:
     pull: never
     commands:
        - bundle audit check --update
-       # to exclude id's from audit(e.g. '1488, 1179') just add `--exclude '1488, 1179'`
-       - yarn run improved-yarn-audit --exclude 1693 --retry-on-network-failure
+       - yarn run improved-yarn-audit --retry-on-network-failure
        - brakeman
     volumes:
       - name: docker_sock
@@ -337,7 +336,7 @@ steps:
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -349,7 +348,7 @@ steps:
   - name: build pa11y-ci image
     image: docker:19.03.11-git
     commands:
-      - cd pa11y
+      - cd ci-cd-resources/pa11y
       - docker build -t pa11y-ci .
     volumes:
       - name: docker_sock
@@ -375,7 +374,7 @@ steps:
   - name: micro-performance tests
     image: blazemeter/taurus
     commands:
-      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk jmeter/valid_vehicle_compliance.jmx jmeter/assertion.yml
+      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk ci-cd-resources/jmeter/valid_vehicle_compliance.jmx ci-cd-resources/jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -388,9 +387,9 @@ steps:
     image: owasp/zap2docker-stable
     commands:
       - mkdir -p /zap/wrk
-      - cp zap.conf /zap/wrk/zap.conf
+      - cp ci-cd-resources/zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c ci-cd-resources/zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -474,7 +473,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-      - scss-lint app/javascript
+      - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 
   - name: publish image to ecr
     image: plugins/ecr
@@ -670,7 +669,7 @@ steps:
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -763,7 +762,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-      - scss-lint app/javascript
+      - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 
   - name: publish image to ecr
     image: plugins/ecr
@@ -943,7 +942,7 @@ steps:
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -1143,7 +1142,7 @@ steps:
       - TASKDEF=`aws ecs describe-services --profile target_acc --cluster vccs-cluster-sit --services vccs-sit-ecs-service | jq --raw-output '.services[0].taskDefinition'`
       - export build_id=`aws ecs describe-task-definition --profile target_acc --task-definition $TASKDEF | jq --raw-output '.taskDefinition.containerDefinitions[0].image' | cut -f 2 -d ':'`
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -1228,7 +1227,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - rubocop
-      - scss-lint app/javascript
+      - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 
   - name: publish image to ecr
     image: plugins/ecr
@@ -1425,7 +1424,7 @@ steps:
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -1626,7 +1625,7 @@ steps:
       - TASKDEF=`aws ecs describe-services --profile target_acc --cluster vccs-cluster-preprod --services vccs-preprod-ecs-service | jq --raw-output '.services[0].taskDefinition'`
       - export build_id=`aws ecs describe-task-definition --profile target_acc --task-definition $TASKDEF | jq --raw-output '.taskDefinition.containerDefinitions[0].image' | cut -f 2 -d ':'`
       - apk add curl
-      - sh build_utils/check_build_number.sh
+      - sh ci-cd-resources/check_build_number.sh
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock

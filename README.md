@@ -36,9 +36,9 @@ A Ruby static code analyzer and formatter.
 rubocop
 ```
 
-Configurable tool for writing clean, consistent SCSS.
+Configurable tool for writing clean and consistent SCSS.
 ```
-scss-lint app/javascript
+node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 ```
 
 ### SonarQube inspection
@@ -62,7 +62,7 @@ nano .env
 1. ``rspec`` - Unit test tool.
 2. ``cucumber`` - Test tool.
 3. ``rubocop`` - Ruby code analyzer.
-4. ``govuk-lint`` - Javascript code analyzer.
+4. ``stylelint-config-gds`` - SCSS code analyzer.
 5. ``sonarqube`` -  Inspection of code quality.
 6. ``brakeman`` - Security vulnerability scanner for Ruby on Rails.
 7. ``bundle audit`` - Patch-level verification for bundler.
