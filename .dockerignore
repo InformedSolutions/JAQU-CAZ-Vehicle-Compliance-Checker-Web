@@ -10,4 +10,4 @@ coverage
 node_modules
 public/packs
 public/packs-test
-ci-cd-resources/
+ci-cd-resources

@@ -19,7 +19,7 @@ steps:
     image: owasp/zap2docker-stable
     commands:
       - mkdir -p /zap/wrk
-      - cp zap.conf /zap/wrk/zap.conf
+      - cp ci-cd-resources/zap.conf /zap/wrk/zap.conf
       - cd /zap
       - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
     volumes:
@@ -389,7 +389,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp ci-cd-resources/zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c ci-cd-resources/zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
