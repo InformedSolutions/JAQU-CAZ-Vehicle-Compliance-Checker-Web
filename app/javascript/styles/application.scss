@@ -1,12 +1,8 @@
-$govuk-global-styles: true;
-$govuk-assets-path: '/packs/media/';
-$moj-assets-path: '/application/assets';
-
-@import '~govuk-frontend/govuk/all';
-@import '~@ministryofjustice/frontend/moj/all';
-@import 'related_components';
-@import 'go_ultra_low_icon';
-@import 'cookie_control';
+@import 'govuk-frontend';
+@import 'ministryofjustice-frontend';
+@import 'related-components';
+@import 'go-ultra-low-icon';
+@import 'cookie-control';
 
 .not-found-title {
   background-color: govuk-colour($colour: 'light-grey');

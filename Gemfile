@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
 
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1'
 
 gem 'activerecord-nulldb-adapter'
 gem 'bootsnap', require: false
@@ -21,9 +21,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'haml-rails'
   gem 'rspec-rails'
-  gem 'rubocop-rspec', require: false
   gem 'ruby_jard'
-  gem 'yard'
 end
 
 group :development do
@@ -42,9 +40,10 @@ group :test do
   gem 'rack_session_access'
   gem 'rails-controller-testing'
   gem 'rubocop-rails'
-  gem 'scss_lint-govuk', require: false
+  gem 'rubocop-rspec', require: false
   gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.17.1', require: false
   gem 'webdrivers'
   gem 'webmock'
+  gem 'yard'
 end
