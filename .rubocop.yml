@@ -25,6 +25,9 @@ Style/MixinUsage:
   Exclude:
     - 'features/step_definitions/*.rb'
 
+Rails/EnvironmentVariableAccess:
+  Enabled: false
+
 # rubocop-rspec gem excludes
 RSpec/NamedSubject:
   Enabled: false
