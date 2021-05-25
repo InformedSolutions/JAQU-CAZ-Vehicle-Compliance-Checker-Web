@@ -15,7 +15,7 @@ if Rails.env.production?
     policy.img_src(*defaults)
     policy.object_src(:none)
     policy.script_src(*defaults)
-    policy.style_src("'sha256-X9p4TjH/YcVnBPLQowyqjpYeRftuKwrxa9Esue0lXSQ='", :self)
+    policy.style_src("'sha256-X9p4TjH/YcVnBPLQowyqjpYeRftuKwrxa9Esue0lXSQ='", :self, :https)
     policy.connect_src(*defaults)
     policy.frame_src('https://www.googletagmanager.com')
     policy.frame_ancestors(:none)
