@@ -14,12 +14,8 @@ if Rails.env.production?
     policy.font_src(*defaults, :data)
     policy.img_src(*defaults)
     policy.object_src(:none)
-    policy.script_src("'sha256-s0TD3+ELKVAosx5WOld8b1BdyK+Jb5CXVoM+2n49mOo='",
-                      :self)
-    policy.style_src("'sha256-X9p4TjH/YcVnBPLQowyqjpYeRftuKwrxa9Esue0lXSQ='",
-                     "'sha256-0GYrWdLqt3hLu7QGjIxFZNP1rxLWoAENWtxQqPkNd4k='",
-                     "'sha256-2wbctP9QeeYIdN6tUTZfM2lRU20JjCKfxpcV0IqZTxU='",
-                     :self)
+    policy.script_src(*defaults)
+    policy.style_src("'sha256-X9p4TjH/YcVnBPLQowyqjpYeRftuKwrxa9Esue0lXSQ='", :self)
     policy.connect_src(*defaults)
     policy.frame_src('https://www.googletagmanager.com')
     policy.frame_ancestors(:none)
