@@ -14,8 +14,8 @@ if Rails.env.production?
     policy.font_src(*defaults, :data)
     policy.img_src(*defaults)
     policy.object_src(:none)
-    policy.script_src(*defaults, :unsafe_inline)
-    policy.style_src(*defaults, :unsafe_inline)
+    policy.script_src(*defaults)
+    policy.style_src("'sha256-X9p4TjH/YcVnBPLQowyqjpYeRftuKwrxa9Esue0lXSQ='", :self)
     policy.connect_src(*defaults)
     policy.frame_src('https://www.googletagmanager.com')
     policy.frame_ancestors(:none)
@@ -23,8 +23,8 @@ if Rails.env.production?
 end
 
 # If you are using UJS then enable automatic nonce generation
-# Rails.application.config.content_security_policy_nonce_generator =
-#   ->(_request) { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator =
+  ->(_request) { SecureRandom.base64(16) }
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
