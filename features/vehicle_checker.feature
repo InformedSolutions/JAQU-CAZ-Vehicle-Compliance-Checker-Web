@@ -137,8 +137,6 @@ Feature: Vehicle Checker
       And I choose 'Yes' when confirms vehicle details
       And I press the Confirm
       And I should see the Compliance page
-    Then I press the Back link
-      And I should see the Confirm Details page
 
   Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are correct
     Given I am on the enter details page
@@ -155,9 +153,6 @@ Feature: Vehicle Checker
       And I choose 'Yes' when confirms vehicle details
       And I press 'Confirm' button
       And I should see the Compliance page
-    Then I press the Back link
-      And I should see the Confirm UK Details page
-      And I should see 'The DVLA holds a record for this vehicle.'
 
   Scenario: User enters a correct UK vehicle's registration, choose Non-UK country (fraud detection) and choose that vehicle's details are incorrect
     Given I am on the enter details page
