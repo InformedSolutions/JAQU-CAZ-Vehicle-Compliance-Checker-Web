@@ -475,6 +475,18 @@ steps:
       - rubocop
       - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
 
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    commands:
+       - bundle audit check --update
+       - yarn run improved-yarn-audit --retry-on-network-failure
+       - brakeman
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+
   - name: publish image to ecr
     image: plugins/ecr
     settings:
@@ -763,6 +775,18 @@ steps:
     commands:
       - rubocop
       - node_modules/.bin/stylelint 'app/javascript/**/*.(s)?scss'
+
+  # Invoke security analysis through Ruby and yarn libraries
+  - name: security tests (Ruby + Yarn)
+    image: test-vehicle-compliance-checker-frontend
+    pull: never
+    commands:
+       - bundle audit check --update
+       - yarn run improved-yarn-audit --retry-on-network-failure
+       - brakeman
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
 
   - name: publish image to ecr
     image: plugins/ecr
