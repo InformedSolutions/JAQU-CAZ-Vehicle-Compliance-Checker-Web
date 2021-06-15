@@ -21,7 +21,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp ci-cd-resources/zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -55,7 +55,7 @@ steps:
         from_secret: browserstack_username
       BS_AUTHKEY:
         from_secret: browserstack_auth_key
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/'
       BROWSER_SET: 'basic_auth'
       VCCS_BASIC_USER: 'jaqu'
       VCCS_BASIC_PASSWORD: 'beta'
@@ -74,11 +74,11 @@ steps:
     image: selenium-jaqu
     pull: never
     environment:
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
-      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
-      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
-      BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
-      BASEURL_NTR_API: 'https://dev-api.taxiphvdata.co.uk'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/'
+      BASEURL_NTR: 'https://dev-ntr-web.cleanairzone.defra.gov.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit-web.cleanairzone.defra.gov.uk/'
+      BASEURL_MOD: 'https://dev-partner-web.cleanairzone.defra.gov.uk/'
+      BASEURL_NTR_API: 'https://dev-ntr-api.cleanairzone.defra.gov.uk'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
@@ -100,11 +100,11 @@ steps:
     image: selenium-jaqu
     pull: never
     environment:
-      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/'
-      BASEURL_NTR: 'http://dev-upload.taxiphvdata.co.uk/'
-      BASEURL_RETRO: 'https://dev-retrofit.datauploadportal.co.uk/'
-      BASEURL_MOD: 'https://dev.partner.datauploadportal.co.uk/'
-      BASEURL_NTR_API: 'https://dev-api.taxiphvdata.co.uk'
+      BASEURL_VCCS: 'https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/'
+      BASEURL_NTR: 'http://dev-ntr-web.cleanairzone.defra.gov.uk/'
+      BASEURL_RETRO: 'https://dev-retrofit-web.cleanairzone.defra.gov.uk/'
+      BASEURL_MOD: 'https://dev-partner-web.cleanairzone.defra.gov.uk/'
+      BASEURL_NTR_API: 'https://dev-ntr-api.cleanairzone.defra.gov.uk'
       BASEURL_NTR_OAUTH: 'https://ntr-userpool-dev.auth.eu-west-2.amazoncognito.com/'
       VCCS_USER: 'vccsservice'
       VCCS_PASSWORD: 'Password001!'
@@ -174,7 +174,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://dev-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://dev-vccs-api.cleanairzone.defra.gov.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -332,7 +332,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://dev.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://dev-vccs-web.cleanairzone.defra.gov.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -362,7 +362,7 @@ steps:
     image: pa11y-ci
     pull: never
     environment:
-      BASE_URL: https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/
+      BASE_URL: https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/
     commands:
       - mkdir screenshots
       - /usr/local/bin/pa11y-ci -c ci-cd-resources/pa11y/.pa11yci.conf.js
@@ -374,7 +374,7 @@ steps:
   - name: micro-performance tests
     image: blazemeter/taurus
     commands:
-      - bzt -o modules.jmeter.properties.hostname=dev.cleanairzonevehiclecheck.co.uk ci-cd-resources/jmeter/valid_vehicle_compliance.jmx ci-cd-resources/jmeter/assertion.yml
+      - bzt -o modules.jmeter.properties.hostname=dev-vccs-web.cleanairzone.defra.gov.uk ci-cd-resources/jmeter/valid_vehicle_compliance.jmx ci-cd-resources/jmeter/assertion.yml
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -389,7 +389,7 @@ steps:
       - mkdir -p /zap/wrk
       - cp ci-cd-resources/zap.conf /zap/wrk/zap.conf
       - cd /zap
-      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev.cleanairzonevehiclecheck.co.uk/ -c zap.conf
+      - zap-full-scan.py -t https://VCCTestUser1:CleanAir99@dev-vccs-web.cleanairzone.defra.gov.uk/ -c zap.conf
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -457,7 +457,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://dev-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://dev-vccs-api.cleanairzone.defra.gov.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
