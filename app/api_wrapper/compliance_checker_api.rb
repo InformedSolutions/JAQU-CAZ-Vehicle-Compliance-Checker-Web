@@ -48,7 +48,7 @@ class ComplianceCheckerApi < BaseApi
     #
     def vehicle_details(vrn)
       log_action 'Making request for vehicle details with VRN'
-      request(:get, "/vehicles/#{CGI.escape(vrn)}/details")
+      request(:get, "/vehicles/#{vrn}/details")
     end
 
     ##
@@ -95,7 +95,7 @@ class ComplianceCheckerApi < BaseApi
     #
     def vehicle_compliance(vrn)
       log_action 'Making request for vehicle compliance in all zones'
-      request(:get, "/vehicles/#{CGI.escape(vrn)}/compliance")
+      request(:get, "/vehicles/#{vrn}/compliance")
     end
 
     ##
@@ -132,7 +132,7 @@ class ComplianceCheckerApi < BaseApi
     #
     def register_details(vrn)
       log_action 'Making request for vehicle presence on specific registers'
-      request(:get, "/vehicles/#{CGI.escape(vrn)}/register-details")
+      request(:get, "/vehicles/#{vrn}/register-details")
     end
 
     ##
