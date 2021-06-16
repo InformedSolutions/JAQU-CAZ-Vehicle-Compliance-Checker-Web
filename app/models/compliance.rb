@@ -92,7 +92,7 @@ class Compliance
   # * +privacyPolicyUrl+ - URL, this represents a link to privacy policy
   # * +activeChargeStartDate+ - date, informs when charging starts in the specific CAZ
   # * +activeChargeStartDateText+ - string, textual content which informs when the charging starts
-  # * +displayFrom+ - date, indicates the date from which the CAZ should be visisble
+  # * +displayFrom+ - date, indicates the date from which the CAZ should be visible
   # * +displayOrder+ -integer, identifies the position for display
   #
   def clean_air_zone_details(caz_id)
