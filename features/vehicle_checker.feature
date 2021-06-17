@@ -112,12 +112,12 @@ Feature: Vehicle Checker
       And I press the Continue
     Then I should see the Confirm Details page
       And I choose 'No' when confirms vehicle details
-      And I press the Confirm
+      And I press the Confirm when vehicle is undetermined
     Then I should see the Incorrect Details page
       And I should see 'Incorrect vehicle details'
     Then I press the Back link
       And I choose 'Yes' when confirms vehicle details
-      And I press the Confirm
+      And I press the Confirm when vehicle is undetermined
     Then I should see the Cannot determine compliance page
 
   Scenario: User enters a correct vehicle's registration which is a taxi

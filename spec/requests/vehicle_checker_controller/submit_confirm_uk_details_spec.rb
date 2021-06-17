@@ -19,6 +19,7 @@ describe 'VehicleCheckersController - POST #submit_confirm_uk_details', type: :r
   before do
     vehicle_details = read_response('vehicle_details_response.json')
     allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(vehicle_details)
+    allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return({ 'vrn' => 'CAS123' })
     add_vrn_to_session
     subject
   end
