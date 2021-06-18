@@ -72,4 +72,25 @@ describe VehicleDetails, type: :model do
       expect(subject.model).to eq('208')
     end
   end
+
+  describe '.undetermined' do
+    before do
+      allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return({ 'registrationNumber' => vrn })
+    end
+
+    it 'returns a proper type approval' do
+      expect(subject.undetermined?).to eq(false)
+    end
+
+    context 'when vehicle_compliance throws 422 exception' do
+      before do
+        allow(ComplianceCheckerApi).to receive(:vehicle_compliance)
+          .and_raise(BaseApi::Error422Exception.new(422, '', {}))
+      end
+
+      it 'returns true' do
+        expect(subject.undetermined?).to eq(true)
+      end
+    end
+  end
 end
