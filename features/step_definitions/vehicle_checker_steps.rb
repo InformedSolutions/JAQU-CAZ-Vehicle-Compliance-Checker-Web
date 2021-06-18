@@ -21,6 +21,7 @@ end
 Then("I enter a vehicle's registration") do
   mock_vehicle_details
   mock_clean_air_zones_request
+  mock_vehicle_compliance
 
   fill_fields
 end
@@ -36,12 +37,14 @@ end
 
 Then("I enter a vehicle's registration which is a taxi") do
   mock_taxi_details
+  mock_vehicle_compliance
   fill_fields
 end
 
 Then("I enter a vehicle's registration for {string} type") do |string|
   details = { 'registrationNumber' => 'CU57ABC', 'taxiOrPhv' => false, 'type' => string }
   allow(ComplianceCheckerApi).to receive(:vehicle_details).and_return(details)
+  mock_vehicle_compliance
   fill_fields
 end
 
@@ -122,6 +125,7 @@ end
 
 And("I enter an undetermined vehicle's registration") do
   fill_fields
+  mock_undetermined_vehicle_response
   mock_undetermined_type
 end
 

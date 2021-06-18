@@ -26,6 +26,11 @@ module MockHelpers
     allow(ComplianceCheckerApi).to receive(:vehicle_compliance).and_return(compliance)
   end
 
+  def mock_undetermined_vehicle_response
+    allow(ComplianceCheckerApi).to receive(:vehicle_compliance)
+      .and_raise(BaseApi::Error422Exception.new(422, '', {}))
+  end
+
   def mock_taxi_details
     details = read_response('vehicle_details_response.json')
     details['taxiOrPhv'] = 'true'
