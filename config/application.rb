@@ -34,7 +34,7 @@ module JaquCazVcc
 
     contact_form_default = 'https://contact-preprod.dvla.gov.uk/caz'
     config.x.contact_form_link = (ENV['CONTACT_FORM_LINK'].presence || contact_form_default)
-
+    config.x.host = ENV['HOST']
     # https://mattbrictson.com/dynamic-rails-error-pages
     config.exceptions_app = routes
 

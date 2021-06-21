@@ -43,9 +43,9 @@ class VehicleCheckersController < ApplicationController
   # Validations are done by {VrnForm}[rdoc-ref:VrnForm]
   #
   def submit_details # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    form = VrnForm.new(parsed_vrn, country)
+    form = VrnForm.new(params[:vrn], country)
     if form.valid?
-      session[:vrn] = parsed_vrn
+      session[:vrn] = form.vrn
       if form.possible_fraud?
         session[:possible_fraud] = true
         redirect_to confirm_uk_details_vehicle_checkers_path
@@ -101,6 +101,7 @@ class VehicleCheckersController < ApplicationController
   # * +confirm_details_params+ - lack of it redirects back to {confirm details}[rdoc-ref:confirm_details]
   #
   def submit_confirm_details
+    session[:vrn] = vrn_without_leading_zeros
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
@@ -130,6 +131,7 @@ class VehicleCheckersController < ApplicationController
   #    POST /vehicle_checkers/confirm_uk_details
   #
   def submit_confirm_uk_details
+    session[:vrn] = vrn_without_leading_zeros
     form = ConfirmDetailsForm.new(confirm_details_params)
     if form.valid?
       determinate_next_page(form)
@@ -226,9 +228,9 @@ class VehicleCheckersController < ApplicationController
 
   private
 
-  # Returns uppercased VRN from the query params without any space, eg. 'CU1234'
-  def parsed_vrn
-    @parsed_vrn ||= params[:vrn]&.delete(' ')&.upcase
+  # Returns VRN with leading zeros stripped
+  def vrn_without_leading_zeros
+    @vrn_without_leading_zeros ||= vrn.gsub(/^0+/, '')&.upcase
   end
 
   # Returns vehicles's registration country from the query params, values: 'UK', 'Non-UK', nil
@@ -271,18 +273,16 @@ class VehicleCheckersController < ApplicationController
 
   # Returns the list of permitted params
   def confirm_details_params
-    params.require(:confirm_details_form).permit(
-      :confirm_details,
-      :undetermined
-    )
+    params.require(:confirm_details_form).permit(:confirm_details, :undetermined)
   end
 
   # Process action which is done on confirm details and confirm uk details
   def process_details_action
-    @vehicle_details = VehicleDetails.new(vrn)
+    @vehicle_details = VehicleDetails.new(vrn_without_leading_zeros)
     @errors = {}
     return unless @vehicle_details.exempt?
 
+    session[:vrn] = @vehicle_details.vrn
     Rails.logger.info('Vehicle is exempt. Redirecting to :exemption')
     redirect_to exemption_vehicle_checkers_path
   end
