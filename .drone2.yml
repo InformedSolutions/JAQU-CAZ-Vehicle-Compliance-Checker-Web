@@ -457,7 +457,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://dev-vccs-api.cleanairzone.defra.gov.uk
+      COMPLIANCE_CHECKER_API_URL: https://st-vccs-api.cleanairzone.defra.gov.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
