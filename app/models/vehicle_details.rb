@@ -63,7 +63,9 @@ class VehicleDetails
   # Returns a string 'true' if type is 'null'.
   # Returns a string 'false' if type is not 'null'.
   def undetermined?
-    (compliance_api['type']&.downcase == 'null').to_s
+    @undetermined ||= !ComplianceCheckerApi.vehicle_compliance(vrn)
+  rescue BaseApi::Error422Exception
+    true
   end
 
   # Returns a string, eg. 'i20'.

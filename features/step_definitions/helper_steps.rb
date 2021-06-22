@@ -43,6 +43,15 @@ Then('I press the Confirm') do
   end
 end
 
+Then('I press the Confirm when vehicle is undetermined') do
+  mock_undetermined_vehicle_response
+  mock_clean_air_zones_request
+
+  travel_to Time.zone.local(2021, 0o3, 14, 23, 59, 59) do
+    click_button 'Confirm'
+  end
+end
+
 Then('I press Confirm when Bath and Birmingham payments are live') do
   mock_vehicle_compliance
   travel_to Time.zone.local(2021, 0o7, 0o1, 0o0, 0o0, 0o1) do
