@@ -1880,7 +1880,7 @@ steps:
 ################################################### Hotfix Environment Steps ########################################################
 kind: pipeline
 type: docker
-name: vccs-web-prod
+name: vccs-web-prod-hotfix
 trigger:
   branch:
     - master
