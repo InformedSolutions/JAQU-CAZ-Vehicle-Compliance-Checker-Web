@@ -758,7 +758,7 @@ steps:
     image: test-vehicle-compliance-checker-frontend
     pull: never
     environment:
-      COMPLIANCE_CHECKER_API_URL: https://sit-api.cleanairzonevehiclecheck.co.uk
+      COMPLIANCE_CHECKER_API_URL: https://sit-vccs-api.cleanairzone.defra.gov.uk
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
@@ -962,7 +962,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://sit.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://sit-vccs-web.cleanairzone.defra.gov.uk/build_id
       build_id: ${DRONE_BUILD_NUMBER}
     commands:
       - apk add curl
@@ -1151,7 +1151,7 @@ steps:
   - name: await ecs rollout
     image: alpine:3.11.6
     environment:
-      build_id_url: https://preprod.cleanairzonevehiclecheck.co.uk/build_id
+      build_id_url: https://preprod-vccs-web.cleanairzone.defra.gov.uk/build_id
       SRC_AWS_ACCOUNT_ROLE: arn:aws:iam::072187228077:role/jaqu-controlledServiceRole
       AWS_ACCESS_KEY_ID:
         from_secret: jaqu_controlled_aws_access_key_id
