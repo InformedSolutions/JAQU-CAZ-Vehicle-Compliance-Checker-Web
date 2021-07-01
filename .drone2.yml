@@ -121,7 +121,6 @@ steps:
       - cd JAQU-CAZ-QA-selenium
       - cucumber -t @VCCSLINKS --retry 3
 
-
   ################################################# End Nightly Steps ############################################################
 
 ---
