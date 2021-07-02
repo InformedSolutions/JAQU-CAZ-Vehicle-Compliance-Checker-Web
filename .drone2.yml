@@ -792,7 +792,7 @@ steps:
       event:
         - push
     depends_on:
-      - security tests (Ruby + Yarn)
+      - static code analysis (Ruby + assets)
 
   - name: clone iac
     image: hashicorp/terraform:0.12.23
@@ -810,6 +810,8 @@ steps:
     environment:
       GIT_PRIVATE_SSH:
         from_secret: jaqu_lower_github_private_key
+    depends_on:
+      - static code analysis (Ruby + assets)
 
   - name: plan updates in sit
     image: hashicorp/terraform:0.12.23
@@ -966,6 +968,7 @@ steps:
         - push
     depends_on:
       - clone iac
+      - publish image to ecr
 
   # Invoke terraform scripts with tagged image number
   - name: deploy to sit2
