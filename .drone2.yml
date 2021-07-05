@@ -1557,6 +1557,7 @@ steps:
   - name: deploy to uat
     image: hashicorp/terraform:0.12.23
     commands:
+      - sleep 300
       - apk add --update bash python python-dev py-pip build-base jq
       - pip install awscli
       - mkdir ~/.aws
