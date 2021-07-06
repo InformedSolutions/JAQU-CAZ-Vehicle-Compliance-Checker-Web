@@ -1065,8 +1065,8 @@ steps:
         from_secret: jaqu_controlled_aws_secret_access_key
       AWS_ACCOUNT_ROLE: arn:aws:iam::072187228077:role/jaqu-controlledServiceRole
       AWS_DEFAULT_REGION: eu-west-2
-      APPLICATION_NAME: vccs-codedeploy-service-sit
-      DEPLOYMENT_GROUP: vccs-codedeploy-service-sit
+      APPLICATION_NAME: vccs-codedeploy-service-sit2
+      DEPLOYMENT_GROUP: vccs-codedeploy-service-sit2
       PROJECT: vccs
       DEPLOY_ENVIRONMENT: sit2
       LAMBDA_BUCKET: jaqu-shared-project-lambda-bucket
