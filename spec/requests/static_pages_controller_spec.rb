@@ -39,4 +39,21 @@ describe StaticPagesController do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  context 'when service call returns `InvalidHostException`' do
+    subject { get privacy_notice_path }
+
+    before do
+      allow(ComplianceCheckerApi).to receive(:clean_air_zones).and_raise(InvalidHostException)
+      subject
+    end
+
+    it 'renders the service unavailable page' do
+      expect(response).to render_template(:service_unavailable)
+    end
+
+    it 'returns a :forbidden response' do
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
 end
