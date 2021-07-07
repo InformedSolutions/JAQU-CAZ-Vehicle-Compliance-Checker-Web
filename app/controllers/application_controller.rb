@@ -14,8 +14,10 @@ class ApplicationController < ActionController::Base
               BaseApi::Error500Exception,
               BaseApi::Error422Exception,
               BaseApi::Error400Exception,
-              InvalidHostException,
               with: :redirect_to_server_unavailable
+
+  rescue_from InvalidHostException,
+              with: :render_forbidden
 
   # check if host headers are valid
   before_action :validate_host_headers!,
@@ -64,6 +66,13 @@ class ApplicationController < ActionController::Base
     Rails.logger.error "#{exception.class}: #{exception}"
 
     render template: 'errors/service_unavailable', status: :service_unavailable
+  end
+
+  # Logs the exception at info level and renders service unavailable page
+  def render_forbidden(exception)
+    Rails.logger.info "#{exception.class}: #{exception}"
+
+    render template: 'errors/service_unavailable', status: :forbidden
   end
 
   # Checks if VRN is present in session.
