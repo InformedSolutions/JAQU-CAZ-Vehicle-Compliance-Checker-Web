@@ -69,13 +69,11 @@ class ApplicationController < ActionController::Base
   end
 
   # Logs the exception at info level and renders service unavailable page
-  # :nocov:
   def render_forbidden(exception)
     Rails.logger.info "#{exception.class}: #{exception}"
 
     render template: 'errors/service_unavailable', status: :forbidden
   end
-  # :nocov:
 
   # Checks if VRN is present in session.
   # If not, redirects to VehicleCheckersController#enter_details
