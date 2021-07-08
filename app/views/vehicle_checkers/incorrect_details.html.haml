@@ -5,12 +5,40 @@
   .govuk-grid-row
     .govuk-grid-column-two-thirds
       %h1.govuk-heading-l Incorrect vehicle details
+
       %p
-        If the details we hold for your vehicle are incorrect, you need to
+        If your vehicle details are incorrect, you must
+        = link_to('update the details',
+                  'https://www.gov.uk/change-vehicle-details-registration-certificate/how-to-tell-dvla',
+                  id: 'dvla-update')
+        the DVLA holds for your vehicle
+
+      .govuk-warning-text
+        %span.govuk-warning-text__icon{'aria-hidden': true } !
+        %strong.govuk-warning-text__text
+          %span.govuk-warning-text__assistive
+            Warning
+          You must update your vehicles with DVLA, or your vehicle may be classed as
+          chargeable and you may receive a penalty charge notice (PCN) if you drive
+          into a zone and do not pay the charge.
+
+      %h2.govuk-heading-m
+        You still have to pay the Clean Air Zone charge
+
+      %p
+        If your vehicle does meet emission standards, you can claim a
+        = link_to('refund',
+                  'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                  id: 'refund-info')
+        from the local authority after your registration details have been updated.
+
+      %p
+        If you want to discuss this matter further
         = succeed '.' do
-          = link_to('update them with the DVLA',
-                    'https://www.gov.uk/change-vehicle-details-registration-certificate',
-                    id: 'update-them-link')
-        When updated, you can recheck your vehicle.
+          = link_to('contact clean air zones',
+                     Rails.configuration.x.contact_form_link,
+                     id: 'contact-form')
+
+      = link_to('Make a payment', Rails.configuration.x.payments_ui_url, class: 'govuk-button')
 
       %p= link_to 'Check another vehicle', enter_details_vehicle_checkers_path, id: 'check-another-vrn'
