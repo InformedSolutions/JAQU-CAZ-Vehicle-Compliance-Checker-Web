@@ -4,33 +4,40 @@
 %main.govuk-main-wrapper#main-content{role: 'main'}
   .govuk-grid-row
     .govuk-grid-column-two-thirds
-      %h1.govuk-heading-l.not-found-title Vehicle details are incomplete
-      %table.govuk-table
-        %tbody.govuk-table__body
-          %tr.govuk-table__row
-            %td.govuk-table__cell{scope: 'row'}
-            %td.govuk-table__cell
-          %tr.govuk-table__row
-            %td.govuk-table__cell{scope: 'row'} You searched for
-            %th.govuk-table__cell= @vehicle_registration
+      %h1.govuk-heading-l Vehicle details are incomplete
 
       %p
-        Data used to calculate the compliance of your vehicle is missing from your V5C registration
-        certificate (log book).
+        Data used to calculate the compliance of your vehicle is missing from your V5C registration certificate (log book).
+        You must
+        = link_to('update the details',
+                  'https://www.gov.uk/change-vehicle-details-registration-certificate/how-to-tell-dvla',
+                  id: 'dvla-update')
+        the DVLA holds for your vehicle.
+
+      .govuk-warning-text
+        %span.govuk-warning-text__icon{'aria-hidden': true } !
+        %strong.govuk-warning-text__text
+          %span.govuk-warning-text__assistive
+            Warning
+          You must update your vehicles with DVLA, or your vehicle may be classed as
+          chargeable and you may receive a penalty charge notice (PCN) if you drive
+          into a zone and do not pay the charge.
+
+      %h2.govuk-heading-m
+        You still have to pay the Clean Air Zone charge
+
       %p
-        You may be charged for driving in a Clean Air Zone when the zones start charging in early 2021.
+        If your vehicle does meet emission standards, you can claim a
+        = link_to('refund',
+                  'https://www.gov.uk/guidance/driving-in-a-clean-air-zone',
+                  id: 'refund-info')
+        from the local authority after your registration details have been updated.
+
       %p
         If you want to discuss this matter further
         = succeed '.' do
-          = link_to('Contact Clean Air Zones',
+          = link_to('contact clean air zones',
                      Rails.configuration.x.contact_form_link,
-                     id: 'contact-formm')
+                     id: 'contact-form')
 
-    .govuk-grid-column-one-third
-      %aside#related-items-label.app-related-items{role: 'complementary'}
-        %h2.govuk-heading-m
-          Related tasks
-        %nav{'aria-labelledby': 'related-items-label', role: 'navigation'}
-          %ul.govuk-list{class: 'govuk-!-font-size-16'}
-            %li
-              = link_to 'Check another vehicle', enter_details_vehicle_checkers_path, id: 'check-another-vrn'
+      = link_to('Make a payment', Rails.configuration.x.payments_ui_url, class: 'govuk-button')
